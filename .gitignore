@@ -35,3 +35,10 @@ next-env.d.ts
 
 # Testing
 coverage/
+
+# Claude Code / IDE skills
+.agents/
+.claude/skills/
+.continue/
+skills/
+skills-lock.json
