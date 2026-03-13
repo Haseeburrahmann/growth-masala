@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/data/navigation";
 
 export default function Navbar() {
@@ -15,13 +14,15 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return (
     <header
@@ -99,14 +100,16 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <button
           className="relative z-50 lg:hidden"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleMenu}
           aria-label="Toggle menu"
         >
           <div
             className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${
-              scrolled
+              isOpen
                 ? "border-border bg-white text-text-primary"
-                : "border-white/20 bg-white/10 text-white"
+                : scrolled
+                  ? "border-border bg-white text-text-primary"
+                  : "border-white/20 bg-white/10 text-white"
             }`}
           >
             {isOpen ? (
@@ -118,69 +121,59 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu — fullscreen overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white lg:hidden"
-          >
-            <div className="flex h-full flex-col justify-center px-8">
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: {},
-                  visible: { transition: { staggerChildren: 0.06 } },
+      {/* Mobile menu — CSS transition (no Framer Motion for faster response) */}
+      <div
+        className={`fixed inset-0 z-40 bg-white transition-all duration-300 lg:hidden ${
+          isOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="flex h-full flex-col justify-center px-8">
+          <div className="space-y-1">
+            {navLinks.map((link, idx) => (
+              <div
+                key={link.href}
+                className="transition-all duration-300"
+                style={{
+                  transitionDelay: isOpen ? `${idx * 50}ms` : "0ms",
+                  opacity: isOpen ? 1 : 0,
+                  transform: isOpen ? "translateX(0)" : "translateX(-20px)",
                 }}
-                className="space-y-1"
-              >
-                {navLinks.map((link) => (
-                  <motion.div
-                    key={link.href}
-                    variants={{
-                      hidden: { opacity: 0, x: -20 },
-                      visible: { opacity: 1, x: 0 },
-                    }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center justify-between border-b border-border/40 py-4 font-heading text-2xl font-semibold transition-colors ${
-                        pathname === link.href
-                          ? "text-primary"
-                          : "text-text-primary hover:text-primary"
-                      }`}
-                    >
-                      {link.label}
-                      <ArrowUpRight className="h-5 w-5 text-text-secondary" />
-                    </Link>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-10"
               >
                 <Link
-                  href="/contact"
+                  href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-navy py-4 text-base font-semibold text-white"
+                  className={`flex items-center justify-between border-b border-border/40 py-4 font-heading text-2xl font-semibold transition-colors ${
+                    pathname === link.href
+                      ? "text-primary"
+                      : "text-text-primary hover:text-primary"
+                  }`}
                 >
-                  Start a Project
-                  <ArrowUpRight className="h-4 w-4" />
+                  {link.label}
+                  <ArrowUpRight className="h-5 w-5 text-text-secondary" />
                 </Link>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="mt-10 transition-all duration-300"
+            style={{
+              transitionDelay: isOpen ? "300ms" : "0ms",
+              opacity: isOpen ? 1 : 0,
+              transform: isOpen ? "translateY(0)" : "translateY(20px)",
+            }}
+          >
+            <Link
+              href="/contact"
+              onClick={() => setIsOpen(false)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-navy py-4 text-base font-semibold text-white"
+            >
+              Start a Project
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

@@ -1,9 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Flame } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Flame, TrendingUp, Users, Globe, MousePointerClick, ArrowUp } from "lucide-react";
 import Link from "next/link";
 import { heroReveal, counterReveal } from "@/lib/animations";
+
+// Mini bar chart data for the dashboard
+const chartBars = [35, 45, 30, 55, 40, 65, 50, 75, 60, 85, 70, 92];
+const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 
 export default function HeroSection() {
   return (
@@ -26,83 +30,209 @@ export default function HeroSection() {
       </div>
 
       <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pt-24 pb-20 lg:px-8">
-        {/* Top badge */}
-        <motion.div
-          custom={0}
-          initial="hidden"
-          animate="visible"
-          variants={heroReveal}
-          className="mb-8"
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 backdrop-blur-sm">
-            <Flame className="h-4 w-4 text-accent" />
-            Digital Marketing Agency
-            <span className="h-1 w-1 rounded-full bg-accent" />
-            <span className="text-accent">India</span>
-          </span>
-        </motion.div>
-
-        {/* Headline — oversized, stacked */}
-        <div className="max-w-5xl">
-          <motion.h1
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={heroReveal}
-            className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
-          >
-            Spice Up
-          </motion.h1>
-          <motion.h1
-            custom={2}
-            initial="hidden"
-            animate="visible"
-            variants={heroReveal}
-            className="font-heading text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
-          >
-            <span className="text-gradient">Your Brand</span>
-          </motion.h1>
-          <motion.h1
-            custom={3}
-            initial="hidden"
-            animate="visible"
-            variants={heroReveal}
-            className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
-          >
-            Growth<span className="text-accent">.</span>
-          </motion.h1>
-        </div>
-
-        {/* Subtitle + CTAs */}
-        <motion.div
-          custom={4}
-          initial="hidden"
-          animate="visible"
-          variants={heroReveal}
-          className="mt-8 flex max-w-2xl flex-col gap-8 lg:flex-row lg:items-end lg:gap-16"
-        >
-          <p className="max-w-md text-base leading-relaxed text-slate-400 sm:text-lg">
-            We help businesses grow online with stunning websites, strategic
-            social media, and performance marketing that delivers{" "}
-            <span className="text-white">real results.</span>
-          </p>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/25"
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+          {/* Left column — text content */}
+          <div className="flex-1">
+            {/* Top badge */}
+            <motion.div
+              custom={0}
+              initial="hidden"
+              animate="visible"
+              variants={heroReveal}
+              className="mb-8"
             >
-              Get Started
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/portfolio"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/5"
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 backdrop-blur-sm">
+                <Flame className="h-4 w-4 text-accent" />
+                Digital Marketing Agency
+                <span className="h-1 w-1 rounded-full bg-accent" />
+                <span className="text-accent">India</span>
+              </span>
+            </motion.div>
+
+            {/* Headline — oversized, stacked */}
+            <div>
+              <motion.h1
+                custom={1}
+                initial="hidden"
+                animate="visible"
+                variants={heroReveal}
+                className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+              >
+                Spice Up
+              </motion.h1>
+              <motion.h1
+                custom={2}
+                initial="hidden"
+                animate="visible"
+                variants={heroReveal}
+                className="font-heading text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+              >
+                <span className="text-gradient">Your Brand</span>
+              </motion.h1>
+              <motion.h1
+                custom={3}
+                initial="hidden"
+                animate="visible"
+                variants={heroReveal}
+                className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+              >
+                Growth<span className="text-accent">.</span>
+              </motion.h1>
+            </div>
+
+            {/* Subtitle + CTAs */}
+            <motion.div
+              custom={4}
+              initial="hidden"
+              animate="visible"
+              variants={heroReveal}
+              className="mt-8 flex max-w-2xl flex-col gap-8 lg:flex-row lg:items-end lg:gap-16"
             >
-              Our Work
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
+              <p className="max-w-md text-base leading-relaxed text-slate-400 sm:text-lg">
+                We help businesses grow online with stunning websites, strategic
+                social media, and performance marketing that delivers{" "}
+                <span className="text-white">real results.</span>
+              </p>
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/25"
+                >
+                  Get Started
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/portfolio"
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/5"
+                >
+                  Our Work
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+
+          {/* Right column — Dashboard mockup */}
+          <motion.div
+            initial={{ opacity: 0, x: 60, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+            className="hidden w-full max-w-md shrink-0 lg:block xl:max-w-lg"
+          >
+            <div className="relative">
+              {/* Glow behind dashboard */}
+              <div className="absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl" />
+
+              {/* Main dashboard card */}
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/4 p-5 backdrop-blur-xl">
+                {/* Header */}
+                <div className="mb-5 flex items-center justify-between">
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-widest text-slate-500">Analytics Overview</p>
+                    <p className="mt-0.5 font-heading text-lg font-bold text-white">Growth Dashboard</p>
+                  </div>
+                  <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1">
+                    <ArrowUp className="h-3 w-3 text-emerald-400" />
+                    <span className="text-xs font-semibold text-emerald-400">+24%</span>
+                  </div>
+                </div>
+
+                {/* Metric cards row */}
+                <div className="mb-5 grid grid-cols-3 gap-2.5">
+                  {[
+                    { icon: Users, label: "Visitors", value: "12.8K", change: "+18%", color: "text-primary" },
+                    { icon: MousePointerClick, label: "Clicks", value: "3.2K", change: "+32%", color: "text-accent" },
+                    { icon: Globe, label: "Reach", value: "48.5K", change: "+24%", color: "text-emerald-400" },
+                  ].map((metric, idx) => (
+                    <motion.div
+                      key={metric.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.9 + idx * 0.1 }}
+                      className="rounded-xl border border-white/6 bg-white/3 p-3"
+                    >
+                      <metric.icon className={`h-4 w-4 ${metric.color}`} />
+                      <p className="mt-2 font-heading text-base font-bold text-white">{metric.value}</p>
+                      <div className="mt-0.5 flex items-center justify-between">
+                        <span className="text-[10px] text-slate-500">{metric.label}</span>
+                        <span className="text-[10px] font-medium text-emerald-400">{metric.change}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Bar chart */}
+                <div className="rounded-xl border border-white/6 bg-white/3 p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="h-3.5 w-3.5 text-primary" />
+                      <span className="text-xs font-medium text-slate-400">Monthly Growth</span>
+                    </div>
+                    <span className="text-[10px] text-slate-600">2025</span>
+                  </div>
+                  <div className="flex items-end gap-1.5">
+                    {chartBars.map((height, i) => (
+                      <motion.div
+                        key={i}
+                        className="flex flex-1 flex-col items-center gap-1.5"
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{ duration: 0.5, delay: 1.1 + i * 0.06, ease: "easeOut" }}
+                        style={{ transformOrigin: "bottom" }}
+                      >
+                        <div
+                          className={`w-full rounded-sm ${
+                            i === chartBars.length - 1
+                              ? "bg-linear-to-t from-primary to-secondary shadow-sm shadow-primary/30"
+                              : i >= chartBars.length - 3
+                              ? "bg-primary/60"
+                              : "bg-white/10"
+                          }`}
+                          style={{ height: `${height}px` }}
+                        />
+                        <span className="text-[8px] text-slate-600">{months[i]}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom row — mini stats */}
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="flex-1 rounded-lg border border-white/6 bg-white/3 px-3 py-2">
+                    <p className="text-[10px] text-slate-500">Conversion</p>
+                    <p className="font-heading text-sm font-bold text-white">4.8%</p>
+                  </div>
+                  <div className="flex-1 rounded-lg border border-white/6 bg-white/3 px-3 py-2">
+                    <p className="text-[10px] text-slate-500">Bounce Rate</p>
+                    <p className="font-heading text-sm font-bold text-white">28%</p>
+                  </div>
+                  <div className="flex-1 rounded-lg border border-white/6 bg-white/3 px-3 py-2">
+                    <p className="text-[10px] text-slate-500">Avg. ROI</p>
+                    <p className="font-heading text-sm font-bold text-accent">3.2x</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating notification card — top right */}
+              <motion.div
+                initial={{ opacity: 0, y: 10, x: 10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{ duration: 0.6, delay: 1.5 }}
+                className="absolute -top-3 -right-3 rounded-xl border border-white/10 bg-navy/90 px-3.5 py-2.5 shadow-xl backdrop-blur-md"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15">
+                    <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-medium text-white">Revenue Up</p>
+                    <p className="text-[10px] text-emerald-400">+127% this quarter</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
 
         {/* Stats strip at bottom */}
         <motion.div
@@ -112,7 +242,7 @@ export default function HeroSection() {
             hidden: {},
             visible: { transition: { staggerChildren: 0.1, delayChildren: 0.8 } },
           }}
-          className="mt-20 flex flex-wrap gap-12 border-t border-white/10 pt-10 lg:mt-28"
+          className="mt-20 flex flex-wrap gap-12 border-t border-white/10 pt-10 lg:mt-16"
         >
           {[
             { value: "50+", label: "Projects Delivered", accent: false },
@@ -134,7 +264,7 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom fade to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
     </section>
   );
 }
