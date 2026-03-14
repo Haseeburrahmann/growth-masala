@@ -96,7 +96,7 @@ export default function PortfolioPage() {
                         <Icon className="pointer-events-none absolute -right-6 -bottom-6 h-32 w-32 text-black/3" />
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-text-secondary backdrop-blur-sm">
                           <Icon className="h-3 w-3" />
-                          {categories.find((c) => c.key === item.category)?.label}
+                          {portfolioCategories.find((c) => c.key === item.category)?.label}
                         </span>
                         <h3 className="mt-4 font-heading text-xl font-bold text-text-primary">
                           {item.title}
