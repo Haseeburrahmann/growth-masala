@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import Image from "next/image";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import type { Metadata } from "next";
 
@@ -107,6 +108,21 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
+
+      {/* Cover image */}
+      {post.meta.image && (
+        <div className="relative mx-auto -mt-12 max-w-4xl px-6 lg:px-8">
+          <div className="relative h-64 overflow-hidden rounded-2xl shadow-xl sm:h-80 lg:h-96">
+            <Image
+              src={post.meta.image}
+              alt={post.meta.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <section className="bg-white py-16 sm:py-20">

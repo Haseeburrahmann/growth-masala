@@ -1,15 +1,9 @@
 "use client";
 
-import { Globe, TrendingUp, BarChart3, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Globe, ArrowRight, CheckCircle2 } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { services } from "@/data/services";
+import { services, serviceIconMap } from "@/data/services";
 import Link from "next/link";
-
-const iconMap: Record<string, React.ElementType> = {
-  Globe,
-  TrendingUp,
-  BarChart3,
-};
 
 const detailedServices = [
   {
@@ -37,7 +31,7 @@ const detailedServices = [
   {
     ...services[2],
     deliverables: [
-      "Campaign strategy and setup",
+      "Meta campaign strategy and setup",
       "Audience research and targeting",
       "Ad creative design and copywriting",
       "A/B testing and optimisation",
@@ -81,7 +75,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="space-y-20">
             {detailedServices.map((service, idx) => {
-              const Icon = iconMap[service.icon] || Globe;
+              const Icon = serviceIconMap[service.icon] || Globe;
               const isReversed = idx % 2 !== 0;
 
               return (

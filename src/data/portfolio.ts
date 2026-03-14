@@ -1,4 +1,27 @@
 import type { PortfolioItem } from "@/types";
+import { Globe, TrendingUp, BarChart3, Calculator } from "lucide-react";
+import type { ElementType } from "react";
+
+export interface CategoryConfig {
+  icon: ElementType;
+  gradient: string;
+  tag: string;
+}
+
+export const portfolioCategoryConfig: Record<string, CategoryConfig> = {
+  website: { icon: Globe, gradient: "from-primary/20 to-secondary/10", tag: "Website" },
+  "web-app": { icon: Calculator, gradient: "from-emerald-500/20 to-teal-500/10", tag: "Web App" },
+  "social-media": { icon: TrendingUp, gradient: "from-violet-500/20 to-fuchsia-500/10", tag: "Social Media" },
+  marketing: { icon: BarChart3, gradient: "from-accent/20 to-orange-500/10", tag: "Marketing" },
+};
+
+export const portfolioCategories = [
+  { key: "all", label: "All Projects" },
+  { key: "website", label: "Websites" },
+  { key: "web-app", label: "Web Apps" },
+  { key: "social-media", label: "Social Media" },
+  { key: "marketing", label: "Marketing" },
+];
 
 export const portfolioItems: PortfolioItem[] = [
   {

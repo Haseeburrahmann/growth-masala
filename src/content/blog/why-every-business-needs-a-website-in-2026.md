@@ -4,6 +4,7 @@ excerpt: "Still relying on social media alone? Here's why a professional website
 date: "2026-03-01"
 readTime: "4 min read"
 category: "Web Development"
+image: "/images/blog/business-website.jpg"
 ---
 
 ## The Digital Storefront You Own

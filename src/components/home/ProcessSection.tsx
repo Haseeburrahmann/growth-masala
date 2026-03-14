@@ -51,14 +51,14 @@ export default function ProcessSection() {
 
         <div className="relative mt-16">
           {/* Connecting line (desktop) */}
-          <div className="absolute top-[60px] left-[calc(12.5%)] right-[calc(12.5%)] hidden h-px bg-gradient-to-r from-primary/20 via-accent/20 to-emerald-500/20 lg:block" />
+          <div className="absolute top-15 left-[calc(12.5%)] right-[calc(12.5%)] hidden h-px bg-linear-to-r from-primary/20 via-accent/20 to-emerald-500/20 lg:block" />
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((item, idx) => (
               <AnimatedContainer key={item.step} delay={idx * 120}>
                 <div className="group relative text-center">
                   {/* Step circle */}
-                  <div className="relative mx-auto mb-8 flex h-[120px] w-[120px] items-center justify-center">
+                  <div className="relative mx-auto mb-8 flex h-30 w-30 items-center justify-center">
                     {/* Outer ring */}
                     <div className={`absolute inset-0 rounded-full ${item.accent} opacity-[0.06]`} />
                     <div className={`absolute inset-3 rounded-full ${item.accent} opacity-[0.08]`} />
@@ -80,7 +80,7 @@ export default function ProcessSection() {
                   <h3 className="font-heading text-lg font-bold text-text-primary">
                     {item.title}
                   </h3>
-                  <p className="mx-auto mt-3 max-w-[240px] text-sm leading-relaxed text-text-secondary">
+                  <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-text-secondary">
                     {item.description}
                   </p>
                 </div>

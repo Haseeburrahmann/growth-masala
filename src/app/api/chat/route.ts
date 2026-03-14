@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/chatbot";
+import { sendLeadEmail } from "@/lib/email";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -82,7 +83,21 @@ export async function POST(req: NextRequest) {
 
     // Extract text from response
     const textBlock = response.content.find((block) => block.type === "text");
-    const reply = textBlock ? textBlock.text : "Sorry, I couldn't generate a response. Please try again.";
+    let reply = textBlock ? textBlock.text : "Sorry, I couldn't generate a response. Please try again.";
+
+    // Detect and process lead capture tag
+    const leadMatch = reply.match(/\[LEAD\]\s*name:\s*(.+?)\s*\|\s*phone:\s*(.+?)\s*\|\s*need:\s*(.+?)\s*\[\/LEAD\]/i);
+    if (leadMatch) {
+      // Strip the tag from the visible reply
+      reply = reply.replace(/\[LEAD\][\s\S]*?\[\/LEAD\]/i, "").trim();
+
+      // Send lead email in background (don't block the response)
+      sendLeadEmail({
+        name: leadMatch[1].trim(),
+        phone: leadMatch[2].trim(),
+        need: leadMatch[3].trim(),
+      }).catch((err) => console.error("Failed to send lead email:", err));
+    }
 
     return NextResponse.json({ reply });
   } catch (error: unknown) {

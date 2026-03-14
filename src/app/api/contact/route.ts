@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendContactEmail } from "@/lib/email";
 
 interface ContactFormData {
   name: string;
@@ -40,23 +41,13 @@ export async function POST(req: NextRequest) {
       message: body.message.slice(0, 5000),
     };
 
-    // TODO: Send email via Resend or Nodemailer when API keys are configured
-    // For now, log the submission
-    console.log("Contact form submission:", sanitized);
-
-    // When RESEND_API_KEY is available, uncomment:
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: "Growth Masala <noreply@growthmasala.com>",
-    //   to: process.env.CONTACT_EMAIL!,
-    //   subject: `New inquiry from ${sanitized.name}`,
-    //   text: `Name: ${sanitized.name}\nEmail: ${sanitized.email}\nPhone: ${sanitized.phone}\nBusiness: ${sanitized.business}\nService: ${sanitized.service}\n\nMessage:\n${sanitized.message}`,
-    // });
+    await sendContactEmail(sanitized);
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (err) {
+    console.error("Contact form error:", err);
     return NextResponse.json(
-      { error: "Internal server error." },
+      { error: "Failed to send message. Please try again later." },
       { status: 500 }
     );
   }

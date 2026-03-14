@@ -34,7 +34,7 @@ export default function HeroSection() {
             <div className="mb-8 animate-hero-reveal">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 backdrop-blur-sm">
                 <Flame className="h-4 w-4 text-accent" />
-                Digital Marketing Agency
+                Your Growth Partner
                 <span className="h-1 w-1 rounded-full bg-accent" />
                 <span className="text-accent">India</span>
               </span>
@@ -43,19 +43,19 @@ export default function HeroSection() {
             {/* Headline — oversized, stacked */}
             <div>
               <h1
-                className="animate-hero-reveal font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+                className="animate-hero-reveal font-heading text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl"
                 style={{ animationDelay: "150ms" }}
               >
                 Spice Up
               </h1>
               <h1
-                className="animate-hero-reveal font-heading text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+                className="animate-hero-reveal font-heading text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl"
                 style={{ animationDelay: "300ms" }}
               >
                 <span className="text-gradient">Your Brand</span>
               </h1>
               <h1
-                className="animate-hero-reveal font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+                className="animate-hero-reveal font-heading text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl"
                 style={{ animationDelay: "450ms" }}
               >
                 Growth<span className="text-accent">.</span>
@@ -72,7 +72,7 @@ export default function HeroSection() {
                 social media, and performance marketing that delivers{" "}
                 <span className="text-white">real results.</span>
               </p>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <Link
                   href="/contact"
                   className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/25"
@@ -216,7 +216,7 @@ export default function HeroSection() {
               style={{ animationDelay: `${800 + i * 100}ms` }}
             >
               <div
-                className={`font-heading text-4xl font-bold sm:text-5xl ${
+                className={`font-heading text-3xl font-bold sm:text-4xl md:text-5xl ${
                   stat.accent ? "text-accent" : "text-white"
                 }`}
               >

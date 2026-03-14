@@ -4,6 +4,7 @@ excerpt: "Posting daily but getting zero engagement? You're probably making one 
 date: "2026-02-15"
 readTime: "5 min read"
 category: "Social Media"
+image: "/images/blog/social-media-mistakes.jpg"
 ---
 
 ## Why Your Posts Aren't Working

@@ -1,4 +1,5 @@
 import { Calendar, Clock, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 
@@ -48,8 +49,19 @@ export default function BlogPage() {
                   className="group"
                 >
                   <article className="h-full overflow-hidden rounded-2xl border border-border bg-white transition-all hover:border-primary/30 hover:shadow-lg">
-                    {/* Category gradient strip */}
-                    <div className="h-2 bg-linear-to-r from-primary to-secondary" />
+                    {/* Cover image */}
+                    {post.image ? (
+                      <div className="relative h-48 w-full overflow-hidden">
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-2 bg-linear-to-r from-primary to-secondary" />
+                    )}
                     <div className="p-7">
                       <div className="flex items-center gap-3 text-xs text-text-secondary">
                         <span className="rounded-full bg-primary/10 px-2.5 py-0.5 font-medium text-primary">

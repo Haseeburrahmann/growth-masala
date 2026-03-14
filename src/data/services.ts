@@ -1,4 +1,12 @@
 import type { Service } from "@/types";
+import { Globe, TrendingUp, BarChart3 } from "lucide-react";
+import type { ElementType } from "react";
+
+export const serviceIconMap: Record<string, ElementType> = {
+  Globe,
+  TrendingUp,
+  BarChart3,
+};
 
 export const services: Service[] = [
   {
@@ -29,11 +37,11 @@ export const services: Service[] = [
     icon: "BarChart3",
     title: "Performance Marketing",
     description:
-      "Data-driven advertising campaigns on Google, Meta, and beyond. Every rupee spent is tracked, optimised, and accountable.",
+      "Data-driven advertising campaigns on Meta and beyond. Every rupee spent is tracked, optimised, and accountable.",
     features: [
-      "Google Ads",
       "Meta Ads",
       "Conversion Tracking",
+      "A/B Testing",
       "ROI Optimisation",
     ],
   },

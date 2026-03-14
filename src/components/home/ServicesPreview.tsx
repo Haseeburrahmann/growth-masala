@@ -1,16 +1,10 @@
 "use client";
 
-import { Globe, TrendingUp, BarChart3, ArrowUpRight } from "lucide-react";
+import { Globe, ArrowUpRight } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { services } from "@/data/services";
+import { services, serviceIconMap } from "@/data/services";
 import Link from "next/link";
-
-const iconMap: Record<string, React.ElementType> = {
-  Globe,
-  TrendingUp,
-  BarChart3,
-};
 
 export default function ServicesPreview() {
   return (
@@ -37,7 +31,7 @@ export default function ServicesPreview() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           {services.map((service, idx) => {
-            const Icon = iconMap[service.icon] || Globe;
+            const Icon = serviceIconMap[service.icon] || Globe;
             return (
               <AnimatedContainer key={service.title} delay={idx * 120}>
                 <div

@@ -52,7 +52,7 @@ export default function IntroSection() {
                 Why Growth Masala
               </span>
             </div>
-            <h2 className="font-heading text-4xl font-bold leading-tight text-text-primary sm:text-5xl lg:text-[3.25rem]">
+            <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary sm:text-4xl lg:text-5xl">
               Growth is Not Luck.
               <br />
               <span className="text-gradient">It&apos;s Strategy.</span>
@@ -73,10 +73,10 @@ export default function IntroSection() {
           {pillars.map((pillar, idx) => (
             <AnimatedContainer key={pillar.title} delay={idx * 120}>
               <div
-                className={`group relative h-full overflow-hidden rounded-2xl bg-gradient-to-b ${pillar.color} p-8 transition-all duration-250 hover:-translate-y-1.5 hover:shadow-xl`}
+                className={`group relative h-full overflow-hidden rounded-2xl bg-linear-to-b ${pillar.color} p-8 transition-all duration-250 hover:-translate-y-1.5 hover:shadow-xl`}
               >
                 {/* Large watermark number */}
-                <span className="pointer-events-none absolute -right-2 -top-4 font-heading text-[8rem] font-bold leading-none text-black/[0.03]">
+                <span className="pointer-events-none absolute -right-2 -top-4 font-heading text-[8rem] font-bold leading-none text-black/3">
                   {pillar.number}
                 </span>
 

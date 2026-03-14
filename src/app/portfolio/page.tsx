@@ -1,25 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Globe, TrendingUp, BarChart3, ArrowUpRight, Calculator } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { portfolioItems } from "@/data/portfolio";
-
-const categories = [
-  { key: "all", label: "All Projects" },
-  { key: "website", label: "Websites" },
-  { key: "web-app", label: "Web Apps" },
-  { key: "social-media", label: "Social Media" },
-  { key: "marketing", label: "Marketing" },
-];
-
-const categoryConfig: Record<string, { icon: React.ElementType; gradient: string }> = {
-  website: { icon: Globe, gradient: "from-primary/20 to-secondary/10" },
-  "web-app": { icon: Calculator, gradient: "from-emerald-500/20 to-teal-500/10" },
-  "social-media": { icon: TrendingUp, gradient: "from-violet-500/20 to-fuchsia-500/10" },
-  marketing: { icon: BarChart3, gradient: "from-accent/20 to-orange-500/10" },
-};
+import { portfolioItems, portfolioCategoryConfig, portfolioCategories } from "@/data/portfolio";
 
 export default function PortfolioPage() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -61,7 +46,7 @@ export default function PortfolioPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {/* Filter tabs */}
           <div className="mb-12 flex flex-wrap gap-2">
-            {categories.map((cat) => (
+            {portfolioCategories.map((cat) => (
               <button
                 key={cat.key}
                 onClick={() => setActiveFilter(cat.key)}
@@ -79,7 +64,7 @@ export default function PortfolioPage() {
           {/* Grid */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filtered.map((item, idx) => {
-              const config = categoryConfig[item.category];
+              const config = portfolioCategoryConfig[item.category];
               const Icon = config.icon;
 
               return (

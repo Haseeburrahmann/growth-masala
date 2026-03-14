@@ -1,18 +1,11 @@
 "use client";
 
-import { ArrowUpRight, Globe, TrendingUp, BarChart3, Calculator } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { portfolioItems } from "@/data/portfolio";
+import { portfolioItems, portfolioCategoryConfig } from "@/data/portfolio";
 import Link from "next/link";
-
-const categoryConfig: Record<string, { icon: React.ElementType; gradient: string; tag: string }> = {
-  website: { icon: Globe, gradient: "from-primary/20 to-secondary/10", tag: "Website" },
-  "web-app": { icon: Calculator, gradient: "from-emerald-500/20 to-teal-500/10", tag: "Web App" },
-  "social-media": { icon: TrendingUp, gradient: "from-violet-500/20 to-fuchsia-500/10", tag: "Social Media" },
-  marketing: { icon: BarChart3, gradient: "from-accent/20 to-orange-500/10", tag: "Marketing" },
-};
 
 export default function PortfolioPreview() {
   const featured = portfolioItems.slice(0, 3);
@@ -29,7 +22,7 @@ export default function PortfolioPreview() {
         {/* 3-column single row */}
         <div className="mt-4 grid gap-5 md:grid-cols-3">
           {featured.map((item, idx) => {
-            const config = categoryConfig[item.category];
+            const config = portfolioCategoryConfig[item.category];
             const Icon = config.icon;
 
             return (

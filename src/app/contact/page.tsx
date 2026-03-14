@@ -8,14 +8,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@growthmasala.com",
-    href: "mailto:hello@growthmasala.com",
+    value: "growthmasala@gmail.com",
+    href: "mailto:growthmasala@gmail.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "Available on request",
-    href: undefined,
+    value: "+91 8688269427",
+    href: "tel:+918688269427",
   },
   {
     icon: MessageCircle,
