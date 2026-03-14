@@ -33,8 +33,8 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 left-[30%] h-125 w-125 rounded-full bg-primary/15 blur-[120px]" />
-          <div className="absolute -bottom-32 right-[10%] h-75 w-75 rounded-full bg-accent/10 blur-[100px]" />
+          <div className="hidden md:block absolute -top-32 left-[30%] h-72 w-72 rounded-full bg-primary/15 blur-[80px]" />
+          <div className="hidden md:block absolute -bottom-32 right-[10%] h-56 w-56 rounded-full bg-accent/10 blur-[60px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedContainer>

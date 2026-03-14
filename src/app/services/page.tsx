@@ -53,7 +53,7 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 right-[10%] h-125 w-125 rounded-full bg-primary/15 blur-[120px]" />
+          <div className="hidden md:block absolute -top-32 right-[10%] h-72 w-72 rounded-full bg-primary/15 blur-[80px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedContainer>

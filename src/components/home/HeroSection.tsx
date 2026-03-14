@@ -21,10 +21,9 @@ export default function HeroSection() {
             backgroundSize: "80px 80px",
           }}
         />
-        {/* Gradient orbs */}
-        <div className="animate-float-slow absolute -top-32 right-[10%] h-[600px] w-[600px] rounded-full bg-primary/20 blur-[150px]" />
-        <div className="animate-float absolute -bottom-32 left-[5%] h-[400px] w-[400px] rounded-full bg-accent/15 blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/10 blur-[100px]" />
+        {/* Gradient orbs — desktop only, GPU-intensive blur hidden on mobile */}
+        <div className="hidden md:block absolute -top-32 right-[10%] h-96 w-96 rounded-full bg-primary/20 blur-[100px]" />
+        <div className="hidden md:block absolute -bottom-32 left-[5%] h-72 w-72 rounded-full bg-accent/15 blur-[80px]" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pt-24 pb-20 lg:px-8">

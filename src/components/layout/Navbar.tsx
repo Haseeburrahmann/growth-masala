@@ -28,7 +28,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/80 shadow-[0_1px_0_rgba(0,0,0,0.06)] backdrop-blur-xl"
+          ? "bg-white/90 shadow-[0_1px_0_rgba(0,0,0,0.06)] md:backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
@@ -97,11 +97,12 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile hamburger — touch-action removes iOS 300ms tap delay */}
         <button
           className="relative z-50 lg:hidden"
           onClick={toggleMenu}
           aria-label="Toggle menu"
+          style={{ touchAction: "manipulation" }}
         >
           <div
             className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${

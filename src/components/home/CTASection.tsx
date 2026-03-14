@@ -10,10 +10,10 @@ export default function CTASection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <AnimatedContainer>
           <div className="noise-overlay relative overflow-hidden rounded-3xl bg-navy px-8 py-20 text-center sm:px-16 sm:py-24">
-            {/* Background decoration */}
+            {/* Background decoration — orbs hidden on mobile */}
             <div className="pointer-events-none absolute inset-0">
-              <div className="animate-float-slow absolute -top-20 -left-20 h-60 w-60 rounded-full bg-primary/20 blur-[80px]" />
-              <div className="animate-float absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-accent/15 blur-[80px]" />
+              <div className="hidden md:block absolute -top-20 -left-20 h-60 w-60 rounded-full bg-primary/20 blur-[80px]" />
+              <div className="hidden md:block absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-accent/15 blur-[80px]" />
               {/* Grid overlay */}
               <div
                 className="absolute inset-0 opacity-[0.03]"

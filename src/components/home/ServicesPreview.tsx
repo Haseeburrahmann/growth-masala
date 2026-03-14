@@ -25,7 +25,7 @@ export default function ServicesPreview() {
         }}
       />
       {/* Accent orb */}
-      <div className="pointer-events-none absolute top-0 left-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-[120px]" />
+      <div className="pointer-events-none hidden md:block absolute top-0 left-1/2 h-72 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-[80px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading

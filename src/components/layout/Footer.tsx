@@ -13,8 +13,8 @@ export default function Footer() {
         </span>
       </div>
 
-      {/* Gradient orb */}
-      <div className="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[120px]" />
+      {/* Gradient orb — desktop only */}
+      <div className="pointer-events-none hidden md:block absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-[80px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Top strip — CTA */}
