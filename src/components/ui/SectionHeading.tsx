@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useInView } from "@/lib/useInView";
 
 interface SectionHeadingProps {
   label?: string;
@@ -17,13 +17,12 @@ export default function SectionHeading({
   align = "center",
   dark = false,
 }: SectionHeadingProps) {
+  const { ref, isInView } = useInView();
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
-      className={`mb-16 max-w-2xl ${
+    <div
+      ref={ref}
+      className={`mb-16 max-w-2xl ${isInView ? "animate-fade-in-up" : "opacity-0"} ${
         align === "center" ? "mx-auto text-center" : ""
       }`}
     >
@@ -56,6 +55,6 @@ export default function SectionHeading({
           {description}
         </p>
       )}
-    </motion.div>
+    </div>
   );
 }

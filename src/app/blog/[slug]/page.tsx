@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* Header */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-16 sm:pt-40 sm:pb-20">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 left-[30%] h-[400px] w-[400px] rounded-full bg-primary/15 blur-[120px]" />
+          <div className="absolute -top-32 left-[30%] h-100 w-100 rounded-full bg-primary/15 blur-[120px]" />
         </div>
         <div className="relative mx-auto max-w-3xl px-6 lg:px-8">
           <Link
@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </span>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* Content */}

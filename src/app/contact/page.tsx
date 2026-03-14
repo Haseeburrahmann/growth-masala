@@ -37,7 +37,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 right-[15%] h-[400px] w-[400px] rounded-full bg-primary/15 blur-[120px]" />
+          <div className="absolute -top-32 right-[15%] h-100 w-100 rounded-full bg-primary/15 blur-[120px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedContainer>
@@ -56,7 +56,7 @@ export default function ContactPage() {
             </p>
           </AnimatedContainer>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* Contact section */}

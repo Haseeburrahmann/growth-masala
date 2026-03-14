@@ -1,8 +1,6 @@
 "use client";
 
 import { Target, Lightbulb, Rocket, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 
 const pillars = [
@@ -61,7 +59,7 @@ export default function IntroSection() {
             </h2>
           </AnimatedContainer>
 
-          <AnimatedContainer>
+          <AnimatedContainer delay={120}>
             <p className="max-w-lg text-lg leading-relaxed text-text-secondary lg:ml-auto">
               We combine creativity with data to build marketing that actually
               works. No fluff, no vanity metrics — just real business growth
@@ -71,18 +69,11 @@ export default function IntroSection() {
         </div>
 
         {/* Cards — editorial numbered layout */}
-        <motion.div
-          className="grid gap-6 md:grid-cols-3"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {pillars.map((pillar) => (
-            <AnimatedContainer key={pillar.title} variants={fadeInUp}>
-              <motion.div
-                whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                className={`group relative h-full overflow-hidden rounded-2xl bg-gradient-to-b ${pillar.color} p-8 transition-shadow hover:shadow-xl`}
+        <div className="grid gap-6 md:grid-cols-3">
+          {pillars.map((pillar, idx) => (
+            <AnimatedContainer key={pillar.title} delay={idx * 120}>
+              <div
+                className={`group relative h-full overflow-hidden rounded-2xl bg-gradient-to-b ${pillar.color} p-8 transition-all duration-250 hover:-translate-y-1.5 hover:shadow-xl`}
               >
                 {/* Large watermark number */}
                 <span className="pointer-events-none absolute -right-2 -top-4 font-heading text-[8rem] font-bold leading-none text-black/[0.03]">
@@ -104,10 +95,10 @@ export default function IntroSection() {
                     <ArrowRight className="h-3.5 w-3.5" />
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </AnimatedContainer>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

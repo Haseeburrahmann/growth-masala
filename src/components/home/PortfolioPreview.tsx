@@ -1,12 +1,10 @@
 "use client";
 
 import { ArrowUpRight, Globe, TrendingUp, BarChart3, Calculator } from "lucide-react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { portfolioItems } from "@/data/portfolio";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 import Link from "next/link";
 
 const categoryConfig: Record<string, { icon: React.ElementType; gradient: string; tag: string }> = {
@@ -29,30 +27,20 @@ export default function PortfolioPreview() {
         />
 
         {/* 3-column single row */}
-        <motion.div
-          className="mt-4 grid gap-5 md:grid-cols-3"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {featured.map((item) => {
+        <div className="mt-4 grid gap-5 md:grid-cols-3">
+          {featured.map((item, idx) => {
             const config = categoryConfig[item.category];
             const Icon = config.icon;
 
             return (
-              <AnimatedContainer
-                key={item.title}
-                variants={fadeInUp}
-              >
+              <AnimatedContainer key={item.title} delay={idx * 120}>
                 <a
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <motion.div
-                    whileHover={{ y: -4, transition: { duration: 0.25 } }}
-                    className={`group relative h-full overflow-hidden rounded-2xl bg-gradient-to-br ${config.gradient} transition-shadow hover:shadow-xl`}
+                  <div
+                    className={`group relative h-full overflow-hidden rounded-2xl bg-gradient-to-br ${config.gradient} transition-all duration-250 hover:-translate-y-1 hover:shadow-xl`}
                   >
                     {/* Project image */}
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface">
@@ -88,19 +76,14 @@ export default function PortfolioPreview() {
                         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </a>
               </AnimatedContainer>
             );
           })}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center"
-        >
+        <AnimatedContainer className="mt-12 text-center" animation="fade-in">
           <Link
             href="/portfolio"
             className="group inline-flex items-center gap-2 rounded-full border-2 border-text-primary px-6 py-3 text-sm font-semibold text-text-primary transition-all hover:bg-text-primary hover:text-white"
@@ -108,7 +91,7 @@ export default function PortfolioPreview() {
             View All Projects
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
-        </motion.div>
+        </AnimatedContainer>
       </div>
     </section>
   );

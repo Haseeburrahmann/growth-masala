@@ -1,9 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Flame, TrendingUp, Users, Globe, MousePointerClick, ArrowUp } from "lucide-react";
 import Link from "next/link";
-import { heroReveal, counterReveal } from "@/lib/animations";
 
 // Mini bar chart data for the dashboard
 const chartBars = [35, 45, 30, 55, 40, 65, 50, 75, 60, 85, 70, 92];
@@ -34,59 +32,41 @@ export default function HeroSection() {
           {/* Left column — text content */}
           <div className="flex-1">
             {/* Top badge */}
-            <motion.div
-              custom={0}
-              initial="hidden"
-              animate="visible"
-              variants={heroReveal}
-              className="mb-8"
-            >
+            <div className="mb-8 animate-hero-reveal">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 backdrop-blur-sm">
                 <Flame className="h-4 w-4 text-accent" />
                 Digital Marketing Agency
                 <span className="h-1 w-1 rounded-full bg-accent" />
                 <span className="text-accent">India</span>
               </span>
-            </motion.div>
+            </div>
 
             {/* Headline — oversized, stacked */}
             <div>
-              <motion.h1
-                custom={1}
-                initial="hidden"
-                animate="visible"
-                variants={heroReveal}
-                className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+              <h1
+                className="animate-hero-reveal font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+                style={{ animationDelay: "150ms" }}
               >
                 Spice Up
-              </motion.h1>
-              <motion.h1
-                custom={2}
-                initial="hidden"
-                animate="visible"
-                variants={heroReveal}
-                className="font-heading text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+              </h1>
+              <h1
+                className="animate-hero-reveal font-heading text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+                style={{ animationDelay: "300ms" }}
               >
                 <span className="text-gradient">Your Brand</span>
-              </motion.h1>
-              <motion.h1
-                custom={3}
-                initial="hidden"
-                animate="visible"
-                variants={heroReveal}
-                className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+              </h1>
+              <h1
+                className="animate-hero-reveal font-heading text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+                style={{ animationDelay: "450ms" }}
               >
                 Growth<span className="text-accent">.</span>
-              </motion.h1>
+              </h1>
             </div>
 
             {/* Subtitle + CTAs */}
-            <motion.div
-              custom={4}
-              initial="hidden"
-              animate="visible"
-              variants={heroReveal}
-              className="mt-8 flex max-w-2xl flex-col gap-8 lg:flex-row lg:items-end lg:gap-16"
+            <div
+              className="animate-hero-reveal mt-8 flex max-w-2xl flex-col gap-8 lg:flex-row lg:items-end lg:gap-16"
+              style={{ animationDelay: "600ms" }}
             >
               <p className="max-w-md text-base leading-relaxed text-slate-400 sm:text-lg">
                 We help businesses grow online with stunning websites, strategic
@@ -109,15 +89,13 @@ export default function HeroSection() {
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right column — Dashboard mockup */}
-          <motion.div
-            initial={{ opacity: 0, x: 60, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-            className="hidden w-full max-w-md shrink-0 lg:block xl:max-w-lg"
+          <div
+            className="hidden w-full max-w-md shrink-0 animate-dashboard-reveal lg:block xl:max-w-lg"
+            style={{ animationDelay: "500ms" }}
           >
             <div className="relative">
               {/* Glow behind dashboard */}
@@ -144,12 +122,10 @@ export default function HeroSection() {
                     { icon: MousePointerClick, label: "Clicks", value: "3.2K", change: "+32%", color: "text-accent" },
                     { icon: Globe, label: "Reach", value: "48.5K", change: "+24%", color: "text-emerald-400" },
                   ].map((metric, idx) => (
-                    <motion.div
+                    <div
                       key={metric.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.9 + idx * 0.1 }}
-                      className="rounded-xl border border-white/6 bg-white/3 p-3"
+                      className="animate-fade-in-up rounded-xl border border-white/6 bg-white/3 p-3"
+                      style={{ animationDelay: `${900 + idx * 100}ms` }}
                     >
                       <metric.icon className={`h-4 w-4 ${metric.color}`} />
                       <p className="mt-2 font-heading text-base font-bold text-white">{metric.value}</p>
@@ -157,7 +133,7 @@ export default function HeroSection() {
                         <span className="text-[10px] text-slate-500">{metric.label}</span>
                         <span className="text-[10px] font-medium text-emerald-400">{metric.change}</span>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
 
@@ -172,26 +148,22 @@ export default function HeroSection() {
                   </div>
                   <div className="flex items-end gap-1.5">
                     {chartBars.map((height, i) => (
-                      <motion.div
-                        key={i}
-                        className="flex flex-1 flex-col items-center gap-1.5"
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: 1 }}
-                        transition={{ duration: 0.5, delay: 1.1 + i * 0.06, ease: "easeOut" }}
-                        style={{ transformOrigin: "bottom" }}
-                      >
+                      <div key={i} className="flex flex-1 flex-col items-center gap-1.5">
                         <div
-                          className={`w-full rounded-sm ${
+                          className={`animate-bar-grow w-full rounded-sm ${
                             i === chartBars.length - 1
                               ? "bg-linear-to-t from-primary to-secondary shadow-sm shadow-primary/30"
                               : i >= chartBars.length - 3
                               ? "bg-primary/60"
                               : "bg-white/10"
                           }`}
-                          style={{ height: `${height}px` }}
+                          style={{
+                            height: `${height}px`,
+                            animationDelay: `${1100 + i * 60}ms`,
+                          }}
                         />
                         <span className="text-[8px] text-slate-600">{months[i]}</span>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -214,11 +186,9 @@ export default function HeroSection() {
               </div>
 
               {/* Floating notification card — top right */}
-              <motion.div
-                initial={{ opacity: 0, y: 10, x: 10 }}
-                animate={{ opacity: 1, y: 0, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.5 }}
-                className="absolute -top-3 -right-3 rounded-xl border border-white/10 bg-navy/90 px-3.5 py-2.5 shadow-xl backdrop-blur-md"
+              <div
+                className="animate-fade-in-up absolute -top-3 -right-3 rounded-xl border border-white/10 bg-navy/90 px-3.5 py-2.5 shadow-xl backdrop-blur-md"
+                style={{ animationDelay: "1500ms" }}
               >
                 <div className="flex items-center gap-2">
                   <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15">
@@ -229,27 +199,23 @@ export default function HeroSection() {
                     <p className="text-[10px] text-emerald-400">+127% this quarter</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Stats strip at bottom */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.8 } },
-          }}
-          className="mt-20 flex flex-wrap gap-12 border-t border-white/10 pt-10 lg:mt-16"
-        >
+        <div className="mt-20 flex flex-wrap gap-12 border-t border-white/10 pt-10 lg:mt-16">
           {[
             { value: "50+", label: "Projects Delivered", accent: false },
             { value: "30+", label: "Happy Clients", accent: false },
             { value: "3x", label: "Avg. Growth Rate", accent: true },
           ].map((stat, i) => (
-            <motion.div key={stat.label} custom={i} variants={counterReveal}>
+            <div
+              key={stat.label}
+              className="animate-counter-reveal"
+              style={{ animationDelay: `${800 + i * 100}ms` }}
+            >
               <div
                 className={`font-heading text-4xl font-bold sm:text-5xl ${
                   stat.accent ? "text-accent" : "text-white"
@@ -258,9 +224,9 @@ export default function HeroSection() {
                 {stat.value}
               </div>
               <div className="mt-1.5 text-sm text-slate-500">{stat.label}</div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Bottom fade to next section */}

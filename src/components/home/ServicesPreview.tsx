@@ -1,11 +1,9 @@
 "use client";
 
 import { Globe, TrendingUp, BarChart3, ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { services } from "@/data/services";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 import Link from "next/link";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -37,20 +35,13 @@ export default function ServicesPreview() {
           dark
         />
 
-        <motion.div
-          className="grid gap-6 lg:grid-cols-3"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="grid gap-6 lg:grid-cols-3">
           {services.map((service, idx) => {
             const Icon = iconMap[service.icon] || Globe;
             return (
-              <AnimatedContainer key={service.title} variants={fadeInUp}>
-                <motion.div
-                  whileHover={{ y: -4, transition: { duration: 0.25 } }}
-                  className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-white/[0.06]"
+              <AnimatedContainer key={service.title} delay={idx * 120}>
+                <div
+                  className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-250 hover:-translate-y-1 hover:border-primary/30 hover:bg-white/6"
                 >
                   {/* Service number */}
                   <div className="mb-8 flex items-center justify-between">
@@ -86,18 +77,13 @@ export default function ServicesPreview() {
                     Explore service
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </div>
-                </motion.div>
+                </div>
               </AnimatedContainer>
             );
           })}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center"
-        >
+        <AnimatedContainer className="mt-12 text-center" animation="fade-in">
           <Link
             href="/services"
             className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/5"
@@ -105,7 +91,7 @@ export default function ServicesPreview() {
             View All Services
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
-        </motion.div>
+        </AnimatedContainer>
       </div>
     </section>
   );

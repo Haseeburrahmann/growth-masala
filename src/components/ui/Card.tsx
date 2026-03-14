@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 interface CardProps {
   children: React.ReactNode;
   className?: string;
@@ -14,13 +10,12 @@ export default function Card({
   hover = true,
 }: CardProps) {
   return (
-    <motion.div
-      whileHover={hover ? { y: -4, transition: { duration: 0.2 } } : undefined}
+    <div
       className={`rounded-xl border border-border bg-white p-6 shadow-sm ${
-        hover ? "transition-shadow hover:shadow-lg" : ""
+        hover ? "transition-all duration-200 hover:-translate-y-1 hover:shadow-lg" : ""
       } ${className}`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

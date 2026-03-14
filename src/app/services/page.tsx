@@ -1,11 +1,8 @@
 "use client";
 
 import { Globe, TrendingUp, BarChart3, ArrowRight, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import SectionHeading from "@/components/ui/SectionHeading";
 import { services } from "@/data/services";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 import Link from "next/link";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -56,7 +53,7 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 right-[10%] h-[500px] w-[500px] rounded-full bg-primary/15 blur-[120px]" />
+          <div className="absolute -top-32 right-[10%] h-125 w-125 rounded-full bg-primary/15 blur-[120px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedContainer>
@@ -76,25 +73,19 @@ export default function ServicesPage() {
             </p>
           </AnimatedContainer>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* Detailed services */}
       <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <motion.div
-            className="space-y-20"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <div className="space-y-20">
             {detailedServices.map((service, idx) => {
               const Icon = iconMap[service.icon] || Globe;
               const isReversed = idx % 2 !== 0;
 
               return (
-                <AnimatedContainer key={service.title} variants={fadeInUp}>
+                <AnimatedContainer key={service.title} delay={idx * 120}>
                   <div
                     className={`grid items-center gap-12 lg:grid-cols-2 ${
                       isReversed ? "lg:direction-rtl" : ""
@@ -147,7 +138,7 @@ export default function ServicesPage() {
                 </AnimatedContainer>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 

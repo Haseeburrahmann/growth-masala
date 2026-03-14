@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import { Globe, TrendingUp, BarChart3, ArrowUpRight, Calculator } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import { portfolioItems } from "@/data/portfolio";
-import { fadeInUp } from "@/lib/animations";
 
 const categories = [
   { key: "all", label: "All Projects" },
@@ -36,7 +34,7 @@ export default function PortfolioPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 left-[10%] h-[500px] w-[500px] rounded-full bg-secondary/15 blur-[120px]" />
+          <div className="absolute -top-32 left-[10%] h-125 w-125 rounded-full bg-secondary/15 blur-[120px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedContainer>
@@ -55,7 +53,7 @@ export default function PortfolioPage() {
             </p>
           </AnimatedContainer>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* Portfolio grid */}
@@ -79,65 +77,59 @@ export default function PortfolioPage() {
           </div>
 
           {/* Grid */}
-          <motion.div layout className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((item) => {
-                const config = categoryConfig[item.category];
-                const Icon = config.icon;
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((item, idx) => {
+              const config = categoryConfig[item.category];
+              const Icon = config.icon;
 
-                return (
-                  <motion.div
-                    key={item.title}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3 }}
+              return (
+                <div
+                  key={item.title}
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 80}ms` }}
+                >
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <div
+                      className={`group relative h-full overflow-hidden rounded-2xl bg-linear-to-br ${config.gradient} transition-all duration-250 hover:-translate-y-1 hover:shadow-xl`}
                     >
-                      <motion.div
-                        whileHover={{ y: -4 }}
-                        className={`group relative h-full overflow-hidden rounded-2xl bg-gradient-to-br ${config.gradient} transition-shadow hover:shadow-xl`}
-                      >
-                        {/* Project image */}
-                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface">
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          />
-                        </div>
+                      {/* Project image */}
+                      <div className="relative aspect-16/10 w-full overflow-hidden bg-surface">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      </div>
 
-                        <div className="relative p-6">
-                          <Icon className="pointer-events-none absolute -right-6 -bottom-6 h-32 w-32 text-black/3" />
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-text-secondary backdrop-blur-sm">
-                            <Icon className="h-3 w-3" />
-                            {categories.find((c) => c.key === item.category)?.label}
-                          </span>
-                          <h3 className="mt-4 font-heading text-xl font-bold text-text-primary">
-                            {item.title}
-                          </h3>
-                          <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                            {item.description}
-                          </p>
-                          <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary opacity-0 transition-all group-hover:opacity-100">
-                            Visit Live Site
-                            <ArrowUpRight className="h-4 w-4" />
-                          </div>
+                      <div className="relative p-6">
+                        <Icon className="pointer-events-none absolute -right-6 -bottom-6 h-32 w-32 text-black/3" />
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-text-secondary backdrop-blur-sm">
+                          <Icon className="h-3 w-3" />
+                          {categories.find((c) => c.key === item.category)?.label}
+                        </span>
+                        <h3 className="mt-4 font-heading text-xl font-bold text-text-primary">
+                          {item.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+                          {item.description}
+                        </p>
+                        <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary opacity-0 transition-all group-hover:opacity-100">
+                          Visit Live Site
+                          <ArrowUpRight className="h-4 w-4" />
                         </div>
-                      </motion.div>
-                    </a>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </motion.div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     </>

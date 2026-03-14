@@ -1,10 +1,8 @@
 "use client";
 
 import { Search, PenTool, Zap, TrendingUp } from "lucide-react";
-import { motion } from "framer-motion";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 
 const steps = [
   {
@@ -51,19 +49,13 @@ export default function ProcessSection() {
           description="A proven process that turns your marketing investment into measurable, compounding business growth."
         />
 
-        <motion.div
-          className="relative mt-16"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="relative mt-16">
           {/* Connecting line (desktop) */}
           <div className="absolute top-[60px] left-[calc(12.5%)] right-[calc(12.5%)] hidden h-px bg-gradient-to-r from-primary/20 via-accent/20 to-emerald-500/20 lg:block" />
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((item) => (
-              <AnimatedContainer key={item.step} variants={fadeInUp}>
+            {steps.map((item, idx) => (
+              <AnimatedContainer key={item.step} delay={idx * 120}>
                 <div className="group relative text-center">
                   {/* Step circle */}
                   <div className="relative mx-auto mb-8 flex h-[120px] w-[120px] items-center justify-center">
@@ -95,7 +87,7 @@ export default function ProcessSection() {
               </AnimatedContainer>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

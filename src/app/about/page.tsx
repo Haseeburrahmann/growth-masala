@@ -1,10 +1,8 @@
 "use client";
 
-import { Flame, Target, Users, Lightbulb, Heart, Zap } from "lucide-react";
-import { motion } from "framer-motion";
+import { Flame, Target, Heart, Lightbulb, Zap } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 
 const values = [
   {
@@ -35,8 +33,8 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 left-[30%] h-[500px] w-[500px] rounded-full bg-primary/15 blur-[120px]" />
-          <div className="absolute -bottom-32 right-[10%] h-[300px] w-[300px] rounded-full bg-accent/10 blur-[100px]" />
+          <div className="absolute -top-32 left-[30%] h-125 w-125 rounded-full bg-primary/15 blur-[120px]" />
+          <div className="absolute -bottom-32 right-[10%] h-75 w-75 rounded-full bg-accent/10 blur-[100px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedContainer>
@@ -56,7 +54,7 @@ export default function AboutPage() {
             </p>
           </AnimatedContainer>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* Story */}
@@ -94,8 +92,8 @@ export default function AboutPage() {
               </div>
             </AnimatedContainer>
 
-            <AnimatedContainer>
-              <div className="relative rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 p-10">
+            <AnimatedContainer delay={120}>
+              <div className="relative rounded-2xl bg-linear-to-br from-primary/10 to-accent/10 p-10">
                 <Flame className="pointer-events-none absolute -right-4 -bottom-4 h-32 w-32 text-primary/5" />
                 <div className="relative space-y-8">
                   {[
@@ -127,19 +125,10 @@ export default function AboutPage() {
             description="The principles that guide every decision, campaign, and conversation at Growth Masala."
           />
 
-          <motion.div
-            className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {values.map((value) => (
-              <AnimatedContainer key={value.title} variants={fadeInUp}>
-                <motion.div
-                  whileHover={{ y: -4, transition: { duration: 0.25 } }}
-                  className="h-full rounded-2xl border border-border/50 bg-white p-7 transition-shadow hover:shadow-lg"
-                >
+          <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {values.map((value, idx) => (
+              <AnimatedContainer key={value.title} delay={idx * 120}>
+                <div className="h-full rounded-2xl border border-border/50 bg-white p-7 transition-all duration-250 hover:-translate-y-1 hover:shadow-lg">
                   <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
                     <value.icon className="h-6 w-6 text-primary" />
                   </div>
@@ -149,10 +138,10 @@ export default function AboutPage() {
                   <p className="mt-2 text-sm leading-relaxed text-text-secondary">
                     {value.description}
                   </p>
-                </motion.div>
+                </div>
               </AnimatedContainer>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 

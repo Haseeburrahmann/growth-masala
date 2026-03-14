@@ -1,11 +1,9 @@
 "use client";
 
 import { Star } from "lucide-react";
-import { motion } from "framer-motion";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { testimonials } from "@/data/testimonials";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 
 export default function TestimonialsSection() {
   return (
@@ -28,18 +26,11 @@ export default function TestimonialsSection() {
           description="Don't just take our word for it — hear from the businesses we've helped grow."
         />
 
-        <motion.div
-          className="mt-4 grid gap-6 md:grid-cols-3"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="mt-4 grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial, idx) => (
-            <AnimatedContainer key={testimonial.name} variants={fadeInUp}>
-              <motion.div
-                whileHover={{ y: -4, transition: { duration: 0.25 } }}
-                className={`relative h-full overflow-hidden rounded-2xl border border-border/50 bg-white p-8 transition-shadow hover:shadow-xl ${
+            <AnimatedContainer key={testimonial.name} delay={idx * 120}>
+              <div
+                className={`relative h-full overflow-hidden rounded-2xl border border-border/50 bg-white p-8 transition-all duration-250 hover:-translate-y-1 hover:shadow-xl ${
                   idx === 1 ? "md:-translate-y-4" : ""
                 }`}
               >
@@ -81,10 +72,10 @@ export default function TestimonialsSection() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </AnimatedContainer>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

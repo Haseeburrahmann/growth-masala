@@ -15,7 +15,7 @@ export default function BlogPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 left-[20%] h-[400px] w-[400px] rounded-full bg-secondary/15 blur-[120px]" />
+          <div className="absolute -top-32 left-[20%] h-100 w-100 rounded-full bg-secondary/15 blur-[120px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-4">
@@ -31,7 +31,7 @@ export default function BlogPage() {
             Tips, strategies, and lessons from the trenches of digital marketing.
           </p>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* Posts grid */}
@@ -49,7 +49,7 @@ export default function BlogPage() {
                 >
                   <article className="h-full overflow-hidden rounded-2xl border border-border bg-white transition-all hover:border-primary/30 hover:shadow-lg">
                     {/* Category gradient strip */}
-                    <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
+                    <div className="h-2 bg-linear-to-r from-primary to-secondary" />
                     <div className="p-7">
                       <div className="flex items-center gap-3 text-xs text-text-secondary">
                         <span className="rounded-full bg-primary/10 px-2.5 py-0.5 font-medium text-primary">

@@ -1,31 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
-import type { Variants, HTMLMotionProps } from "framer-motion";
-import { fadeInUp } from "@/lib/animations";
+import { useInView } from "@/lib/useInView";
 
-interface AnimatedContainerProps extends HTMLMotionProps<"div"> {
-  variants?: Variants;
+interface AnimatedContainerProps {
   className?: string;
   children: React.ReactNode;
+  animation?: "fade-in-up" | "fade-in" | "scale-in" | "slide-in-left" | "slide-in-right";
+  delay?: number;
 }
 
 export default function AnimatedContainer({
-  variants = fadeInUp,
   className = "",
   children,
-  ...props
+  animation = "fade-in-up",
+  delay = 0,
 }: AnimatedContainerProps) {
+  const { ref, isInView } = useInView();
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={variants}
-      className={className}
-      {...props}
+    <div
+      ref={ref}
+      className={`${isInView ? `animate-${animation}` : "opacity-0"} ${className}`}
+      style={delay ? { animationDelay: `${delay}ms` } : undefined}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

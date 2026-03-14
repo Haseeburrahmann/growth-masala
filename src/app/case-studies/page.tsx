@@ -1,9 +1,7 @@
 "use client";
 
 import { ArrowRight, TrendingUp, Users, Target } from "lucide-react";
-import { motion } from "framer-motion";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 import Link from "next/link";
 
 const caseStudies = [
@@ -57,7 +55,7 @@ export default function CaseStudiesPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 right-[20%] h-[400px] w-[400px] rounded-full bg-accent/15 blur-[120px]" />
+          <div className="absolute -top-32 right-[20%] h-100 w-100 rounded-full bg-accent/15 blur-[120px]" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedContainer>
@@ -76,22 +74,16 @@ export default function CaseStudiesPage() {
             </p>
           </AnimatedContainer>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
       {/* Case studies */}
       <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <motion.div
-            className="space-y-16"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <div className="space-y-16">
             {caseStudies.map((study, idx) => (
-              <AnimatedContainer key={study.client} variants={fadeInUp}>
-                <div className={`overflow-hidden rounded-2xl bg-gradient-to-br ${study.gradient} p-8 sm:p-12`}>
+              <AnimatedContainer key={study.client} delay={idx * 120}>
+                <div className={`overflow-hidden rounded-2xl bg-linear-to-br ${study.gradient} p-8 sm:p-12`}>
                   <div className="flex flex-wrap items-center gap-3 mb-6">
                     <span className="rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-text-secondary backdrop-blur-sm">
                       {study.category}
@@ -153,7 +145,7 @@ export default function CaseStudiesPage() {
                 </div>
               </AnimatedContainer>
             ))}
-          </motion.div>
+          </div>
 
           {/* CTA */}
           <div className="mt-20 text-center">
