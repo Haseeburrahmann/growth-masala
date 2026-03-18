@@ -10,22 +10,92 @@ interface Message {
 }
 
 const STORAGE_KEY = "gm-chat-history";
+const AUTO_OPENED_KEY = "gm-chat-auto-opened";
+const WHATSAPP_URL = "https://wa.me/918688269427";
+
 const WELCOME_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Hey there! I'm **Masala Bot**, Growth Masala's AI assistant. How can I help with your business growth today?",
+    "👋 Hey! I'm **Masala Bot** — Growth Masala's assistant.\n\nLooking to grow your business online? I can help you get started in 2 minutes.",
 };
+
+// ─── Quick Reply Config ────────────────────────────────────────────────────
+
+type QuickReplyLevel = "main" | "services";
+
+interface QuickReply {
+  id: string;
+  label: string;
+  message?: string;       // sent as user message to bot
+  href?: string;          // if set, opens URL instead of sending to bot
+  nextLevel?: QuickReplyLevel;
+}
+
+const MAIN_QUICK_REPLIES: QuickReply[] = [
+  {
+    id: "book",
+    label: "🛎️ Book a Free Call",
+    message: "I'd like to book a free consultation call",
+  },
+  {
+    id: "services",
+    label: "🚀 Our Services",
+    message: "What services do you offer?",
+    nextLevel: "services",
+  },
+  {
+    id: "quote",
+    label: "💰 Get a Quote",
+    message: "I'd like to get a quote for my business",
+  },
+  {
+    id: "whatsapp",
+    label: "💬 Talk to Us on WhatsApp",
+    href: WHATSAPP_URL,
+  },
+];
+
+const SERVICES_QUICK_REPLIES: QuickReply[] = [
+  {
+    id: "website",
+    label: "🌐 Website Development",
+    message: "Tell me more about website development",
+  },
+  {
+    id: "social",
+    label: "📱 Social Media Management",
+    message: "Tell me more about social media management",
+  },
+  {
+    id: "ads",
+    label: "📊 Performance Marketing / Ads",
+    message: "Tell me more about performance marketing and ads",
+  },
+  {
+    id: "seo",
+    label: "🔍 SEO",
+    message: "Tell me more about your SEO services",
+  },
+];
+
+// ─── Component ─────────────────────────────────────────────────────────────
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showQuickReplies, setShowQuickReplies] = useState(false);
+  const [quickReplyLevel, setQuickReplyLevel] = useState<QuickReplyLevel>("main");
+  const [isTyping, setIsTyping] = useState(false); // fake typing indicator on open
+  const [wiggle, setWiggle] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const hasLoadedRef = useRef(false);
+  const autoOpenTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Load from sessionStorage on mount
+  // ── Load session history ──────────────────────────────────────────────────
   useEffect(() => {
     if (hasLoadedRef.current) return;
     hasLoadedRef.current = true;
@@ -35,79 +105,154 @@ export default function ChatWidget() {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           setMessages(parsed);
+          return; // has history — don't show welcome again
         }
       }
     } catch {}
+    // No history — set welcome message and show chips
+    setMessages([WELCOME_MESSAGE]);
+    setShowQuickReplies(true);
   }, []);
 
-  // Save to sessionStorage on messages change
+  // ── Save session history ──────────────────────────────────────────────────
   useEffect(() => {
-    if (messages.length > 1) {
+    if (messages.length > 0) {
       try {
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
       } catch {}
     }
   }, [messages]);
 
-  // Scroll to bottom on new messages
+  // ── Auto-open logic ───────────────────────────────────────────────────────
+  useEffect(() => {
+    const alreadyAutoOpened = sessionStorage.getItem(AUTO_OPENED_KEY);
+    if (alreadyAutoOpened) return;
+
+    const isDesktop = window.innerWidth >= 768;
+
+    if (isDesktop) {
+      // Desktop: auto-open after 4 seconds with typing indicator
+      autoOpenTimerRef.current = setTimeout(() => {
+        sessionStorage.setItem(AUTO_OPENED_KEY, "1");
+        setIsOpen(true);
+        setIsTyping(true);
+        setTimeout(() => {
+          setIsTyping(false);
+        }, 1500);
+      }, 4000);
+    } else {
+      // Mobile: wiggle the button once after 4 seconds instead of opening
+      autoOpenTimerRef.current = setTimeout(() => {
+        sessionStorage.setItem(AUTO_OPENED_KEY, "1");
+        setWiggle(true);
+        setTimeout(() => setWiggle(false), 1000);
+      }, 4000);
+    }
+
+    return () => {
+      if (autoOpenTimerRef.current) clearTimeout(autoOpenTimerRef.current);
+    };
+  }, []);
+
+  // ── Scroll to bottom on new messages ─────────────────────────────────────
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isLoading]);
+  }, [messages, isLoading, isTyping]);
 
-  // Focus input when opened
+  // ── Focus input when opened ───────────────────────────────────────────────
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 300);
     }
   }, [isOpen]);
 
-  const sendMessage = useCallback(async () => {
-    const trimmed = input.trim();
-    if (!trimmed || isLoading) return;
+  // ── Hide chips when user starts typing ───────────────────────────────────
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+    if (e.target.value.length > 0) {
+      setShowQuickReplies(false);
+    }
+  };
 
-    const userMessage: Message = { role: "user", content: trimmed };
-    const updatedMessages = [...messages, userMessage];
-    setMessages(updatedMessages);
-    setInput("");
-    setIsLoading(true);
+  // ── Send message ──────────────────────────────────────────────────────────
+  const sendMessage = useCallback(
+    async (overrideText?: string) => {
+      const trimmed = (overrideText ?? input).trim();
+      if (!trimmed || isLoading) return;
 
-    try {
-      // Only send user/assistant messages (not the welcome if it's the only one)
-      const apiMessages = updatedMessages.filter(
-        (_, i) => i > 0 || updatedMessages[0].role === "user"
-      );
+      // Hide chips after first real message
+      setShowQuickReplies(false);
 
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: apiMessages }),
-      });
+      const userMessage: Message = { role: "user", content: trimmed };
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
+      setInput("");
+      setIsLoading(true);
 
-      const data = await res.json();
+      try {
+        const apiMessages = updatedMessages.filter(
+          (_, i) => i > 0 || updatedMessages[0].role === "user"
+        );
 
-      if (res.ok && data.reply) {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
-      } else {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: apiMessages }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.reply) {
+          setMessages((prev) => [
+            ...prev,
+            { role: "assistant", content: data.reply },
+          ]);
+        } else {
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: "assistant",
+              content:
+                data.error || "Sorry, something went wrong. Please try again.",
+            },
+          ]);
+        }
+      } catch {
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            content: data.error || "Sorry, something went wrong. Please try again.",
+            content: "Network error. Please check your connection and try again.",
           },
         ]);
+      } finally {
+        setIsLoading(false);
       }
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "Network error. Please check your connection and try again.",
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
+    },
+    [input, isLoading, messages]
+  );
+
+  // ── Handle quick reply click ──────────────────────────────────────────────
+  const handleQuickReply = (reply: QuickReply) => {
+    if (isLoading) return;
+
+    // WhatsApp — open directly
+    if (reply.href) {
+      window.open(reply.href, "_blank", "noopener,noreferrer");
+      return;
     }
-  }, [input, isLoading, messages]);
+
+    // Services — show second level chips, also send message to bot
+    if (reply.nextLevel) {
+      setQuickReplyLevel(reply.nextLevel);
+      setShowQuickReplies(true);
+    }
+
+    // Send message to bot
+    if (reply.message) {
+      sendMessage(reply.message);
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -116,20 +261,33 @@ export default function ChatWidget() {
     }
   };
 
+  const currentQuickReplies =
+    quickReplyLevel === "services" ? SERVICES_QUICK_REPLIES : MAIN_QUICK_REPLIES;
+
+  // ─────────────────────────────────────────────────────────────────────────
   return (
     <div className="fixed right-4 bottom-4 z-50">
-      {/* Chat panel — absolutely positioned above buttons so it NEVER affects button layout */}
+      {/* Chat panel */}
       <div
         className="absolute right-0 flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-2xl"
         style={{
           bottom: "4.5rem",
           width: "min(21rem, calc(100vw - 2rem))",
-          height: "480px",
+          height: "520px",
           transformOrigin: "bottom right",
           transition: "opacity 0.2s ease, transform 0.2s ease, visibility 0.2s",
           ...(isOpen
-            ? { visibility: "visible" as const, opacity: 1, transform: "scale(1) translateY(0px)" }
-            : { visibility: "hidden" as const, opacity: 0, transform: "scale(0.95) translateY(8px)", pointerEvents: "none" as const }),
+            ? {
+                visibility: "visible" as const,
+                opacity: 1,
+                transform: "scale(1) translateY(0px)",
+              }
+            : {
+                visibility: "hidden" as const,
+                opacity: 0,
+                transform: "scale(0.95) translateY(8px)",
+                pointerEvents: "none" as const,
+              }),
         }}
       >
         {/* Header */}
@@ -148,7 +306,7 @@ export default function ChatWidget() {
               <p className="text-sm font-semibold text-white">Masala Bot</p>
               <div className="flex items-center gap-1.5">
                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                <p className="text-[11px] text-white/60">Online</p>
+                <p className="text-[11px] text-white/60">Online • Growth Masala</p>
               </div>
             </div>
           </div>
@@ -180,7 +338,20 @@ export default function ChatWidget() {
             </div>
           ))}
 
-          {/* Typing indicator */}
+          {/* Auto-open fake typing indicator */}
+          {isTyping && (
+            <div className="flex justify-start">
+              <div className="rounded-2xl rounded-bl-md bg-surface px-4 py-3">
+                <div className="flex items-center gap-1">
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:0ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:150ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:300ms]" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Bot responding indicator */}
           {isLoading && (
             <div className="flex justify-start">
               <div className="rounded-2xl rounded-bl-md bg-surface px-4 py-3">
@@ -190,6 +361,27 @@ export default function ChatWidget() {
                   <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:300ms]" />
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* Quick reply chips */}
+          {showQuickReplies && !isLoading && !isTyping && (
+            <div className="flex flex-col gap-2 pt-1">
+              {quickReplyLevel === "services" && (
+                <p className="text-[11px] text-text-secondary/60 px-1">
+                  Which service are you interested in?
+                </p>
+              )}
+              {currentQuickReplies.map((reply) => (
+                <button
+                  key={reply.id}
+                  onClick={() => handleQuickReply(reply)}
+                  disabled={isLoading}
+                  className="w-full rounded-xl border border-border bg-white px-4 py-2.5 text-left text-sm font-medium text-text-primary transition-all hover:border-primary/40 hover:bg-primary/5 hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+                >
+                  {reply.label}
+                </button>
+              ))}
             </div>
           )}
 
@@ -203,14 +395,14 @@ export default function ChatWidget() {
               ref={inputRef}
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
               disabled={isLoading}
               className="flex-1 rounded-xl border border-border bg-surface px-4 py-2.5 text-sm text-text-primary outline-none transition-colors placeholder:text-text-secondary/50 focus:border-primary disabled:opacity-50"
             />
             <button
-              onClick={sendMessage}
+              onClick={() => sendMessage()}
               disabled={!input.trim() || isLoading}
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition-all hover:bg-primary-dark disabled:opacity-40"
               aria-label="Send message"
@@ -228,11 +420,11 @@ export default function ChatWidget() {
         </div>
       </div>
 
-      {/* Floating buttons — always anchored bottom-right, never moved by panel */}
+      {/* Floating buttons */}
       <div className="flex items-center gap-3">
-        {/* WhatsApp button */}
+        {/* WhatsApp */}
         <a
-          href="https://wa.me/918688269427"
+          href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/25 transition-all hover:scale-105 hover:bg-[#1ebe5d] active:scale-95"
@@ -244,10 +436,10 @@ export default function ChatWidget() {
           </svg>
         </a>
 
-        {/* Chat toggle button — always visible, shows open/close state */}
+        {/* Chat toggle */}
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 hover:bg-primary-dark active:scale-95"
+          className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 hover:bg-primary-dark active:scale-95 ${wiggle ? "animate-wiggle" : ""}`}
           aria-label={isOpen ? "Close chat" : "Open chat"}
           style={{ touchAction: "manipulation" }}
         >
@@ -256,7 +448,7 @@ export default function ChatWidget() {
           ) : (
             <>
               <MessageCircle className="h-6 w-6" />
-              {/* Notification dot */}
+              {/* Notification dot — only shown when chat is closed */}
               <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex h-3 w-3 rounded-full bg-accent" />
@@ -269,14 +461,13 @@ export default function ChatWidget() {
   );
 }
 
-// Simple markdown formatter for bold and bullet lists
+// ─── Markdown formatter ────────────────────────────────────────────────────
+
 function FormattedMessage({ content }: { content: string }) {
   const lines = content.split("\n");
-
   return (
     <div className="space-y-1">
       {lines.map((line, i) => {
-        // Bullet list item
         if (line.startsWith("- ")) {
           return (
             <div key={i} className="flex items-start gap-2">
@@ -285,13 +476,7 @@ function FormattedMessage({ content }: { content: string }) {
             </div>
           );
         }
-
-        // Empty line = paragraph break
-        if (!line.trim()) {
-          return <div key={i} className="h-1" />;
-        }
-
-        // Regular text with bold support
+        if (!line.trim()) return <div key={i} className="h-1" />;
         return (
           <p key={i} dangerouslySetInnerHTML={{ __html: boldFormat(line) }} />
         );
