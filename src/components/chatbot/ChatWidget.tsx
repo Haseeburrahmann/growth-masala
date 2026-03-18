@@ -414,9 +414,6 @@ export default function ChatWidget() {
               )}
             </button>
           </div>
-          <p className="mt-1.5 text-center text-[10px] text-text-secondary/40">
-            Powered by Claude AI
-          </p>
         </div>
       </div>
 
