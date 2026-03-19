@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" width="320" height="72">
+  <rect width="320" height="72" fill="#0B1121" rx="8"/>
+  <defs>
+    <linearGradient id="iconGradW" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563EB"/>
+      <stop offset="100%" style="stop-color:#38BDF8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon -->
+  <g transform="translate(14, 12)">
+    <rect x="0"  y="28" width="7" height="12" rx="2" fill="url(#iconGradW)" opacity="0.7"/>
+    <rect x="10" y="20" width="7" height="20" rx="2" fill="url(#iconGradW)" opacity="0.85"/>
+    <rect x="20" y="12" width="7" height="28" rx="2" fill="url(#iconGradW)" opacity="0.92"/>
+    <rect x="30" y="4"  width="7" height="36" rx="2" fill="url(#iconGradW)"/>
+    <path d="M3 38 Q18 14 38 2" stroke="#38BDF8" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <polygon points="38,2 30,5 36,11" fill="#38BDF8"/>
+  </g>
+
+  <!-- Wordmark on dark -->
+  <text x="70" y="30" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="21" fill="#FFFFFF" letter-spacing="-0.3">Growth</text>
+  <text x="70" y="55" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="21" fill="#38BDF8" letter-spacing="-0.3">Masala</text>
+</svg>

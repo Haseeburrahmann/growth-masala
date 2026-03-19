@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <defs>
+    <linearGradient id="markGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1D4ED8"/>
+      <stop offset="100%" style="stop-color:#38BDF8"/>
+    </linearGradient>
+  </defs>
+  <!-- Bars -->
+  <rect x="4"  y="36" width="8" height="16" rx="2" fill="url(#markGrad)" opacity="0.65"/>
+  <rect x="16" y="26" width="8" height="26" rx="2" fill="url(#markGrad)" opacity="0.8"/>
+  <rect x="28" y="16" width="8" height="36" rx="2" fill="url(#markGrad)" opacity="0.92"/>
+  <rect x="40" y="6"  width="8" height="46" rx="2" fill="url(#markGrad)"/>
+  <!-- Curved arrow -->
+  <path d="M6 50 Q26 18 50 6" stroke="#38BDF8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <polygon points="50,6 41,10 48,17" fill="#38BDF8"/>
+</svg>

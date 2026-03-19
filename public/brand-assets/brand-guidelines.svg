@@ -1,0 +1,291 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1800" width="1200" height="1800" font-family="Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="1200" height="1800" fill="#F8FAFC"/>
+
+  <!-- ─── HEADER ─────────────────────────────────────────── -->
+  <rect width="1200" height="120" fill="#0B1121"/>
+  <text x="48" y="52" font-family="Arial" font-weight="700" font-size="28" fill="#FFFFFF">Growth</text>
+  <text x="160" y="52" font-family="Arial" font-weight="700" font-size="28" fill="#38BDF8">Masala</text>
+  <text x="48" y="82" font-family="Arial" font-weight="400" font-size="16" fill="#94A3B8">Brand Guidelines — Version 1.0</text>
+  <text x="1152" y="67" font-family="Arial" font-weight="400" font-size="14" fill="#64748B" text-anchor="end">growthmasala.com</text>
+
+  <!-- ─── SECTION 1: LOGO ──────────────────────────────────── -->
+  <text x="48" y="172" font-family="Arial" font-weight="700" font-size="11" fill="#2563EB" letter-spacing="3">01  /  LOGO</text>
+  <line x1="48" y1="180" x2="1152" y2="180" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Logo on white -->
+  <rect x="48" y="196" width="340" height="140" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="68" y="224" font-family="Arial" font-size="11" fill="#94A3B8">On White</text>
+  <!-- Icon -->
+  <g transform="translate(100, 238)">
+    <rect x="0"  y="32" width="9" height="14" rx="2" fill="#1D4ED8" opacity="0.7"/>
+    <rect x="13" y="22" width="9" height="24" rx="2" fill="#1D4ED8" opacity="0.85"/>
+    <rect x="26" y="13" width="9" height="33" rx="2" fill="#2563EB" opacity="0.92"/>
+    <rect x="39" y="4"  width="9" height="42" rx="2" fill="#2563EB"/>
+    <path d="M4 44 Q24 14 50 4" stroke="#38BDF8" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <polygon points="50,4 41,8 48,15" fill="#38BDF8"/>
+  </g>
+  <text x="162" y="264" font-family="Arial" font-weight="700" font-size="24" fill="#0F172A">Growth</text>
+  <text x="162" y="294" font-family="Arial" font-weight="700" font-size="24" fill="#2563EB">Masala</text>
+  <text x="68" y="326" font-family="Arial" font-size="10" fill="#94A3B8">Primary — use on white or light surfaces</text>
+
+  <!-- Logo on dark -->
+  <rect x="420" y="196" width="340" height="140" rx="12" fill="#0B1121"/>
+  <text x="440" y="224" font-family="Arial" font-size="11" fill="#475569">On Dark</text>
+  <g transform="translate(472, 238)">
+    <rect x="0"  y="32" width="9" height="14" rx="2" fill="#3B82F6" opacity="0.7"/>
+    <rect x="13" y="22" width="9" height="24" rx="2" fill="#3B82F6" opacity="0.85"/>
+    <rect x="26" y="13" width="9" height="33" rx="2" fill="#38BDF8" opacity="0.92"/>
+    <rect x="39" y="4"  width="9" height="42" rx="2" fill="#38BDF8"/>
+    <path d="M4 44 Q24 14 50 4" stroke="#38BDF8" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <polygon points="50,4 41,8 48,15" fill="#38BDF8"/>
+  </g>
+  <text x="534" y="264" font-family="Arial" font-weight="700" font-size="24" fill="#FFFFFF">Growth</text>
+  <text x="534" y="294" font-family="Arial" font-weight="700" font-size="24" fill="#38BDF8">Masala</text>
+  <text x="440" y="326" font-family="Arial" font-size="10" fill="#475569">Reversed — use on dark surfaces</text>
+
+  <!-- Mark only -->
+  <rect x="792" y="196" width="360" height="140" rx="12" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="812" y="224" font-family="Arial" font-size="11" fill="#94A3B8">Mark Only</text>
+  <g transform="translate(900, 228)">
+    <rect x="0"  y="32" width="10" height="16" rx="2" fill="#1D4ED8" opacity="0.65"/>
+    <rect x="14" y="22" width="10" height="26" rx="2" fill="#1D4ED8" opacity="0.8"/>
+    <rect x="28" y="12" width="10" height="36" rx="2" fill="#2563EB" opacity="0.92"/>
+    <rect x="42" y="2"  width="10" height="46" rx="2" fill="#2563EB"/>
+    <path d="M4 48 Q28 14 54 2" stroke="#38BDF8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <polygon points="54,2 44,7 52,15" fill="#38BDF8"/>
+  </g>
+  <text x="812" y="326" font-family="Arial" font-size="10" fill="#94A3B8">Icon — use when space is limited</text>
+
+  <!-- Do / Don't -->
+  <rect x="48" y="356" width="250" height="60" rx="8" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="68" y="380" font-family="Arial" font-weight="700" font-size="12" fill="#DC2626">✕  Don't</text>
+  <text x="68" y="400" font-family="Arial" font-size="11" fill="#B91C1C">Don't stretch, rotate, or recolour the logo</text>
+  <rect x="320" y="356" width="250" height="60" rx="8" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5"/>
+  <text x="340" y="380" font-family="Arial" font-weight="700" font-size="12" fill="#16A34A">✓  Do</text>
+  <text x="340" y="400" font-family="Arial" font-size="11" fill="#15803D">Keep clear space equal to the "G" height around the logo</text>
+
+  <!-- ─── SECTION 2: COLOUR PALETTE ──────────────────────────── -->
+  <text x="48" y="472" font-family="Arial" font-weight="700" font-size="11" fill="#2563EB" letter-spacing="3">02  /  COLOUR PALETTE</text>
+  <line x1="48" y1="480" x2="1152" y2="480" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Swatch row 1: Primary colours -->
+  <text x="48" y="504" font-family="Arial" font-weight="600" font-size="12" fill="#475569">Primary</text>
+
+  <!-- Primary Blue -->
+  <rect x="48"  y="516" width="160" height="100" rx="10" fill="#2563EB"/>
+  <rect x="48"  y="586" width="160" height="30"  rx="0 0 10 10" fill="#1D4ED8"/>
+  <text x="68"  y="545" font-family="Arial" font-weight="700" font-size="14" fill="#FFFFFF">Primary Blue</text>
+  <text x="68"  y="568" font-family="Arial" font-size="11" fill="#BFDBFE">#2563EB</text>
+  <text x="68"  y="607" font-family="Arial" font-size="10" fill="#93C5FD">Dark: #1D4ED8</text>
+
+  <!-- Secondary Blue -->
+  <rect x="228" y="516" width="160" height="100" rx="10" fill="#3B82F6"/>
+  <rect x="228" y="586" width="160" height="30"  rx="0 0 10 10" fill="#2563EB"/>
+  <text x="248" y="545" font-family="Arial" font-weight="700" font-size="14" fill="#FFFFFF">Secondary Blue</text>
+  <text x="248" y="568" font-family="Arial" font-size="11" fill="#BFDBFE">#3B82F6</text>
+  <text x="248" y="607" font-family="Arial" font-size="10" fill="#93C5FD">Light variant</text>
+
+  <!-- Sky / Highlight -->
+  <rect x="408" y="516" width="160" height="100" rx="10" fill="#38BDF8"/>
+  <rect x="408" y="586" width="160" height="30"  rx="0 0 10 10" fill="#0284C7"/>
+  <text x="428" y="545" font-family="Arial" font-weight="700" font-size="14" fill="#0F172A">Sky Blue</text>
+  <text x="428" y="568" font-family="Arial" font-size="11" fill="#0F172A">#38BDF8</text>
+  <text x="428" y="607" font-family="Arial" font-size="10" fill="#0369A1">Used in gradients &amp; icon</text>
+
+  <!-- Accent Amber -->
+  <rect x="588" y="516" width="160" height="100" rx="10" fill="#F59E0B"/>
+  <rect x="588" y="586" width="160" height="30"  rx="0 0 10 10" fill="#D97706"/>
+  <text x="608" y="545" font-family="Arial" font-weight="700" font-size="14" fill="#0F172A">Accent Amber</text>
+  <text x="608" y="568" font-family="Arial" font-size="11" fill="#0F172A">#F59E0B</text>
+  <text x="608" y="607" font-family="Arial" font-size="10" fill="#78350F">Highlights &amp; CTA text</text>
+
+  <!-- Navy Dark -->
+  <rect x="768" y="516" width="160" height="100" rx="10" fill="#0B1121"/>
+  <rect x="768" y="586" width="160" height="30"  rx="0 0 10 10" fill="#111B33"/>
+  <text x="788" y="545" font-family="Arial" font-weight="700" font-size="14" fill="#FFFFFF">Navy Dark</text>
+  <text x="788" y="568" font-family="Arial" font-size="11" fill="#94A3B8">#0B1121</text>
+  <text x="788" y="607" font-family="Arial" font-size="10" fill="#64748B">Hero &amp; dark sections</text>
+
+  <!-- Navy Light -->
+  <rect x="948" y="516" width="204" height="100" rx="10" fill="#111B33"/>
+  <rect x="948" y="586" width="204" height="30"  rx="0 0 10 10" fill="#0B1121"/>
+  <text x="968" y="545" font-family="Arial" font-weight="700" font-size="14" fill="#FFFFFF">Navy Light</text>
+  <text x="968" y="568" font-family="Arial" font-size="11" fill="#94A3B8">#111B33</text>
+  <text x="968" y="607" font-family="Arial" font-size="10" fill="#64748B">Navbar surface</text>
+
+  <!-- Swatch row 2: Neutral colours -->
+  <text x="48" y="672" font-family="Arial" font-weight="600" font-size="12" fill="#475569">Neutral &amp; Text</text>
+
+  <rect x="48"  y="684" width="130" height="70" rx="10" fill="#0F172A"/>
+  <text x="68"  y="710" font-family="Arial" font-weight="700" font-size="12" fill="#FFFFFF">Text Primary</text>
+  <text x="68"  y="730" font-family="Arial" font-size="10" fill="#94A3B8">#0F172A</text>
+
+  <rect x="198" y="684" width="130" height="70" rx="10" fill="#475569"/>
+  <text x="218" y="710" font-family="Arial" font-weight="700" font-size="12" fill="#FFFFFF">Text Secondary</text>
+  <text x="218" y="730" font-family="Arial" font-size="10" fill="#CBD5E1">#475569</text>
+
+  <rect x="348" y="684" width="130" height="70" rx="10" fill="#94A3B8"/>
+  <text x="368" y="710" font-family="Arial" font-weight="700" font-size="12" fill="#FFFFFF">Text Muted</text>
+  <text x="368" y="730" font-family="Arial" font-size="10" fill="#F8FAFC">#94A3B8</text>
+
+  <rect x="498" y="684" width="130" height="70" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="518" y="710" font-family="Arial" font-weight="700" font-size="12" fill="#0F172A">Surface</text>
+  <text x="518" y="730" font-family="Arial" font-size="10" fill="#94A3B8">#F8FAFC</text>
+
+  <rect x="648" y="684" width="130" height="70" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="668" y="710" font-family="Arial" font-weight="700" font-size="12" fill="#0F172A">White</text>
+  <text x="668" y="730" font-family="Arial" font-size="10" fill="#94A3B8">#FFFFFF</text>
+
+  <rect x="798" y="684" width="130" height="70" rx="10" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="818" y="710" font-family="Arial" font-weight="700" font-size="12" fill="#0F172A">Border</text>
+  <text x="818" y="730" font-family="Arial" font-size="10" fill="#64748B">#E2E8F0</text>
+
+  <!-- ─── SECTION 3: TYPOGRAPHY ──────────────────────────────── -->
+  <text x="48" y="808" font-family="Arial" font-weight="700" font-size="11" fill="#2563EB" letter-spacing="3">03  /  TYPOGRAPHY</text>
+  <line x1="48" y1="816" x2="1152" y2="816" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Font 1: Poppins -->
+  <rect x="48" y="832" width="540" height="300" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <rect x="48" y="832" width="540" height="48" rx="12 12 0 0" fill="#0B1121"/>
+  <text x="72" y="862" font-family="Arial" font-weight="700" font-size="14" fill="#FFFFFF">Poppins</text>
+  <text x="348" y="862" font-family="Arial" font-size="12" fill="#94A3B8" text-anchor="middle">Heading Font</text>
+  <text x="564" y="862" font-family="Arial" font-size="11" fill="#64748B" text-anchor="end">Google Fonts</text>
+
+  <text x="72" y="914" font-family="Arial" font-weight="700" font-size="36" fill="#0F172A">Aa Bb Cc</text>
+  <text x="72" y="952" font-family="Arial" font-weight="700" font-size="18" fill="#0F172A">ABCDEFGHIJKLMNOPQRSTUVWXYZ</text>
+  <text x="72" y="978" font-family="Arial" font-weight="400" font-size="18" fill="#475569">abcdefghijklmnopqrstuvwxyz</text>
+  <text x="72" y="1004" font-family="Arial" font-size="16" fill="#475569">0123456789 !@#$%&amp;</text>
+
+  <line x1="72" y1="1018" x2="564" y2="1018" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="72"  y="1040" font-family="Arial" font-weight="700" font-size="11" fill="#94A3B8">WEIGHTS USED</text>
+  <text x="72"  y="1060" font-family="Arial" font-weight="400" font-size="13" fill="#475569">SemiBold 600 — Subheadings</text>
+  <text x="72"  y="1078" font-family="Arial" font-weight="700" font-size="13" fill="#475569">Bold 700 — Headings &amp; Logo</text>
+  <text x="72"  y="1096" font-family="Arial" font-size="13" fill="#475569">ExtraBold 800 — Hero display</text>
+  <text x="72"  y="1116" font-family="Arial" font-size="11" fill="#94A3B8">Use: H1, H2, H3, navbar, buttons, logo</text>
+
+  <!-- Font 2: Inter -->
+  <rect x="612" y="832" width="540" height="300" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <rect x="612" y="832" width="540" height="48" rx="12 12 0 0" fill="#2563EB"/>
+  <text x="636" y="862" font-family="Arial" font-weight="700" font-size="14" fill="#FFFFFF">Inter</text>
+  <text x="912" y="862" font-family="Arial" font-size="12" fill="#BFDBFE" text-anchor="middle">Body Font</text>
+  <text x="1128" y="862" font-family="Arial" font-size="11" fill="#BFDBFE" text-anchor="end">Google Fonts</text>
+
+  <text x="636" y="914" font-family="Arial" font-size="36" fill="#0F172A">Aa Bb Cc</text>
+  <text x="636" y="952" font-family="Arial" font-weight="400" font-size="18" fill="#0F172A">ABCDEFGHIJKLMNOPQRSTUVWXYZ</text>
+  <text x="636" y="978" font-family="Arial" font-size="18" fill="#475569">abcdefghijklmnopqrstuvwxyz</text>
+  <text x="636" y="1004" font-family="Arial" font-size="16" fill="#475569">0123456789 !@#$%&amp;</text>
+
+  <line x1="636" y1="1018" x2="1128" y2="1018" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="636" y="1040" font-family="Arial" font-weight="700" font-size="11" fill="#94A3B8">WEIGHTS USED</text>
+  <text x="636" y="1060" font-family="Arial" font-size="13" fill="#475569">Regular 400 — Body text, paragraphs</text>
+  <text x="636" y="1078" font-family="Arial" font-weight="700" font-size="13" fill="#475569">Medium 500 — Labels, captions, links</text>
+  <text x="636" y="1096" font-family="Arial" font-size="13" fill="#475569">SemiBold 600 — Strong emphasis</text>
+  <text x="636" y="1116" font-family="Arial" font-size="11" fill="#94A3B8">Use: paragraphs, nav links, descriptions, forms</text>
+
+  <!-- ─── SECTION 4: TYPE SCALE ──────────────────────────────── -->
+  <text x="48" y="1192" font-family="Arial" font-weight="700" font-size="11" fill="#2563EB" letter-spacing="3">04  /  TYPE SCALE</text>
+  <line x1="48" y1="1200" x2="1152" y2="1200" stroke="#E2E8F0" stroke-width="1"/>
+
+  <rect x="48" y="1216" width="1104" height="360" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+  <!-- Headers row -->
+  <text x="72"  y="1246" font-family="Arial" font-weight="700" font-size="9" fill="#94A3B8" letter-spacing="2">STYLE</text>
+  <text x="240" y="1246" font-family="Arial" font-weight="700" font-size="9" fill="#94A3B8" letter-spacing="2">SIZE</text>
+  <text x="340" y="1246" font-family="Arial" font-weight="700" font-size="9" fill="#94A3B8" letter-spacing="2">WEIGHT</text>
+  <text x="480" y="1246" font-family="Arial" font-weight="700" font-size="9" fill="#94A3B8" letter-spacing="2">FONT</text>
+  <text x="620" y="1246" font-family="Arial" font-weight="700" font-size="9" fill="#94A3B8" letter-spacing="2">USAGE</text>
+  <line x1="72" y1="1254" x2="1128" y2="1254" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- H1 -->
+  <text x="72"  y="1290" font-family="Arial" font-weight="700" font-size="36" fill="#0F172A">H1 Display</text>
+  <text x="240" y="1290" font-family="Arial" font-size="13" fill="#475569">56–72px</text>
+  <text x="340" y="1290" font-family="Arial" font-size="13" fill="#475569">Bold 700</text>
+  <text x="480" y="1290" font-family="Arial" font-size="13" fill="#2563EB">Poppins</text>
+  <text x="620" y="1290" font-family="Arial" font-size="13" fill="#475569">Hero headlines</text>
+  <line x1="72" y1="1302" x2="1128" y2="1302" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- H2 -->
+  <text x="72"  y="1332" font-family="Arial" font-weight="700" font-size="26" fill="#0F172A">H2 Section</text>
+  <text x="240" y="1332" font-family="Arial" font-size="13" fill="#475569">36–44px</text>
+  <text x="340" y="1332" font-family="Arial" font-size="13" fill="#475569">Bold 700</text>
+  <text x="480" y="1332" font-family="Arial" font-size="13" fill="#2563EB">Poppins</text>
+  <text x="620" y="1332" font-family="Arial" font-size="13" fill="#475569">Section titles</text>
+  <line x1="72" y1="1344" x2="1128" y2="1344" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- H3 -->
+  <text x="72"  y="1370" font-family="Arial" font-weight="700" font-size="20" fill="#0F172A">H3 Subsection</text>
+  <text x="240" y="1370" font-family="Arial" font-size="13" fill="#475569">24–28px</text>
+  <text x="340" y="1370" font-family="Arial" font-size="13" fill="#475569">SemiBold 600</text>
+  <text x="480" y="1370" font-family="Arial" font-size="13" fill="#2563EB">Poppins</text>
+  <text x="620" y="1370" font-family="Arial" font-size="13" fill="#475569">Card titles, service names</text>
+  <line x1="72" y1="1382" x2="1128" y2="1382" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Body Large -->
+  <text x="72"  y="1406" font-family="Arial" font-size="16" fill="#475569">Body Large — Regular paragraph text</text>
+  <text x="240" y="1406" font-family="Arial" font-size="13" fill="#475569">18–20px</text>
+  <text x="340" y="1406" font-family="Arial" font-size="13" fill="#475569">Regular 400</text>
+  <text x="480" y="1406" font-family="Arial" font-size="13" fill="#2563EB">Inter</text>
+  <text x="620" y="1406" font-family="Arial" font-size="13" fill="#475569">Intro paragraphs</text>
+  <line x1="72" y1="1418" x2="1128" y2="1418" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Body -->
+  <text x="72"  y="1440" font-family="Arial" font-size="14" fill="#475569">Body — Standard content text</text>
+  <text x="240" y="1440" font-family="Arial" font-size="13" fill="#475569">16px</text>
+  <text x="340" y="1440" font-family="Arial" font-size="13" fill="#475569">Regular 400</text>
+  <text x="480" y="1440" font-family="Arial" font-size="13" fill="#2563EB">Inter</text>
+  <text x="620" y="1440" font-family="Arial" font-size="13" fill="#475569">Descriptions, body copy</text>
+  <line x1="72" y1="1452" x2="1128" y2="1452" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Caption -->
+  <text x="72"  y="1472" font-family="Arial" font-size="12" fill="#94A3B8">Caption / Label — Supporting text</text>
+  <text x="240" y="1472" font-family="Arial" font-size="13" fill="#475569">12–14px</text>
+  <text x="340" y="1472" font-family="Arial" font-size="13" fill="#475569">Medium 500</text>
+  <text x="480" y="1472" font-family="Arial" font-size="13" fill="#2563EB">Inter</text>
+  <text x="620" y="1472" font-family="Arial" font-size="13" fill="#475569">Tags, dates, metadata</text>
+
+  <!-- ─── SECTION 5: COMPONENTS ──────────────────────────────── -->
+  <text x="48" y="1628" font-family="Arial" font-weight="700" font-size="11" fill="#2563EB" letter-spacing="3">05  /  COMPONENTS</text>
+  <line x1="48" y1="1636" x2="1152" y2="1636" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Primary Button -->
+  <rect x="48" y="1656" width="180" height="48" rx="24" fill="#2563EB"/>
+  <text x="138" y="1685" font-family="Arial" font-weight="700" font-size="14" fill="#FFFFFF" text-anchor="middle">Get Started →</text>
+  <text x="138" y="1722" font-family="Arial" font-size="11" fill="#94A3B8" text-anchor="middle">Primary CTA</text>
+
+  <!-- Secondary Button -->
+  <rect x="256" y="1656" width="180" height="48" rx="24" fill="none" stroke="#2563EB" stroke-width="2"/>
+  <text x="346" y="1685" font-family="Arial" font-weight="700" font-size="14" fill="#2563EB" text-anchor="middle">Our Work ↗</text>
+  <text x="346" y="1722" font-family="Arial" font-size="11" fill="#94A3B8" text-anchor="middle">Secondary CTA</text>
+
+  <!-- Badge -->
+  <rect x="464" y="1666" width="130" height="30" rx="15" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+  <text x="529" y="1686" font-family="Arial" font-weight="600" font-size="12" fill="#2563EB" text-anchor="middle">⚡ Digital Marketing</text>
+  <text x="529" y="1722" font-family="Arial" font-size="11" fill="#94A3B8" text-anchor="middle">Badge / Tag</text>
+
+  <!-- Card -->
+  <rect x="624" y="1648" width="240" height="90" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <rect x="640" y="1664" width="36" height="36" rx="8" fill="#EFF6FF"/>
+  <text x="658" y="1687" font-family="Arial" font-weight="700" font-size="16" fill="#2563EB" text-anchor="middle">↗</text>
+  <text x="688" y="1678" font-family="Arial" font-weight="700" font-size="13" fill="#0F172A">Service Card</text>
+  <text x="688" y="1696" font-family="Arial" font-size="11" fill="#94A3B8">White · border · radius 12</text>
+  <text x="688" y="1714" font-family="Arial" font-size="11" fill="#94A3B8">Hover: shadow + blue accent</text>
+
+  <!-- Gradient pill -->
+  <defs>
+    <linearGradient id="pillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563EB"/>
+      <stop offset="100%" style="stop-color:#38BDF8"/>
+    </linearGradient>
+  </defs>
+  <rect x="892" y="1666" width="260" height="30" rx="15" fill="url(#pillGrad)"/>
+  <text x="1022" y="1686" font-family="Arial" font-weight="700" font-size="12" fill="#FFFFFF" text-anchor="middle">Your Growth Partner • India 🔥</text>
+  <text x="1022" y="1722" font-family="Arial" font-size="11" fill="#94A3B8" text-anchor="middle">Gradient accent pill</text>
+
+  <!-- ─── FOOTER ──────────────────────────────────────────────── -->
+  <rect x="0" y="1756" width="1200" height="44" fill="#0B1121"/>
+  <text x="48" y="1782" font-family="Arial" font-size="12" fill="#475569">© 2026 Growth Masala. All brand elements are proprietary and may not be reproduced without permission.</text>
+  <text x="1152" y="1782" font-family="Arial" font-size="12" fill="#475569" text-anchor="end">v1.0 — March 2026</text>
+
+</svg>
