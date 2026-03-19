@@ -379,3 +379,35 @@ NEXT_PUBLIC_SITE_URL=https://growthmasala.com
 8. Chatbot must gracefully handle API errors
 9. No placeholder text in production — use real copy from the content guide
 10. Test on Chrome, Firefox, Safari, and mobile browsers
+
+---
+
+## ⚠️ Mistakes to Never Repeat
+
+### 1. Creating visual assets without checking brand guidelines first
+**What happened:** OG image was created using orange (`#f97316`) and purple — completely wrong colours. The actual brand uses blue (`#2563EB`) primary, amber (`#F59E0B`) accent, and navy (`#0B1121`) background. A chili 🌶 emoji was used as the logo instead of the actual bar chart + trend line logo mark.
+
+**Rule:** Before creating ANY visual asset (OG images, banners, thumbnails, email headers, social graphics, etc.) you MUST:
+1. Read `public/brand-assets/brand-guidelines.svg` to confirm the exact colour hex values, logo mark, and typography
+2. Cross-check against `src/app/globals.css` CSS variables (`--color-primary`, `--color-accent`, `--color-navy`, etc.)
+3. Use the actual logo SVG paths from `public/brand-assets/logo-mark.svg` — never approximate or substitute with an emoji
+
+**Brand colours (locked):**
+```
+Primary:    #2563EB  (blue-600)
+Secondary:  #3B82F6  (blue-500)
+Accent:     #F59E0B  (amber)
+Navy BG:    #0B1121
+Text grad:  linear-gradient(135deg, #2563EB, #3B82F6, #F59E0B)
+Logo:       Bar chart bars (blue) + upward trend line arrow (amber)
+```
+
+### 2. Triple H1 tags on a single page
+**What happened:** HeroSection.tsx had three separate `<h1>` tags (one per line of the stacked headline) to achieve a visual multi-line effect. Google expects exactly one H1 per page.
+
+**Rule:** A page must have exactly ONE `<h1>`. For multi-line visual headlines, use a single `<h1>` with `<span className="block">` for each visual line — never multiple `<h1>` elements.
+
+### 3. Checking diffs from feature branches after merging — not the actual files
+**What happened:** After merging two feature branches, `git diff main feature/branch` showed large diffs that looked alarming. These diffs were just showing the feature branches as stale/behind main — not indicating missing code. The actual files on main were correct.
+
+**Rule:** After merging, verify the actual state of files on main directly (`grep` / `Read` the files) rather than reading cross-branch diffs which can be misleading.
