@@ -42,23 +42,25 @@ export default function HeroSection() {
 
             {/* Headline — oversized, stacked */}
             <div>
-              <h1
-                className="animate-hero-reveal font-heading text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl"
-                style={{ animationDelay: "150ms" }}
-              >
-                Spice Up
-              </h1>
-              <h1
-                className="animate-hero-reveal font-heading text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl"
-                style={{ animationDelay: "300ms" }}
-              >
-                <span className="text-gradient">Your Brand</span>
-              </h1>
-              <h1
-                className="animate-hero-reveal font-heading text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl"
-                style={{ animationDelay: "450ms" }}
-              >
-                Growth<span className="text-accent">.</span>
+              <h1 className="font-heading text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl">
+                <span
+                  className="block animate-hero-reveal text-white"
+                  style={{ animationDelay: "150ms" }}
+                >
+                  Spice Up
+                </span>
+                <span
+                  className="block animate-hero-reveal"
+                  style={{ animationDelay: "300ms" }}
+                >
+                  <span className="text-gradient">Your Brand</span>
+                </span>
+                <span
+                  className="block animate-hero-reveal text-white"
+                  style={{ animationDelay: "450ms" }}
+                >
+                  Growth<span className="text-accent">.</span>
+                </span>
               </h1>
             </div>
 
