@@ -67,12 +67,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     siteName: "Growth Masala",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Growth Masala — Digital Marketing Agency in Mahabubnagar, Telangana",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Growth Masala — Spice Up Your Brand Growth",
     description:
       "Digital marketing agency offering website development, social media growth, and performance marketing.",
+    images: ["/images/og-image.png"],
   },
   robots: {
     index: true,
