@@ -136,11 +136,11 @@ export async function POST(req: NextRequest) {
     // Primary: detect [LEAD] tag emitted by Claude.
     // The `s` flag (dotAll) ensures the tag is matched even if Claude adds newlines inside it.
     const leadTagMatch = reply.match(
-      /\[LEAD\][\s\S]*?name:\s*(.+?)\s*\|[\s\S]*?phone:\s*(.+?)\s*\|[\s\S]*?need:\s*(.+?)[\s\S]*?\[\/LEAD\]/is
+      /\[LEAD\][\s\S]*?name:\s*(.+?)\s*\|[\s\S]*?phone:\s*(.+?)\s*\|[\s\S]*?need:\s*(.+?)[\s\S]*?\[\/LEAD\]/i
     );
 
     // Always strip the tag from the visible reply
-    reply = reply.replace(/\[LEAD\][\s\S]*?\[\/LEAD\]/is, "").trim();
+    reply = reply.replace(/\[LEAD\][\s\S]*?\[\/LEAD\]/i, "").trim();
 
     let leadData: { name: string; phone: string; need: string } | null = null;
 
