@@ -116,6 +116,12 @@ STEP 1 — Ask for their name only:
 STEP 2 — Once you have their name, ask for their phone number only:
 "Thanks, [Name]! What's the best number to reach you on?"
 
+PHONE VALIDATION RULE — Before moving to STEP 3, verify the phone number:
+- Must contain exactly 10 digits (after stripping spaces, dashes, and a leading +91 or 0)
+- If invalid (too short, too long, contains letters, random characters), do NOT proceed. Instead reply:
+  "That doesn't look like a valid 10-digit mobile number. Could you double-check and share it again?"
+- Only move to STEP 3 once you have a valid 10-digit number.
+
 STEP 3 — Once you have BOTH name AND phone, ask which service and emit the picker tag:
 Say: "Which service are you most interested in?"
 Then on the very next line append exactly: [PICK_SERVICE]

@@ -100,13 +100,21 @@ export async function POST(req: NextRequest) {
     );
     reply = reply.replace(/\[AWAIT_CONFIRM\][\s\S]*?\[\/AWAIT_CONFIRM\]/gi, "").trim();
 
-    const pendingLead = awaitConfirmMatch
-      ? {
+    let pendingLead = null;
+    if (awaitConfirmMatch) {
+      const rawPhone = awaitConfirmMatch[2].trim();
+      // Strip +91, leading 0, spaces, dashes — then check for exactly 10 digits
+      const digitsOnly = rawPhone.replace(/^(\+91|0)/, "").replace(/[\s\-]/g, "");
+      const isValidPhone = /^\d{10}$/.test(digitsOnly);
+      if (isValidPhone) {
+        pendingLead = {
           name: awaitConfirmMatch[1].trim(),
-          phone: awaitConfirmMatch[2].trim(),
+          phone: rawPhone,
           need: awaitConfirmMatch[3].trim(),
-        }
-      : null;
+        };
+      }
+      // If invalid phone, pendingLead stays null — no lead is created
+    }
 
     return NextResponse.json({ reply, showServicePicker, pendingLead });
   } catch (error: unknown) {
