@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/chatbot";
-import { sendLeadEmail } from "@/lib/email";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -12,10 +11,6 @@ interface ChatMessage {
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT = 20; // requests per window
 const RATE_WINDOW = 60 * 1000; // 1 minute
-
-// Deduplication: track phone numbers already emailed in this server instance
-// Prevents duplicate emails when Claude re-emits the tag on follow-up messages
-const capturedLeadPhones = new Set<string>();
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -28,42 +23,6 @@ function isRateLimited(ip: string): boolean {
 
   entry.count++;
   return entry.count > RATE_LIMIT;
-}
-
-/** Strip spaces/dashes so "+91 98765 43210" and "9876543210" are treated as the same phone */
-function normalizePhone(phone: string): string {
-  return phone.replace(/[\s\-\(\)]/g, "");
-}
-
-/**
- * Fallback: scan user messages in the conversation for a phone number + name.
- * Used when Claude forgets to emit the [LEAD] tag.
- */
-function extractLeadFromHistory(
-  messages: ChatMessage[]
-): { name: string; phone: string; need: string } | null {
-  const userText = messages
-    .filter((m) => m.role === "user")
-    .map((m) => m.content)
-    .join("\n");
-
-  // Match Indian mobile numbers — +91 prefix optional, must start with 6–9, 10 digits
-  const phoneMatch = userText.match(/(?:\+91[-\s]?)?[6-9]\d{9}/);
-  if (!phoneMatch) return null;
-
-  // Try to extract name from common patterns
-  const nameMatch = userText.match(
-    /(?:my name is|i['']?m|i am|this is|name[:\s]+)\s*([A-Za-z]+(?:\s+[A-Za-z]+)?)/i
-  );
-  const name = nameMatch ? nameMatch[1].trim() : "Unknown";
-
-  // Try to extract service interest
-  const needMatch = userText.match(
-    /(website|social media|instagram|facebook|ads?|marketing|e-commerce|landing page)/i
-  );
-  const need = needMatch ? needMatch[1] : "Not specified";
-
-  return { name, phone: phoneMatch[0], need };
 }
 
 export async function POST(req: NextRequest) {
@@ -120,7 +79,7 @@ export async function POST(req: NextRequest) {
 
     const response = await client.messages.create({
       model: "claude-sonnet-4-6",
-      max_tokens: 350,
+      max_tokens: 400,
       system: SYSTEM_PROMPT,
       messages: sanitizedMessages,
     });
@@ -131,49 +90,25 @@ export async function POST(req: NextRequest) {
       ? textBlock.text
       : "Sorry, I couldn't generate a response. Please try again.";
 
-    // --- LEAD DETECTION ---
+    // ── Detect and strip [PICK_SERVICE] tag ───────────────────────────────
+    const showServicePicker = /\[PICK_SERVICE\]/i.test(reply);
+    reply = reply.replace(/\[PICK_SERVICE\]/gi, "").trim();
 
-    // Primary: detect [LEAD] tag emitted by Claude.
-    // The `s` flag (dotAll) ensures the tag is matched even if Claude adds newlines inside it.
-    const leadTagMatch = reply.match(
-      /\[LEAD\][\s\S]*?name:\s*(.+?)\s*\|[\s\S]*?phone:\s*(.+?)\s*\|[\s\S]*?need:\s*(.+?)[\s\S]*?\[\/LEAD\]/i
+    // ── Detect and strip [AWAIT_CONFIRM] tag ──────────────────────────────
+    const awaitConfirmMatch = reply.match(
+      /\[AWAIT_CONFIRM\]\s*name:\s*(.+?)\s*\|\s*phone:\s*(.+?)\s*\|\s*need:\s*(.+?)\s*\[\/AWAIT_CONFIRM\]/i
     );
+    reply = reply.replace(/\[AWAIT_CONFIRM\][\s\S]*?\[\/AWAIT_CONFIRM\]/gi, "").trim();
 
-    // Always strip the tag from the visible reply
-    reply = reply.replace(/\[LEAD\][\s\S]*?\[\/LEAD\]/i, "").trim();
-
-    let leadData: { name: string; phone: string; need: string } | null = null;
-
-    if (leadTagMatch) {
-      leadData = {
-        name: leadTagMatch[1].trim(),
-        phone: leadTagMatch[2].trim(),
-        need: leadTagMatch[3].trim(),
-      };
-    } else {
-      // Fallback: Claude forgot the tag — extract from conversation history directly
-      leadData = extractLeadFromHistory(sanitizedMessages);
-    }
-
-    // Send email if we have a lead and haven't already emailed this phone number
-    if (leadData) {
-      const phoneKey = normalizePhone(leadData.phone);
-      if (!capturedLeadPhones.has(phoneKey)) {
-        capturedLeadPhones.add(phoneKey);
-        try {
-          await sendLeadEmail(leadData);
-          console.log(
-            `[Lead] Email sent — name: ${leadData.name}, phone: ${leadData.phone}, need: ${leadData.need}`
-          );
-        } catch (err) {
-          // Remove from set so the next message can retry
-          capturedLeadPhones.delete(phoneKey);
-          console.error("[Lead] Failed to send lead email:", err);
+    const pendingLead = awaitConfirmMatch
+      ? {
+          name: awaitConfirmMatch[1].trim(),
+          phone: awaitConfirmMatch[2].trim(),
+          need: awaitConfirmMatch[3].trim(),
         }
-      }
-    }
+      : null;
 
-    return NextResponse.json({ reply });
+    return NextResponse.json({ reply, showServicePicker, pendingLead });
   } catch (error: unknown) {
     // Handle specific Anthropic errors
     if (error instanceof Anthropic.AuthenticationError) {

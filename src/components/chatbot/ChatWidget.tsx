@@ -4,10 +4,22 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import Image from "next/image";
 
+// ─── Types ─────────────────────────────────────────────────────────────────
+
+interface LeadData {
+  name: string;
+  phone: string;
+  need: string;
+}
+
 interface Message {
   role: "user" | "assistant";
   content: string;
+  showServicePicker?: boolean;
+  pendingLead?: LeadData;
 }
+
+// ─── Constants ─────────────────────────────────────────────────────────────
 
 const STORAGE_KEY = "gm-chat-history";
 const AUTO_OPENED_KEY = "gm-chat-auto-opened";
@@ -19,22 +31,22 @@ const WELCOME_MESSAGE: Message = {
     "👋 Hey! I'm **Masala Bot** — Growth Masala's assistant.\n\nLooking to grow your business online? I can help you get started in 2 minutes.",
 };
 
-// ─── Quick Reply Config ────────────────────────────────────────────────────
+// ─── Quick Reply Config (initial chips) ────────────────────────────────────
 
 type QuickReplyLevel = "main" | "services";
 
 interface QuickReply {
   id: string;
   label: string;
-  message?: string;       // sent as user message to bot
-  href?: string;          // if set, opens URL instead of sending to bot
+  message?: string;
+  href?: string;
   nextLevel?: QuickReplyLevel;
 }
 
 const MAIN_QUICK_REPLIES: QuickReply[] = [
   {
     id: "book",
-    label: "🛎️ Book a Free Call",
+    label: "📅 Book a Call",
     message: "I'd like to book a free consultation call",
   },
   {
@@ -50,7 +62,7 @@ const MAIN_QUICK_REPLIES: QuickReply[] = [
   },
   {
     id: "whatsapp",
-    label: "💬 Talk to Us on WhatsApp",
+    label: "💬 WhatsApp",
     href: WHATSAPP_URL,
   },
 ];
@@ -58,17 +70,17 @@ const MAIN_QUICK_REPLIES: QuickReply[] = [
 const SERVICES_QUICK_REPLIES: QuickReply[] = [
   {
     id: "website",
-    label: "🌐 Website Development",
+    label: "🌐 Website Dev",
     message: "Tell me more about website development",
   },
   {
     id: "social",
-    label: "📱 Social Media Management",
+    label: "📱 Social Media",
     message: "Tell me more about social media management",
   },
   {
     id: "ads",
-    label: "📊 Performance Marketing / Ads",
+    label: "📊 Performance Ads",
     message: "Tell me more about performance marketing and ads",
   },
   {
@@ -77,6 +89,37 @@ const SERVICES_QUICK_REPLIES: QuickReply[] = [
     message: "Tell me more about your SEO services",
   },
 ];
+
+// ─── Lead service options (shown inline during lead capture) ───────────────
+
+const LEAD_SERVICE_OPTIONS = [
+  { id: "website", label: "🌐 Website Development", value: "Website Development" },
+  { id: "social", label: "📱 Social Media Management", value: "Social Media Management" },
+  { id: "ads", label: "📊 Performance Marketing & Ads", value: "Performance Marketing & Ads" },
+  { id: "seo", label: "🔍 SEO", value: "SEO" },
+];
+
+// ─── Chip button (shared style for initial quick replies) ──────────────────
+
+function ChipButton({
+  label,
+  onClick,
+  disabled,
+}: {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="rounded-full border border-primary/40 bg-white px-3 py-1.5 text-xs font-medium text-primary transition-all hover:border-primary hover:bg-primary/5 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.97]"
+    >
+      {label}
+    </button>
+  );
+}
 
 // ─── Component ─────────────────────────────────────────────────────────────
 
@@ -87,8 +130,10 @@ export default function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(false);
   const [quickReplyLevel, setQuickReplyLevel] = useState<QuickReplyLevel>("main");
-  const [isTyping, setIsTyping] = useState(false); // fake typing indicator on open
+  const [isTyping, setIsTyping] = useState(false);
   const [wiggle, setWiggle] = useState(false);
+  const [leadConfirmed, setLeadConfirmed] = useState(false);
+  const [leadConfirmLoading, setLeadConfirmLoading] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -105,11 +150,10 @@ export default function ChatWidget() {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           setMessages(parsed);
-          return; // has history — don't show welcome again
+          return;
         }
       }
     } catch {}
-    // No history — set welcome message and show chips
     setMessages([WELCOME_MESSAGE]);
     setShowQuickReplies(true);
   }, []);
@@ -131,17 +175,13 @@ export default function ChatWidget() {
     const isDesktop = window.innerWidth >= 768;
 
     if (isDesktop) {
-      // Desktop: auto-open after 4 seconds with typing indicator
       autoOpenTimerRef.current = setTimeout(() => {
         sessionStorage.setItem(AUTO_OPENED_KEY, "1");
         setIsOpen(true);
         setIsTyping(true);
-        setTimeout(() => {
-          setIsTyping(false);
-        }, 1500);
+        setTimeout(() => setIsTyping(false), 1500);
       }, 4000);
     } else {
-      // Mobile: wiggle the button once after 4 seconds instead of opening
       autoOpenTimerRef.current = setTimeout(() => {
         sessionStorage.setItem(AUTO_OPENED_KEY, "1");
         setWiggle(true);
@@ -166,12 +206,10 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
 
-  // ── Hide chips when user starts typing ───────────────────────────────────
+  // ── Hide initial chips when user starts typing ────────────────────────────
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-    if (e.target.value.length > 0) {
-      setShowQuickReplies(false);
-    }
+    if (e.target.value.length > 0) setShowQuickReplies(false);
   };
 
   // ── Send message ──────────────────────────────────────────────────────────
@@ -180,7 +218,6 @@ export default function ChatWidget() {
       const trimmed = (overrideText ?? input).trim();
       if (!trimmed || isLoading) return;
 
-      // Hide chips after first real message
       setShowQuickReplies(false);
 
       const userMessage: Message = { role: "user", content: trimmed };
@@ -190,9 +227,10 @@ export default function ChatWidget() {
       setIsLoading(true);
 
       try {
-        const apiMessages = updatedMessages.filter(
-          (_, i) => i > 0 || updatedMessages[0].role === "user"
-        );
+        // Strip UI-only fields before sending to Claude
+        const apiMessages = updatedMessages
+          .filter((_, i) => i > 0 || updatedMessages[0].role === "user")
+          .map(({ role, content }) => ({ role, content }));
 
         const res = await fetch("/api/chat", {
           method: "POST",
@@ -203,17 +241,19 @@ export default function ChatWidget() {
         const data = await res.json();
 
         if (res.ok && data.reply) {
-          setMessages((prev) => [
-            ...prev,
-            { role: "assistant", content: data.reply },
-          ]);
+          const botMessage: Message = {
+            role: "assistant",
+            content: data.reply,
+            showServicePicker: data.showServicePicker ?? false,
+            pendingLead: data.pendingLead ?? undefined,
+          };
+          setMessages((prev) => [...prev, botMessage]);
         } else {
           setMessages((prev) => [
             ...prev,
             {
               role: "assistant",
-              content:
-                data.error || "Sorry, something went wrong. Please try again.",
+              content: data.error || "Sorry, something went wrong. Please try again.",
             },
           ]);
         }
@@ -232,23 +272,67 @@ export default function ChatWidget() {
     [input, isLoading, messages]
   );
 
-  // ── Handle quick reply click ──────────────────────────────────────────────
+  // ── Confirm lead — calls /api/lead, fires email ───────────────────────────
+  const handleConfirmLead = useCallback(
+    async (lead: LeadData) => {
+      setLeadConfirmLoading(true);
+      try {
+        const res = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(lead),
+        });
+
+        if (res.ok) {
+          setLeadConfirmed(true);
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: "assistant",
+              content:
+                "✅ Done! Our team will reach out to you shortly.\n\nYou can also WhatsApp us anytime at **+91 86882 69427** or email **growthmasala@gmail.com**.",
+            },
+          ]);
+        } else {
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: "assistant",
+              content:
+                "Sorry, something went wrong. Please reach us directly on WhatsApp at **+91 86882 69427**.",
+            },
+          ]);
+        }
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content:
+              "Network error. Please reach us directly on WhatsApp at **+91 86882 69427**.",
+          },
+        ]);
+      } finally {
+        setLeadConfirmLoading(false);
+      }
+    },
+    []
+  );
+
+  // ── Handle initial quick reply chip click ─────────────────────────────────
   const handleQuickReply = (reply: QuickReply) => {
     if (isLoading) return;
 
-    // WhatsApp — open directly
     if (reply.href) {
       window.open(reply.href, "_blank", "noopener,noreferrer");
       return;
     }
 
-    // Services — show second level chips, also send message to bot
     if (reply.nextLevel) {
       setQuickReplyLevel(reply.nextLevel);
       setShowQuickReplies(true);
     }
 
-    // Send message to bot
     if (reply.message) {
       sendMessage(reply.message);
     }
@@ -321,22 +405,85 @@ export default function ChatWidget() {
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div
-                className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                  msg.role === "user"
-                    ? "rounded-br-md bg-primary text-white"
-                    : "rounded-bl-md bg-surface text-text-primary"
-                }`}
-              >
-                <FormattedMessage content={msg.content} />
+          {messages.map((msg, i) => {
+            const isLastMessage = i === messages.length - 1;
+            return (
+              <div key={i}>
+                {/* Message bubble */}
+                <div
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                      msg.role === "user"
+                        ? "rounded-br-md bg-primary text-white"
+                        : "rounded-bl-md bg-surface text-text-primary"
+                    }`}
+                  >
+                    <FormattedMessage content={msg.content} />
+                  </div>
+                </div>
+
+                {/* Inline service picker — shown on last bot message requesting service */}
+                {msg.role === "assistant" &&
+                  msg.showServicePicker &&
+                  isLastMessage &&
+                  !isLoading && (
+                    <div className="flex flex-wrap gap-2 mt-3 ml-1">
+                      {LEAD_SERVICE_OPTIONS.map((opt) => (
+                        <ChipButton
+                          key={opt.id}
+                          label={opt.label}
+                          onClick={() =>
+                            sendMessage(`I'm interested in ${opt.value}`)
+                          }
+                          disabled={isLoading}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                {/* Confirm card — shown with collected lead data */}
+                {msg.role === "assistant" &&
+                  msg.pendingLead &&
+                  !leadConfirmed && (
+                    <div className="mt-3 ml-1 rounded-xl border border-primary/20 bg-primary/5 p-4">
+                      <p className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider mb-2">
+                        Your Details
+                      </p>
+                      <div className="space-y-1 text-sm text-text-primary mb-3">
+                        <div>
+                          <span className="font-medium">Name: </span>
+                          {msg.pendingLead.name}
+                        </div>
+                        <div>
+                          <span className="font-medium">Phone: </span>
+                          {msg.pendingLead.phone}
+                        </div>
+                        <div>
+                          <span className="font-medium">Service: </span>
+                          {msg.pendingLead.need}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleConfirmLead(msg.pendingLead!)}
+                        disabled={leadConfirmLoading}
+                        className="w-full rounded-lg bg-primary py-2 text-sm font-semibold text-white transition-all hover:bg-primary-dark disabled:opacity-60 flex items-center justify-center gap-2"
+                      >
+                        {leadConfirmLoading ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          "✅ Yes, send my details!"
+                        )}
+                      </button>
+                    </div>
+                  )}
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Auto-open fake typing indicator */}
           {isTyping && (
@@ -364,23 +511,21 @@ export default function ChatWidget() {
             </div>
           )}
 
-          {/* Quick reply chips */}
+          {/* Initial quick reply chips */}
           {showQuickReplies && !isLoading && !isTyping && (
-            <div className="flex flex-col gap-2 pt-1">
+            <div className="flex flex-wrap gap-2 pt-1">
               {quickReplyLevel === "services" && (
-                <p className="text-[11px] text-text-secondary/60 px-1">
+                <p className="w-full text-[11px] text-text-secondary/60 px-1">
                   Which service are you interested in?
                 </p>
               )}
               {currentQuickReplies.map((reply) => (
-                <button
+                <ChipButton
                   key={reply.id}
+                  label={reply.label}
                   onClick={() => handleQuickReply(reply)}
                   disabled={isLoading}
-                  className="w-full rounded-xl border border-border bg-white px-4 py-2.5 text-left text-sm font-medium text-text-primary transition-all hover:border-primary/40 hover:bg-primary/5 hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
-                >
-                  {reply.label}
-                </button>
+                />
               ))}
             </div>
           )}
@@ -445,7 +590,7 @@ export default function ChatWidget() {
           ) : (
             <>
               <MessageCircle className="h-6 w-6" />
-              {/* Notification dot — only shown when chat is closed */}
+              {/* Notification dot */}
               <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex h-3 w-3 rounded-full bg-accent" />
