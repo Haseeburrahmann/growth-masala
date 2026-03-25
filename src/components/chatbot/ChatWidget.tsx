@@ -23,6 +23,8 @@ interface Message {
 
 const STORAGE_KEY = "gm-chat-history";
 const AUTO_OPENED_KEY = "gm-chat-auto-opened";
+const CHAT_SEEN_KEY = "gm-chat-seen";
+const LEAD_CONFIRMED_KEY = "gm-lead-confirmed";
 const WHATSAPP_URL = "https://wa.me/918688269427";
 
 const WELCOME_MESSAGE: Message = {
@@ -132,8 +134,21 @@ export default function ChatWidget() {
   const [quickReplyLevel, setQuickReplyLevel] = useState<QuickReplyLevel>("main");
   const [isTyping, setIsTyping] = useState(false);
   const [wiggle, setWiggle] = useState(false);
-  const [leadConfirmed, setLeadConfirmed] = useState(false);
+  const [leadConfirmed, setLeadConfirmed] = useState(() => {
+    try {
+      return !!sessionStorage.getItem(LEAD_CONFIRMED_KEY);
+    } catch {
+      return false;
+    }
+  });
   const [leadConfirmLoading, setLeadConfirmLoading] = useState(false);
+  const [showDot, setShowDot] = useState(() => {
+    try {
+      return !sessionStorage.getItem(CHAT_SEEN_KEY);
+    } catch {
+      return true;
+    }
+  });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -285,6 +300,7 @@ export default function ChatWidget() {
 
         if (res.ok) {
           setLeadConfirmed(true);
+          try { sessionStorage.setItem(LEAD_CONFIRMED_KEY, "1"); } catch {}
           setMessages((prev) => [
             ...prev,
             {
@@ -446,6 +462,7 @@ export default function ChatWidget() {
                 {/* Confirm card — shown with collected lead data */}
                 {msg.role === "assistant" &&
                   msg.pendingLead &&
+                  isLastMessage &&
                   !leadConfirmed && (
                     <div className="mt-3 ml-1 rounded-xl border border-primary/20 bg-primary/5 p-4">
                       <p className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider mb-2">
@@ -580,7 +597,13 @@ export default function ChatWidget() {
 
         {/* Chat toggle */}
         <button
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={() => {
+          setIsOpen((prev) => !prev);
+          if (showDot) {
+            setShowDot(false);
+            try { sessionStorage.setItem(CHAT_SEEN_KEY, "1"); } catch {}
+          }
+        }}
           className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 hover:bg-primary-dark active:scale-95 ${wiggle ? "animate-wiggle" : ""}`}
           aria-label={isOpen ? "Close chat" : "Open chat"}
           style={{ touchAction: "manipulation" }}
@@ -591,10 +614,12 @@ export default function ChatWidget() {
             <>
               <MessageCircle className="h-6 w-6" />
               {/* Notification dot */}
-              <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-accent" />
-              </span>
+              {showDot && (
+                <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-accent" />
+                </span>
+              )}
             </>
           )}
         </button>
@@ -627,8 +652,17 @@ function FormattedMessage({ content }: { content: string }) {
   );
 }
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function boldFormat(text: string): string {
-  return text.replace(
+  return escapeHtml(text).replace(
     /\*\*(.+?)\*\*/g,
     '<strong class="font-semibold">$1</strong>'
   );
