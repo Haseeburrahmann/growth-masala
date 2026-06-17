@@ -90,6 +90,11 @@ const SERVICES_QUICK_REPLIES: QuickReply[] = [
     label: "🔍 SEO",
     message: "Tell me more about your SEO services",
   },
+  {
+    id: "ai",
+    label: "🤖 AI & Automation",
+    message: "Tell me more about AI chatbots and automation",
+  },
 ];
 
 // ─── Lead service options (shown inline during lead capture) ───────────────
@@ -99,6 +104,7 @@ const LEAD_SERVICE_OPTIONS = [
   { id: "social", label: "📱 Social Media Management", value: "Social Media Management" },
   { id: "ads", label: "📊 Performance Marketing & Ads", value: "Performance Marketing & Ads" },
   { id: "seo", label: "🔍 SEO", value: "SEO" },
+  { id: "ai", label: "🤖 AI & Automation", value: "AI & Automation" },
 ];
 
 // ─── Chip button (shared style for initial quick replies) ──────────────────

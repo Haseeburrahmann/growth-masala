@@ -25,6 +25,22 @@ export const portfolioCategories = [
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    title: "Triveni Balavikas Central School",
+    category: "website",
+    description:
+      "Website for an ICSE school (Grade I–VIII) in Bengaluru — admissions portal, academics & pedagogy pages, school-life gallery, leadership profiles, parent testimonials, FAQs, and WhatsApp contact.",
+    image: "/images/portfolio/triveni-balavikas.jpg",
+    link: "https://trivenibalavikascentralschool.in",
+  },
+  {
+    title: "Razzak Constructions",
+    category: "website",
+    description:
+      "Website for a Mahbubnagar construction firm (building since 1992) — services, a 1,100+ project gallery, transparent pricing packages, a 4-step build process, testimonials, and WhatsApp enquiries.",
+    image: "/images/portfolio/razzak-constructions.jpg",
+    link: "https://razzakconstructions.com",
+  },
+  {
     title: "Kings Mobile World",
     category: "website",
     description:

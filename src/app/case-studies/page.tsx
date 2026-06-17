@@ -1,51 +1,57 @@
 "use client";
 
-import { ArrowRight, TrendingUp, Users, Target } from "lucide-react";
+import { ArrowRight, TrendingUp, Users, Target, ExternalLink } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import Link from "next/link";
 
+// Real Growth Masala projects. "Delivered" highlights are factual capabilities
+// shipped — not performance KPIs. Swap in real numbers (enquiries, admissions,
+// traffic) here once the client shares them.
 const caseStudies = [
   {
-    client: "TechStart India",
-    category: "Website + SEO",
+    client: "Freewings School",
+    category: "Website · Education",
+    link: "https://freewingsschool.com",
     challenge:
-      "TechStart had a dated website that wasn't converting visitors. Their bounce rate was 78% and organic traffic was declining.",
+      "Freewings, a pre-primary and upper-primary school in Telangana, had no proper online presence. Parents researching schools couldn't find them or get a feel for the campus and activities.",
     solution:
-      "We rebuilt their website from scratch with a conversion-focused design, implemented technical SEO, and created a content strategy targeting high-intent keywords.",
+      "We built a warm, mobile-first school website with a photo gallery, the principal's message, smooth scroll animations, and one-tap WhatsApp contact so parents can enquire instantly.",
     results: [
-      { metric: "3x", label: "Website Traffic" },
-      { metric: "40%", label: "More Leads" },
-      { metric: "52%", label: "Lower Bounce Rate" },
+      { metric: "Live", label: "Online Presence" },
+      { metric: "1-tap", label: "WhatsApp Enquiries" },
+      { metric: "100%", label: "Mobile Responsive" },
     ],
     gradient: "from-primary/20 to-secondary/10",
   },
   {
-    client: "FreshBite",
-    category: "Social Media Growth",
+    client: "Kings Mobile World",
+    category: "Website · Local Business",
+    link: "https://kingsmobileworld.in",
     challenge:
-      "FreshBite had minimal social media presence with under 500 followers and no engagement strategy for their food delivery brand.",
+      "Kings Mobile World runs Hyderabad's leading mobile-repair service across 4 branches, but had no website to build trust or capture repair enquiries online.",
     solution:
-      "We developed a content-first social strategy with daily posts, reels, influencer collaborations, and community engagement across Instagram and LinkedIn.",
+      "We built a conversion-focused business website showcasing all 4 branches, repair stats, and a brand carousel — with WhatsApp-driven lead capture front and centre.",
     results: [
-      { metric: "3x", label: "Follower Growth" },
-      { metric: "12%", label: "Engagement Rate" },
-      { metric: "200+", label: "UGC Posts" },
-    ],
-    gradient: "from-violet-500/20 to-fuchsia-500/10",
-  },
-  {
-    client: "UrbanFit",
-    category: "Performance Marketing",
-    challenge:
-      "UrbanFit was spending heavily on ads but seeing poor returns. Their cost per acquisition was unsustainably high at Rs. 1,200 per lead.",
-    solution:
-      "We restructured their Google and Meta campaigns, implemented proper conversion tracking, built targeted audience segments, and ran rigorous A/B testing.",
-    results: [
-      { metric: "5x", label: "ROAS" },
-      { metric: "65%", label: "Lower CPA" },
-      { metric: "Rs. 420", label: "Cost Per Lead" },
+      { metric: "4", label: "Branches Showcased" },
+      { metric: "1-tap", label: "Repair Enquiries" },
+      { metric: "Live", label: "Online Storefront" },
     ],
     gradient: "from-accent/20 to-orange-500/10",
+  },
+  {
+    client: "Triveni Balavikas Central School",
+    category: "Website · Education",
+    link: "https://trivenibalavikascentralschool.in",
+    challenge:
+      "Triveni Balavikas, an ICSE school in Bengaluru, needed a credible online home to present its curriculum, values, and admissions process to prospective parents.",
+    solution:
+      "We designed a full school website with an admissions portal, academics and pedagogy pages, a school-life gallery, leadership profiles, parent testimonials, and WhatsApp contact.",
+    results: [
+      { metric: "I–VIII", label: "Grades Covered" },
+      { metric: "Admissions", label: "Online Enquiry Portal" },
+      { metric: "WhatsApp", label: "Direct Parent Contact" },
+    ],
+    gradient: "from-violet-500/20 to-fuchsia-500/10",
   },
 ];
 
@@ -91,6 +97,17 @@ export default function CaseStudiesPage() {
                     <span className="text-sm font-semibold text-text-primary">
                       {study.client}
                     </span>
+                    {study.link && (
+                      <a
+                        href={study.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-auto inline-flex items-center gap-1.5 text-xs font-medium text-primary transition-colors hover:text-primary-dark"
+                      >
+                        View live site
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
                   </div>
 
                   <div className="grid gap-8 lg:grid-cols-3">

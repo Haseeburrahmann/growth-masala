@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { Send, Loader2, CheckCircle2 } from "lucide-react";
+import { services } from "@/data/services";
 
+// Derived from the single source of truth so the dropdown never drifts from
+// the rest of the site. Two extra catch-all options are appended.
 const serviceOptions = [
-  "Website Development",
-  "Social Media Growth",
-  "Performance Marketing",
+  ...services.map((s) => s.title),
   "Full Digital Marketing Package",
   "Not sure — need consultation",
 ];

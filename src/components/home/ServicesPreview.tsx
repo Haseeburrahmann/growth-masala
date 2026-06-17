@@ -32,11 +32,20 @@ export default function ServicesPreview() {
         <div className="grid gap-6 lg:grid-cols-3">
           {services.map((service, idx) => {
             const Icon = serviceIconMap[service.icon] || Globe;
+            const isNew = service.slug === "ai-automation";
             return (
-              <AnimatedContainer key={service.title} delay={idx * 120}>
-                <div
-                  className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-250 hover:-translate-y-1 hover:border-primary/30 hover:bg-white/6"
+              <AnimatedContainer key={service.slug} delay={idx * 120}>
+                <Link
+                  href={`/services#${service.slug}`}
+                  className="group relative block h-full overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-250 hover:-translate-y-1 hover:border-primary/30 hover:bg-white/6"
                 >
+                  {/* New badge for the AI pillar */}
+                  {isNew && (
+                    <span className="absolute right-5 top-5 rounded-full bg-accent/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-accent">
+                      New
+                    </span>
+                  )}
+
                   {/* Service number */}
                   <div className="mb-8 flex items-center justify-between">
                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 transition-colors group-hover:border-primary/30 group-hover:bg-primary/10">
@@ -71,7 +80,7 @@ export default function ServicesPreview() {
                     Explore service
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </div>
-                </div>
+                </Link>
               </AnimatedContainer>
             );
           })}

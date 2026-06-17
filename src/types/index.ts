@@ -1,8 +1,17 @@
+export interface ServiceSubItem {
+  title: string;
+  description: string;
+}
+
 export interface Service {
+  slug: string;
   icon: string;
   title: string;
   description: string;
   features: string[];
+  deliverables: string[];
+  /** Sub-services shown for grouped pillars (e.g. AI & Automation). */
+  subItems?: ServiceSubItem[];
 }
 
 export interface PortfolioItem {
