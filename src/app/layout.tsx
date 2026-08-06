@@ -27,11 +27,17 @@ export const metadata: Metadata = {
     // Child routes set a bare, keyword-first title (no brand) and let the
     // template append it exactly once. Including the brand in a child title
     // double-prints it: "Services — Growth Masala | Growth Masala".
-    default: "Digital Marketing Agency in Mahabubnagar | Growth Masala",
+    //
+    // This is deliberately NOT "Digital Marketing Agency in Mahabubnagar" —
+    // that exact-match phrase belongs to /digital-marketing-agency-mahabubnagar,
+    // which has the FAQ and Service schema plus internal links to support it.
+    // Two pages carrying the same title compete with each other for the same
+    // query and split the signal. The homepage takes the broader service angle.
+    default: "Websites, SEO & Meta Ads in Mahabubnagar | Growth Masala",
     template: "%s | Growth Masala",
   },
   description:
-    "Growth Masala is a digital marketing agency in Mahabubnagar, Telangana. We build websites and run social media, SEO, and Meta ads campaigns that bring local businesses real, measurable growth.",
+    "Growth Masala builds websites and runs social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana. Free consultation, fixed quotes before work starts.",
   keywords: [
     // Brand
     "Growth Masala",
@@ -67,7 +73,7 @@ export const metadata: Metadata = {
     apple: "/images/logo.png",
   },
   openGraph: {
-    title: "Digital Marketing Agency in Mahabubnagar | Growth Masala",
+    title: "Websites, SEO & Meta Ads in Mahabubnagar | Growth Masala",
     description:
       "Websites, social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana.",
     type: "website",
@@ -85,7 +91,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Marketing Agency in Mahabubnagar | Growth Masala",
+    title: "Websites, SEO & Meta Ads in Mahabubnagar | Growth Masala",
     description:
       "Websites, social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana.",
     images: ["/images/og-image.png"],
