@@ -53,13 +53,14 @@ Full detail: [`docs/seo-audit-2026-08.md`](../docs/seo-audit-2026-08.md)
 These are the highest-ROI items left. The code work is done and invisible to
 Google until #1 happens.
 
-- [ ] **Deploy, then set up Google Search Console** 🔥
-  - 📄 **Step-by-step browser-agent brief:** [`docs/search-console-setup.md`](../docs/search-console-setup.md)
-  - Deploy FIRST — submitting the sitemap before the canonical fix is live wastes the crawl
-  - Confirm live: `curl -s https://growthmasala.com/services | grep -o '<link rel="canonical"[^>]*>'`
-    must return `.../services`, not the bare domain
-  - Then verify ownership → submit sitemap → request indexing on 10 priority URLs
+- [x] ~~**Deploy**~~ ✅ **DONE 2026-08-06** — commits `1c10a2d`, `9ce71da`, live and verified
+- [ ] **Set up Google Search Console** 🔥 ← **THIS IS THE NEXT ACTION**
+  - 📄 **Paste-ready browser-agent brief:** [`docs/search-console-setup.md`](../docs/search-console-setup.md)
+  - The deploy gate in that doc is already satisfied — production serves correct
+    per-page canonicals, 22 sitemap URLs, and 19 unique titles (verified)
+  - Verify ownership → submit `sitemap.xml` → request indexing on 10 priority URLs
   - **Watch: Pages → Indexed. Should climb toward 22 within two weeks.**
+  - Nothing else on this list moves the needle until Google re-crawls
 
 - [ ] **Replace the placeholder street address** ⚠️
   - File: `src/data/business.ts` → currently `"Station Road"` / `"509001"`

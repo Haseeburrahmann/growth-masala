@@ -84,6 +84,28 @@ owns that semantic space).
 **`openGraph.title`, by contrast, takes no template** — write it out in full
 including the brand.
 
+### Titles must be unique across routes
+
+Two pages carrying the same title compete for the same query and split the
+ranking signal. This bit us once: the homepage and
+`/digital-marketing-agency-mahabubnagar` both shipped as *"Digital Marketing
+Agency in Mahabubnagar | Growth Masala"* with near-identical descriptions.
+
+**The rule:** an exact-match keyword phrase belongs to exactly one page — the
+dedicated landing page, which has the FAQ schema, `Service` schema, and internal
+links to support it. The homepage takes a broader, service-led angle.
+
+Check after any title change:
+
+```bash
+for p in "" services portfolio case-studies about blog contact \
+         digital-marketing-agency-mahabubnagar website-development-mahabubnagar; do
+  curl -s "https://growthmasala.com/$p" | grep -o '<title>[^<]*</title>'
+done | sort | uniq -d
+```
+
+Any output means a duplicate. Expect none.
+
 ---
 
 ## Rule 3 — Schema is server-rendered, and FAQ schema must match visible content

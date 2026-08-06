@@ -5,7 +5,11 @@
 **Scope:** Technical SEO, on-page, local (Mahabubnagar / Telangana), India-wide, competitor reverse-engineering
 **Method:** Live HTTP inspection of production, source review, SERP research, raw-HTML scraping of competitors
 
-> **Status: all code-level findings are fixed and verified locally.** The
+> **🚀 Deployed to production 2026-08-06** (commits `1c10a2d`, `9ce71da`).
+> Verified live: 20/20 canonicals correct, 19/19 titles unique and under 60
+> characters, 22 sitemap URLs, all schema rendering server-side.
+>
+> **Status: all code-level findings are fixed and verified in production.** The
 > [Implementation Log](#implementation-log) records exactly what shipped and how each
 > fix was verified. What remains is off-site work (directory listings, Search
 > Console) and two data items only the business owner can supply — see
@@ -553,6 +557,20 @@ production build (`pnpm build && pnpm start`), not assumed.
 | Location page depth | ✅ 702–826 words each (ASH Group, the page to beat, is ~1,200) |
 | All image assets resolve | ✅ 14/14 return 200; `icon.png` correctly 404s and is no longer referenced |
 | Image weight | ✅ 5.2MB → 788KB |
+
+### Caught in post-deploy verification
+
+The first deploy shipped the homepage and `/digital-marketing-agency-mahabubnagar`
+with **identical titles** and near-identical descriptions — keyword
+cannibalization, and a violation of the "unique titles per page" rule this same
+audit lists. Caught by a duplicate-title check against production, fixed in
+`9ce71da`: the exact-match phrase now belongs solely to the landing page, and the
+homepage took a broader service-led title (*"Websites, SEO & Meta Ads in
+Mahabubnagar"*).
+
+Worth noting because the local build passed every other check — a per-page
+assertion (canonical equals own URL) can be green while a *cross-page* property
+(all titles distinct) is broken. Both classes need checking.
 
 ### Known pre-existing issue, not touched
 
