@@ -42,3 +42,4 @@ coverage/
 .continue/
 skills/
 skills-lock.json
+.gstack/

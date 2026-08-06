@@ -1,124 +1,101 @@
-# Growth Masala — TODO & Pending Plan
+# Growth Masala — TODO
 
-> **Read this file before starting any session.**
-> Live task tracker for everything pending — content, SEO, and code.
+> **Read this at the start of every session.**
 >
-> ⚠️ **Verify before you trust.** An earlier version of this file claimed the
-> testimonials and case studies were fake placeholders. They had already been
-> replaced with real clients months earlier, and that stale claim was repeated
-> into an SEO audit as a real finding. **Grep the source before acting on any
-> item here.**
+> ⚠️ **This file is not evidence.** It has been stale before — an out-of-date
+> claim here was once repeated into an SEO audit as a live finding. **Grep the
+> source before acting on anything below.**
 
-Last updated: 2026-08-06
+Last updated: 2026-08-06 · Full SEO reference: [`docs/SEO.md`](../docs/SEO.md)
 
 ---
 
-## ✅ Completed — 2026-08-06 SEO remediation
+## 🔴 NEXT ACTION — Google Search Console
 
-Full detail: [`docs/seo-audit-2026-08.md`](../docs/seo-audit-2026-08.md)
+Everything else is blocked behind this. The SEO fixes are deployed and verified
+live, but Google hasn't re-crawled, so none of it is visible yet.
 
-- [x] **Site-wide canonical bug** — every page pointed its canonical at the
-      homepage, blocking indexation of the whole site. Root cause was
-      `alternates.canonical` in the root layout, which App Router inherits into
-      every child route. Removed it; each route now sets its own relative canonical.
-- [x] **Title tags** — brand was double-printed (`Services — Growth Masala | Growth Masala`)
-      and no title contained a location keyword. All titles are now bare and
-      keyword-first; the root template appends the brand exactly once.
-- [x] **Broken `icon.png` reference** — deleted from the repo but still referenced
-      by the favicon and the LocalBusiness schema. Repointed to `/favicon.ico`
-      and `/images/logo.png`.
-- [x] **NAP on every page** — contact page said "Location: India". Now shows
-      Mahabubnagar, Telangana with phone and email; footer carries the full NAP
-      site-wide. Single source of truth: `src/data/business.ts`.
-- [x] **Location keywords in visible copy** — "Mahabubnagar" appeared 0 times in
-      visible body text. Now 13 on the homepage, 31 on the primary landing page.
-- [x] **12 location landing pages** — 5 Mahabubnagar service pages, 5 micro-local
-      (Shadnagar, Wanaparthy, Kalwakurthy, Jadcherla, Narayanpet), 2 Hyderabad.
-      Data in `src/data/locations.ts`, rendered by `src/app/[slug]/page.tsx`.
-- [x] **Schema expansion** — added `WebSite`, `BreadcrumbList` (all inner pages),
-      `FAQPage` (homepage + every location page), `Service`, `OfferCatalog`, and
-      `BlogPosting`. Builders live in `src/lib/schema.ts`.
-- [x] **FAQ sections** — 6 questions on the homepage, 4 per location page.
-      Server-rendered `<details>`, so schema and visible content match.
-- [x] **Image compression** — portfolio and blog images converted to WebP.
-      5.2MB → 788KB (85% smaller). Originals preserved in
-      `~/Desktop/2026/growth-masala-image-originals/20260806/`.
-- [x] **Sitemap** — now includes all 12 location pages (22 URLs total) and the
-      root entry matches the canonical form.
+- [ ] **Verify the property, submit the sitemap, request indexing**
+  - Full step-by-step: [`docs/SEO.md` → Search Console Setup](../docs/SEO.md#search-console-setup)
+  - Prefer DNS TXT (Domain property) — no redeploy needed
+  - Sitemap must report **22 discovered URLs**. If it says 10, the deploy didn't land
+  - **Watch: Indexing → Pages. Should climb toward 22 within two weeks**
 
 ---
 
-## 🔴 BLOCKING — Only the owner can do these
+## 🟠 HIGH — Publish pricing
 
-These are the highest-ROI items left. The code work is done and invisible to
-Google until #1 happens.
+Pricing is already designed and priced — it just isn't on the website. Every
+competitor publishes theirs; "website design cost Mahabubnagar" is high-intent
+traffic currently forfeited.
 
-- [x] ~~**Deploy**~~ ✅ **DONE 2026-08-06** — commits `1c10a2d`, `9ce71da`, live and verified
-- [ ] **Set up Google Search Console** 🔥 ← **THIS IS THE NEXT ACTION**
-  - 📄 **Paste-ready browser-agent brief:** [`docs/search-console-setup.md`](../docs/search-console-setup.md)
-  - The deploy gate in that doc is already satisfied — production serves correct
-    per-page canonicals, 22 sitemap URLs, and 19 unique titles (verified)
-  - Verify ownership → submit `sitemap.xml` → request indexing on 10 priority URLs
-  - **Watch: Pages → Indexed. Should climb toward 22 within two weeks.**
-  - Nothing else on this list moves the needle until Google re-crawls
+> The `pricing-cards/` folder was archived on 2026-08-06. **The numbers are
+> preserved below** so nothing is lost. Source files are in
+> `~/Desktop/2026/growth-masala-archive-20260806/pricing-cards/`.
 
-- [ ] **Replace the placeholder street address** ⚠️
-  - File: `src/data/business.ts` → currently `"Station Road"` / `"509001"`
-  - Set 2026-08-06 on owner instruction. Road-level only, **not a verified premises**
-  - 509001 is the correct PIN for Mahabubnagar town
-  - **Must be replaced with the real address BEFORE creating any directory listing** —
-    once a wrong NAP is published to Justdial/Clutch, correcting it everywhere is
-    far more work than getting it right once
-  - Whatever ends up here must match every listing character-for-character
+### Website Development — one-time
 
-- [ ] **Verify GA4 is live in production**
-  - `NEXT_PUBLIC_GA_ID=G-46R8LQJ581` is in `.env.local` — confirm it is also set
-    in Vercel's environment variables, or no data is being collected
-  - Check GA4 → Real-time for active users
+| Plan | Price | Includes |
+|------|-------|----------|
+| **Basic** | ₹9,999 | 5 pages · mobile responsive · 2 revision rounds · 1 month support · basic SEO · delivery 5–7 days |
+| **Business** ★ | ₹14,999 | 8–10 pages · AI chatbot · 5 revision rounds · 3 months support · SEO optimised · delivery 10–14 days |
+| **Premium** | ₹24,999 | E-commerce · AI chatbot · 8 revision rounds · 6 months support · full SEO · delivery 14–21 days |
 
----
+### Social Media Growth — monthly
 
-## 🟠 HIGH — Off-site citations (free, ~3 hours total)
+| Plan | Price | Includes |
+|------|-------|----------|
+| **Starter** | ₹6,999/mo | 4 reels · 1 shoot day · content planning · captions · IG + FB · monthly report |
+| **Growth** ★ | ₹12,999/mo | 8 reels · 2 shoot days · strategy · captions + hashtags · IG/FB/YouTube · stories · bi-weekly report |
+| **Pro Growth** | ₹19,999/mo | 12 reels · 3 shoot days · full strategy · all platforms · stories · weekly report |
 
-The site currently has zero citations. Every competitor that ranks has these.
+### Meta Ads Management — monthly
 
-| Platform | URL | Why |
-|----------|-----|-----|
-| [ ] Justdial | justdial.com | Owns 3+ of the top 10 Mahabubnagar results |
-| [ ] Sulekha | sulekha.com | Same pattern, strong local presence |
-| [ ] Clutch | clutch.co/get-listed | AI tools cite Clutch when recommending agencies |
-| [ ] GoodFirms | goodfirms.co/directory/register | Appears in "Top 10 Hyderabad" SERPs |
-| [ ] Sortlist | sortlist.com/agency/register | Ranked #5 for "digital marketing agency Telangana" |
-| [ ] DesignRush | designrush.com | Ranked #2 for Hyderabad agency queries |
+| Plan | Price | Includes |
+|------|-------|----------|
+| **Starter** | ₹6,999/mo | 3 creatives · ad spend ₹10k–30k · FB + IG · monthly report · WhatsApp support |
+| **Growth** ★ | ₹9,999/mo | 6 creatives · ad spend ₹30k–60k · A/B testing · bi-weekly reports · dedicated AM |
+| **Scale** | ₹14,999/mo | 6–10 creatives · ad spend ₹60k–90k · advanced A/B · weekly reports · dedicated AM |
 
-Also worth pitching for inclusion in the "Top 10 agencies in Hyderabad" listicles
-that rank page-one: IIDE, ZeroAdo, AmigoCreatz, HivePulse.
+*All prices in ₹. "Prices may vary based on project requirements."*
 
-> **Note:** Google Business Profile is intentionally out of scope per the owner.
-> Everything above works without it — and Clutch/GoodFirms matter more for AI
-> visibility than GBP does.
+- [ ] **Build a `/pricing` page** from the tables above
+  - Add `Offer` schema per plan (the `OfferCatalog` node in `src/lib/schema.ts` already has the hook)
+  - Add to `sitemap.ts` + nav
+  - Update `src/data/faqs.ts` — the "How much does a website cost?" answer currently says "it depends"; replace with a real starting figure
+  - Update `src/lib/chatbot.ts` so the bot can quote plans
 
 ---
 
-## 🟠 HIGH — Content the code can't invent
+## 🟠 HIGH — Off-site citations (free, ~3 hours)
 
-- [ ] **Publish pricing** — even as ranges
-  - Every competitor publishes one; we publish none
-  - World of Nexa: ₹4,999/₹9,999/₹19,999 per month, websites from ₹10–15k
-  - Local benchmarks: websites ₹6,000–₹90,000 · SEM/PPC ₹5,000–₹75,000
-  - `src/data/faqs.ts` has a TODO marking exactly where this slots in
-  - "website design cost Mahabubnagar" is a high-intent query we currently forfeit
+The site has zero citations. Every competitor that ranks has these.
 
-- [ ] **Collect client reviews** → unlocks `AggregateRating` schema
-  - Star ratings in the SERP are the biggest CTR lift available
-  - Target: 5 reviews across Google/Justdial/Clutch within 2 weeks
-  - Once they exist, adding the schema is ~30 minutes of code
+- [ ] **Justdial** — owns 3+ of the top 10 Mahabubnagar results
+- [ ] **Sulekha** — same pattern, strong local presence
+- [ ] **Clutch** (clutch.co/get-listed) — AI tools cite Clutch when recommending agencies
+- [ ] **GoodFirms** — appears in "Top 10 Hyderabad" SERPs
+- [ ] **Sortlist** — ranked #5 for "digital marketing agency Telangana"
+- [ ] **DesignRush** — ranked #2 for Hyderabad agency queries
 
-- [ ] **Get one real outcome metric for a case study**
-  - `src/app/case-studies/page.tsx` currently shows capability statements
-    ("Live", "1-tap", "4 Branches") rather than results
-  - Even one number — enquiries per month, admissions, traffic — materially
-    strengthens the page. The file already flags this in a comment.
+Also pitch for inclusion in the page-one listicles: IIDE, ZeroAdo, AmigoCreatz, HivePulse.
+
+> Google Business Profile is intentionally out of scope. Everything above works
+> without it — and Clutch/GoodFirms matter more for AI visibility anyway.
+
+> ⛔ **Before creating any listing:** replace the placeholder street address in
+> [`src/data/business.ts`](../src/data/business.ts). It currently reads
+> "Station Road" — road-level, not your real premises. Whatever you list first
+> has to match the site and every later directory character-for-character.
+
+---
+
+## 🟠 HIGH — Owner-only items
+
+- [ ] **Replace the placeholder street address** — `src/data/business.ts`
+- [ ] **Verify GA4 in production** — `NEXT_PUBLIC_GA_ID` must be in Vercel's env vars, not just `.env.local`. Check GA4 → Real-time
+- [ ] **Collect 5 client reviews** → unlocks `AggregateRating` schema (biggest CTR lift available)
+- [ ] **Get one real outcome metric** for a case study — `src/app/case-studies/page.tsx` shows capabilities ("Live", "1-tap"), not results
 
 ---
 
@@ -127,64 +104,52 @@ that rank page-one: IIDE, ZeroAdo, AmigoCreatz, HivePulse.
 Existing posts are generic and compete against the whole internet. Local-intent
 posts have almost no competition here.
 
-- [ ] **"Website Design Cost in Mahabubnagar: 2026 Price Guide"** ← start here
-  - Target: `website design cost Mahabubnagar` · highest commercial intent
-  - `src/content/blog/website-design-cost-mahabubnagar.md`
-- [ ] **"Top 10 Digital Marketing Agencies in Mahabubnagar (2026)"**
-  - A listicle including ourselves — exactly how IIDE and ZeroAdo rank for Hyderabad
+- [ ] **"Website Design Cost in Mahabubnagar: 2026 Price Guide"** ← start here, pairs with the pricing page
+- [ ] **"Top 10 Digital Marketing Agencies in Mahabubnagar (2026)"** — a listicle including ourselves, exactly how IIDE ranks for Hyderabad
 - [ ] **"How to Choose a Digital Marketing Agency in Mahabubnagar"**
 - [ ] **"Local SEO Guide for Mahabubnagar Businesses"**
 - [ ] **"Meta Ads for Telangana Small Businesses: What Actually Works"**
 
-New posts get `BlogPosting` schema, breadcrumbs, and canonicals automatically —
-just add the markdown file.
+New posts get `BlogPosting` schema, breadcrumbs, canonical, and a sitemap entry
+automatically — just add the markdown file.
 
 ---
 
-## 🟢 LOW — Code quality & performance
+## 🟢 LOW — Code quality
 
-- [ ] **Fix pre-existing lint error** — `src/components/layout/Navbar.tsx:22`
-  - `react-hooks/set-state-in-effect` — `pnpm lint` fails on it
-  - Predates the SEO work; left untouched to keep that change set clean
-  - `pnpm build` is unaffected
-
-- [ ] **Run Lighthouse** (target 90+)
-  - `pnpm build && pnpm start` → Chrome DevTools → Lighthouse
-  - Image weight is already down 85%; JS is the remaining lever
-
-- [ ] **Audit JS bundle** — largest chunk is 218KB, total ~600KB for a marketing site
-  - Check for barrel imports pulling in more than needed
-
-- [ ] **Social icons in Footer** — verify the three profile links resolve
-  - Instagram, Facebook, and X are live in the footer and in `sameAs` JSON-LD
-
-- [ ] **Stray file**: `public/logoo.png` is untracked and unreferenced (404s in
-      production). Left in place rather than deleted — confirm it's unwanted first.
-
-- [ ] **Rate limiter persistence** (low urgency)
-  - In-memory Map in `/api/chat/route.ts` resets on Vercel cold starts
-  - Only matters at scale
+- [ ] **Pre-existing lint error** — `src/components/layout/Navbar.tsx:22`,
+      `react-hooks/set-state-in-effect`. `pnpm lint` fails on it; `pnpm build` is fine
+- [ ] **PII in logs** — `src/app/api/lead/route.ts:35` logs lead name and phone to
+      server logs. Worth redacting
+- [ ] **Run Lighthouse** (target 90+) — image weight already down 85%; JS is the remaining lever
+- [ ] **Audit JS bundle** — largest chunk 218KB, ~600KB total for a marketing site
+- [ ] **Rate limiter persistence** — in-memory Map in `/api/chat/route.ts` resets on
+      Vercel cold starts. Only matters at scale
 
 ---
 
-## 📋 QUICK WINS
+## ✅ Done — 2026-08-06
 
-| Task | Effort | Impact |
-|------|--------|--------|
-| Deploy + submit sitemap to Search Console | 20 mins | 🔥 Critical |
-| Fill in street address + PIN in `business.ts` | 2 mins | High |
-| Verify GA4 env var in Vercel | 10 mins | Medium |
-| List on Justdial + Sulekha | 45 mins | High |
-| Register on Clutch + GoodFirms | 50 mins | High (AI visibility) |
-| Publish a starting price range | 30 mins | High |
+**SEO remediation** (`1c10a2d`, `9ce71da`) — deployed and verified live:
+site-wide canonical bug, duplicate brand in titles, broken `icon.png` reference,
+NAP on every page, location keywords in visible copy (0 → 13 on homepage),
+12 location landing pages, schema expansion (WebSite/Breadcrumb/FAQ/Service/
+OfferCatalog/BlogPosting), FAQ sections, WebP conversion (5.2MB → 788KB),
+title de-duplication. Detail: [`docs/SEO.md`](../docs/SEO.md).
+
+**Repo cleanup** — consolidated 12 docs into 3, removed dead code and 17MB of
+unused assets. Archived (not deleted) to
+`~/Desktop/2026/growth-masala-archive-20260806/`.
+
+**Branch protection rule** — `CLAUDE.md` now forbids working on `main` directly.
 
 ---
 
-## 🔗 Related Files
+## 🔗 Files
 
-- Project config: [`CLAUDE.md`](../CLAUDE.md)
-- **SEO audit + competitor teardown**: [`docs/seo-audit-2026-08.md`](../docs/seo-audit-2026-08.md)
-- SEO architecture: [`docs/seo-architecture.md`](../docs/seo-architecture.md)
-- **Search Console setup (browser brief)**: [`docs/search-console-setup.md`](../docs/search-console-setup.md)
-- Completed work log: [`.claude/updates.md`](updates.md)
-- Chatbot template: [`.claude/chatbot-template.md`](chatbot-template.md)
+| What | Where |
+|------|-------|
+| Project bible + hard rules | [`CLAUDE.md`](../CLAUDE.md) |
+| SEO architecture, competitors, playbook | [`docs/SEO.md`](../docs/SEO.md) |
+| This file | `.claude/TODO.md` |
+| Archived docs & assets | `~/Desktop/2026/growth-masala-archive-20260806/` |
