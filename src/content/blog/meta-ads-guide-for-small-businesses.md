@@ -4,7 +4,7 @@ excerpt: "New to Facebook and Instagram advertising? Here's everything you need 
 date: "2026-02-01"
 readTime: "6 min read"
 category: "Performance Marketing"
-image: "/images/blog/meta-ads-guide.jpg"
+image: "/images/blog/meta-ads-guide.webp"
 ---
 
 ## Why Meta Ads?

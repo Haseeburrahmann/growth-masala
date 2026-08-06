@@ -29,7 +29,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "website",
     description:
       "Website for an ICSE school (Grade I–VIII) in Bengaluru — admissions portal, academics & pedagogy pages, school-life gallery, leadership profiles, parent testimonials, FAQs, and WhatsApp contact.",
-    image: "/images/portfolio/triveni-balavikas.jpg",
+    image: "/images/portfolio/triveni-balavikas.webp",
     link: "https://trivenibalavikascentralschool.in",
   },
   {
@@ -37,7 +37,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "website",
     description:
       "Website for a Mahbubnagar construction firm (building since 1992) — services, a 1,100+ project gallery, transparent pricing packages, a 4-step build process, testimonials, and WhatsApp enquiries.",
-    image: "/images/portfolio/razzak-constructions.jpg",
+    image: "/images/portfolio/razzak-constructions.webp",
     link: "https://razzakconstructions.com",
   },
   {
@@ -45,7 +45,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "website",
     description:
       "Business website for Hyderabad's leading mobile repair service — showcasing 4 branches, repair stats, brand carousel, and WhatsApp-driven lead capture.",
-    image: "/images/portfolio/kings-mobile.jpg",
+    image: "/images/portfolio/kings-mobile.webp",
     link: "https://kingsmobileworld.in",
   },
   {
@@ -53,7 +53,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "website",
     description:
       "E-commerce store for car modification accessories — dark themed Shopify build with product reviews, photo uploads, and ShipRocket delivery tracking.",
-    image: "/images/portfolio/automotive-dudes.jpg",
+    image: "/images/portfolio/automotive-dudes.webp",
     link: "https://automotivedudes.in",
   },
   {
@@ -61,7 +61,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "website",
     description:
       "Financial services website for a loan provider in Mahabubnagar — featuring an interactive EMI calculator, 20+ bank partner logos, and blog section.",
-    image: "/images/portfolio/trustwave.jpg",
+    image: "/images/portfolio/trustwave.webp",
     link: "https://trustwavefinserv.com",
   },
   {
@@ -69,7 +69,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "website",
     description:
       "School website for a pre-primary and upper primary school in Telangana — photo gallery, principal's message, scroll animations, and WhatsApp contact.",
-    image: "/images/portfolio/freewings.jpg",
+    image: "/images/portfolio/freewings.webp",
     link: "https://freewingsschool.com",
   },
   {
@@ -77,7 +77,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "web-app",
     description:
       "Free online Zakat calculator with live gold/silver prices, multi-asset fields (cash, crypto, investments), auto currency detection, and zero data storage.",
-    image: "/images/portfolio/zakateasy.jpg",
+    image: "/images/portfolio/zakateasy.webp",
     link: "https://zakateasy.org",
   },
   {
@@ -85,7 +85,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "web-app",
     description:
       "Financial calculator suite for freelancers — self-employment tax, hourly rate, 1099 vs W-2 comparison, invoicing tools, and quarterly tax planner.",
-    image: "/images/portfolio/lancercalc.jpg",
+    image: "/images/portfolio/lancercalc.webp",
     link: "https://lancercalc.com",
   },
 ];

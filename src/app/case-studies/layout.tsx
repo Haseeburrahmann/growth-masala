@@ -1,16 +1,33 @@
 import type { Metadata } from "next";
 
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
 export const metadata: Metadata = {
-  title: "Case Studies — Growth Masala",
+  title: "Case Studies — Real Client Results",
   description:
-    "Real results from real clients — see how Growth Masala helped businesses grow with websites, social media, and performance marketing.",
+    "How Growth Masala helped Freewings School, Kings Mobile World, and Triveni Balavikas grow online — the challenge, the solution, and what we delivered.",
+  alternates: { canonical: "/case-studies" },
   openGraph: {
-    title: "Case Studies — Growth Masala",
+    title: "Case Studies — Real Client Results | Growth Masala",
     description:
-      "Real results from real clients — see how Growth Masala helped businesses grow with websites, social media, and performance marketing.",
+      "Real challenges, real solutions, real growth for businesses across Telangana and India.",
+    url: "/case-studies",
   },
 };
 
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Case Studies", path: "/case-studies" },
+]);
+
 export default function CaseStudiesLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {children}
+    </>
+  );
 }

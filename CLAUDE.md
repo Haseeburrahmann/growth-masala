@@ -1,10 +1,21 @@
 # CLAUDE.md — Growth Masala Website Project
 
+> 📋 **Pending tasks & SEO action plan:** [`.claude/TODO.md`](.claude/TODO.md)
+> Read TODO.md at the start of every session to know what needs to be worked on next.
+>
+> 🔍 **Before touching metadata, schema, canonicals, the footer, or location pages:**
+> read [`docs/seo-architecture.md`](docs/seo-architecture.md). It documents rules
+> that are easy to break silently and expensive to notice — a root-level canonical
+> once removed the entire site from Google's index.
+>
+> ⚠️ **TODO.md is not evidence.** It has been stale before. Grep the source to
+> confirm any claim in it before acting on that claim.
+
 ## Project Overview
 Growth Masala is a digital marketing agency website for a startup agency offering website development, social media growth, and performance marketing services. The site must be professional, modern, animated, and conversion-focused.
 
 **Tagline:** Spice Up Your Brand Growth
-**Live Domain:** TBD (deploying on Vercel)
+**Live Domain:** https://growthmasala.com (deployed on Vercel)
 **Client:** Growth Masala (startup digital agency)
 
 ---
@@ -83,6 +94,9 @@ growth-masala/
 │   │   │       └── page.tsx           # Individual blog post
 │   │   ├── contact/
 │   │   │   └── page.tsx               # Contact page
+│   │   ├── [slug]/
+│   │   │   └── page.tsx               # Location landing pages (dynamicParams=false)
+│   │   ├── sitemap.ts                 # Sitemap — derives location + blog URLs
 │   │   └── api/
 │   │       ├── contact/
 │   │       │   └── route.ts           # Contact form API endpoint
@@ -106,6 +120,7 @@ growth-masala/
 │   │   │   ├── Card.tsx               # Reusable card component
 │   │   │   ├── SectionHeading.tsx     # Consistent section titles
 │   │   │   ├── AnimatedContainer.tsx  # Framer Motion scroll reveal wrapper
+│   │   │   ├── FAQSection.tsx         # Server-rendered <details> FAQ (schema parity)
 │   │   │   └── Badge.tsx              # Service/tech badges
 │   │   ├── chatbot/
 │   │   │   ├── ChatWidget.tsx         # Floating chat bubble + window
@@ -120,11 +135,15 @@ growth-masala/
 │   │   ├── chatbot.ts                 # Claude API integration
 │   │   ├── email.ts                   # Email sending utility
 │   │   ├── blog.ts                    # Blog post parsing utilities
+│   │   ├── schema.ts                  # JSON-LD builders (see docs/seo-architecture.md)
 │   │   └── animations.ts             # Shared Framer Motion variants
 │   ├── data/
+│   │   ├── business.ts                # NAP + business facts — SINGLE SOURCE OF TRUTH
+│   │   ├── locations.ts               # 12 location landing pages (unique copy each)
+│   │   ├── faqs.ts                    # FAQ content (homepage + per-location)
 │   │   ├── services.ts                # Services content data
 │   │   ├── portfolio.ts               # Portfolio items data
-│   │   ├── testimonials.ts            # Testimonials data
+│   │   ├── testimonials.ts            # Testimonials data (REAL clients — verify before editing)
 │   │   └── navigation.ts              # Nav links data
 │   └── types/
 │       └── index.ts                   # TypeScript interfaces
@@ -182,7 +201,21 @@ Sections in order:
 - Full contact form: Name, Phone, Email, Business Name, Service Needed (dropdown), Message
 - WhatsApp button (wa.me link — number TBD)
 - Email and social links
+- Full NAP block — must match `src/data/business.ts` exactly
 - Google Maps embed (optional, if office location exists)
+
+### Location landing pages (root-level, e.g. `/digital-marketing-agency-mahabubnagar`)
+The pages the site is built to rank with. Twelve of them, all rendered by
+`src/app/[slug]/page.tsx` from `src/data/locations.ts`.
+
+- **Mahabubnagar (5):** digital marketing agency, website development, SEO services, social media marketing, Meta ads
+- **Micro-local (5):** Shadnagar, Wanaparthy, Kalwakurthy, Jadcherla, Narayanpet
+- **Hyderabad (2):** digital marketing agency, website development
+
+Each page: exact-match H1 and title, unique intro / why-local / market-context
+copy, featured services, process, 4 FAQs with `FAQPage` schema, `Service` schema,
+breadcrumbs, and cross-links to 3 sibling pages. Adding one means writing real
+copy for it — see [`docs/seo-architecture.md`](docs/seo-architecture.md) §Rule 4.
 
 ---
 
@@ -295,14 +328,47 @@ NEXT_PUBLIC_SITE_URL=https://growthmasala.com
 
 ## SEO Strategy
 
-- Every page gets custom `<title>` and `<meta description>`
-- Open Graph tags for social sharing
-- Structured data (JSON-LD) for local business
-- Sitemap generation via `next-sitemap`
-- robots.txt allowing all crawlers
-- Image alt tags on everything
-- Semantic HTML throughout
+> Full conventions and the reasoning behind them: [`docs/seo-architecture.md`](docs/seo-architecture.md)
+
+**Non-negotiable rules** (each of these has already caused a real bug):
+
+1. **Canonicals are per-route, never in the root layout.** `alternates.canonical`
+   set at the root is inherited by every child route and makes the whole site
+   canonicalise to the homepage. This de-indexed the site once.
+2. **Child titles must not contain "Growth Masala".** The root template appends
+   it. Including it in a child title double-prints the brand.
+3. **Titles lead with the keyword, not the brand**, and include the location where
+   it fits naturally. Keep the rendered title under 60 characters.
+4. **FAQ schema must match visible page content**, which is why `FAQSection` is a
+   server component using native `<details>`. Hidden FAQ schema is a policy violation.
+5. **NAP lives in one place and must match every external listing.**
+   `src/data/business.ts` is the single source of truth; `buildPostalAddress()`
+   omits any field left empty rather than emitting a guess. The street address is
+   currently a **road-level placeholder** ("Station Road", set on owner
+   instruction) — replace it with the real premises **before** creating any
+   directory listing, because inconsistent NAP across citations suppresses local
+   ranking and is painful to unwind once published.
+6. **Location pages need genuinely unique copy.** Cloning an entry in
+   `src/data/locations.ts` and swapping the city name produces doorway pages.
+
+**Standard coverage:**
+
+- Custom `<title>` and `<meta description>` per page
+- Open Graph + Twitter card tags
+- JSON-LD: `LocalBusiness`, `WebSite`, `BreadcrumbList`, `FAQPage`, `Service`, `OfferCatalog`, `BlogPosting`
+- Sitemap via `src/app/sitemap.ts` (location + blog URLs derived automatically)
+- `robots.txt` explicitly allows AI crawlers (GPTBot, PerplexityBot, ClaudeBot) for AI citation visibility
+- Image alt text on everything; images stored as WebP under ~120KB
+- Semantic HTML, exactly one `<h1>` per page
 - Performance target: 90+ Lighthouse score
+
+**Verify metadata against rendered HTML, not source.** Next.js merges parent and
+child metadata in ways that aren't obvious from reading either file:
+
+```bash
+pnpm build && pnpm start
+curl -s http://localhost:3000/services | grep -oE '<title>[^<]*</title>|<link rel="canonical"[^>]*>'
+```
 
 ---
 
@@ -367,6 +433,45 @@ NEXT_PUBLIC_SITE_URL=https://growthmasala.com
 
 ---
 
+## Key File Locations
+
+| What | Where |
+|------|-------|
+| Project config (this file) | `CLAUDE.md` (root) |
+| **Pending tasks & SEO plan** | **`.claude/TODO.md`** ← read this each session |
+| **SEO rules & conventions** | **`docs/seo-architecture.md`** ← read before touching metadata/schema |
+| SEO audit + competitor teardown | `docs/seo-audit-2026-08.md` |
+| **Business NAP (single source of truth)** | `src/data/business.ts` |
+| JSON-LD schema builders | `src/lib/schema.ts` |
+| Location landing page data | `src/data/locations.ts` |
+| Location landing page template | `src/app/[slug]/page.tsx` |
+| FAQ content | `src/data/faqs.ts` |
+| FAQ component | `src/components/ui/FAQSection.tsx` |
+| Completed work log | `.claude/updates.md` |
+| Chatbot template | `.claude/chatbot-template.md` |
+| Agent instructions | `.claude/agents/` |
+| Homepage sections | `src/components/home/` |
+| Layout (Nav/Footer) | `src/components/layout/` |
+| Chat widget | `src/components/chatbot/ChatWidget.tsx` |
+| System prompt | `src/lib/chatbot.ts` |
+| Chat API | `src/app/api/chat/route.ts` |
+| Contact API | `src/app/api/contact/route.ts` |
+| Email utility | `src/lib/email.ts` |
+| Blog posts | `src/content/blog/` |
+| Blog images | `public/images/blog/` |
+| Portfolio data | `src/data/portfolio.ts` |
+| Brand logo | `public/images/logo.png` |
+| Portfolio images | `public/images/portfolio/` |
+| Design system + animations | `src/app/globals.css` |
+| IntersectionObserver hook | `src/lib/useInView.ts` |
+| JSON-LD schema | `src/app/layout.tsx` |
+| Sitemap | `src/app/sitemap.ts` |
+| 404 page | `src/app/not-found.tsx` |
+| Env vars | `.env.local` (never commit) |
+| Env template | `.env.example` |
+
+---
+
 ## Important Rules
 
 1. NEVER commit `.env.local` — it contains API keys
@@ -407,7 +512,22 @@ Logo:       Bar chart bars (blue) + upward trend line arrow (amber)
 
 **Rule:** A page must have exactly ONE `<h1>`. For multi-line visual headlines, use a single `<h1>` with `<span className="block">` for each visual line — never multiple `<h1>` elements.
 
-### 3. Checking diffs from feature branches after merging — not the actual files
+### 3. A canonical tag in the root layout de-indexed the entire site
+**What happened:** `src/app/layout.tsx` had `alternates: { canonical: "https://growthmasala.com" }`. In the Next.js App Router that field is **inherited by every child route**, so `/services`, `/portfolio`, `/blog/*` — every page — served a canonical pointing at the homepage. Google treated all of them as duplicates and indexed none of them. `site:growthmasala.com` returned zero results for months while the sitemap was dutifully submitting ten URLs Google had been told not to index.
+
+**Rule:** never set `alternates.canonical` in the root layout. Every route sets its own relative canonical (`alternates: { canonical: "/services" }`). After any metadata change, verify against **rendered HTML**, not the source file:
+
+```bash
+pnpm build && pnpm start
+curl -s http://localhost:3000/services | grep -o '<link rel="canonical"[^>]*>'
+```
+
+### 4. Trusting a stale TODO instead of grepping the source
+**What happened:** `.claude/TODO.md` said the testimonials and case studies were fake placeholders ("Sarah Johnson", "TechStart India"). That had been true in April. By August both files contained real, named clients with live URLs — but the TODO was never updated, and the stale claim got repeated into an SEO audit as a live finding. A grep would have taken five seconds and returned zero matches.
+
+**Rule:** documentation describes the past; code describes the present. Before acting on any claim in `TODO.md`, `updates.md`, or a previous audit — **grep the source and confirm it still holds.** When you find a doc claim that is no longer true, fix the doc in the same pass.
+
+### 5. Checking diffs from feature branches after merging — not the actual files
 **What happened:** After merging two feature branches, `git diff main feature/branch` showed large diffs that looked alarming. These diffs were just showing the feature branches as stale/behind main — not indicating missing code. The actual files on main were correct.
 
 **Rule:** After merging, verify the actual state of files on main directly (`grep` / `Read` the files) rather than reading cross-branch diffs which can be misleading.

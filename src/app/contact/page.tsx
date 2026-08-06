@@ -3,30 +3,33 @@
 import { Mail, MapPin, Phone, MessageCircle } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import ContactForm from "@/components/forms/ContactForm";
+import { address, addressLine, business } from "@/data/business";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "growthmasala@gmail.com",
-    href: "mailto:growthmasala@gmail.com",
+    value: business.email,
+    href: `mailto:${business.email}`,
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 8688269427",
-    href: "tel:+918688269427",
+    value: business.phoneDisplay,
+    href: `tel:${business.phone}`,
   },
   {
     icon: MessageCircle,
     label: "WhatsApp",
     value: "Chat with us",
-    href: "https://wa.me/918688269427",
+    href: business.whatsapp,
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "India",
+    // Local SEO depends on this matching the NAP used on Google Business
+    // Profile and every directory listing, character for character.
+    value: `${addressLine}, India`,
     href: undefined,
   },
 ];
@@ -51,8 +54,11 @@ export default function ContactPage() {
               Let&apos;s <span className="text-gradient">Talk Growth</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-400">
-              Ready to grow your business online? Drop us a message and we&apos;ll get
-              back to you within 24 hours with a free consultation.
+              Ready to grow your business online? We&apos;re based in{" "}
+              {address.locality}, {address.region}, and we work with businesses
+              across the district, Hyderabad, and the rest of India. Drop us a
+              message and we&apos;ll get back to you within 24 hours with a free
+              consultation.
             </p>
           </AnimatedContainer>
         </div>

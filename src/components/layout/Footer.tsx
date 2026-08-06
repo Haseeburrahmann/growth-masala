@@ -1,7 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { navLinks } from "@/data/navigation";
+import { addressLine, business } from "@/data/business";
+import { locationPages } from "@/data/locations";
+
+// Surfaced in the footer so every page links into the location cluster —
+// otherwise those pages are orphans with no internal links pointing at them.
+const footerLocationLinks = locationPages.slice(0, 6);
 
 export default function Footer() {
   return (
@@ -39,7 +45,7 @@ export default function Footer() {
         {/* Main footer grid */}
         <div className="grid gap-12 py-16 md:grid-cols-12">
           {/* Brand */}
-          <div className="md:col-span-5">
+          <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/images/logo.png"
@@ -53,9 +59,10 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
-              We blend strategy, creativity, and data to cook up marketing
-              campaigns that deliver real, measurable growth for businesses
-              across India and beyond.
+              A digital marketing agency in {addressLine}. We blend strategy,
+              creativity, and data to cook up campaigns that deliver real,
+              measurable growth — for businesses here, in Hyderabad, and across
+              India.
             </p>
             <div className="mt-6 flex items-center gap-4">
               {[
@@ -80,7 +87,7 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
               Navigation
             </h4>
@@ -99,24 +106,53 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="md:col-span-4">
+          {/* Areas we serve — internal links into the location page cluster */}
+          <div className="md:col-span-3">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
+              Areas We Serve
+            </h4>
+            <ul className="mt-4 space-y-2.5">
+              {footerLocationLinks.map((page) => (
+                <li key={page.slug}>
+                  <Link
+                    href={`/${page.slug}`}
+                    className="group inline-flex items-center gap-1 text-sm text-slate-400 transition-colors hover:text-white"
+                  >
+                    {page.serviceLabel} in {page.city}
+                    <ArrowUpRight className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact — NAP must stay identical to `src/data/business.ts` */}
+          <div className="md:col-span-3">
             <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
               Contact
             </h4>
             <ul className="mt-4 space-y-3">
               <li>
                 <a
-                  href="mailto:growthmasala@gmail.com"
+                  href={`mailto:${business.email}`}
                   className="inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-primary"
                 >
                   <Mail className="h-4 w-4" />
-                  growthmasala@gmail.com
+                  {business.email}
                 </a>
               </li>
-              <li className="flex items-center gap-2 text-sm text-slate-400">
-                <MapPin className="h-4 w-4" />
-                India
+              <li>
+                <a
+                  href={`tel:${business.phone}`}
+                  className="inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-primary"
+                >
+                  <Phone className="h-4 w-4" />
+                  {business.phoneDisplay}
+                </a>
+              </li>
+              <li className="flex items-start gap-2 text-sm text-slate-400">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                <address className="not-italic">{addressLine}, India</address>
               </li>
             </ul>
           </div>

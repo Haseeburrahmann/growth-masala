@@ -5,6 +5,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ChatWidgetLazy from "@/components/chatbot/ChatWidgetLazy";
+import { SITE_URL } from "@/data/business";
+import { buildLocalBusinessSchema, buildWebSiteSchema } from "@/lib/schema";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -22,11 +24,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Growth Masala — Spice Up Your Brand Growth",
+    // Child routes set a bare, keyword-first title (no brand) and let the
+    // template append it exactly once. Including the brand in a child title
+    // double-prints it: "Services — Growth Masala | Growth Masala".
+    default: "Digital Marketing Agency in Mahabubnagar | Growth Masala",
     template: "%s | Growth Masala",
   },
   description:
-    "Growth Masala is a digital marketing agency offering website development, social media growth, and performance marketing services to help your business thrive online.",
+    "Growth Masala is a digital marketing agency in Mahabubnagar, Telangana. We build websites and run social media, SEO, and Meta ads campaigns that bring local businesses real, measurable growth.",
   keywords: [
     // Brand
     "Growth Masala",
@@ -52,21 +57,23 @@ export const metadata: Metadata = {
     "Facebook ads",
     "SEO",
   ],
-  alternates: {
-    canonical: "https://growthmasala.com",
-  },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://growthmasala.com"),
+  // NOTE: no `alternates.canonical` here on purpose. In the App Router this
+  // field is inherited by every child route, so a canonical set at the root
+  // makes all inner pages declare themselves duplicates of the homepage and
+  // drops them from the index. Each route sets its own relative canonical.
+  metadataBase: new URL(SITE_URL),
   icons: {
-    icon: "/images/icon.png",
-    apple: "/images/icon.png",
+    icon: "/favicon.ico",
+    apple: "/images/logo.png",
   },
   openGraph: {
-    title: "Growth Masala — Spice Up Your Brand Growth",
+    title: "Digital Marketing Agency in Mahabubnagar | Growth Masala",
     description:
-      "Digital marketing agency offering website development, social media growth, and performance marketing.",
+      "Websites, social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana.",
     type: "website",
     locale: "en_IN",
     siteName: "Growth Masala",
+    url: SITE_URL,
     images: [
       {
         url: "/images/og-image.png",
@@ -78,63 +85,35 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Growth Masala — Spice Up Your Brand Growth",
+    title: "Digital Marketing Agency in Mahabubnagar | Growth Masala",
     description:
-      "Digital marketing agency offering website development, social media growth, and performance marketing.",
+      "Websites, social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana.",
     images: ["/images/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
   },
+  // Google Search Console HTML-tag verification. Set
+  // GOOGLE_SITE_VERIFICATION in the Vercel environment to the token Search
+  // Console gives you. Left unset, the tag is simply omitted.
+  //
+  // IMPORTANT: these pages are statically prerendered, so this value is read at
+  // BUILD time, not request time. Setting the variable is not enough — you must
+  // trigger a new deploy (Vercel → Deployments → Redeploy) for the tag to
+  // appear. Verified: restarting the server with the var set does nothing.
+  //
+  // Only needed for the HTML-tag method. DNS TXT verification (recommended,
+  // since it covers www and all subdomains) requires nothing here.
+  ...(process.env.GOOGLE_SITE_VERIFICATION && {
+    verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
+  }),
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "ProfessionalService"],
-  name: "Growth Masala",
-  description:
-    "Digital marketing agency in Mahabubnagar, Telangana offering website development, social media management, and performance marketing to help businesses grow online.",
-  url: "https://growthmasala.com",
-  email: "growthmasala@gmail.com",
-  telephone: "+918688269427",
-  image: "https://growthmasala.com/images/icon.png",
-  priceRange: "₹₹",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Mahabubnagar",
-    addressRegion: "Telangana",
-    addressCountry: "IN",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 16.7488,
-    longitude: 77.9869,
-  },
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    opens: "09:00",
-    closes: "18:00",
-  },
-  sameAs: [
-    "https://www.instagram.com/growthmasala",
-    "https://www.facebook.com/share/17EGgbmTK9/",
-    "https://x.com/growthmasala",
-  ],
-  serviceType: [
-    "Website Development",
-    "Social Media Marketing",
-    "Performance Marketing",
-    "SEO",
-    "Meta Ads",
-  ],
-  areaServed: [
-    { "@type": "City", name: "Mahabubnagar" },
-    { "@type": "City", name: "Hyderabad" },
-    { "@type": "State", name: "Telangana" },
-  ],
-};
+// Site-wide entity graph. Page-level schema (breadcrumbs, FAQ, services,
+// articles) lives on the individual routes and references these by @id.
+const localBusinessSchema = buildLocalBusinessSchema();
+const webSiteSchema = buildWebSiteSchema();
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -148,7 +127,11 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
         />
       </head>
       <body

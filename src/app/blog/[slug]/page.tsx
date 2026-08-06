@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { buildArticleSchema, buildBreadcrumbSchema } from "@/lib/schema";
 import type { Metadata } from "next";
 
 interface PageProps {
@@ -20,8 +21,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) return { title: "Post Not Found" };
 
   return {
-    title: `${post.meta.title} — Growth Masala Blog`,
+    // Bare title — the root layout template appends "| Growth Masala".
+    title: post.meta.title,
     description: post.meta.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      title: `${post.meta.title} | Growth Masala`,
+      description: post.meta.excerpt,
+      url: `/blog/${slug}`,
+      type: "article",
+      publishedTime: post.meta.date,
+      ...(post.meta.image && { images: [{ url: post.meta.image }] }),
+    },
   };
 }
 
@@ -70,8 +81,31 @@ export default async function BlogPostPage({ params }: PageProps) {
     })
     .join("");
 
+  const articleSchema = buildArticleSchema({
+    title: post.meta.title,
+    description: post.meta.excerpt,
+    path: `/blog/${slug}`,
+    datePublished: post.meta.date,
+    image: post.meta.image,
+  });
+
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.meta.title, path: `/blog/${slug}` },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Header */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-16 sm:pt-40 sm:pb-20">
         <div className="pointer-events-none absolute inset-0">

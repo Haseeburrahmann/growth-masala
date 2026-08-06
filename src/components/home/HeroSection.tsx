@@ -70,7 +70,9 @@ export default function HeroSection() {
               style={{ animationDelay: "600ms" }}
             >
               <p className="max-w-md text-base leading-relaxed text-slate-400 sm:text-lg">
-                We help businesses grow online with stunning websites, strategic
+                A digital marketing agency in{" "}
+                <span className="text-white">Mahabubnagar, Telangana</span>. We
+                help businesses grow online with stunning websites, strategic
                 social media, and performance marketing that delivers{" "}
                 <span className="text-white">real results.</span>
               </p>

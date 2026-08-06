@@ -1,18 +1,38 @@
 import { Calendar, Clock, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
-export const metadata = {
-  title: "Blog — Growth Masala",
-  description: "Insights, tips, and strategies on digital marketing, social media, and web development from the Growth Masala team.",
+export const metadata: Metadata = {
+  title: "Blog — Digital Marketing Insights",
+  description:
+    "Practical digital marketing, social media, SEO, and web development advice for small businesses in Telangana — written by the Growth Masala team.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Blog — Digital Marketing Insights | Growth Masala",
+    description:
+      "Practical digital marketing, SEO, and web development advice for small businesses in Telangana.",
+    url: "/blog",
+  },
 };
+
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Blog", path: "/blog" },
+]);
 
 export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="pointer-events-none absolute inset-0">

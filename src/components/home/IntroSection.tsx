@@ -63,7 +63,8 @@ export default function IntroSection() {
             <p className="max-w-lg text-lg leading-relaxed text-text-secondary lg:ml-auto">
               We combine creativity with data to build marketing that actually
               works. No fluff, no vanity metrics — just real business growth
-              you can measure.
+              you can measure. We work with businesses across Mahabubnagar,
+              Hyderabad, and the rest of Telangana.
             </p>
           </AnimatedContainer>
         </div>
