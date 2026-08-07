@@ -1,7 +1,7 @@
 import { Check, ArrowRight } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { business } from "@/data/business";
 import { websiteTiers, formatPrice } from "@/data/pricing";
+import { pricingWhatsappLink } from "@/lib/whatsapp";
 import type { PricingTier } from "@/types";
 
 /**
@@ -23,12 +23,6 @@ import type { PricingTier } from "@/types";
  *
  * Server component — static data, no interactivity beyond links.
  */
-
-/** Pre-filled WhatsApp deep link. Lowest-friction contact path for this market. */
-function whatsappLink(tierName: string, price: string): string {
-  const message = `Hi Growth Masala, I'm interested in the ${tierName} plan (${price}). Could you tell me more?`;
-  return `${business.whatsapp}?text=${encodeURIComponent(message)}`;
-}
 
 function Price({ tier }: { tier: PricingTier }) {
   return (
@@ -137,7 +131,7 @@ export default function PricingSection() {
                   </ul>
 
                   <a
-                    href={whatsappLink(tier.name, formatPrice(tier.amount))}
+                    href={pricingWhatsappLink(tier.name, formatPrice(tier.amount))}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`group mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all ${

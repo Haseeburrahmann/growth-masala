@@ -57,6 +57,50 @@ export const generalFaqs: FaqItem[] = [
 ];
 
 /**
+ * FAQs for `/services`, rendered as `FAQPage` schema on that route.
+ *
+ * Deliberately not a subset of `generalFaqs`. Two pages carrying the same
+ * question-and-answer pair split the signal for that query the same way two
+ * pages carrying the same title do, so these ask what a reader who has already
+ * decided to hire someone wants to know — scope, combinations, and what happens
+ * when the job is not on the list — rather than re-answering "where are you
+ * based".
+ *
+ * Same rule as above: every answer must be literally true, and every rupee
+ * figure is interpolated from `src/data/pricing.ts` so it cannot drift from the
+ * pricing tables further up the page.
+ */
+export const servicesFaqs: FaqItem[] = [
+  {
+    question: `Which services do you actually deliver in ${address.locality}?`,
+    answer: `All of them. Websites and online stores, custom software and internal tools, SEO and Google Business Profile, Meta and Google ads, social media management, and AI chatbots and WhatsApp automation. We are based in ${address.locality}, so local projects can be run face to face; everything else is delivered remotely.`,
+  },
+  {
+    question: "Can I start with one service and add others later?",
+    answer:
+      "Yes, and most clients do. A website is the usual starting point because ads and SEO both need somewhere to send people. Once that is live, marketing or automation can be added without rebuilding anything.",
+  },
+  {
+    question: "Do I have to take a monthly plan with my website?",
+    answer: `No. The website packages are one-time payments and the site is yours outright. Care plans — backups, security, and content updates — are optional and start at ${formatPrice(carePlans[0].amount)} a month. Declining one changes nothing about what you receive at launch.`,
+  },
+  {
+    question: "What if what I need is not on this page?",
+    answer:
+      "Then we scope it and send a fixed price before any work starts. Custom software, integrations, and one-off builds are quoted this way as a matter of course, and the consultation that produces the quote is free.",
+  },
+  {
+    question: "Who pays for advertising budget, domains, and hosting?",
+    answer:
+      "You do, directly. Ad spend goes to Meta or Google, never through us, so you keep control of the account and the budget. Domain and hosting are billed at cost with no markup. Our fee is only ever for the work.",
+  },
+  {
+    question: "Do you work with businesses outside Mahabubnagar?",
+    answer: `Yes. Alongside ${address.locality} district we work with businesses in Hyderabad and across the rest of India — our published client work includes schools in Telangana and Bengaluru and a mobile-retail chain in Hyderabad.`,
+  },
+];
+
+/**
  * Builds FAQs for a location landing page. Keeps the answers grounded in the
  * same facts as the general set, with the city swapped in.
  */

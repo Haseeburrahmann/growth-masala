@@ -102,12 +102,15 @@ that rank page-one: IIDE, ZeroAdo, AmigoCreatz, HivePulse.
 
 ## 🟠 HIGH — Content the code can't invent
 
-- [ ] **Publish pricing** — even as ranges
-  - Every competitor publishes one; we publish none
-  - World of Nexa: ₹4,999/₹9,999/₹19,999 per month, websites from ₹10–15k
-  - Local benchmarks: websites ₹6,000–₹90,000 · SEM/PPC ₹5,000–₹75,000
-  - `src/data/faqs.ts` has a TODO marking exactly where this slots in
-  - "website design cost Mahabubnagar" is a high-intent query we currently forfeit
+- [x] ~~**Publish pricing**~~ ✅ **DONE** — `src/data/pricing.ts` is the single
+      source of truth and is now rendered end to end
+  - Homepage `PricingSection` shows the three one-time build tiers only
+  - `/services` publishes the full list: builds, care plans, add-ons, fine print
+  - The same file feeds the `OfferCatalog` JSON-LD, the FAQ answers, and the
+    chatbot, so no surface can quote a price the page does not show
+  - Still forfeiting **"website design cost Mahabubnagar"** as a *query* — the
+    prices are published but no page targets that phrase. The blog post below
+    is the piece that would claim it.
 
 - [ ] **Collect client reviews** → unlocks `AggregateRating` schema
   - Star ratings in the SERP are the biggest CTR lift available
