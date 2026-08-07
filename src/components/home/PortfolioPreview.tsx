@@ -104,10 +104,16 @@ export default function PortfolioPreview() {
                     </p>
 
                     {/* Evidence block — a quote where we have one, the live link
-                        otherwise, so card heights stay even either way. */}
+                        otherwise, so card heights stay even either way.
+
+                        The quote sits on a tinted ground rather than behind the
+                        amber left-stripe it used to carry. Three cards side by
+                        side each wearing a coloured rule down one edge read as a
+                        UI-framework default; a filled block reads as a
+                        pull-quote. */}
                     <div className="mt-5 flex flex-1 flex-col justify-end border-t border-border pt-5">
                       {testimonial ? (
-                        <figure className="border-l-2 border-accent pl-4">
+                        <figure className="rounded-lg bg-accent/8 px-4 py-3.5">
                           <Quote className="mb-2 h-3.5 w-3.5 text-accent" />
                           <blockquote className="text-sm leading-relaxed text-text-primary">
                             &ldquo;{testimonial.quote}&rdquo;

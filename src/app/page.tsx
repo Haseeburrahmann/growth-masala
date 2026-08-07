@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
 import TrustBar from "@/components/home/TrustBar";
 import FAQSection from "@/components/ui/FAQSection";
+import SectionDivider from "@/components/ui/SectionDivider";
 import { generalFaqs } from "@/data/faqs";
 import { buildFaqSchema } from "@/lib/schema";
 
@@ -33,7 +34,7 @@ const faqSchema = buildFaqSchema(generalFaqs);
  *   1 Hero        — what we do, for whom, where
  *   2 Trust bar   — named clients, before any claim needs believing
  *   3 Problem     — the reader's situation (no mention of us)
- *   4 Services    — the four groups
+ *   4 Services    — the three headline groups (Custom Software lives on /services)
  *   5 Process     — de-risking + the page's soft CTA
  *   6 Projects    — proof, each with its client's quote
  *   7 Why us      — comparison against the real alternatives
@@ -45,8 +46,21 @@ const faqSchema = buildFaqSchema(generalFaqs);
  * 7 is comparison. The moment two of them make the same argument the page goes
  * soft, which is the usual failure mode of a homepage this long.
  *
- * Backgrounds alternate navy → light → navy → light → navy so an eleven-section
- * scroll has landmarks instead of running together.
+ * Backgrounds alternate so an eleven-section scroll has landmarks instead of
+ * running together:
+ *
+ *   navy · navy | light · light | navy | light · NAVY · light | light · light
+ *
+ * Why-us is the capitalised one. It used to be light, which left Portfolio,
+ * Why-us and Pricing as three consecutive pale sections in the back half of the
+ * page — the stretch where a reader is most likely to give up.
+ *
+ * That alternation carries the navy boundaries on its own. It does nothing for
+ * the light-on-light ones: #F8FAFC meeting #FFFFFF is invisible, so Problem →
+ * Services and Pricing → FAQ read as one continuous white field with an
+ * unexplained gap in it. <SectionDivider /> marks those two seams and only
+ * those two — a divider at every boundary would become page furniture, and the
+ * navy edges do not need help.
  */
 export default function Home() {
   return (
@@ -59,11 +73,15 @@ export default function Home() {
       <HeroSection />
       <TrustBar />
       <ProblemSection />
+      <SectionDivider tone="surface" />
       <ServicesPreview />
       <ProcessSection />
       <PortfolioPreview />
+      {/* No divider after Why-us any more: that section went navy, so the
+          boundary into Pricing is now a change of room and needs no marker. */}
       <WhyUsSection />
       <PricingSection />
+      <SectionDivider />
       <FAQSection
         faqs={generalFaqs}
         intro="Everything people usually ask before getting in touch. If your question isn't here, message us — we'll answer it straight."

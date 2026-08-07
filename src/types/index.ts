@@ -27,6 +27,12 @@ export interface ServiceGroup {
   serviceSlugs: string[];
   /** The hero group renders larger and carries the primary border. */
   featured?: boolean;
+  /**
+   * Kept off the homepage row. The group still exists everywhere else — the
+   * services page sells it and the chatbot quotes it — it just does not earn a
+   * quarter of the homepage's most-read section.
+   */
+  homepageHidden?: boolean;
 }
 
 export interface Service {
@@ -82,12 +88,6 @@ export interface Testimonial {
   company: string;
   quote: string;
   rating: number;
-}
-
-export interface ProcessStep {
-  step: number;
-  title: string;
-  description: string;
 }
 
 export interface NavLink {

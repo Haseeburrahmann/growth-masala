@@ -56,6 +56,10 @@ export const serviceGroups: ServiceGroup[] = [
     icon: "Code2",
     image: "/images/services/software.webp",
     serviceSlugs: ["software-development"],
+    // Off the homepage row. It is the one group nobody arrives searching for,
+    // and holding it back lets the other three run wide enough to carry a
+    // photograph. Still sold on /services and still quoted by the chatbot.
+    homepageHidden: true,
   },
   {
     id: "marketing",
@@ -309,6 +313,15 @@ export const services: Service[] = [
     ],
   },
 ];
+
+/**
+ * The groups the homepage shows. Derived, never a second copy of the list —
+ * anything the chatbot or /services must keep selling stays in `serviceGroups`
+ * and simply opts out of the homepage row.
+ */
+export const homepageServiceGroups: ServiceGroup[] = serviceGroups.filter(
+  (group) => !group.homepageHidden,
+);
 
 /** Services belonging to a group, in the order the group declares them. */
 export function servicesInGroup(group: ServiceGroup): Service[] {

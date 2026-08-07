@@ -1,23 +1,21 @@
-import Link from "next/link";
-import { Check, ArrowRight, MessageCircle } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import { business } from "@/data/business";
-import {
-  websiteTiers,
-  carePlans,
-  addOns,
-  pricingFinePrint,
-  formatPrice,
-} from "@/data/pricing";
+import { websiteTiers, formatPrice } from "@/data/pricing";
 import type { PricingTier } from "@/types";
 
 /**
- * Published pricing.
+ * Published pricing — the one-time build tiers only.
  *
- * Two visually separate blocks — one-time builds and monthly care. Putting both
- * billing models in a single grid is the most reliable way to confuse a reader
- * into leaving, because "₹9,999" and "₹1,499/mo" stop being comparable the
- * moment they sit in the same row.
+ * Care plans, add-ons, the fine print and the "not on this list" escape hatch
+ * were all here and now belong to the pricing page. On a homepage they answered
+ * a question nobody had reached yet: a reader still deciding whether a website
+ * is worth ₹9,999 is not weighing monthly backup frequency. Two billing models
+ * in one section also stop "₹9,999" and "₹1,499/mo" being comparable figures.
+ *
+ * The data is untouched in `src/data/pricing.ts` — `carePlans` and `addOns` are
+ * still read by the chatbot, the FAQ and the JSON-LD `OfferCatalog`, and the
+ * pricing page will render them alongside `pricingFinePrint` when it lands.
  *
  * Every rupee figure comes from `src/data/pricing.ts`. Nothing here hardcodes a
  * price, so the UI can never drift from the JSON-LD `Offer` markup or from what
@@ -68,7 +66,6 @@ export default function PricingSection() {
           </p>
         </AnimatedContainer>
 
-        {/* ---------- Block 1 — one-time builds ---------- */}
         <div className="mt-16 grid items-start gap-6 md:grid-cols-3">
           {websiteTiers.map((tier, idx) => {
             const popular = Boolean(tier.popular);
@@ -158,125 +155,6 @@ export default function PricingSection() {
           })}
         </div>
 
-        {/* ---------- Block 2 — monthly care ---------- */}
-        <AnimatedContainer className="mt-24 max-w-2xl">
-          <h3 className="font-heading text-2xl font-bold text-text-primary sm:text-3xl">
-            Then keep it running
-          </h3>
-          <p className="mt-3 text-base leading-relaxed text-text-secondary">
-            A website is not finished at launch. Care plans cover backups,
-            security, and the updates you will actually ask for.
-          </p>
-        </AnimatedContainer>
-
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {carePlans.map((plan, idx) => (
-            <AnimatedContainer key={plan.id} delay={idx * 90}>
-              <div
-                className={`hover-lift flex h-full flex-col rounded-xl border bg-surface p-6 ${
-                  plan.popular ? "border-primary/40" : "border-border"
-                }`}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <h4 className="font-heading text-base font-bold text-text-primary">
-                    {plan.name}
-                  </h4>
-                  {plan.popular && (
-                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
-                      Common
-                    </span>
-                  )}
-                </div>
-                <p className="mt-1 text-xs text-text-secondary">{plan.audience}</p>
-
-                <div className="mt-4 text-text-primary">
-                  <Price tier={plan} />
-                </div>
-
-                <ul className="mt-5 flex flex-1 flex-col gap-2 border-t border-border pt-5">
-                  {plan.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-2 text-sm text-text-secondary"
-                    >
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/70" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </AnimatedContainer>
-          ))}
-        </div>
-
-        {/* ---------- Add-ons ---------- */}
-        <AnimatedContainer className="mt-16" animation="fade-in">
-          <div className="rounded-2xl border border-border bg-surface p-7 sm:p-9">
-            <h3 className="font-heading text-lg font-bold text-text-primary">
-              Add anything you need
-            </h3>
-            <p className="mt-2 text-sm text-text-secondary">
-              Priced up front so nothing turns into an argument later.
-            </p>
-
-            <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-              {addOns.map((addOn) => (
-                <li
-                  key={addOn.name}
-                  className="flex items-baseline justify-between gap-4 border-b border-border/70 pb-3 text-sm"
-                >
-                  <span className="text-text-secondary">{addOn.name}</span>
-                  <span className="shrink-0 font-heading font-semibold tabular-nums text-text-primary">
-                    {formatPrice(addOn.amount)}
-                    {addOn.billing === "monthly" && (
-                      <span className="font-normal text-text-secondary">/mo</span>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </AnimatedContainer>
-
-        {/* ---------- Fine print + escape hatch ---------- */}
-        <AnimatedContainer className="mt-12 grid gap-10 lg:grid-cols-2" animation="fade-in">
-          <ul className="flex flex-col gap-2">
-            {pricingFinePrint.map((line) => (
-              <li key={line} className="text-sm leading-relaxed text-text-secondary">
-                {line}
-              </li>
-            ))}
-          </ul>
-
-          <div className="rounded-xl border border-primary/20 bg-primary/4 p-6">
-            <p className="font-heading text-base font-bold text-text-primary">
-              Need something that is not on this list?
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-              Software, ads, SEO, and social media are scoped individually — the
-              work varies too much to put a single number on it. You still get a
-              fixed quote before anything starts.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-secondary"
-              >
-                Get a free quote
-                <ArrowRight className="cta-arrow h-4 w-4" />
-              </Link>
-              <a
-                href={business.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-text-primary transition-colors hover:border-primary hover:text-primary"
-              >
-                <MessageCircle className="h-4 w-4" />
-                Ask on WhatsApp
-              </a>
-            </div>
-          </div>
-        </AnimatedContainer>
       </div>
     </section>
   );
