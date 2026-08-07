@@ -117,11 +117,30 @@ that rank page-one: IIDE, ZeroAdo, AmigoCreatz, HivePulse.
   - Target: 5 reviews across Google/Justdial/Clutch within 2 weeks
   - Once they exist, adding the schema is ~30 minutes of code
 
-- [ ] **Get one real outcome metric for a case study**
-  - `src/app/case-studies/page.tsx` currently shows capability statements
-    ("Live", "1-tap", "4 Branches") rather than results
-  - Even one number — enquiries per month, admissions, traffic — materially
-    strengthens the page. The file already flags this in a comment.
+- [ ] **Get one real outcome metric for a case study** 🔥 ← highest-value copy task
+  - Case study data now lives in `src/data/caseStudies.ts` (it used to be
+    hardcoded in the page). Every entry has an `outcome?: string` field and
+    **every one of them is undefined** — that is the honest state.
+  - The fake metrics are gone. The page used to render "Live", "1-tap" and
+    "100% Mobile Responsive" as a green RESULTS column at KPI typography.
+    Those were deliverables dressed as outcomes; they are now a plain
+    "What shipped" checklist, and `/case-studies` carries a section explaining
+    why it publishes no percentages.
+  - One real number — enquiries a month, admissions, search traffic — from any
+    one client is all it takes. Set `outcome` on that study and the card already
+    has the treatment for it (emerald, trending-up icon, the only figure on the
+    card). Delete `CaseStudiesNote.tsx` at the same time: once real figures
+    exist, that section stops being honest and becomes false modesty.
+
+- [ ] **Confirm the remaining owner-supplied numbers**
+  - `trackRecord` in `src/data/business.ts` holds `projectsDelivered: 50` and
+    `clientsServed: 30`, confirmed by the owner 2026-08-07. They feed the
+    /portfolio title, the /portfolio hero and the /about stat block from one
+    place — previously the 50 was retyped per file, which is how /portfolio came
+    to promise "50+" in the SERP while rendering "8+" in its hero.
+  - **Deleted, not moved:** "3x Average Growth Rate" and "95% Client Retention".
+    Neither had a source. If they are real and measurable, say so and they can
+    go back — but they need a baseline and a period before they are publishable.
 
 ---
 

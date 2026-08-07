@@ -82,6 +82,47 @@ export interface PortfolioItem {
   link?: string;
 }
 
+/**
+ * A /case-studies entry.
+ *
+ * Note what this type does *not* have: a `results` array of metric/label pairs.
+ * The page used to render one, and it held things like `{ metric: "Live",
+ * label: "Online Presence" }` — set in 24px bold beside a green trending-up
+ * icon, under a heading that said RESULTS. Those are deliverables wearing a
+ * KPI's clothes, and the typography did the lying.
+ *
+ * `delivered` is therefore a plain string list rendered as a checklist. It can
+ * only describe what was built, because that is all anyone has verified.
+ * `outcome` is the separate, optional field for a real measured number — leave
+ * it undefined rather than reaching for something that sounds like one.
+ */
+export interface CaseStudy {
+  /** Stable key for React and for any future per-study route. */
+  slug: string;
+  client: string;
+  /** e.g. "Website · Education". Shown as a pill above the client name. */
+  category: string;
+  /** Where the client trades. Local-intent copy, and true for each of them. */
+  location: string;
+  link?: string;
+  image: string;
+  challenge: string;
+  solution: string;
+  /** What was built. Verifiable by opening `link` — nothing else belongs here. */
+  delivered: string[];
+  /**
+   * A measured business outcome — enquiries per month, admissions, traffic.
+   *
+   * Undefined on every study today because no client has shared numbers yet.
+   * When one does, set it here and it renders as the only figure on the card.
+   * Do not populate this with a capability ("Live", "1-tap"); that is what
+   * `delivered` is for, and conflating the two is the bug this type replaced.
+   */
+  outcome?: string;
+  /** Tailwind gradient stops for the card wash. */
+  gradient: string;
+}
+
 export interface Testimonial {
   name: string;
   role: string;

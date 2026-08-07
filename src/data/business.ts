@@ -26,6 +26,32 @@ export const business = {
 } as const;
 
 /**
+ * Headline delivery counts.
+ *
+ * Owner-supplied and confirmed 2026-08-07. Both are **floors** — always rendered
+ * with a "+" — so they stay true as the real figures climb.
+ *
+ * These live here because they were previously retyped in three places and drifted:
+ * the /portfolio `<title>` claimed "50+ Websites" while the page rendered
+ * `portfolioItems.length + "+"` = "8+", and /about hardcoded its own "50+". A
+ * visitor comparing the SERP snippet to the page saw two different businesses.
+ *
+ * `projectsDelivered` is NOT `portfolioItems.length`. The portfolio is a curated
+ * subset — the clients happy to be named with a live URL — so any surface
+ * showing both must state the relationship rather than let the reader infer that
+ * eight is the whole track record.
+ *
+ * Do not add a metric here that nobody has measured. An earlier version of
+ * /about carried "3x Average Growth Rate" and "95% Client Retention"; neither
+ * came from a source, and both are exactly the kind of claim a Clutch reviewer
+ * or a competitor can demand evidence for.
+ */
+export const trackRecord = {
+  projectsDelivered: 50,
+  clientsServed: 30,
+} as const;
+
+/**
  * Postal address.
  *
  * ⚠️ PLACEHOLDER — set on the owner's explicit instruction (2026-08-06).
