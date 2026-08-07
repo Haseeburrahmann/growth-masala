@@ -101,6 +101,50 @@ export const servicesFaqs: FaqItem[] = [
 ];
 
 /**
+ * FAQs for `/contact`, rendered as `FAQPage` schema on that route.
+ *
+ * Scoped to the act of getting in touch — what happens after you send, what to
+ * have ready, whether it costs anything — rather than re-answering what we sell.
+ * That keeps it from competing with the homepage and `/services` sets.
+ *
+ * ⚠️ Note the meeting answer. It says we meet clients in and around the
+ * district; it does not invite anyone to an office. `address.streetAddress` is
+ * a road-level placeholder, and an FAQ that tells someone to turn up at a
+ * building we have not verified is the one mistake here that wastes a
+ * customer's afternoon. Rewrite it when the real address lands, not before.
+ */
+export const contactFaqs: FaqItem[] = [
+  {
+    question: "How quickly will I get a reply?",
+    answer:
+      "Within 24 hours, and usually the same day if you message during working hours. WhatsApp is the fastest of the three — it goes straight to a phone rather than an inbox.",
+  },
+  {
+    question: "What happens after I send the form?",
+    answer:
+      "We read it and come back with questions about what you actually need. If it is something we can price, you get a fixed quote before any work starts. If it is not something we should be doing, we will say so and point you somewhere better.",
+  },
+  {
+    question: "Does the first conversation cost anything?",
+    answer:
+      "No. The consultation is free and carries no obligation. We would rather spend an hour working out whether there is a fit than sell you something that does not help.",
+  },
+  {
+    question: "Do I need to know exactly what I want first?",
+    answer:
+      "No. Most people arrive knowing what is not working rather than which service fixes it — that is a normal starting point. Tell us what the business does and what you are trying to change, and we will work out the rest.",
+  },
+  {
+    question: `Can we meet in person in ${address.locality}?`,
+    answer: `Yes. We are based in ${address.locality} and regularly meet clients in and around the district — that is the point of hiring someone local rather than a metro agency. Call or WhatsApp first and we will arrange a time and a place that suits you.`,
+  },
+  {
+    question: "Do I have to talk to you to find out your prices?",
+    answer: `No, and you should not have to. Website build prices, care plans, and every add-on are published in full on our services page — ours start at ${formatPrice(websiteTiers[0].amount)}, excluding GST. Anything outside those packages is quoted as a fixed price before work begins.`,
+  },
+];
+
+/**
  * Builds FAQs for a location landing page. Keeps the answers grounded in the
  * same facts as the general set, with the city swapped in.
  */

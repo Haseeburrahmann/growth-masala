@@ -99,3 +99,26 @@ export const openingHours = {
   opens: "09:00",
   closes: "18:00",
 } as const;
+
+/** 24h "09:00" → "9:00 am". Schema wants 24h; a human reading a page does not. */
+function to12Hour(time: string): string {
+  const [rawHour, minute] = time.split(":");
+  const hour = Number(rawHour);
+  const suffix = hour < 12 ? "am" : "pm";
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  return `${hour12}:${minute} ${suffix}`;
+}
+
+/**
+ * Opening hours as one display line, derived the same way `addressLine` is.
+ *
+ * These hours existed only inside the JSON-LD until the contact page rendered
+ * them — the structured data told Google when we are open while the page told
+ * a visitor nothing. Derived rather than retyped so the two can never disagree.
+ *
+ * Assumes `days` is a contiguous run, which it is (Mon–Sat). A split schedule
+ * would need real grouping logic, not a first-to-last dash.
+ */
+export const openingHoursLine = `${openingHours.days[0]} – ${
+  openingHours.days[openingHours.days.length - 1]
+}, ${to12Hour(openingHours.opens)} – ${to12Hour(openingHours.closes)}`;
