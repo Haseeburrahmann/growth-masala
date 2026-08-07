@@ -59,7 +59,8 @@ export default function PricingSection() {
             <div className="h-px w-8 bg-primary/30" />
           </div>
           <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary text-balance sm:text-4xl lg:text-[2.75rem]">
-            Real numbers, published up front
+            Real numbers,{" "}
+            <span className="text-text-secondary/45">published up front</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
             You should not have to book a call to find out whether you can afford

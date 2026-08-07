@@ -26,8 +26,13 @@ export default function ServicesPreview() {
               What we do
             </span>
           </div>
-          <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary text-balance sm:text-4xl lg:text-[2.75rem]">
-            Four ways we get your business growing
+          {/* Two-tone heading: the emphasis lands on the first clause and the
+              rest recedes. Both reference sites use this on every section
+              title, and it reads as deliberate typography rather than a plain
+              sentence. */}
+          <h2 className="font-heading text-3xl font-bold leading-[1.1] tracking-tight text-text-primary text-balance sm:text-4xl lg:text-5xl">
+            Four ways we get your{" "}
+            <span className="text-text-secondary/45">business growing</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
             Most clients start with a website and add the rest once it is earning
@@ -50,7 +55,15 @@ export default function ServicesPreview() {
                 : groupServices.map((service) => service.title);
 
             return (
-              <AnimatedContainer key={group.id} delay={idx * 110}>
+              <AnimatedContainer
+                key={group.id}
+                delay={idx * 110}
+                /* Staggered baselines. The right-hand column drops by 14 so no
+                   two cards share a horizontal line — the cascade is what stops
+                   a 2x2 grid reading as a spreadsheet. Grid-only, so the mobile
+                   stack is unaffected. */
+                className={idx % 2 === 1 ? "md:mt-14" : ""}
+              >
                 <article
                   className={`hover-lift group flex h-full flex-col overflow-hidden rounded-2xl border bg-white ${
                     group.featured
@@ -87,7 +100,17 @@ export default function ServicesPreview() {
                   </div>
 
                   {/* Body */}
-                  <div className="flex flex-1 flex-col p-6">
+                  <div className="relative flex flex-1 flex-col p-6">
+                    {/* Oversized numeral — structure, not decoration. Kept
+                        aria-hidden because "01" read aloud tells nobody
+                        anything. */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-5 top-4 font-heading text-5xl font-bold leading-none tabular-nums text-primary/8 transition-colors duration-300 group-hover:text-primary/15"
+                    >
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+
                     <p className="font-heading text-[15px] font-semibold text-primary">
                       {group.outcome}
                     </p>

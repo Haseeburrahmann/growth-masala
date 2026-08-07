@@ -49,7 +49,8 @@ export default function PortfolioPreview() {
               </span>
             </div>
             <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary text-balance sm:text-4xl lg:text-[2.75rem]">
-              Real businesses. Live sites. Named clients.
+              Real businesses.{" "}
+              <span className="text-text-secondary/45">Live sites. Named clients.</span>
             </h2>
             <p className="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
               Every site below is online right now, and every quote is from the

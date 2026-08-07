@@ -113,17 +113,24 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right column — Dashboard mockup */}
+          {/* Right column — dashboard + the solid amber capability panel.
+              The panel is the page's one large block of pure accent. Amber used
+              only as 3px dots and micro-badges reads as decoration; used as a
+              filled slab it becomes structure, and it is the single change that
+              stops the hero feeling empty. Visible at every breakpoint — on
+              mobile it sits in the flow under the CTAs, on desktop it overlaps
+              the dashboard's lower-left corner. */}
           <div
-            className="hidden w-full max-w-md shrink-0 animate-dashboard-reveal lg:block xl:max-w-lg"
+            className="w-full shrink-0 animate-dashboard-reveal lg:max-w-md xl:max-w-lg"
             style={{ animationDelay: "500ms" }}
           >
             <div className="relative">
               {/* Glow behind dashboard */}
-              <div className="absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl" />
+              <div className="hidden lg:block absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl" />
 
-              {/* Main dashboard card */}
-              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/4 p-5 backdrop-blur-xl">
+              {/* Main dashboard card — desktop only; on mobile the amber panel
+                  below carries this column on its own. */}
+              <div className="relative hidden overflow-hidden rounded-2xl border border-white/10 bg-white/4 p-5 backdrop-blur-xl lg:block">
                 {/* Header */}
                 <div className="mb-5 flex items-center justify-between">
                   <div>
@@ -189,26 +196,42 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                {/* Bottom row — mini stats */}
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="flex-1 rounded-lg border border-white/6 bg-white/3 px-3 py-2">
-                    <p className="text-[10px] text-slate-500">Conversion</p>
-                    <p className="font-heading text-sm font-bold text-white">4.8%</p>
-                  </div>
-                  <div className="flex-1 rounded-lg border border-white/6 bg-white/3 px-3 py-2">
-                    <p className="text-[10px] text-slate-500">Bounce Rate</p>
-                    <p className="font-heading text-sm font-bold text-white">28%</p>
-                  </div>
-                  <div className="flex-1 rounded-lg border border-white/6 bg-white/3 px-3 py-2">
-                    <p className="text-[10px] text-slate-500">Avg. ROI</p>
-                    <p className="font-heading text-sm font-bold text-accent">3.2x</p>
-                  </div>
-                </div>
+                {/* The mini-stats row that used to sit here was removed: the
+                    amber panel overlaps this corner, and a solid slab cutting a
+                    row of figures in half reads as a broken layout rather than a
+                    deliberate overlap. The three metric cards above already
+                    carry the same idea. */}
+                <div className="h-14" />
+              </div>
+
+              {/* Solid amber capability panel */}
+              <div
+                className="animate-fade-in-up relative z-10 rounded-2xl bg-accent p-6 shadow-2xl shadow-accent/20 lg:-mt-10 lg:-ml-12 lg:w-[86%]"
+                style={{ animationDelay: "900ms" }}
+              >
+                <p className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-navy/60">
+                  What we build
+                </p>
+                <ul className="mt-4 grid gap-3">
+                  {[
+                    "Websites & online stores",
+                    "SEO & Google Business Profile",
+                    "Meta & Google Ads",
+                    "AI chatbots & WhatsApp",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2.5">
+                      <Check className="h-4 w-4 shrink-0 text-navy" strokeWidth={3} />
+                      <span className="font-heading text-[15px] font-semibold text-navy">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Floating notification card — top right */}
               <div
-                className="animate-fade-in-up absolute -top-3 -right-3 rounded-xl border border-white/10 bg-navy/90 px-3.5 py-2.5 shadow-xl backdrop-blur-md"
+                className="animate-fade-in-up absolute -top-7 -right-6 hidden rounded-xl border border-white/10 bg-navy/95 px-3.5 py-2.5 shadow-xl backdrop-blur-md xl:block"
                 style={{ animationDelay: "1500ms" }}
               >
                 <div className="flex items-center gap-2">

@@ -72,7 +72,8 @@ export default function WhyUsSection() {
             </span>
           </div>
           <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary text-balance sm:text-4xl lg:text-[2.75rem]">
-            You have four options. Here is the honest comparison.
+            You have four options.{" "}
+            <span className="text-text-secondary/45">Here is the honest comparison.</span>
           </h2>
         </AnimatedContainer>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { Search, PenTool, Zap, TrendingUp, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import { useInView } from "@/lib/useInView";
@@ -76,8 +77,9 @@ export default function ProcessSection() {
             </span>
             <div className="h-px w-8 bg-white/20" />
           </div>
-          <h2 className="font-heading text-3xl font-bold leading-tight text-white text-balance sm:text-4xl lg:text-[2.75rem]">
-            Four steps, and you approve the price at step two
+          <h2 className="font-heading text-3xl font-bold leading-[1.1] tracking-tight text-white text-balance sm:text-4xl lg:text-5xl">
+            Four steps, and you approve the price{" "}
+            <span className="text-slate-500">at step two</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-slate-400 sm:text-lg">
             No open-ended hourly billing, and no invoice at the end that is larger
@@ -139,23 +141,43 @@ export default function ProcessSection() {
 
         {/* Mid-page conversion point — the page's only soft CTA */}
         <AnimatedContainer className="mt-20" animation="fade-in" delay={200}>
-          <div className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/10 bg-white/4 px-7 py-6 backdrop-blur-sm sm:flex-row sm:px-9">
-            <div>
-              <p className="font-heading text-lg font-bold text-white">
-                Not sure what you actually need?
-              </p>
-              <p className="mt-1.5 text-sm text-slate-400">
-                A free 20-minute call. We will tell you honestly if you do not
-                need us yet.
-              </p>
+          <div className="grid overflow-hidden rounded-2xl border border-white/10 bg-white/4 backdrop-blur-sm md:grid-cols-[minmax(0,320px)_1fr]">
+            {/* A real consultation, not an icon. Section 05 is about reducing
+                risk, and showing what the meeting actually looks like does more
+                for that than any adjective. */}
+            <div className="hover-zoom relative h-48 overflow-hidden md:h-full md:min-h-[220px]">
+              <Image
+                src="/images/sections/consultation.webp"
+                alt="Two people reviewing a project plan across a table"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 320px"
+              />
+              <div className="absolute inset-0 bg-linear-to-r from-navy/30 to-navy/70 md:from-transparent md:to-navy/80" />
             </div>
-            <Link
-              href="/contact"
-              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-navy transition-all hover:bg-accent"
-            >
-              Book the call
-              <ArrowRight className="cta-arrow h-4 w-4" />
-            </Link>
+
+            <div className="flex flex-col items-start gap-5 px-7 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-9">
+              <div>
+                <p className="font-heading text-lg font-bold text-white sm:text-xl">
+                  Not sure what you actually need?
+                </p>
+                <p className="mt-1.5 max-w-md text-sm leading-relaxed text-slate-400">
+                  A free 20-minute call. We will tell you honestly if you do not
+                  need us yet.
+                </p>
+              </div>
+              {/* Pill CTA with a circular arrow badge — the button treatment
+                  both reference sites use. */}
+              <Link
+                href="/contact"
+                className="group inline-flex shrink-0 items-center gap-3 rounded-full bg-white py-1.5 pl-6 pr-1.5 text-sm font-semibold text-navy transition-all hover:bg-accent"
+              >
+                Book the call
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy text-white transition-colors group-hover:bg-navy">
+                  <ArrowRight className="cta-arrow h-4 w-4" />
+                </span>
+              </Link>
+            </div>
           </div>
         </AnimatedContainer>
       </div>
