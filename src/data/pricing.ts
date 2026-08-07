@@ -137,8 +137,12 @@ export const addOns: PricingAddOn[] = [
 ];
 
 /**
- * Shown directly beneath the tables. Vague pricing reads as evasive, and every
- * one of these is a question we would otherwise field on the phone.
+ * Sits directly beneath the tables on the pricing page. Vague pricing reads as
+ * evasive, and every one of these is a question we would otherwise field on the
+ * phone.
+ *
+ * Not yet rendered anywhere — the homepage section shows build tiers only. Kept
+ * because it is owner-authored content the pricing page needs, not stale code.
  */
 export const pricingFinePrint: string[] = [
   "All prices exclude GST.",

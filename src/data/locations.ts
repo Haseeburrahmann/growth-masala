@@ -319,5 +319,3 @@ export const locationPages: LocationPage[] = [
 export function getLocationPage(slug: string): LocationPage | undefined {
   return locationPages.find((page) => page.slug === slug);
 }
-
-export const locationSlugs = locationPages.map((page) => page.slug);

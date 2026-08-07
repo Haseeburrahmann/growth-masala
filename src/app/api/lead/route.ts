@@ -30,9 +30,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // The email is the record of the lead. Nothing is logged here on purpose:
+    // the payload is a real name and phone number, and platform logs are a far
+    // wider audience than the inbox the lead was collected for.
     await sendLeadEmail({ name, phone, need });
-
-    console.log(`[Lead] Confirmed — name: ${name}, phone: ${phone}, need: ${need}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {

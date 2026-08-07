@@ -5,7 +5,12 @@ import { useInView } from "@/lib/useInView";
 interface AnimatedContainerProps {
   className?: string;
   children: React.ReactNode;
-  animation?: "fade-in-up" | "fade-in" | "scale-in" | "slide-in-left" | "slide-in-right";
+  /**
+   * Interpolated into `animate-{animation}`, so every member of this union must
+   * have a matching class in globals.css — nothing else references those class
+   * names, and a grep-driven cleanup will delete any that this type drops.
+   */
+  animation?: "fade-in-up" | "fade-in" | "scale-in" | "slide-in-left";
   delay?: number;
 }
 
