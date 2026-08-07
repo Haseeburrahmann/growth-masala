@@ -18,6 +18,7 @@ import {
   socialProfiles,
 } from "@/data/business";
 import { services } from "@/data/services";
+import { websiteTiers, carePlans } from "@/data/pricing";
 
 /** Stable @id for the business entity so other nodes can reference it. */
 const BUSINESS_ID = `${SITE_URL}/#business`;
@@ -75,20 +76,56 @@ export function buildLocalBusinessSchema() {
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Digital Marketing Services",
-      itemListElement: services.map((service) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: service.title,
-          description: service.description,
-          serviceType: service.title,
-          provider: { "@id": BUSINESS_ID },
-          areaServed: areasServed.map((city) => ({
-            "@type": "City",
-            name: city,
-          })),
-        },
-      })),
+      itemListElement: [
+        ...services.map((service) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: service.title,
+            description: service.description,
+            serviceType: service.title,
+            provider: { "@id": BUSINESS_ID },
+            areaServed: areasServed.map((city) => ({
+              "@type": "City",
+              name: city,
+            })),
+          },
+        })),
+        // Priced packages, emitted with real figures.
+        //
+        // These come from `src/data/pricing.ts` — the same source the visible
+        // pricing section reads — so the markup can never claim a price the page
+        // does not show. That parity is the whole point: prices in schema that
+        // disagree with the page are a spam signal, not an optimisation.
+        //
+        // Worth having because robots.txt admits GPTBot, PerplexityBot and
+        // ClaudeBot: when someone asks an assistant what a website costs around
+        // here, this is the machine-readable answer.
+        ...[...websiteTiers, ...carePlans].map((tier) => ({
+          "@type": "Offer",
+          name: `${tier.name} — ${tier.audience}`,
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: tier.amount,
+            priceCurrency: "INR",
+            valueAddedTaxIncluded: false,
+            ...(tier.billing === "monthly"
+              ? { unitCode: "MON", billingIncrement: 1 }
+              : {}),
+          },
+          availability: "https://schema.org/InStock",
+          itemOffered: {
+            "@type": "Service",
+            name: tier.name,
+            description: tier.features.join(". "),
+            provider: { "@id": BUSINESS_ID },
+            areaServed: areasServed.map((city) => ({
+              "@type": "City",
+              name: city,
+            })),
+          },
+        })),
+      ],
     },
   };
 }

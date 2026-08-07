@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowRight, ArrowUpRight, Flame, TrendingUp, Users, Globe, MousePointerClick, ArrowUp } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Flame, TrendingUp, Users, Globe, MousePointerClick, ArrowUp, Check } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 // Mini bar chart data for the dashboard
@@ -12,6 +13,22 @@ export default function HeroSection() {
     <section className="relative min-h-screen overflow-hidden bg-navy">
       {/* Background layers */}
       <div className="pointer-events-none absolute inset-0">
+        {/* Ambient bloom field. Decorative, so alt is empty and it is not marked
+            priority — the navy ground renders instantly and this settles in
+            behind it without competing with the headline for LCP. */}
+        <div className="animate-ambient absolute inset-0 opacity-55">
+          <Image
+            src="/images/hero/ambient.webp"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+        {/* Keeps the headline side dark enough for white text regardless of how
+            the bloom lands at a given viewport width. */}
+        <div className="absolute inset-0 bg-linear-to-r from-navy via-navy/85 to-navy/40" />
+
         {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -42,24 +59,27 @@ export default function HeroSection() {
 
             {/* Headline — oversized, stacked */}
             <div>
-              <h1 className="font-heading text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl">
+              {/* One <h1> per page. The visual line breaks are spans — three
+                  separate <h1> elements is a mistake this project has already
+                  made once. */}
+              <h1 className="font-heading text-4xl font-bold leading-[1.05] tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl">
                 <span
                   className="block animate-hero-reveal text-white"
                   style={{ animationDelay: "150ms" }}
                 >
-                  Spice Up
+                  Websites that get
                 </span>
                 <span
                   className="block animate-hero-reveal"
                   style={{ animationDelay: "300ms" }}
                 >
-                  <span className="text-gradient">Your Brand</span>
+                  <span className="text-gradient-cool">your business found</span>
                 </span>
                 <span
                   className="block animate-hero-reveal text-white"
                   style={{ animationDelay: "450ms" }}
                 >
-                  Growth<span className="text-accent">.</span>
+                  in Mahabubnagar<span className="text-accent">.</span>
                 </span>
               </h1>
             </div>
@@ -70,26 +90,26 @@ export default function HeroSection() {
               style={{ animationDelay: "600ms" }}
             >
               <p className="max-w-md text-base leading-relaxed text-slate-400 sm:text-lg">
-                A digital marketing agency in{" "}
-                <span className="text-white">Mahabubnagar, Telangana</span>. We
-                help businesses grow online with stunning websites, strategic
-                social media, and performance marketing that delivers{" "}
-                <span className="text-white">real results.</span>
+                Websites, online stores, SEO, and ads for businesses in{" "}
+                <span className="text-white">Mahabubnagar, Hyderabad</span>, and
+                across Telangana — with a{" "}
+                <span className="text-white">fixed quote before any work starts.</span>
               </p>
-              <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   href="/contact"
                   className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/25"
                 >
-                  Get Started
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Get a free quote
+                  <ArrowRight className="cta-arrow h-4 w-4" />
                 </Link>
+                {/* Publishing prices is itself a trust signal, so the hero says so */}
                 <Link
-                  href="/portfolio"
+                  href="#pricing"
                   className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/5"
                 >
-                  Our Work
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  See our pricing
+                  <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Link>
               </div>
             </div>
@@ -207,26 +227,32 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Stats strip at bottom */}
-        <div className="mt-20 flex flex-wrap gap-12 border-t border-white/10 pt-10 lg:mt-16">
+        {/*
+          Promises, not counters.
+
+          This strip previously claimed "50+ Projects Delivered" and "30+ Happy
+          Clients". The portfolio holds 8 projects and the testimonials file 3
+          clients, so both numbers were unverifiable — and on a page that now
+          publishes exact prices beside a promise of fixed quotes, an inflated
+          counter undercuts the very thing being sold. Every line below is a
+          commitment we can be held to, and the proof itself moved to the client
+          strip immediately underneath.
+        */}
+        <div className="mt-20 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/10 pt-10 lg:mt-16">
           {[
-            { value: "50+", label: "Projects Delivered", accent: false },
-            { value: "30+", label: "Happy Clients", accent: false },
-            { value: "3x", label: "Avg. Growth Rate", accent: true },
-          ].map((stat, i) => (
+            "Fixed quote before any work starts",
+            "Prices published — no hidden costs",
+            "Based in Mahabubnagar, not a call centre",
+          ].map((point, i) => (
             <div
-              key={stat.label}
-              className="animate-counter-reveal"
+              key={point}
+              className="animate-fade-in-up flex items-center gap-2.5"
               style={{ animationDelay: `${800 + i * 100}ms` }}
             >
-              <div
-                className={`font-heading text-3xl font-bold sm:text-4xl md:text-5xl ${
-                  stat.accent ? "text-accent" : "text-white"
-                }`}
-              >
-                {stat.value}
-              </div>
-              <div className="mt-1.5 text-sm text-slate-500">{stat.label}</div>
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/15">
+                <Check className="h-3 w-3 text-accent" />
+              </span>
+              <span className="text-sm text-slate-300">{point}</span>
             </div>
           ))}
         </div>

@@ -20,7 +20,11 @@ export default function AnimatedContainer({
   return (
     <div
       ref={ref}
-      className={`${isInView ? `animate-${animation}` : "opacity-0"} ${className}`}
+      /* `reveal-pending` rather than `opacity-0`: it means the same thing here,
+         but it is specific to scroll reveals, so the no-JS fallback in the root
+         layout can un-hide these without also un-hiding every unrelated
+         `opacity-0` (footer hover arrows, for one). */
+      className={`${isInView ? `animate-${animation}` : "reveal-pending"} ${className}`}
       style={delay ? { animationDelay: `${delay}ms` } : undefined}
     >
       {children}

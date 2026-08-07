@@ -22,7 +22,7 @@ export default function SectionHeading({
   return (
     <div
       ref={ref}
-      className={`mb-16 max-w-2xl ${isInView ? "animate-fade-in-up" : "opacity-0"} ${
+      className={`mb-16 max-w-2xl ${isInView ? "animate-fade-in-up" : "reveal-pending"} ${
         align === "center" ? "mx-auto text-center" : ""
       }`}
     >

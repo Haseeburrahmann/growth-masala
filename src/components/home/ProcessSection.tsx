@@ -1,86 +1,134 @@
 "use client";
 
-import { Search, PenTool, Zap, TrendingUp } from "lucide-react";
+import { Search, PenTool, Zap, TrendingUp, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import SectionHeading from "@/components/ui/SectionHeading";
+import { useInView } from "@/lib/useInView";
 
+/**
+ * How the work actually runs.
+ *
+ * This section's job is de-risking, not persuasion. Someone about to spend
+ * ₹19,000 with a company they found on Google needs to know what happens, in
+ * what order, and when they are allowed to say no. "Fixed quote before any work
+ * starts" is the single most reassuring sentence on the page, so it gets its
+ * own emphasis rather than being buried in step two.
+ *
+ * Navy ground: this is the mid-page dark anchor in the light/dark rhythm, and it
+ * makes the process read as a system rather than a promise.
+ */
 const steps = [
   {
     icon: Search,
     step: 1,
     title: "Discovery",
     description:
-      "We learn about your business, goals, audience, and competitors to build a solid foundation.",
-    accent: "bg-primary",
+      "We learn your business, your customers, and who you are competing with locally. Usually one conversation.",
   },
   {
     icon: PenTool,
     step: 2,
-    title: "Strategy",
+    title: "Fixed quote",
     description:
-      "We craft a custom marketing plan with clear milestones, KPIs, and a realistic timeline.",
-    accent: "bg-secondary",
+      "You get the scope and the price in writing before anyone starts. Nothing changes without you agreeing to it first.",
   },
   {
     icon: Zap,
     step: 3,
-    title: "Execution",
+    title: "Build",
     description:
-      "Our team brings the strategy to life — building, launching, and optimising every campaign.",
-    accent: "bg-accent",
+      "We design, write, and build — showing you progress as it happens, not only at the end.",
   },
   {
     icon: TrendingUp,
     step: 4,
-    title: "Growth",
+    title: "Launch & grow",
     description:
-      "We analyse results, double down on what works, and continuously scale your success.",
-    accent: "bg-emerald-500",
+      "We go live, hand over the keys, and stay reachable. What we learn feeds the next round.",
   },
 ];
 
 export default function ProcessSection() {
+  // Drives the connector line drawing itself as the section scrolls into view.
+  const { ref, isInView } = useInView("-120px");
+
   return (
-    <section className="relative overflow-hidden bg-surface py-24 sm:py-32">
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionHeading
-          label="Our Process"
-          title="Four Steps to Your Growth"
-          description="A proven process that turns your marketing investment into measurable, compounding business growth."
+    <section className="relative overflow-hidden bg-navy py-24 sm:py-32">
+      {/* Background layers — mirror the hero so the two dark sections feel related */}
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
+          }}
         />
+        <div className="absolute -top-24 left-1/2 hidden h-80 w-80 -translate-x-1/2 rounded-full bg-primary/15 blur-[110px] md:block" />
+      </div>
 
-        <div className="relative mt-16">
-          {/* Connecting line (desktop) */}
-          <div className="absolute top-15 left-[calc(12.5%)] right-[calc(12.5%)] hidden h-px bg-linear-to-r from-primary/20 via-accent/20 to-emerald-500/20 lg:block" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <AnimatedContainer className="mx-auto max-w-2xl text-center">
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <div className="h-px w-8 bg-white/20" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              How we work
+            </span>
+            <div className="h-px w-8 bg-white/20" />
+          </div>
+          <h2 className="font-heading text-3xl font-bold leading-tight text-white text-balance sm:text-4xl lg:text-[2.75rem]">
+            Four steps, and you approve the price at step two
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-slate-400 sm:text-lg">
+            No open-ended hourly billing, and no invoice at the end that is larger
+            than the one you agreed to.
+          </p>
+        </AnimatedContainer>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div ref={ref} className="relative mt-20">
+          {/* Connector — draws itself left to right as the section enters view */}
+          <div className="absolute left-[12.5%] right-[12.5%] top-8 hidden h-px lg:block">
+            <div
+              className={`h-full origin-left bg-linear-to-r from-primary/50 via-secondary/40 to-accent/50 ${
+                isInView ? "animate-draw-line" : "scale-x-0"
+              }`}
+            />
+          </div>
+
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {steps.map((item, idx) => (
-              <AnimatedContainer key={item.step} delay={idx * 120}>
+              <AnimatedContainer key={item.step} delay={idx * 140}>
                 <div className="group relative text-center">
-                  {/* Step circle */}
-                  <div className="relative mx-auto mb-8 flex h-30 w-30 items-center justify-center">
-                    {/* Outer ring */}
-                    <div className={`absolute inset-0 rounded-full ${item.accent} opacity-[0.06]`} />
-                    <div className={`absolute inset-3 rounded-full ${item.accent} opacity-[0.08]`} />
-                    {/* Inner circle */}
-                    <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg shadow-black/5 transition-transform group-hover:scale-110">
-                      <item.icon className={`h-6 w-6 ${
-                        item.step === 1 ? "text-primary" :
-                        item.step === 2 ? "text-secondary" :
-                        item.step === 3 ? "text-accent" :
-                        "text-emerald-500"
-                      }`} />
+                  <div className="relative mx-auto mb-7 flex h-16 w-16 items-center justify-center">
+                    <div className="absolute inset-0 rounded-full bg-primary/10 transition-transform duration-300 group-hover:scale-110" />
+                    <div
+                      className={`relative flex h-16 w-16 items-center justify-center rounded-full border transition-colors duration-300 ${
+                        item.step === 4
+                          ? "border-accent/40 bg-accent/10"
+                          : "border-white/10 bg-white/5 group-hover:border-primary/50"
+                      }`}
+                    >
+                      <item.icon
+                        className={`h-6 w-6 ${
+                          item.step === 4 ? "text-accent" : "text-primary"
+                        }`}
+                      />
                     </div>
-                    {/* Step number badge */}
-                    <div className={`absolute -right-1 top-2 flex h-7 w-7 items-center justify-center rounded-full ${item.accent} text-xs font-bold text-white shadow-md`}>
+                    <span
+                      className={`absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold ${
+                        item.step === 4
+                          ? "bg-accent text-navy"
+                          : "bg-primary text-white"
+                      }`}
+                    >
                       {item.step}
-                    </div>
+                    </span>
                   </div>
 
-                  <h3 className="font-heading text-lg font-bold text-text-primary">
+                  <h3 className="font-heading text-lg font-bold text-white">
                     {item.title}
                   </h3>
-                  <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-text-secondary">
+                  <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-slate-400">
                     {item.description}
                   </p>
                 </div>
@@ -88,6 +136,28 @@ export default function ProcessSection() {
             ))}
           </div>
         </div>
+
+        {/* Mid-page conversion point — the page's only soft CTA */}
+        <AnimatedContainer className="mt-20" animation="fade-in" delay={200}>
+          <div className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/10 bg-white/4 px-7 py-6 backdrop-blur-sm sm:flex-row sm:px-9">
+            <div>
+              <p className="font-heading text-lg font-bold text-white">
+                Not sure what you actually need?
+              </p>
+              <p className="mt-1.5 text-sm text-slate-400">
+                A free 20-minute call. We will tell you honestly if you do not
+                need us yet.
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-navy transition-all hover:bg-accent"
+            >
+              Book the call
+              <ArrowRight className="cta-arrow h-4 w-4" />
+            </Link>
+          </div>
+        </AnimatedContainer>
       </div>
     </section>
   );

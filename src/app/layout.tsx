@@ -141,6 +141,26 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
         />
+        {/*
+          Scroll-reveal fallback.
+
+          `AnimatedContainer` server-renders its children with `opacity-0` and
+          only reveals them once an IntersectionObserver fires after hydration.
+          If JavaScript fails, is blocked, or simply has not run yet, that leaves
+          most of the page invisible — measured at 62 hidden elements on the
+          homepage with JS disabled.
+
+          The content is all in the HTML, so this is purely a visibility problem,
+          and one CSS rule fixes it. Kept in <noscript> so it costs nothing in the
+          normal case.
+
+          Targets `.reveal-pending`, not `.opacity-0` — the latter is also used
+          for genuinely hover-only affordances (the footer's arrow icons), which
+          should stay hidden.
+        */}
+        <noscript>
+          <style dangerouslySetInnerHTML={{ __html: ".reveal-pending{opacity:1!important}" }} />
+        </noscript>
       </head>
       <body
         className={`${poppins.variable} ${inter.variable} antialiased`}

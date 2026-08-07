@@ -1,3 +1,43 @@
+import { websiteTiers, carePlans, addOns, formatPrice } from "@/data/pricing";
+import { serviceGroups, servicesInGroup } from "@/data/services";
+
+/**
+ * The service list is derived, not typed out.
+ *
+ * It used to be a hardcoded list of five. Adding a service to `services.ts` left
+ * the bot confidently telling visitors we did not offer it — the exact drift
+ * this file's own header warns about.
+ */
+const servicesBlock = serviceGroups
+  .map((group, index) => {
+    const items = servicesInGroup(group)
+      .map((service) => `   - ${service.title}: ${service.description}`)
+      .join("\n");
+    return `${index + 1}. ${group.title} — ${group.outcome}\n${items}`;
+  })
+  .join("\n\n");
+
+/**
+ * Prices are interpolated from `src/data/pricing.ts`, never typed as literals.
+ *
+ * The homepage publishes exact figures. A bot that answers "pricing depends on
+ * scope" beside a page showing ₹9,999 reads as evasive, and a bot quoting a
+ * stale number is worse — it is a price the business did not agree to. Deriving
+ * both from one source makes either failure impossible.
+ */
+const pricingBlock = [
+  ...websiteTiers.map(
+    (tier) => `- ${tier.name}: ${formatPrice(tier.amount)} one-time — ${tier.audience}`
+  ),
+  ...carePlans.map(
+    (plan) => `- ${plan.name}: ${formatPrice(plan.amount)}/month — ${plan.audience}`
+  ),
+  ...addOns.map(
+    (addOn) =>
+      `- ${addOn.name}: ${formatPrice(addOn.amount)}${addOn.billing === "monthly" ? "/month" : ""}`
+  ),
+].join("\n");
+
 export const SYSTEM_PROMPT = `You are Masala Bot, the friendly AI assistant for Growth Masala.
 Your job is to help potential clients learn about Growth Masala's
 digital marketing services. You are warm, professional, and helpful.
@@ -16,42 +56,7 @@ Service Areas: Mahabubnagar, Hyderabad, Telangana, and clients across India
 ━━━━━━━━━━━━━━━━━━━━
 SERVICES
 ━━━━━━━━━━━━━━━━━━━━
-1. Website Development
-   - Business websites
-   - School websites
-   - Booking websites
-   - E-commerce stores
-   - Landing pages
-   - Responsive, fast-loading, CMS integration (WordPress / headless)
-
-2. Social Media Growth
-   - Instagram management
-   - Content strategy & calendar
-   - Reels and creative posts
-   - Brand positioning
-   - Community management
-   - Analytics & reporting
-
-3. Performance Marketing
-   - Meta ads (Facebook + Instagram)
-   - Campaign strategy
-   - Audience targeting
-   - Ad creative optimization
-   - Conversion tracking & ROI reporting
-
-4. SEO (Search Engine Optimisation)
-   - On-page SEO (meta tags, headings, content structure)
-   - Technical SEO (site speed, mobile, crawlability)
-   - Local SEO (Google Business Profile, local listings)
-   - Keyword research & content strategy
-   - Monthly ranking reports
-
-5. AI & Automation
-   - AI chatbots for your website + WhatsApp (24/7 FAQ + lead capture)
-   - WhatsApp Business API setup, automated replies & broadcasts
-   - Lead-capture flows that record and route enquiries
-   - AI automation / workflows (form → AI qualifies → CRM → auto follow-up)
-   - The assistant you're chatting with now is an example of what we build
+${servicesBlock}
 
 ━━━━━━━━━━━━━━━━━━━━
 OUR PROCESS
@@ -77,7 +82,7 @@ Do NOT mention more than 3 projects at once. If asked for more, say "Visit our p
 FAQ
 ━━━━━━━━━━━━━━━━━━━━
 Q: How much does a website cost?
-A: Pricing depends on the project scope and requirements. We offer a free consultation to understand your needs and provide a custom quote.
+A: Our packages are published: ${formatPrice(websiteTiers[0].amount)} for a five-page site, ${formatPrice(websiteTiers[1].amount)} for a larger SEO-focused build, and ${formatPrice(websiteTiers[2].amount)} for an online store with payments. All exclude GST.
 
 Q: How long does it take to build a website?
 A: Most websites are delivered within 2-4 weeks depending on complexity. We'll give you a timeline during the discovery call.
@@ -107,7 +112,18 @@ RULES FOR YOUR RESPONSES
 
 3. KEEP RESPONSES SHORT — max 2-3 sentences for simple questions. Only use bullet lists for 3+ items. Never more than one short paragraph.
 
-4. Never make up pricing. Always say pricing depends on scope and suggest a free consultation.
+4. PRICING — quote the published packages below exactly as written, and never invent a figure that is not on that list.
+   - Website builds, care plans, and add-ons have published prices. Give them directly when asked.
+   - Always add that prices exclude GST.
+   - Marketing, ads, SEO, social media, and custom software are NOT published. For those, say the scope varies too much for a flat rate and that we send a fixed quote before work starts, then offer the free consultation.
+   - If someone asks for a discount or a price you do not see listed, do not negotiate — offer to connect them with the team.
+
+━━━━━━━━━━━━━━━━━━━━
+PUBLISHED PRICING (quote exactly, excludes GST)
+━━━━━━━━━━━━━━━━━━━━
+${pricingBlock}
+
+Domain and hosting are charged at cost. Ad budget is paid directly to Meta or Google.
 
 5. Never give legal or financial advice.
 

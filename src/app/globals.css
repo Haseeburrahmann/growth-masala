@@ -6,6 +6,9 @@
   --color-primary: #2563EB;
   --color-primary-dark: #1D4ED8;
   --color-secondary: #3B82F6;
+  /* Documented in brand-guidelines.svg as the gradient/icon blue. It had no
+     token, so it was being hardcoded — this is the canonical reference. */
+  --color-sky: #38BDF8;
   --color-accent: #F59E0B;
   --color-accent-light: #FEF3C7;
   --color-surface: #F8FAFC;
@@ -65,6 +68,24 @@ h1, h2, h3, h4, h5, h6 {
 /* Gradient text utility */
 .text-gradient {
   background: linear-gradient(135deg, #2563EB 0%, #3B82F6 50%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Pre-reveal state for AnimatedContainer / SectionHeading. Paired with the
+   <noscript> override in the root layout so the page is never blank without JS. */
+.reveal-pending {
+  opacity: 0;
+}
+
+/* Cool variant — blue into sky, no amber.
+   The three-stop gradient above passes through a muddy blue-to-amber midpoint.
+   On a short phrase that midpoint is barely visible, but across a long headline
+   line it lands mid-word and reads as washed-out grey. This keeps the sweep
+   inside the blues and leaves amber to do its job as a point accent. */
+.text-gradient-cool {
+  background: linear-gradient(120deg, #2563EB 0%, #38BDF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -277,4 +298,123 @@ main {
 
 .animate-wiggle {
   animation: wiggle 0.8s ease-in-out;
+}
+
+/* ========================================
+   Homepage redesign — motion & interaction
+   Extends the system above; nothing here replaces it.
+   ======================================== */
+
+/* Marquee running left-to-right (content travels rightward).
+   The existing .animate-marquee runs the other way; both expect a track
+   containing the item list duplicated exactly twice. */
+@keyframes marquee-ltr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.animate-marquee-ltr {
+  animation: marquee-ltr 42s linear infinite;
+}
+
+/* Pause the strip when the pointer is over it — lets people actually read a name */
+@media (hover: hover) {
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Soft focus-in — used sparingly for section artwork */
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(12px); transform: scale(1.04); }
+  to   { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+/* Draws the connector line across the process steps */
+@keyframes draw-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Slow ambient drift for the hero backdrop — barely perceptible by design */
+@keyframes ambient-drift {
+  0%, 100% { transform: scale(1.06) translate3d(0, 0, 0); opacity: 0.55; }
+  50%      { transform: scale(1.12) translate3d(-1.5%, -1%, 0); opacity: 0.72; }
+}
+
+.animate-fade-in-down { animation: fade-in-down 0.7s cubic-bezier(0.25, 0.4, 0.25, 1) both; }
+.animate-blur-in      { animation: blur-in 0.9s cubic-bezier(0.25, 0.4, 0.25, 1) both; }
+.animate-draw-line    { animation: draw-line 1.1s cubic-bezier(0.65, 0, 0.35, 1) both; transform-origin: left; }
+
+/* Ambient drift is decorative and GPU-heavy — desktop only, matching the
+   existing rule that keeps blur off mid-range mobile GPUs. */
+@media (min-width: 768px) {
+  .animate-ambient { animation: ambient-drift 24s ease-in-out infinite; will-change: transform, opacity; }
+}
+
+/* --- Hover interactions --- */
+
+/* Card lift. Deliberately translate-only: scaling a card that contains text
+   resamples the glyphs and reads as blur on non-retina screens. */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.25, 0.4, 0.25, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 0.4, 0.25, 1),
+              border-color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px -8px rgba(37, 99, 235, 0.22);
+  }
+}
+
+/* Media inside a lifting card gets the scale instead — no text to blur */
+.hover-zoom img { transition: transform 0.55s cubic-bezier(0.25, 0.4, 0.25, 1); }
+
+@media (hover: hover) {
+  .hover-zoom:hover img { transform: scale(1.05); }
+}
+
+/* Link underline that sweeps in from the left */
+.link-sweep {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1.5px;
+  transition: background-size 0.35s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
+.link-sweep:hover { background-size: 100% 1.5px; }
+
+/* Arrow nudge shared by every CTA on the page */
+.cta-arrow { transition: transform 0.25s cubic-bezier(0.25, 0.4, 0.25, 1); }
+.group:hover .cta-arrow { transform: translateX(4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-ltr,
+  .animate-fade-in-down,
+  .animate-blur-in,
+  .animate-draw-line,
+  .animate-ambient {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .hover-lift,
+  .hover-zoom img,
+  .link-sweep,
+  .cta-arrow {
+    transition: none !important;
+  }
+
+  .hover-lift:hover { transform: none !important; }
+  .hover-zoom:hover img { transform: none !important; }
 }

@@ -42,3 +42,6 @@ coverage/
 .continue/
 skills/
 skills-lock.json
+
+# Raw AI-generated source art (optimised WebP lives in public/images/)
+.gen-images/

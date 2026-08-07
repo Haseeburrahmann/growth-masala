@@ -1,18 +1,22 @@
 import type { FaqItem } from "@/lib/schema";
 import { address, business } from "@/data/business";
+import { websiteTiers, carePlans, formatPrice } from "@/data/pricing";
 
 /**
  * FAQ content shown on the homepage and rendered as FAQPage schema.
  *
  * IMPORTANT: every answer here must be literally true. FAQ schema is a
  * high-trust surface — Google pulls it into rich results and AI Overviews
- * verbatim. Do not add pricing, timelines, client counts, or guarantees here
- * unless the business has confirmed them.
+ * verbatim. Do not add timelines, client counts, or guarantees here unless the
+ * business has confirmed them.
  *
- * TODO(owner): the two highest-value additions once you're ready to commit to
- * them publicly are (1) a real starting price range and (2) a typical delivery
- * timeline. Competitors publish both; we currently publish neither, and it is
- * the most common question buyers search for.
+ * Prices are read from `src/data/pricing.ts` rather than typed as literals, so
+ * an answer can never quote a figure the pricing section does not show. If you
+ * add a price here, interpolate it — never hardcode the number.
+ *
+ * TODO(owner): a typical delivery timeline is still the highest-value missing
+ * answer. Competitors publish one and buyers search for it, but it needs your
+ * confirmation before it can go in a high-trust surface like this.
  */
 export const generalFaqs: FaqItem[] = [
   {
@@ -30,8 +34,16 @@ export const generalFaqs: FaqItem[] = [
   },
   {
     question: "How much does a website cost?",
+    answer: `Our website packages start at ${formatPrice(websiteTiers[0].amount)} for a five-page site, ${formatPrice(websiteTiers[1].amount)} for a larger SEO-focused build, and ${formatPrice(websiteTiers[2].amount)} for an online store with payments. All prices exclude GST. Anything outside those packages is quoted as a fixed price before work starts, and the consultation is free.`,
+  },
+  {
+    question: "What is not included in the price?",
     answer:
-      "It depends on the scope — a single-page site for a local business and a multi-section site with an admissions or enquiry portal are very different builds. Send us your requirements and we will give you a fixed quote and timeline before any work starts. The consultation is free.",
+      "GST is charged on top of the listed price. Domain and hosting are billed at cost with no markup from us. Advertising budget is paid directly to Meta or Google, never through us. Google Business Profile setup is a separate add-on.",
+  },
+  {
+    question: "Do I have to pay anything monthly?",
+    answer: `No. The website packages are one-time payments. Ongoing care — backups, security, and content updates — is optional and starts at ${formatPrice(carePlans[0].amount)} a month. You can decline it and the site remains entirely yours.`,
   },
   {
     question: "What is included in a website project?",
@@ -56,8 +68,7 @@ export function buildLocationFaqs(city: string, serviceLabel: string): FaqItem[]
     },
     {
       question: `How much does ${serviceLabel.toLowerCase()} cost in ${city}?`,
-      answer:
-        "Cost depends entirely on scope, so we do not publish a flat rate. Tell us what you are trying to achieve and we will send a fixed quote and timeline before any work begins.",
+      answer: `Website packages start at ${formatPrice(websiteTiers[0].amount)} and go up to ${formatPrice(websiteTiers[2].amount)} for an online store, excluding GST. Marketing, SEO, and software work varies too much to list a flat rate, so we scope it and send a fixed quote before any work begins.`,
     },
     {
       question: `Why choose a local agency in ${city} over a large agency elsewhere?`,
