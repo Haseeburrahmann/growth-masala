@@ -1,10 +1,32 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, RefreshCw } from "lucide-react";
 import Image from "next/image";
-import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import { buildArticleSchema, buildBreadcrumbSchema } from "@/lib/schema";
+import { getAllPosts, getPostBySlug, parsePostDate } from "@/lib/blog";
+import {
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+} from "@/lib/schema";
+import PostBody from "@/components/blog/PostBody";
+import FAQSection from "@/components/ui/FAQSection";
 import type { Metadata } from "next";
+
+/**
+ * Blog post template.
+ *
+ * The markdown-to-HTML parser that used to live in this file has moved to
+ * `components/blog/PostBody.tsx` and now returns React nodes rather than one
+ * HTML string. The reason is in that file's header; the short version is that a
+ * `dangerouslySetInnerHTML` string cannot contain a `next/image`, so body images
+ * were impossible and tables were unsupported — which made a price-comparison
+ * post unwritable.
+ *
+ * Posts may now declare `faqs:` in their frontmatter. When present it renders
+ * as visible `<details>` via the shared `FAQSection` *and* as `FAQPage` schema,
+ * both from the same array — schema that does not match visible content is a
+ * policy violation, not a shortcut (docs/seo-architecture.md §Rule 4).
+ */
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -20,9 +42,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPostBySlug(slug);
   if (!post) return { title: "Post Not Found" };
 
+  // Bare title — the root layout template appends "| Growth Masala", which is
+  // why `seoTitle` exists: the headline is written for a reader, this is
+  // written for a 60-character budget. Falls back when they can be the same.
+  const seoTitle = post.meta.seoTitle || post.meta.title;
+
   return {
-    // Bare title — the root layout template appends "| Growth Masala".
-    title: post.meta.title,
+    title: seoTitle,
     description: post.meta.excerpt,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
@@ -41,53 +67,16 @@ export default async function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  // Simple markdown-to-HTML (handles headings, paragraphs, lists, bold, links, line breaks)
-  const htmlContent = post.content
-    .split("\n\n")
-    .map((block) => {
-      const trimmed = block.trim();
-      if (!trimmed) return "";
-
-      // Headings
-      if (trimmed.startsWith("## ")) {
-        return `<h2 class="mt-10 mb-4 font-heading text-2xl font-bold text-text-primary">${inlineFormat(trimmed.slice(3))}</h2>`;
-      }
-      if (trimmed.startsWith("### ")) {
-        return `<h3 class="mt-8 mb-3 font-heading text-xl font-semibold text-text-primary">${inlineFormat(trimmed.slice(4))}</h3>`;
-      }
-
-      // Unordered list
-      if (trimmed.startsWith("- ")) {
-        const items = trimmed
-          .split("\n")
-          .filter((l) => l.startsWith("- "))
-          .map((l) => `<li class="flex items-start gap-2"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span><span>${inlineFormat(l.slice(2))}</span></li>`)
-          .join("");
-        return `<ul class="my-4 space-y-2 text-text-secondary">${items}</ul>`;
-      }
-
-      // Ordered list
-      if (/^\d+\.\s/.test(trimmed)) {
-        const items = trimmed
-          .split("\n")
-          .filter((l) => /^\d+\.\s/.test(l))
-          .map((l, i) => `<li class="flex items-start gap-3"><span class="font-heading text-sm font-bold text-primary">${i + 1}.</span><span>${inlineFormat(l.replace(/^\d+\.\s/, ""))}</span></li>`)
-          .join("");
-        return `<ol class="my-4 space-y-2 text-text-secondary">${items}</ol>`;
-      }
-
-      // Regular paragraph
-      return `<p class="my-4 text-base leading-relaxed text-text-secondary">${inlineFormat(trimmed)}</p>`;
-    })
-    .join("");
-
   const articleSchema = buildArticleSchema({
     title: post.meta.title,
     description: post.meta.excerpt,
     path: `/blog/${slug}`,
     datePublished: post.meta.date,
+    dateModified: post.meta.updated,
     image: post.meta.image,
   });
+
+  const faqSchema = post.meta.faqs ? buildFaqSchema(post.meta.faqs) : null;
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
@@ -105,6 +94,12 @@ export default async function BlogPostPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       {/* Header */}
       <section className="relative overflow-hidden bg-navy pt-32 pb-16 sm:pt-40 sm:pb-20">
@@ -128,7 +123,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="mt-6 flex items-center gap-4 text-sm text-slate-400">
             <span className="flex items-center gap-1.5">
               <Calendar className="h-4 w-4" />
-              {new Date(post.meta.date).toLocaleDateString("en-GB", {
+              {parsePostDate(post.meta.date).toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
@@ -138,6 +133,20 @@ export default async function BlogPostPage({ params }: PageProps) {
               <Clock className="h-4 w-4" />
               {post.meta.readTime}
             </span>
+            {/* Shown only when it differs from the publish date — "updated on
+                the day it was published" is noise, and on a price guide the
+                update date is the credibility signal, so it should mean
+                something when it appears. */}
+            {post.meta.updated && post.meta.updated !== post.meta.date && (
+              <span className="flex items-center gap-1.5">
+                <RefreshCw className="h-4 w-4" />
+                Prices checked{" "}
+                {parsePostDate(post.meta.updated).toLocaleDateString("en-GB", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+            )}
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
@@ -152,6 +161,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               alt={post.meta.title}
               fill
               className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 896px"
               priority
             />
           </div>
@@ -160,10 +170,9 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       {/* Content */}
       <section className="bg-white py-16 sm:py-20">
-        <article
-          className="prose-custom mx-auto max-w-3xl px-6 lg:px-8"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
+        <article className="prose-custom">
+          <PostBody content={post.content} />
+        </article>
 
         {/* Bottom CTA */}
         <div className="mx-auto mt-16 max-w-3xl border-t border-border px-6 pt-10 lg:px-8">
@@ -186,12 +195,15 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* Same array as `faqSchema` above — never a second, prettier copy. */}
+      {post.meta.faqs && (
+        <FAQSection
+          faqs={post.meta.faqs}
+          heading="Questions people ask about this"
+          intro="Short answers to what usually comes up next. If yours is not here, WhatsApp us and we will answer it straight."
+        />
+      )}
     </>
   );
-}
-
-function inlineFormat(text: string): string {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-text-primary">$1</strong>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="font-medium text-primary underline decoration-primary/30 hover:decoration-primary">$1</a>');
 }

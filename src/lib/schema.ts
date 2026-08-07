@@ -227,6 +227,15 @@ export interface ArticleSchemaInput {
   description: string;
   path: string;
   datePublished: string;
+  /**
+   * Last substantive revision. Falls back to `datePublished` when absent, which
+   * is the correct claim for a post that has not been touched since.
+   *
+   * This matters most for the price guides: a post titled "…in 2026" whose
+   * structured data says it was last modified two years ago tells Google the
+   * figures are stale, and Google is right to believe it.
+   */
+  dateModified?: string;
   image?: string;
 }
 
@@ -236,6 +245,7 @@ export function buildArticleSchema({
   description,
   path,
   datePublished,
+  dateModified,
   image,
 }: ArticleSchemaInput) {
   return {
@@ -245,7 +255,7 @@ export function buildArticleSchema({
     description,
     url: `${SITE_URL}${path}`,
     datePublished,
-    dateModified: datePublished,
+    dateModified: dateModified || datePublished,
     inLanguage: "en-IN",
     image: image ? `${SITE_URL}${image}` : `${SITE_URL}/images/og-image.png`,
     mainEntityOfPage: {

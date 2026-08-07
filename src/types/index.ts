@@ -138,12 +138,48 @@ export interface NavLink {
 
 export interface BlogPost {
   slug: string;
+  /** The `<h1>` and the listing card headline. Written for a human. */
   title: string;
+  /**
+   * Optional shorter `<title>`, used when the headline is too long for a SERP.
+   *
+   * The root layout appends " | Growth Masala", which costs 16 of the ~60
+   * rendered characters Google will show. All four launch posts had headlines
+   * between 68 and 82 characters once the brand was appended — good headlines,
+   * truncated titles.
+   *
+   * Falls back to `title`. Only set this when `title` genuinely does not fit;
+   * two different strings is a maintenance cost, not a default.
+   */
+  seoTitle?: string;
   excerpt: string;
   date: string;
   readTime: string;
   category: string;
   image?: string;
+  /**
+   * Last substantive revision, ISO date. Feeds `dateModified` on the
+   * `BlogPosting` schema. Price guides go stale fast and a post that says 2026
+   * in its title while carrying a two-year-old `dateModified` is worse than one
+   * that carries none — so set this whenever the figures are re-checked.
+   */
+  updated?: string;
+  /**
+   * Optional per-post FAQ, rendered as visible `<details>` *and* as `FAQPage`
+   * schema. Both come from this one array, which is the whole point: schema
+   * that does not match visible content is a policy violation, not a shortcut
+   * (docs/seo-architecture.md §Rule 4).
+   */
+  faqs?: FaqEntry[];
+}
+
+/**
+ * Structurally identical to `FaqItem` in `lib/schema.ts`, declared separately
+ * because `types/index.ts` must not import from `lib/` — nothing else here does.
+ */
+export interface FaqEntry {
+  question: string;
+  answer: string;
 }
 
 export interface ChatMessage {

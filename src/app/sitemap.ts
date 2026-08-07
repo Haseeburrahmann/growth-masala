@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts, parsePostDate } from "@/lib/blog";
 import { SITE_URL } from "@/data/business";
 import { locationPages } from "@/data/locations";
 
@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
+    lastModified: parsePostDate(post.date),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
