@@ -68,10 +68,12 @@ export const metadata: Metadata = {
   // makes all inner pages declare themselves duplicates of the homepage and
   // drops them from the index. Each route sets its own relative canonical.
   metadataBase: new URL(SITE_URL),
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/images/logo.png",
-  },
+  // NOTE: no `icons` block here on purpose. `src/app/favicon.ico` and
+  // `src/app/apple-icon.png` are App Router file conventions — Next.js serves
+  // them and emits their <link> tags automatically. Declaring them here too
+  // double-prints the tags. Both files are generated from
+  // `public/images/logo.png`; regenerate them from that image, never from an
+  // SVG redraw of the mark.
   openGraph: {
     title: "Websites, SEO & Meta Ads in Mahabubnagar | Growth Masala",
     description:
