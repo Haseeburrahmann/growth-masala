@@ -59,20 +59,18 @@ export default function ContactHero() {
         <AnimatedContainer>
           <div className="mb-4 flex items-center gap-3">
             <div className="h-px w-8 bg-primary/40" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
               Contact
             </span>
           </div>
 
           <h1 className="max-w-4xl font-heading text-4xl font-bold leading-[1.1] text-white text-balance sm:text-5xl lg:text-6xl">
             <span className="block">Talk to a real person</span>
-            <span className="relative inline-block">
+            <span
+              className="headline-mark animate-headline-mark"
+              style={{ animationDelay: "600ms" }}
+            >
               in {address.locality}
-              <span
-                aria-hidden="true"
-                className="animate-underline-sweep absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-accent sm:-bottom-1.5 sm:h-1"
-                style={{ animationDelay: "600ms" }}
-              />
             </span>
           </h1>
 
@@ -111,7 +109,7 @@ export default function ContactHero() {
                   <Icon className="h-5 w-5 text-primary" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  <span className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
                     {label}
                   </span>
                   <span className="block truncate text-sm font-medium text-white">

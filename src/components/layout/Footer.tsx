@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/20"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20"
           >
             Get in Touch
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -76,7 +76,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-slate-400 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-slate-400 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
                 >
                   <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d={social.svg} />
@@ -88,7 +88,7 @@ export default function Footer() {
 
           {/* Links */}
           <div className="md:col-span-2">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
               Navigation
             </h4>
             <ul className="mt-4 space-y-2.5">
@@ -108,7 +108,7 @@ export default function Footer() {
 
           {/* Areas we serve — internal links into the location page cluster */}
           <div className="md:col-span-3">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
               Areas We Serve
             </h4>
             <ul className="mt-4 space-y-2.5">
@@ -128,7 +128,7 @@ export default function Footer() {
 
           {/* Contact — NAP must stay identical to `src/data/business.ts` */}
           <div className="md:col-span-3">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
               Contact
             </h4>
             <ul className="mt-4 space-y-3">
@@ -159,7 +159,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-slate-500 md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-slate-400 md:flex-row">
           <span>&copy; {new Date().getFullYear()} Growth Masala. All rights reserved.</span>
           <span>Crafted with strategy & spice.</span>
         </div>

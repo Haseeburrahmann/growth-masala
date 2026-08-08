@@ -29,7 +29,7 @@ export default function ServicesHero() {
         <AnimatedContainer>
           <div className="mb-4 flex items-center gap-3">
             <div className="h-px w-8 bg-primary/40" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
               Our Services
             </span>
           </div>
@@ -42,13 +42,11 @@ export default function ServicesHero() {
               one keyword this page exists to rank for, into washed-out tan. */}
           <h1 className="max-w-4xl font-heading text-4xl font-bold leading-[1.1] text-white text-balance sm:text-5xl lg:text-6xl">
             <span className="block">Digital Marketing Services</span>
-            <span className="relative inline-block">
+            <span
+              className="headline-mark animate-headline-mark"
+              style={{ animationDelay: "600ms" }}
+            >
               in {address.locality}
-              <span
-                aria-hidden="true"
-                className="animate-underline-sweep absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-accent sm:-bottom-1.5 sm:h-1"
-                style={{ animationDelay: "600ms" }}
-              />
             </span>
           </h1>
 
@@ -62,7 +60,7 @@ export default function ServicesHero() {
 
           <Link
             href="#pricing"
-            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary"
+            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark"
           >
             See what it costs
             <ArrowRight className="cta-arrow h-4 w-4" />
@@ -78,11 +76,11 @@ export default function ServicesHero() {
                 <a
                   key={group.id}
                   href={`#${group.id}`}
-                  className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-white/10 hover:text-white"
+                  className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-slate-300 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-white/10 hover:text-white"
                 >
                   <Icon className="h-4 w-4 text-primary transition-transform group-hover:scale-110" />
                   {group.title}
-                  <span className="font-heading text-xs text-white/30">
+                  <span className="font-heading text-xs text-white/55">
                     0{idx + 1}
                   </span>
                 </a>

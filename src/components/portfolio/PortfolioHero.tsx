@@ -55,20 +55,18 @@ export default function PortfolioHero() {
         <AnimatedContainer>
           <div className="mb-4 flex items-center gap-3">
             <div className="h-px w-8 bg-primary/40" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
               Portfolio
             </span>
           </div>
 
           <h1 className="max-w-4xl font-heading text-4xl font-bold leading-[1.1] text-white text-balance sm:text-5xl lg:text-6xl">
             <span className="block">Websites and web apps</span>
-            <span className="relative inline-block">
+            <span
+              className="headline-mark animate-headline-mark"
+              style={{ animationDelay: "600ms" }}
+            >
               built from {address.locality}
-              <span
-                aria-hidden="true"
-                className="animate-underline-sweep absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-accent sm:-bottom-1.5 sm:h-1"
-                style={{ animationDelay: "600ms" }}
-              />
             </span>
           </h1>
 
@@ -109,7 +107,7 @@ export default function PortfolioHero() {
                     </span>
                     <span
                       aria-hidden="true"
-                      className="mt-1 block max-w-52 text-xs uppercase tracking-wider text-slate-500"
+                      className="mt-1 block max-w-52 text-xs uppercase tracking-wider text-slate-400"
                     >
                       {stat.label}
                     </span>

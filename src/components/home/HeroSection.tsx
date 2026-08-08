@@ -100,18 +100,24 @@ export default function HeroSection() {
                 Websites that get
               </span>
               <span
-                className="relative inline-block animate-hero-reveal"
+                className="block animate-hero-reveal"
                 style={{ animationDelay: "300ms" }}
               >
-                your business found
                 {/* The emphasis mark. Sits under the phrase rather than
                     recolouring it, so the line keeps full white contrast —
-                    the blue gradient this replaced measured 3.64:1 on navy. */}
+                    the blue gradient this replaced measured 3.64:1 on navy.
+
+                    Two nested spans because they animate on different delays:
+                    the outer one lifts the words in, the inner one draws the
+                    rule 600ms later. The inner must stay a plain inline for
+                    `.headline-mark` to draw per line — this phrase wraps at
+                    every viewport width. */}
                 <span
-                  aria-hidden="true"
-                  className="animate-underline-sweep absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-accent sm:-bottom-1.5 sm:h-1"
+                  className="headline-mark animate-headline-mark"
                   style={{ animationDelay: "900ms" }}
-                />
+                >
+                  your business found
+                </span>
               </span>
             </h1>
 
@@ -131,7 +137,7 @@ export default function HeroSection() {
             >
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-primary px-7 py-4 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/25"
+                className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-primary px-7 py-4 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25"
               >
                 Get a free quote
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
@@ -166,7 +172,7 @@ export default function HeroSection() {
                 fill
                 priority
                 className="object-cover object-top"
-                sizes="(max-width: 1024px) 90vw, 460px"
+                sizes="(max-width: 1024px) 90vw, 560px"
               />
             </div>
 
@@ -189,7 +195,7 @@ export default function HeroSection() {
               className="animate-fade-in-up relative z-10 -mt-10 rounded-2xl bg-accent p-5 shadow-2xl shadow-accent/25 sm:-mt-14 sm:p-6 lg:absolute lg:-left-10 lg:bottom-2 lg:mt-0 lg:w-[86%] xl:-left-16"
               style={{ animationDelay: "900ms" }}
             >
-              <p className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-navy/60">
+              <p className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-navy/75">
                 What we build
               </p>
               <ul className="mt-3 grid gap-2.5">

@@ -25,14 +25,14 @@ Growth Masala is a digital marketing agency website for a startup agency offerin
 | Layer | Technology | Why |
 |-------|-----------|-----|
 | Framework | **Next.js 14+ (App Router)** | SEO, SSR/SSG, API routes, Vercel-native |
-| Styling | **Tailwind CSS 3.4+** | Utility-first, fast iteration, responsive |
-| Animations | **Framer Motion** | Smooth scroll reveals, hover effects, page transitions |
+| Styling | **Tailwind CSS v4** | CSS-first config in `globals.css` — there is no `tailwind.config.*` |
+| Animations | **CSS keyframes + IntersectionObserver** | Framer Motion was removed; reveals run through `AnimatedContainer` + `useInView`, zero JS animation runtime |
 | Icons | **Lucide React** | Clean, consistent icon set |
 | Fonts | **Google Fonts** — Poppins (headings), Inter (body) | Per brand guide |
-| Blog | **Markdown + gray-matter + next-mdx-remote** | Simple file-based blog, no CMS needed |
+| Blog | **Markdown + gray-matter** | File-based blog. `next-mdx-remote` is NOT installed — `lib/blog.ts` parses and renders directly |
 | Chatbot | **Claude API (Anthropic)** | Full AI assistant for visitor questions |
 | Forms | **Vercel Serverless Functions** | Contact form submissions + email notifications |
-| Email | **Resend** (free tier) or **Nodemailer + Gmail** | Transactional emails for form submissions |
+| Email | **Nodemailer + Gmail** | `lib/email.ts`. Resend is not installed |
 | Deployment | **Vercel** | Free tier, automatic GitHub deploys |
 | Package Manager | **pnpm** | Fast, disk-efficient |
 
@@ -53,8 +53,13 @@ Border:           #E2E8F0 (slate-200)
 Heading Font:     'Poppins', sans-serif (weight: 600, 700)
 Body Font:        'Inter', sans-serif (weight: 400, 500)
 
-Border Radius:    8px (cards), 6px (buttons), 12px (large cards)
-Shadows:          shadow-sm for cards, shadow-lg on hover
+Border Radius:    rounded-full (buttons/pills, 112 uses) · rounded-2xl (cards, 35)
+                  rounded-xl (inputs & small cards, 18) · rounded-3xl (large slabs, 9)
+                  NOTE: the old "8px cards / 6px buttons / 12px large cards" spec
+                  described nothing in the codebase — rounded-sm/md are unused.
+Shadows:          shadow-lg is the workhorse (16 uses); shadow-xl/2xl for raised
+                  slabs; colour-tinted variants (shadow-primary/25) on CTAs.
+                  Card lift uses the custom .hover-lift, not a shadow utility.
 ```
 
 ---
@@ -100,56 +105,57 @@ growth-masala/
 │   │   └── api/
 │   │       ├── contact/
 │   │       │   └── route.ts           # Contact form API endpoint
-│   │       └── chat/
-│   │           └── route.ts           # Claude chatbot API endpoint
+│   │       ├── chat/
+│   │       │   └── route.ts           # Claude chatbot API endpoint
+│   │       └── lead/
+│   │           └── route.ts           # Chatbot lead capture
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Navbar.tsx             # Navigation bar
-│   │   │   ├── Footer.tsx             # Site footer
-│   │   │   └── MobileMenu.tsx         # Mobile hamburger menu
-│   │   ├── home/
-│   │   │   ├── HeroSection.tsx        # Hero with headline + CTA
-│   │   │   ├── IntroSection.tsx       # "Growth is Not Luck" section
-│   │   │   ├── ServicesPreview.tsx     # Services overview cards
-│   │   │   ├── ProcessSection.tsx     # 4-step process visual
-│   │   │   ├── PortfolioPreview.tsx   # Portfolio highlights
-│   │   │   ├── TestimonialsSection.tsx # Client testimonials
-│   │   │   └── CTASection.tsx         # Final call-to-action
+│   │   │   ├── Navbar.tsx             # Nav + the fullscreen mobile menu (no separate file)
+│   │   │   └── Footer.tsx             # Site footer
+│   │   ├── home/                      # 9 homepage sections — see src/app/page.tsx for order
+│   │   │   ├── HeroSection.tsx        │   ├── ProblemSection.tsx
+│   │   │   ├── TrustBar.tsx           │   ├── ServicesPreview.tsx
+│   │   │   ├── ProcessSection.tsx     │   ├── PortfolioPreview.tsx
+│   │   │   ├── WhyUsSection.tsx       │   ├── PricingSection.tsx
+│   │   │   └── CTASection.tsx
+│   │   ├── about/ case-studies/ contact/ portfolio/ services/   # per-route sections
 │   │   ├── ui/
-│   │   │   ├── Button.tsx             # Reusable button component
-│   │   │   ├── Card.tsx               # Reusable card component
+│   │   │   ├── AnimatedContainer.tsx  # IntersectionObserver scroll-reveal wrapper
 │   │   │   ├── SectionHeading.tsx     # Consistent section titles
-│   │   │   ├── AnimatedContainer.tsx  # Framer Motion scroll reveal wrapper
-│   │   │   ├── FAQSection.tsx         # Server-rendered <details> FAQ (schema parity)
-│   │   │   └── Badge.tsx              # Service/tech badges
+│   │   │   ├── SectionDivider.tsx     # Marker between two LIGHT sections
+│   │   │   └── FAQSection.tsx         # Server-rendered <details> FAQ (schema parity)
+│   │   ├── blog/
+│   │   │   └── PostBody.tsx           # Markdown renderer for blog posts
 │   │   ├── chatbot/
-│   │   │   ├── ChatWidget.tsx         # Floating chat bubble + window
-│   │   │   ├── ChatMessage.tsx        # Individual message component
-│   │   │   └── ChatInput.tsx          # Message input with send button
+│   │   │   ├── ChatWidget.tsx         # Whole widget: FABs, panel, messages, input
+│   │   │   └── ChatWidgetLazy.tsx     # Dynamic import wrapper
 │   │   └── forms/
 │   │       └── ContactForm.tsx        # Contact form with validation
 │   ├── content/
-│   │   └── blog/                      # Markdown blog posts
-│   │       └── first-post.md          # Example blog post
+│   │   └── blog/                      # 4 markdown posts
 │   ├── lib/
-│   │   ├── chatbot.ts                 # Claude API integration
-│   │   ├── email.ts                   # Email sending utility
-│   │   ├── blog.ts                    # Blog post parsing utilities
+│   │   ├── chatbot.ts                 # Claude system prompt
+│   │   ├── email.ts                   # Nodemailer utility
+│   │   ├── blog.ts                    # Blog post parsing
 │   │   ├── schema.ts                  # JSON-LD builders (see docs/seo-architecture.md)
-│   │   └── animations.ts             # Shared Framer Motion variants
+│   │   ├── whatsapp.ts                # Pre-filled wa.me link builder
+│   │   └── useInView.ts               # Scroll-reveal trigger (read the comment before editing)
 │   ├── data/
 │   │   ├── business.ts                # NAP + business facts — SINGLE SOURCE OF TRUTH
 │   │   ├── locations.ts               # 12 location landing pages (unique copy each)
 │   │   ├── faqs.ts                    # FAQ content (homepage + per-location)
-│   │   ├── services.ts                # Services content data
-│   │   ├── portfolio.ts               # Portfolio items data
-│   │   ├── testimonials.ts            # Testimonials data (REAL clients — verify before editing)
-│   │   └── navigation.ts              # Nav links data
+│   │   ├── services.ts                # Services + group taxonomy
+│   │   ├── pricing.ts                 # Tiers, care plans, add-ons — feeds UI, schema AND chatbot
+│   │   ├── portfolio.ts               # Portfolio items
+│   │   ├── caseStudies.ts             # Case study content
+│   │   ├── clients.ts                 # Trust-bar client logos
+│   │   ├── testimonials.ts            # Testimonials (REAL clients — verify before editing)
+│   │   └── navigation.ts              # Nav links
 │   └── types/
 │       └── index.ts                   # TypeScript interfaces
-├── tailwind.config.ts
-├── next.config.ts
-├── tsconfig.json
+├── next.config.ts                     # NOTE: no tailwind.config.* — Tailwind v4 is
+├── tsconfig.json                      # configured in src/app/globals.css via @theme
 ├── package.json
 ├── .env.local                         # API keys (NEVER commit)
 ├── .env.example                       # Template for env vars
@@ -219,41 +225,35 @@ copy for it — see [`docs/seo-architecture.md`](docs/seo-architecture.md) §Rul
 
 ---
 
-## Animation Strategy (Framer Motion)
+## Animation Strategy (CSS keyframes)
 
 All animations should be **subtle and professional** — not flashy.
 
-```typescript
-// src/lib/animations.ts
+There is no `src/lib/animations.ts` and no Framer Motion. Everything lives in
+`src/app/globals.css` as keyframes, triggered one of two ways:
 
-// Scroll reveal — elements fade up as they enter viewport
-export const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
+```tsx
+// 1. Scroll reveal — IntersectionObserver flips the class after hydration
+<AnimatedContainer animation="fade-in-up" delay={120}>…</AnimatedContainer>
 
-// Stagger children — cards appear one after another
-export const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } }
-};
+// The `animation` prop is interpolated into `animate-{name}`, so every member
+// of that union needs a matching class in globals.css. Grepping for
+// "animate-scale-in" finds nothing — the union type IS the usage list.
+// Available: fade-in-up (default) · fade-in · scale-in · slide-in-left
 
-// Scale on hover — for cards and buttons
-export const hoverScale = {
-  whileHover: { scale: 1.03, transition: { duration: 0.2 } },
-  whileTap: { scale: 0.98 }
-};
-
-// Slide in from left/right — for alternating sections
-export const slideInLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
-};
-
-// Hero headline — letter by letter or word reveal
-// Navbar — blur backdrop + slide down on scroll
-// Page transitions — fade between routes
+// 2. Load-time — class applied directly, staggered with inline animationDelay
+<span className="animate-hero-reveal" style={{ animationDelay: "300ms" }}>
 ```
+
+Two rules that are easy to break:
+
+- **`.reveal-pending` starts at `opacity: 0`.** The `<noscript>` block in
+  `layout.tsx` un-hides it, so the page is never blank without JS. Do not
+  repurpose that class name for hover-only affordances.
+- **Anything new that animates must be added to the `prefers-reduced-motion`
+  blocks by hand.** They enumerate class names, so motion without an
+  `.animate-*` class is silently exempt — `scroll-behavior`, the `main`
+  page-enter and the chat wiggle all shipped that way once.
 
 **Where to animate:**
 - Hero headline: word-by-word reveal on load
@@ -319,7 +319,7 @@ NEXT_PUBLIC_SITE_URL=https://growthmasala.com
 2. Client-side validation (required fields, email format, phone format)
 3. POST to `/api/contact` serverless function
 4. Server validates + sanitizes input
-5. Sends email notification via Resend/Nodemailer to `CONTACT_EMAIL`
+5. Sends email notification via Nodemailer to `CONTACT_EMAIL`
 6. Returns success response
 7. Frontend shows success toast/message
 8. Optional: also save to a simple JSON/database for lead tracking
@@ -386,7 +386,7 @@ curl -s http://localhost:3000/services | grep -oE '<title>[^<]*</title>|<link re
 ## Development Phases
 
 ### Phase 1: Foundation
-- [x] Project setup (Next.js + Tailwind + Framer Motion)
+- [x] Project setup (Next.js + Tailwind v4 + CSS animations)
 - [ ] Brand assets (logo, icon, favicon)
 - [ ] Layout components (Navbar, Footer, fonts)
 - [ ] Reusable UI components (Button, Card, SectionHeading, AnimatedContainer)
@@ -527,7 +527,30 @@ curl -s http://localhost:3000/services | grep -o '<link rel="canonical"[^>]*>'
 
 **Rule:** documentation describes the past; code describes the present. Before acting on any claim in `TODO.md`, `updates.md`, or a previous audit — **grep the source and confirm it still holds.** When you find a doc claim that is no longer true, fix the doc in the same pass.
 
-### 5. Checking diffs from feature branches after merging — not the actual files
+### 5. A theme alias pointing at a variable that did not exist at `:root`
+
+**What happened:** `@theme` declared `--font-heading: var(--font-poppins)` on
+`:root`, but `next/font` defines `--font-poppins` on whichever element carries
+its class — and that class was on `<body>`. At `:root` the alias referenced an
+undefined variable, which makes the custom property guaranteed-invalid, and that
+invalid value inherits everywhere. `font-family: var(--font-heading), …` failed
+substitution and fell back to Tailwind Preflight's `ui-sans-serif`. **Every
+heading and all body copy on the entire site rendered in the OS default font**,
+on an agency site that sells web design. It survived months of review because
+the theme block reads correctly and the `.font-heading` utility genuinely works
+on non-heading elements.
+
+**Rule:** font variables go on `<html>`, not `<body>`. And verify typography in
+a real browser, never by reading CSS:
+
+```bash
+pnpm build && pnpm start
+# then: getComputedStyle(document.querySelector('h1')).fontFamily
+```
+
+If that returns `ui-sans-serif`, the brand font is not rendering.
+
+### 6. Checking diffs from feature branches after merging — not the actual files
 **What happened:** After merging two feature branches, `git diff main feature/branch` showed large diffs that looked alarming. These diffs were just showing the feature branches as stale/behind main — not indicating missing code. The actual files on main were correct.
 
 **Rule:** After merging, verify the actual state of files on main directly (`grep` / `Read` the files) rather than reading cross-branch diffs which can be misleading.

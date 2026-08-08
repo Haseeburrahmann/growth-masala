@@ -51,7 +51,7 @@ export default function PortfolioCTA() {
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark"
                 >
                   Start your project
                   <ArrowRight className="cta-arrow h-4 w-4" />

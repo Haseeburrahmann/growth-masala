@@ -29,9 +29,12 @@ export default function SectionHeading({
       {label && (
         <div className="mb-4 flex items-center gap-3 justify-center">
           <div className={`h-px w-8 ${dark ? "bg-white/20" : "bg-primary/30"}`} />
+          {/* This ternary used to return the same value on both branches. It is
+              real now: #2563EB measures 3.64:1 on navy, so the dark variant
+              takes the lighter brand blue at 5.11:1. */}
           <span
             className={`text-xs font-semibold uppercase tracking-[0.2em] ${
-              dark ? "text-primary" : "text-primary"
+              dark ? "text-secondary" : "text-primary"
             }`}
           >
             {label}

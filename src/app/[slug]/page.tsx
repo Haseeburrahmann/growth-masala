@@ -123,7 +123,10 @@ export default async function LocationPageRoute({ params }: PageProps) {
           <AnimatedContainer>
             <div className="mb-4 flex items-center gap-3">
               <div className="h-px w-8 bg-primary/40" />
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              {/* text-secondary, not text-primary: this kicker is on navy, where
+                  #2563EB measures 3.64:1. The two below it sit on light grounds
+                  and keep primary at 5.17:1. */}
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
                 <MapPin className="h-3.5 w-3.5" />
                 {page.city}, Telangana
               </span>
@@ -137,7 +140,7 @@ export default async function LocationPageRoute({ params }: PageProps) {
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/20"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20"
               >
                 Get a Free Consultation
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -319,7 +322,7 @@ export default async function LocationPageRoute({ params }: PageProps) {
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-secondary hover:shadow-lg hover:shadow-primary/20"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20"
               >
                 Start a Project
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

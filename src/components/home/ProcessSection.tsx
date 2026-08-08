@@ -72,14 +72,14 @@ export default function ProcessSection() {
         <AnimatedContainer className="mx-auto max-w-2xl text-center">
           <div className="mb-4 flex items-center justify-center gap-3">
             <div className="h-px w-8 bg-white/20" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
               How we work
             </span>
             <div className="h-px w-8 bg-white/20" />
           </div>
           <h2 className="font-heading text-3xl font-bold leading-[1.1] tracking-tight text-white text-balance sm:text-4xl lg:text-5xl">
             Four steps, and you approve the price{" "}
-            <span className="text-slate-500">at step two</span>
+            <span className="text-slate-400">at step two</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-slate-400 sm:text-lg">
             No open-ended hourly billing, and no invoice at the end that is larger

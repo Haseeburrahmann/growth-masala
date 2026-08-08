@@ -155,7 +155,7 @@ export default function WhyUsSection() {
                 <p className="font-heading text-[15px] font-bold text-white">
                   {row.option}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">
                   {row.usually}
                 </p>
                 <p className="mt-4 flex items-start gap-2 text-sm font-medium leading-relaxed text-slate-200">
@@ -165,7 +165,7 @@ export default function WhyUsSection() {
               </div>
             ))}
           </div>
-          <p className="mt-5 text-sm leading-relaxed text-slate-500">
+          <p className="mt-5 text-sm leading-relaxed text-slate-400">
             The fourth option is doing nothing — which costs nothing today, and a
             few customers every week.
           </p>

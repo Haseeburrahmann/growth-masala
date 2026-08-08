@@ -62,7 +62,7 @@ export default function ServicesPreview() {
                   than a plain sentence. */}
               <h2 className="font-heading text-3xl font-bold leading-[1.1] tracking-tight text-text-primary text-balance sm:text-4xl lg:text-5xl">
                 Three ways we get your{" "}
-                <span className="text-text-secondary/45">business growing</span>
+                <span className="text-text-secondary/65">business growing</span>
               </h2>
             </div>
             <p className="text-base leading-relaxed text-text-secondary sm:text-lg">

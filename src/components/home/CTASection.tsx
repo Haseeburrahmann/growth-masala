@@ -124,7 +124,7 @@ export default function CTASection() {
               </h2>
               <Link
                 href="/contact"
-                className="group relative z-10 mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-secondary"
+                className="group relative z-10 mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
               >
                 Get a free consultation
                 <ArrowRight className="cta-arrow h-4 w-4" />
@@ -175,7 +175,7 @@ export default function CTASection() {
 
             {/* OpenStreetMap's licence asks for visible credit near the map.
                 This is that credit — the disc above clips the embed's own. */}
-            <p className="relative mt-10 text-[11px] text-navy/45">
+            <p className="relative mt-10 text-[11px] text-navy/70">
               Map data © OpenStreetMap contributors
             </p>
           </div>

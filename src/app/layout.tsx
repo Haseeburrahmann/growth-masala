@@ -15,10 +15,14 @@ const poppins = Poppins({
   display: "swap",
 });
 
+// 600 is not optional. Every button label, uppercase eyebrow, and inline link
+// on the site is `font-semibold`, and 85 of those are body-font elements. Ship
+// 400/500 only and the browser matches Medium and synthesises the emboldening —
+// smeared strokes and wrong sidebearings at exactly the 13-14px the labels use.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -131,7 +135,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // The font variables belong on <html>, not <body>. next/font emits them on
+    // whichever element carries the class, and globals.css needs them to resolve
+    // at `:root` — with them on <body> the base `html`/`body` rules could not see
+    // them and the whole site rendered in the OS default font. See the base-layer
+    // comment in globals.css before moving these.
+    <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -162,9 +171,7 @@ export default function RootLayout({
           <style dangerouslySetInnerHTML={{ __html: ".reveal-pending{opacity:1!important}" }} />
         </noscript>
       </head>
-      <body
-        className={`${poppins.variable} ${inter.variable} antialiased`}
-      >
+      <body className="antialiased">
         {/* Google Analytics — only loads when GA_ID is set */}
         {GA_ID && (
           <>

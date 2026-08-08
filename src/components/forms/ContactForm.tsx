@@ -53,7 +53,11 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-emerald-200 bg-emerald-50 p-12 text-center">
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex flex-col items-center justify-center rounded-2xl border border-emerald-200 bg-emerald-50 p-12 text-center"
+      >
         <CheckCircle2 className="h-12 w-12 text-emerald-500" />
         <h3 className="mt-4 font-heading text-xl font-bold text-text-primary">
           Message Sent!
@@ -82,6 +86,7 @@ export default function ContactForm() {
             type="text"
             id="name"
             name="name"
+            autoComplete="name"
             required
             aria-required="true"
             value={formData.name}
@@ -98,6 +103,8 @@ export default function ContactForm() {
             type="tel"
             id="phone"
             name="phone"
+            inputMode="tel"
+            autoComplete="tel"
             value={formData.phone}
             onChange={handleChange}
             className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-text-primary outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
@@ -115,6 +122,8 @@ export default function ContactForm() {
             type="email"
             id="email"
             name="email"
+            inputMode="email"
+            autoComplete="email"
             required
             aria-required="true"
             value={formData.email}
@@ -131,6 +140,7 @@ export default function ContactForm() {
             type="text"
             id="business"
             name="business"
+            autoComplete="organization"
             value={formData.business}
             onChange={handleChange}
             className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-text-primary outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
@@ -176,8 +186,14 @@ export default function ContactForm() {
         />
       </div>
 
+      {/* aria-live so a screen reader hears the failure. Without it the submit
+          button simply stops spinning and nothing is announced — the commonest
+          reason a form gets abandoned twice. */}
+      <p role="status" aria-live="polite" className="sr-only">
+        {status === "loading" ? "Sending your message" : ""}
+      </p>
       {status === "error" && (
-        <p className="text-sm text-red-500">
+        <p role="alert" className="text-sm text-red-600">
           Something went wrong. Please try again or email us directly.
         </p>
       )}

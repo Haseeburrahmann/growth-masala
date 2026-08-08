@@ -23,6 +23,11 @@ import {
  * first paint regardless of the active tab, so a crawler (and a visitor whose
  * JS has not run) sees all eight. Filtering to a subset in the markup would put
  * the visible content behind an interaction Googlebot does not perform.
+ *
+ * No `priority` on any image here. The grid sits below a full navy hero, so
+ * nothing in it is the LCP element — preloading the first card only made it
+ * compete with the hero's own text for bandwidth on the connections this site
+ * is built for.
  */
 
 function domainOf(link?: string) {
@@ -65,7 +70,7 @@ export default function PortfolioGrid() {
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => setActiveFilter(cat.key)}
-                className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all ${
+                className={`inline-flex min-h-11 items-center rounded-full px-5 py-2.5 text-sm font-medium transition-all ${
                   isActive
                     ? "bg-primary text-white shadow-lg shadow-primary/25"
                     : "border border-border bg-white text-text-secondary hover:border-primary/30 hover:text-primary"
@@ -116,7 +121,6 @@ export default function PortfolioGrid() {
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, 66vw"
-                          priority
                         />
                         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-navy/40 via-transparent to-transparent" />
                         <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-text-primary shadow-sm backdrop-blur-sm">
@@ -157,7 +161,6 @@ export default function PortfolioGrid() {
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          priority={idx === 0}
                         />
                         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-navy/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                         <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-text-primary shadow-sm backdrop-blur-sm">

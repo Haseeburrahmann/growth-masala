@@ -18,9 +18,40 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
+  // Close the menu when the route changes.
+  //
+  // Adjusted during render rather than in an effect. Each menu link already
+  // calls setIsOpen(false) on click, so this only catches navigations that do
+  // not go through them — browser back/forward, mostly. Doing it in an effect
+  // meant a frame where the new page had rendered with the old menu still open,
+  // and it trips `react-hooks/set-state-in-effect`, which was the only lint
+  // error in the project. This is React's documented pattern for resetting
+  // state when a value changes.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
     setIsOpen(false);
-  }, [pathname]);
+  }
+
+  // The mobile menu is a fixed full-screen panel, but the document underneath
+  // stayed scrollable — a swipe on the menu moved the page behind it, so closing
+  // the menu dropped you somewhere you never chose to go.
+  //
+  // The lock goes on <html>, not <body>. Setting `body { overflow: hidden }` was
+  // tried and measured: the style applied and the page still scrolled 500px.
+  // globals.css already sets `overflow-x: hidden` on body, and once an element's
+  // overflow has propagated to the viewport the later inline value on that same
+  // element does not reliably take it back. The root element's overflow always
+  // governs the viewport, so that is where the lock belongs.
+  useEffect(() => {
+    if (!isOpen) return;
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = "hidden";
+    return () => {
+      root.style.overflow = previous;
+    };
+  }, [isOpen]);
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
@@ -105,7 +136,7 @@ export default function Navbar() {
           style={{ touchAction: "manipulation" }}
         >
           <div
-            className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${
+            className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors ${
               isOpen
                 ? "border-border bg-white text-text-primary"
                 : scrolled
@@ -124,7 +155,7 @@ export default function Navbar() {
 
       {/* Mobile menu — CSS transition (no Framer Motion for faster response) */}
       <div
-        className={`fixed inset-0 z-40 bg-white transition-all duration-300 lg:hidden ${
+        className={`chat-surface fixed inset-0 z-40 bg-white transition-all duration-300 lg:hidden ${
           isOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
         }`}
       >

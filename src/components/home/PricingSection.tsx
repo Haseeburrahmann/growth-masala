@@ -52,7 +52,7 @@ export default function PricingSection() {
           </div>
           <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary text-balance sm:text-4xl lg:text-[2.75rem]">
             Real numbers,{" "}
-            <span className="text-text-secondary/45">published up front</span>
+            <span className="text-text-secondary/65">published up front</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
             You should not have to book a call to find out whether you can afford
@@ -104,7 +104,7 @@ export default function PricingSection() {
                     <Price tier={tier} />
                     <p
                       className={`mt-1 text-xs ${
-                        popular ? "text-slate-500" : "text-text-secondary/70"
+                        popular ? "text-slate-400" : "text-text-secondary/80"
                       }`}
                     >
                       one-time · excludes GST
@@ -136,7 +136,7 @@ export default function PricingSection() {
                     rel="noopener noreferrer"
                     className={`group mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all ${
                       popular
-                        ? "bg-primary text-white hover:bg-secondary"
+                        ? "bg-primary text-white hover:bg-primary-dark"
                         : "border border-text-primary/15 text-text-primary hover:border-primary hover:bg-primary hover:text-white"
                     }`}
                   >

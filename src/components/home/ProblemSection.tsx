@@ -85,7 +85,7 @@ export default function ProblemSection() {
                   alt="A shop owner behind his counter in Mahabubnagar, phone in hand, waiting for customers"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 70vw, 340px"
+                  sizes="(max-width: 1024px) 70vw, 420px"
                 />
               </div>
 
@@ -96,7 +96,7 @@ export default function ProblemSection() {
                   alt="A customer on a Mahabubnagar market street searching for a shop on his phone"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 40vw, 200px"
+                  sizes="(max-width: 1024px) 40vw, 260px"
                 />
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function ProblemSection() {
               </div>
               <h2 className="font-heading text-3xl font-bold leading-[1.1] tracking-tight text-text-primary text-balance sm:text-4xl lg:text-5xl">
                 Someone nearby is searching for what you sell{" "}
-                <span className="text-text-secondary/45">right now</span>
+                <span className="text-text-secondary/65">right now</span>
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg">
                 They are going to find somebody. The only question is whether it

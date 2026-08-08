@@ -21,19 +21,56 @@
   --font-body: var(--font-inter);
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* ========================================
+   Base element styles
 
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
-  overflow-x: hidden;
-}
+   Two rules here were silently broken for the entire life of the site, and
+   between them they meant NOTHING on the page rendered in a brand font — every
+   heading and every paragraph painted in the OS default (San Francisco on Apple,
+   Roboto on Android, Segoe on Windows).
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), system-ui, sans-serif;
+   Cause: `@theme` declares `--font-heading: var(--font-poppins)` on `:root`, but
+   next/font defined `--font-poppins` on whatever element carries its class — and
+   that class was on <body>. So at `:root` the alias referenced an undefined
+   variable, which makes the custom property guaranteed-invalid, and that invalid
+   value inherits to every descendant. `font-family: var(--font-heading), …` then
+   fails substitution, which is invalid at computed-value time, so font-family
+   fell back to the inherited value: Tailwind Preflight's `ui-sans-serif` stack.
+
+   It survived review because the theme block reads correctly and the
+   `.font-heading` utility genuinely worked on non-heading elements. Only a real
+   browser showed it: `getComputedStyle(h1).fontFamily` returned
+   `ui-sans-serif, system-ui, …` on an element carrying `class="font-heading"`.
+
+   Two things keep it fixed:
+
+   1. **The font variables are set on <html>, not <body>** (see layout.tsx). That
+      is what makes `--font-poppins` visible at `:root`, which is where `@theme`
+      resolves its aliases. Moving them back to <body> re-breaks everything.
+   2. These rules live in `@layer base` so a utility class can still override
+      them. Unlayered rules beat every layered one, so the old `h1,h2,…` selector
+      was outranking `.font-heading` too — harmless while both resolve to Poppins,
+      but a trap the moment a heading needs a different face.
+
+   They reference `--font-poppins` / `--font-inter` directly rather than the
+   theme aliases: one less indirection between here and the only variables that
+   are actually defined by next/font.
+   ======================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-poppins), system-ui, sans-serif;
+  }
 }
 
 ::selection {
@@ -65,18 +102,10 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 24px 24px;
 }
 
-/* Gradient text utility.
-   DEPRECATED — do not apply to new markup. Two problems, both shipped:
-   the blue-to-amber ramp lands on a muddy midpoint that reads as washed-out
-   grey mid-word, and gradient headlines are decorative rather than meaningful.
-   Emphasis now comes from weight, size, and a solid amber word. Kept only
-   because non-homepage routes still reference it. */
-.text-gradient {
-  background: linear-gradient(135deg, #2563EB 0%, #3B82F6 50%, #F59E0B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+/* `.text-gradient` lived here. Removed once /404 — the last route referencing
+   it — moved to solid white with an amber digit. The blue-to-amber ramp passed
+   through a muddy grey midpoint mid-glyph and measured 3.64:1 on navy; if a
+   headline needs emphasis, use `.headline-mark` or a solid amber word. */
 
 /* Pre-reveal state for AnimatedContainer / SectionHeading. Paired with the
    <noscript> override in the root layout so the page is never blank without JS. */
@@ -101,15 +130,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Marquee for logos */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
+/* The right-to-left marquee lived here. TrustBar is the only marquee on the
+   site and it runs `.animate-marquee-ltr`, so both the keyframes and the class
+   were unreachable. Its reduced-motion entry went with it. */
 
 /* ========================================
    Scroll reveal & load animations
@@ -174,7 +197,6 @@ h1, h2, h3, h4, h5, h6 {
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-float-slow,
-  .animate-marquee,
   .animate-fade-in-up,
   .animate-fade-in,
   .animate-scale-in,
@@ -227,9 +249,9 @@ main {
    Extends the system above; nothing here replaces it.
    ======================================== */
 
-/* Marquee running left-to-right (content travels rightward).
-   The existing .animate-marquee runs the other way; both expect a track
-   containing the item list duplicated exactly twice. */
+/* Marquee running left-to-right (content travels rightward). The only marquee
+   on the site — expects a track containing the item list duplicated exactly
+   twice, since it translates by -50%. */
 @keyframes marquee-ltr {
   from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
@@ -434,15 +456,47 @@ main {
 
 /* The headline's key phrase gets a hand-drawn underline that sweeps in after
    the words land. Emphasis without gradient text, and it reads as deliberate
-   mark-making rather than a highlight effect. */
-@keyframes underline-sweep {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+   mark-making rather than a highlight effect.
+
+   This was an absolutely-positioned child span with `w-full`, which is only
+   correct while the phrase occupies ONE line. As soon as it wraps, the child
+   stretches across the host's whole block and the rule floats under the last
+   line with no relationship to the words — four heroes did exactly that the
+   moment the real brand font started rendering and every headline got wider.
+
+   A background-image rule with `box-decoration-break: clone` was tried here and
+   removed. It does give every line fragment its own rule, but an inline
+   fragment's background box is the font's content area (~1.2em), and these
+   headlines run `leading-[1.03]` — so consecutive line boxes overlap and the
+   first line's rule painted straight through the second line's ascenders. Any
+   background-drawn mark has the same problem at this leading.
+
+   A native underline does not: it is positioned from the baseline, inside the
+   line box, so it follows every line and never reaches the line below. It also
+   costs no extra element and no `w-full` assumption.
+
+   `skip-ink: none` keeps it a solid bar through descenders, matching the mark
+   this replaced. The sweep is gone — text-decoration cannot animate its extent —
+   so the rule fades up instead, which is the closest honest equivalent. */
+.headline-mark {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 3px;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.12em;
 }
 
-.animate-underline-sweep {
-  animation: underline-sweep 0.8s cubic-bezier(0.25, 0.4, 0.25, 1) both;
-  transform-origin: left;
+@media (min-width: 640px) {
+  .headline-mark { text-decoration-thickness: 4px; }
+}
+
+@keyframes headline-mark-draw {
+  from { text-decoration-color: transparent; }
+  to   { text-decoration-color: var(--color-accent); }
+}
+
+.animate-headline-mark {
+  animation: headline-mark-draw 0.7s ease-out both;
 }
 
 /* Borderless photo blending.
@@ -476,7 +530,7 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .animate-rule-draw,
   .animate-rail-sweep,
-  .animate-underline-sweep,
+  .animate-headline-mark,
   .animate-portrait-reveal {
     animation: none !important;
     opacity: 1 !important;
@@ -506,4 +560,86 @@ main {
 
   .hover-lift:hover { transform: none !important; }
   .hover-zoom:hover img { transform: none !important; }
+}
+
+/* ========================================
+   Reduced motion — the three that were missed
+
+   The blocks above opt out by listing class names, which only covers motion
+   that happens to have a class. These three did not, and all three shipped
+   moving for readers who had asked the OS for less motion:
+
+     - `scroll-behavior: smooth` on <html>, which animates every in-page jump.
+       The site has real anchors — the hero's "See our pricing" and the four
+       service-group links — so this is the one a reader actually feels.
+     - `main`'s page-enter fade-and-lift, on every route change.
+     - the chat button's wiggle, which is a deliberate attention grab and
+       exactly the kind of thing the preference exists to suppress.
+
+   Anything new that animates without an `.animate-*` class needs adding here
+   by hand. A blanket `*{animation:none}` is tempting and wrong — it would also
+   kill the loading spinner, which communicates state rather than decorating.
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  main {
+    animation: none !important;
+  }
+
+  .animate-wiggle {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ========================================
+   Focus ring
+
+   There wasn't one. `focus-visible` appeared zero times in src/, so every one of
+   the ~120 pill buttons, the nav, the accordions and the filters fell back to
+   Chromium's `outline: auto` — which picks its own colour, renders 1px on some
+   elements and 3px on others, and has no relationship to the design.
+
+   `outline`, not `box-shadow`: outlines are not clipped by `overflow: hidden`,
+   and most focusable elements here live inside cards that clip.
+
+   No single colour clears the 3:1 non-text minimum on every ground this site
+   uses, so the ring adapts. Because `outline-offset` draws it OUTSIDE the
+   element, the contrast that matters is against the section background, not
+   against the button's own fill:
+
+     primary on white 5.17 · surface 4.94 · navy 3.64 · navy-light 3.31
+     amber   on navy  8.76 · navy-light 7.96
+     navy    on amber 8.76
+
+   Primary is the default; the two grounds where it would be weakest override it.
+
+   If you go measuring this: a lot of these elements carry `transition-all`,
+   which animates `outline-color` and `outline-offset` too. Sample the computed
+   style less than ~300ms after focus and you will read a half-blended colour and
+   `off=1px` mid-flight, and conclude the rule is not applying. Let it settle
+   first. The ring itself is correct — verified `solid 3px rgb(37,99,235) off=2px`
+   on every tab stop across routes.
+   ======================================== */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.bg-navy :focus-visible,
+.bg-navy-light :focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.bg-accent :focus-visible {
+  outline-color: var(--color-navy);
+}
+
+/* The chat panel and the mobile menu are white surfaces that can sit over a
+   navy section, so they must not inherit the dark-ground override. */
+.chat-surface :focus-visible {
+  outline-color: var(--color-primary);
 }

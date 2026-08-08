@@ -96,7 +96,13 @@ export default function ServiceGroupSection({
               <div
                 className={`h-px w-8 ${tone === "navy" ? "bg-white/20" : "bg-primary/30"}`}
               />
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              {/* Tone-aware: #2563EB is 5.17:1 on the light grounds but only
+                  3.64:1 on navy, so the dark tone takes the lighter brand blue. */}
+              <span
+                className={`text-xs font-semibold uppercase tracking-[0.2em] ${
+                  tone === "navy" ? "text-secondary" : "text-primary"
+                }`}
+              >
                 Group 0{index + 1}
               </span>
             </div>
@@ -152,7 +158,7 @@ export default function ServiceGroupSection({
                   <summary className="flex cursor-pointer list-none items-center gap-4 p-6 sm:gap-5 sm:p-7">
                     <span
                       className={`font-heading text-sm font-bold tabular-nums ${
-                        tone === "navy" ? "text-white/25" : "text-text-primary/20"
+                        tone === "navy" ? "text-white/25" : "text-text-primary/65"
                       }`}
                     >
                       {String(serviceIdx + 1).padStart(2, "0")}

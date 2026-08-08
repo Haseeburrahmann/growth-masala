@@ -23,6 +23,14 @@ interface Message {
 
 const STORAGE_KEY = "gm-chat-history";
 const AUTO_OPENED_KEY = "gm-chat-auto-opened";
+
+/**
+ * Whether the panel opens itself after the nudge delay, or only wiggles.
+ *
+ * `false` on purpose — see the nudge effect below for what the open panel was
+ * covering. Flip to `true` to restore the old force-open behaviour.
+ */
+const AUTO_OPEN_PANEL = false;
 const CHAT_SEEN_KEY = "gm-chat-seen";
 const LEAD_CONFIRMED_KEY = "gm-lead-confirmed";
 const WHATSAPP_URL = "https://wa.me/918688269427";
@@ -122,7 +130,10 @@ function ChipButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="rounded-full border border-primary/40 bg-white px-3 py-1.5 text-xs font-medium text-primary transition-all hover:border-primary hover:bg-primary/5 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.97]"
+      /* min-h-11 rather than more padding: these chips sit four to a 336px
+         panel, so growing them vertically is the only way to reach a 44px
+         target without forcing them onto extra rows. */
+      className="inline-flex min-h-11 items-center rounded-full border border-primary/40 bg-white px-3 py-1.5 text-xs font-medium text-primary transition-all hover:border-primary hover:bg-primary/5 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.97]"
     >
       {label}
     </button>
@@ -188,27 +199,38 @@ export default function ChatWidget() {
     }
   }, [messages]);
 
-  // ── Auto-open logic ───────────────────────────────────────────────────────
+  // ── Attention nudge ───────────────────────────────────────────────────────
+  //
+  // Desktop used to force the panel OPEN after 4 seconds. Measured at 1440x900
+  // it is 336x520 — 13.5% of the viewport, anchored bottom-right, where the
+  // content is. In an unprompted browse it covered, in order: the third card of
+  // the Problem section, process step 4 AND the "Book the call" CTA, the entire
+  // Premium tier of the price list, and the whole Contact column of the footer.
+  //
+  // Hiding the ₹24,999 tier behind a lead widget is working against the page —
+  // the site's whole argument is that the prices are published and you do not
+  // have to ask. There is no bottom-right position where a 520px panel avoids
+  // this, so the panel no longer opens itself; it nudges, exactly as it already
+  // did on mobile. The dot and the wiggle still say "there is something here",
+  // and opening it stays the reader's decision.
+  //
+  // One flag restores the old behaviour if the owner wants it back.
   useEffect(() => {
-    const alreadyAutoOpened = sessionStorage.getItem(AUTO_OPENED_KEY);
-    if (alreadyAutoOpened) return;
+    if (sessionStorage.getItem(AUTO_OPENED_KEY)) return;
 
-    const isDesktop = window.innerWidth >= 768;
+    autoOpenTimerRef.current = setTimeout(() => {
+      sessionStorage.setItem(AUTO_OPENED_KEY, "1");
 
-    if (isDesktop) {
-      autoOpenTimerRef.current = setTimeout(() => {
-        sessionStorage.setItem(AUTO_OPENED_KEY, "1");
+      if (AUTO_OPEN_PANEL) {
         setIsOpen(true);
         setIsTyping(true);
         setTimeout(() => setIsTyping(false), 1500);
-      }, 4000);
-    } else {
-      autoOpenTimerRef.current = setTimeout(() => {
-        sessionStorage.setItem(AUTO_OPENED_KEY, "1");
-        setWiggle(true);
-        setTimeout(() => setWiggle(false), 1000);
-      }, 4000);
-    }
+        return;
+      }
+
+      setWiggle(true);
+      setTimeout(() => setWiggle(false), 1000);
+    }, 4000);
 
     return () => {
       if (autoOpenTimerRef.current) clearTimeout(autoOpenTimerRef.current);
@@ -372,10 +394,18 @@ export default function ChatWidget() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className="fixed right-4 bottom-4 z-50">
+    /* z-40, not z-50. The navbar is z-50 and its fullscreen mobile menu is z-40
+       *inside* it; this widget is a sibling of <header> later in the DOM, so at
+       equal z-index it painted on top and both floating buttons sat over the
+       open menu. Below the header the stacking is unambiguous at every
+       breakpoint. */
+    <div className="fixed right-4 bottom-4 z-40">
       {/* Chat panel */}
       <div
-        className="absolute right-0 flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-2xl"
+        /* `chat-surface` keeps the focus ring blue in here: the panel is white
+           but often floats over a navy section, which would otherwise hand it
+           the dark-ground amber override. */
+        className="chat-surface absolute right-0 flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-2xl"
         style={{
           bottom: "4.5rem",
           width: "min(21rem, calc(100vw - 2rem))",
@@ -418,7 +448,7 @@ export default function ChatWidget() {
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="flex h-7 w-7 items-center justify-center rounded-full text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
             aria-label="Close chat"
           >
             <X className="h-4 w-4" />
@@ -572,7 +602,7 @@ export default function ChatWidget() {
             <button
               onClick={() => sendMessage()}
               disabled={!input.trim() || isLoading}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition-all hover:bg-primary-dark disabled:opacity-40"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition-all hover:bg-primary-dark disabled:opacity-40"
               aria-label="Send message"
             >
               {isLoading ? (

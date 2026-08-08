@@ -66,7 +66,7 @@ function TierCard({ tier, popular }: { tier: PricingTier; popular: boolean }) {
 
       <div className="mt-6">
         <Price tier={tier} />
-        <p className={`mt-1 text-xs ${popular ? "text-slate-500" : "text-text-secondary/70"}`}>
+        <p className={`mt-1 text-xs ${popular ? "text-slate-400" : "text-text-secondary/80"}`}>
           {tier.billing === "monthly" ? "per month" : "one-time"} · excludes GST
         </p>
       </div>
@@ -94,7 +94,7 @@ function TierCard({ tier, popular }: { tier: PricingTier; popular: boolean }) {
         rel="noopener noreferrer"
         className={`group mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all ${
           popular
-            ? "bg-primary text-white hover:bg-secondary"
+            ? "bg-primary text-white hover:bg-primary-dark"
             : "border border-text-primary/15 text-text-primary hover:border-primary hover:bg-primary hover:text-white"
         }`}
       >
@@ -159,7 +159,7 @@ export default function ServicesPricing() {
           </div>
           <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary text-balance sm:text-4xl lg:text-[2.75rem]">
             What this costs in {address.locality},{" "}
-            <span className="text-text-secondary/45">published in full</span>
+            <span className="text-text-secondary/65">published in full</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
             Most agencies here make you book a call to find out whether you can
