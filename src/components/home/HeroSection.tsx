@@ -112,7 +112,12 @@ export default function HeroSection() {
         <div className="hero-photo-mask relative aspect-4/5 w-full sm:aspect-3/2 lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
           <Image
             src="/images/sections/hero-team.webp"
-            alt="Two Growth Masala team members reviewing a laptop that lists what we build: websites, online stores, SEO, and ads with AI chat — with a fixed quote before any work starts, from Mahabubnagar"
+            /* Describes the laptop screen, not the two people. They are a
+               staged photograph, not the Growth Masala team, so the alt says
+               what is legibly on the screen — which is genuinely ours — and
+               makes no claim about who is holding it. Same reason AboutStory
+               carries an empty alt. */
+            alt="Two people reviewing a laptop that lists what we build: websites, online stores, SEO, and ads with AI chat — with a fixed quote before any work starts, from Mahabubnagar"
             fill
             priority
             className="object-cover object-[62%_center] lg:object-center"
