@@ -43,8 +43,11 @@ export default function SectionDivider({
           className={`edge-rule flex-1 ${isInView ? "animate-rule-draw" : "reveal-pending"}`}
         />
 
+        {/* The label is 12px, the floor — it was 11px, the one size the design
+            audit rejects outright. Uppercase at 0.22em tracking is already the
+            hardest thing on the page to read without shrinking it too. */}
         {label ? (
-          <span className="font-heading text-[11px] font-bold uppercase tracking-[0.22em] text-text-secondary/55">
+          <span className="font-heading text-xs font-bold uppercase tracking-[0.22em] text-text-secondary/55">
             {label}
           </span>
         ) : (

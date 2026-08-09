@@ -128,9 +128,14 @@ export default function PortfolioGrid() {
                         {label}
                       </span>
 
-                      <h3 className="mt-3 font-heading text-[1.0625rem]/[1.375rem] font-semibold tracking-tight text-text-primary">
+                      {/* h2, not h3. The canvas grid has no section heading
+                          above it — the filter row replaced it — so an h3 here
+                          skipped a level straight from the hero's h1 and left
+                          a screen-reader outline with a hole in it. Each
+                          project is a top-level item on this page. */}
+                      <h2 className="mt-3 font-heading text-[1.0625rem]/[1.375rem] font-semibold tracking-tight text-text-primary">
                         {item.title}
-                      </h3>
+                      </h2>
 
                       {/* `summary` is written to fit a card; `description` is
                           the long record. Clamp stays as a backstop for any
