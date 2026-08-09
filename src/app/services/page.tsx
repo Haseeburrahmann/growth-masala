@@ -1,47 +1,46 @@
 import ServicesHero from "@/components/services/ServicesHero";
-import ServiceGroupSection from "@/components/services/ServiceGroupSection";
+import ServiceGroupsGrid from "@/components/services/ServiceGroupsGrid";
 import ServicesPricing from "@/components/services/ServicesPricing";
 import ServicesCTA from "@/components/services/ServicesCTA";
 import FAQSection from "@/components/ui/FAQSection";
 import SectionDivider from "@/components/ui/SectionDivider";
-import { serviceGroups } from "@/data/services";
 import { servicesFaqs } from "@/data/faqs";
 import { buildFaqSchema } from "@/lib/schema";
 
 /**
- * /services — the four groups, the full price list, the objections.
+ * /services — four groups, the published prices, the objections, the ask.
  *
- * This was a client component rendering nine ungrouped cards from the flat
- * `services` array. Three things were wrong with that:
+ * Previously this rendered four full-width `ServiceGroupSection` blocks, one per
+ * group, each with a deliverables list per service. That came to roughly 7,800px
+ * of scroll and the client rejected it as overwhelming, so the groups collapse
+ * into a single row of compact cards (`ServiceGroupsGrid`) and the full price
+ * tables move behind a native disclosure inside `ServicesPricing`.
  *
- *   - `"use client"` bought nothing. The page has no state and no handlers, so
- *     it shipped a bundle to render static data, and metadata had to live in a
- *     sibling `layout.tsx` because a client component cannot export it.
- *   - It predated the group taxonomy. The homepage was rebuilt around
- *     `serviceGroups`; this page still ignored them.
- *   - Its "flagship" treatment keyed off `!!service.subItems`, which stopped
- *     being unique the moment Custom Software gained sub-items. Two services
- *     rendered as "New · Flagship Service" simultaneously. Grouping removes the
- *     flag rather than fixing it.
+ * `ServiceGroupSection.tsx` is now unreferenced. It is left in place
+ * deliberately — deleting it is the orchestrator's call, not this page's.
  *
- * Backgrounds follow the homepage convention — alternate so a long scroll has
- * landmarks, and mark only the seams the alternation cannot carry:
+ * The FAQ is not in the canvas. It stays: `<FAQSection>` is what makes the
+ * `FAQPage` JSON-LD below legal, since the schema must match visible copy, and a
+ * collapsed <details> accordion costs almost nothing in length. Removing it
+ * would be a measurable search regression.
  *
- *   navy | light · surface · NAVY · light | surface · surface | navy
+ * Background rhythm, which is what tells a reader a new section has started:
  *
- * Navy boundaries are a change of room and need no marker. The three light-on-
- * light seams get a <SectionDivider>, whose tone matches the section above it.
+ *   navy | white · surface · surface | navy
+ *
+ * The navy edges are a change of room and carry themselves. The one
+ * surface→surface seam (pricing into FAQ) gets a <SectionDivider>.
  *
  * Schema: `FAQPage` only. `BreadcrumbList` comes from `layout.tsx`, and the
  * prices below are already in the site-wide `OfferCatalog` on the business node
  * (`schema.ts` reads the same `pricing.ts`), so emitting `Offer` markup here
  * would describe the same offers twice.
+ *
+ * Server component throughout — this page has no state and must not gain
+ * `"use client"`.
  */
 
 const faqSchema = buildFaqSchema(servicesFaqs);
-
-/** Background per group, in `serviceGroups` order. See the rhythm note above. */
-const GROUP_TONES = ["light", "surface", "navy", "light"] as const;
 
 export default function ServicesPage() {
   return (
@@ -53,21 +52,8 @@ export default function ServicesPage() {
 
       <ServicesHero />
 
-      {serviceGroups.map((group, idx) => (
-        <div key={group.id}>
-          {/* Only the light→light seam needs marking; navy edges carry themselves. */}
-          {GROUP_TONES[idx] !== "navy" && GROUP_TONES[idx - 1] === "light" && (
-            <SectionDivider tone="light" />
-          )}
-          <ServiceGroupSection
-            group={group}
-            index={idx}
-            tone={GROUP_TONES[idx]}
-          />
-        </div>
-      ))}
+      <ServiceGroupsGrid />
 
-      <SectionDivider tone="light" />
       <ServicesPricing />
 
       <SectionDivider tone="surface" />

@@ -1,6 +1,6 @@
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { address } from "@/data/business";
 import { caseStudies } from "@/data/caseStudies";
+import { spellOut, spellOutLower } from "@/lib/spellOut";
 
 /**
  * Case studies hero.
@@ -9,53 +9,49 @@ import { caseStudies } from "@/data/caseStudies";
  * three cards whose "results" were "Live", "1-tap" and "100% Mobile
  * Responsive". The headline wrote a cheque the page could not cash.
  *
- * The replacement promises exactly what follows: a brief, a build, and a list of
- * what shipped. It is a weaker claim than "results", and it is the one we can
- * substantiate — which on a page competing against agencies advertising "300%
- * growth" is closer to an advantage than a concession.
+ * The replacement promises exactly what follows: a build, the reasoning, and a
+ * live URL to check it against. It is a weaker claim than "results", and it is
+ * the one we can substantiate — which on a page competing against agencies
+ * advertising "300% growth" is closer to an advantage than a concession.
  *
- * White H1 with an amber underline. `.text-gradient` measures 3.64:1 on navy
- * and lands its muddy midpoint mid-word on small viewports.
+ * Line two is muted rather than underlined. `.text-gradient` measures 3.64:1 on
+ * navy and lands its muddy midpoint mid-word on small viewports; slate-400 on
+ * navy measures ~6.4:1 and carries the same "second clause" reading.
+ *
+ * The count is derived, not typed. "Three builds," has to stop saying three the
+ * moment a fourth study is added to `caseStudies.ts`.
  */
 export default function CaseStudiesHero() {
+  const count = spellOutLower(caseStudies.length);
+  const countTitleCase = spellOut(caseStudies.length);
+
   return (
-    <section className="relative overflow-hidden bg-navy pt-32 pb-24 sm:pt-40 sm:pb-32">
+    <section className="relative overflow-hidden bg-navy pt-28 pb-12 sm:pt-32 sm:pb-14 lg:pt-[152px] lg:pb-16">
       <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
       <div className="pointer-events-none absolute inset-0">
-        <div className="animate-float-slow hidden md:block absolute -top-32 right-[14%] h-72 w-72 rounded-full bg-accent/15 blur-[100px]" />
-        <div className="animate-float hidden md:block absolute top-28 left-[6%] h-56 w-56 rounded-full bg-primary/20 blur-[90px]" />
+        <div className="animate-float-slow hidden md:block absolute -top-40 right-[6%] h-[420px] w-[420px] rounded-full bg-primary/25 blur-[110px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <AnimatedContainer>
-          <div className="mb-4 flex items-center gap-3">
-            <div className="h-px w-8 bg-primary/40" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
+          <div className="mb-5 flex items-center gap-3 lg:mb-6">
+            <div className="h-px w-8 bg-accent/50" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               Case Studies
             </span>
           </div>
 
-          <h1 className="max-w-4xl font-heading text-4xl font-bold leading-[1.1] text-white text-balance sm:text-5xl lg:text-6xl">
-            <span className="block">The brief, the build,</span>
-            <span
-              className="headline-mark animate-headline-mark"
-              style={{ animationDelay: "600ms" }}
-            >
-              and what shipped
+          {/* One <h1>, two visual lines. Two <h1>s shipped here once. */}
+          <h1 className="max-w-3xl font-heading text-[33px] font-bold leading-[38px] tracking-[-0.9px] text-white sm:text-5xl sm:leading-[1.08] lg:text-[52px] lg:leading-[57px] lg:tracking-[-1.4px]">
+            <span className="block">{countTitleCase} builds,</span>
+            <span className="block text-slate-400">
+              and why we made those calls.
             </span>
           </h1>
 
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
-            {caseStudies.length} projects written up properly — what the business
-            was actually stuck on, what we built about it, and what exists now
-            that did not before. Two schools and a four-branch repair chain,
-            built from {address.locality} for clients in {address.region} and
-            Bengaluru.
-          </p>
-
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-400">
-            Each one links to the live site. If a claim below looks generous,
-            open it and check.
+          <p className="mt-4 max-w-[620px] text-base leading-[26px] text-slate-300 lg:mt-5 lg:text-[17px] lg:leading-[28px]">
+            What the client was actually up against, what we built, and what
+            shipped. All {count} sites are live — open them and check.
           </p>
         </AnimatedContainer>
       </div>

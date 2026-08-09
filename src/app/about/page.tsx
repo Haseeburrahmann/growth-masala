@@ -1,36 +1,36 @@
 import AboutHero from "@/components/about/AboutHero";
 import AboutStory from "@/components/about/AboutStory";
 import AboutValues from "@/components/about/AboutValues";
-import AboutLocal from "@/components/about/AboutLocal";
 import AboutMission from "@/components/about/AboutMission";
-import SectionDivider from "@/components/ui/SectionDivider";
 
 /**
- * /about — who we are, what we hold to, and where we are.
+ * /about — who we are, what we hold to, and how to reach us.
  *
- * Three things were wrong with the page this replaces:
+ * Four sections, per the approved canvas: hero → why we exist → four rules →
+ * closing CTA. The page it replaces ran to five and repeated itself; the story
+ * and the location argument were making the same point in two sections, so the
+ * local case now sits inside "Why we exist" and the address, hours and phone —
+ * the part a reader actually needs — are in the closing card rather than a
+ * paragraph halfway up.
  *
- *   - **Numbers nobody had measured.** The stat block read "50+ Projects · 30+
- *     Happy Clients · 3x Average Growth Rate · 95% Client Retention". The first
- *     two are real and now come from `trackRecord` in `business.ts`. The other
- *     two were invented — a growth multiple over an unstated baseline and a
- *     retention ratio nobody computed — and are gone, replaced by figures the
- *     data files can derive. The 50 was also being typed separately here and in
- *     the /portfolio title, which is how that page came to promise "50+" in
- *     search results and render "8+" in its hero.
+ * Things that must not drift:
  *
- *   - **No location, anywhere.** Not the district, not the region, not one of
- *     the seven towns we serve — under a `<title>` that said "Digital Agency in
- *     Mahabubnagar". `AboutLocal` fixes that with copy that earns its place
- *     rather than a keyword sprinkle, and takes its town list from the same
- *     `areasServed` that feeds the LocalBusiness JSON-LD.
+ *   - **Every number comes from `src/data/business.ts`.** `trackRecord`,
+ *     `foundingYear` and `areasServed.length`. Both `trackRecord` figures are
+ *     floors and always render with a "+". /about hardcoded its own "50+" once
+ *     and it went out of step with the /portfolio title. No metric appears here
+ *     that is not in that file — "3x average growth rate" and "95% client
+ *     retention" were removed for having no source, and should not come back.
  *
- *   - **`"use client"` for nothing.** No state, no handlers. It shipped a bundle
- *     to render static text and forced metadata into a sibling `layout.tsx`.
+ *   - **No team size or headcount.** "A small studio" is the strongest claim
+ *     the copy makes about size, and nothing in the repo establishes a number.
  *
- * Backgrounds: navy | white · surface · white | navy. Both light-on-light seams
- * carry a `SectionDivider` toned to the section above; the navy boundaries are a
- * change of room and need no marker.
+ *   - **No `"use client"`.** These are all server components; the only
+ *     interactivity is `AnimatedContainer`, which is already a client boundary.
+ *
+ * Backgrounds: navy | white | surface | navy. The navy boundaries are a change
+ * of room and need no marker; the white→surface seam carries its own tonal
+ * step, and the canvas puts no `SectionDivider` there.
  *
  * Schema: `BreadcrumbList` only, from `layout.tsx`. The `Organization` /
  * `LocalBusiness` node is emitted site-wide by the root layout — describing the
@@ -41,13 +41,7 @@ export default function AboutPage() {
     <>
       <AboutHero />
       <AboutStory />
-
-      <SectionDivider tone="light" />
       <AboutValues />
-
-      <SectionDivider tone="surface" />
-      <AboutLocal />
-
       <AboutMission />
     </>
   );

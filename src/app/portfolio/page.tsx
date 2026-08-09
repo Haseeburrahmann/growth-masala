@@ -17,9 +17,10 @@ import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
  *     (`trackRecord` in `business.ts`, and the array itself) and the hero states
  *     the relationship between them out loud.
  *
- * Backgrounds: navy | white | white. The CTA band is a navy card *inside* the
- * white section rather than a section of its own, so there is no light-on-light
- * seam and no `SectionDivider` is needed.
+ * Backgrounds: navy | white | navy. The closing CTA is a full-bleed navy section
+ * now rather than a navy card floating in the white one — the grid ends on a row
+ * of cards, and a second card layer immediately under it read as a ninth
+ * project. Every seam is a light/dark change, so no `SectionDivider` is needed.
  *
  * Schema: none here. `BreadcrumbList` comes from `layout.tsx`, and these
  * projects are already covered by the site-wide `LocalBusiness` node. There is

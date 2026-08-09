@@ -76,10 +76,30 @@ export interface PricingAddOn {
 
 export interface PortfolioItem {
   title: string;
-  category: "website" | "marketing" | "social-media" | "web-app";
+  category: "website" | "marketing" | "social-media" | "web-app" | "ecommerce";
   description: string;
   image: string;
   link?: string;
+  /**
+   * One-line card caption. Falls back to `description` when absent.
+   *
+   * `description` is the full prose record of what was built (2-3 sentences)
+   * and is what a reader wants once they care. In a four-up card it only ever
+   * appeared line-clamped, which cut it mid-phrase — "academics & pedagogy…" —
+   * and read as unfinished on our own portfolio. This is the sentence the card
+   * actually wants; the long form stays for anywhere with room for it.
+   */
+  summary?: string;
+  /**
+   * Optional per-project label shown on the card, e.g. "School website".
+   *
+   * `category` drives filtering and must stay a small closed set, but a filter
+   * bucket makes a poor caption — six of our eight projects are `website`, so
+   * every card read "Website" and the tag row carried no information. When set,
+   * this overrides `portfolioCategoryConfig[category].tag` for display only;
+   * filtering still keys off `category`.
+   */
+  tag?: string;
 }
 
 /**

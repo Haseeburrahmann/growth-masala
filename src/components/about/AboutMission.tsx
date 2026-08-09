@@ -1,69 +1,130 @@
 import Link from "next/link";
-import { ArrowRight, Flame, MessageCircle } from "lucide-react";
+import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { address, business } from "@/data/business";
+import {
+  address,
+  addressLine,
+  business,
+  openingHoursLine,
+} from "@/data/business";
 
 /**
- * Mission statement and the page's only call to action.
+ * Closing CTA — the page's only call to action.
  *
- * The old version ended on the mission alone — a centred quote about being "the
- * growth partner every ambitious business deserves" with nothing to click. A
+ * The version this replaces ended on a mission quote with nothing to click. A
  * reader who had gone all the way down the About page and was persuaded had no
  * next step, and every other page on the site closes with one.
  *
- * The mission is also rewritten. "Honest, effective, and built on real data" is
- * three adjectives no agency would disclaim, which makes it unfalsifiable and
- * therefore uninformative. The replacement names a specific thing we will do
- * that costs us something — turning work down — which is the only kind of
- * mission statement worth printing.
+ * Every value in the card is imported. NAP is the one thing on this site that
+ * must be byte-identical everywhere it appears — page, JSON-LD, and every
+ * external directory listing — so nothing here is retyped from the design.
  */
+const contactRows = [
+  {
+    icon: Phone,
+    label: "Phone",
+    value: business.phoneDisplay,
+    href: `tel:${business.phone}`,
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: business.email,
+    href: `mailto:${business.email}`,
+  },
+  { icon: MapPin, label: "Studio", value: addressLine, href: null },
+  { icon: Clock, label: "Hours", value: openingHoursLine, href: null },
+];
+
 export default function AboutMission() {
   return (
-    <section className="relative overflow-hidden bg-navy py-24 sm:py-32">
-      <div className="dot-pattern pointer-events-none absolute inset-0 opacity-40" />
-      <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-primary/20 blur-[110px]" />
-      <div className="pointer-events-none absolute -bottom-24 right-[8%] h-56 w-56 rounded-full bg-accent/10 blur-[90px]" />
+    <section className="relative overflow-hidden bg-navy py-20 sm:py-24">
+      <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="animate-float-slow hidden md:block absolute -top-40 right-[6%] h-104 w-104 rounded-full bg-primary/20 blur-[100px]" />
+        <div className="animate-float hidden md:block absolute bottom-0 -left-32 h-80 w-80 rounded-full bg-accent/10 blur-[90px]" />
+      </div>
 
-      <div className="relative mx-auto max-w-3xl px-6 text-center lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_520px] lg:items-start lg:gap-16 lg:px-8">
         <AnimatedContainer>
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
-            <Flame aria-hidden="true" className="h-7 w-7 text-accent" />
+          <div className="flex items-center gap-3">
+            <div className="h-px w-8 bg-accent/50" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Work with us
+            </span>
           </div>
 
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
-            What we are actually trying to do
+          <h2 className="mt-6 font-heading text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl lg:text-[2.875rem] lg:leading-13">
+            <span className="block text-white">Come and meet us,</span>
+            <span className="block text-slate-400">
+              or just send a message.
+            </span>
           </h2>
 
-          <blockquote className="mt-6 text-lg leading-relaxed text-slate-300 sm:text-xl">
-            &ldquo;To make good digital work normal in {address.locality} — priced
-            openly, built to be owned, and honest enough to tell a business when
-            it does not need what we sell.&rdquo;
-          </blockquote>
-
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-400">
-            That last part is the one that costs us money, and it is the one we
-            mean most. If a small fix to the site you already have would do the
-            job, we would rather say so and keep the relationship than sell you a
-            rebuild you did not need.
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-[17px] sm:leading-[1.65]">
+            {address.streetAddress}, {address.locality} — or WhatsApp, if that
+            is easier. Either way you get a scope and a fixed number back.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark"
+              className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-full bg-primary px-7 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark"
             >
-              Talk to us
-              <ArrowRight className="cta-arrow h-4 w-4" />
+              Get a fixed quote
+              <span className="inline-flex h-6.5 w-6.5 items-center justify-center rounded-full bg-white/20">
+                <ArrowRight aria-hidden="true" className="cta-arrow h-3.5 w-3.5" />
+              </span>
             </Link>
             <a
               href={business.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-white/10"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-[15px] font-semibold text-white backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-white/10"
             >
-              <MessageCircle className="h-4 w-4 text-primary" />
-              WhatsApp {business.phoneDisplay}
+              Message on WhatsApp
+              <MessageCircle aria-hidden="true" className="h-4 w-4 text-accent" />
             </a>
+          </div>
+        </AnimatedContainer>
+
+        <AnimatedContainer delay={120} animation="fade-in">
+          <div className="rounded-3xl border border-white/15 bg-navy-light/90 p-7 shadow-2xl backdrop-blur-sm sm:p-8">
+            <p className="font-heading text-lg font-semibold text-white">
+              Reach us directly
+            </p>
+
+            {/* A <ul>, not a <dl>: the phone and email values are links, and an
+                anchor wrapping a <dt>/<dd> pair is invalid markup. */}
+            <ul className="mt-3 divide-y divide-white/10">
+              {contactRows.map((row) => (
+                <li
+                  key={row.label}
+                  className="flex min-h-11 items-center gap-3.5 py-3.5"
+                >
+                  <span className="inline-flex h-9.5 w-9.5 shrink-0 items-center justify-center rounded-xl bg-primary/20">
+                    <row.icon aria-hidden="true" className="h-4 w-4 text-sky" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                      {row.label}
+                    </p>
+                    {row.href ? (
+                      <a
+                        href={row.href}
+                        className="mt-0.5 block text-[15px] leading-5.5 font-medium text-white transition-opacity hover:opacity-80"
+                      >
+                        {row.value}
+                      </a>
+                    ) : (
+                      <p className="mt-0.5 text-[15px] leading-5.5 font-medium text-white">
+                        {row.value}
+                      </p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </AnimatedContainer>
       </div>

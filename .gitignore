@@ -45,3 +45,6 @@ skills-lock.json
 
 # Raw AI-generated source art (optimised WebP lives in public/images/)
 .gen-images/
+
+# Canvas design specs — generated from Pencil, regenerate rather than commit
+.canvas-specs/

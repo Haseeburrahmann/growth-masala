@@ -1,8 +1,7 @@
 import CaseStudiesHero from "@/components/case-studies/CaseStudiesHero";
-import CaseStudyCard from "@/components/case-studies/CaseStudyCard";
+import CaseStudySection from "@/components/case-studies/CaseStudySection";
 import CaseStudiesNote from "@/components/case-studies/CaseStudiesNote";
 import CaseStudiesCTA from "@/components/case-studies/CaseStudiesCTA";
-import SectionDivider from "@/components/ui/SectionDivider";
 import { caseStudies } from "@/data/caseStudies";
 
 /**
@@ -25,9 +24,12 @@ import { caseStudies } from "@/data/caseStudies";
  *   - "Mahabubnagar" appeared zero times, on a site whose entire SEO strategy is
  *     local intent.
  *
- * Backgrounds: navy | white · surface | navy. The single light-on-light seam
- * (cards → note) gets a `SectionDivider`; both navy boundaries are a change of
- * room and carry themselves.
+ * Each study now owns its own full-width band and paints its own background —
+ * `CaseStudySection` alternates white/surface off `index`, so consecutive
+ * studies separate themselves and there is no light-on-light seam left for a
+ * `SectionDivider` to mark. `CaseStudiesNote` reads `caseStudies.length` to
+ * finish on whichever background the last study used; the navy hero and navy
+ * closing band are a change of room and carry themselves.
  *
  * Schema: `BreadcrumbList` only, from `layout.tsx`. No `Review` or
  * `AggregateRating` — those need real collected reviews, which is a separate
@@ -39,15 +41,10 @@ export default function CaseStudiesPage() {
     <>
       <CaseStudiesHero />
 
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl space-y-12 px-6 sm:space-y-16 lg:px-8">
-          {caseStudies.map((study, idx) => (
-            <CaseStudyCard key={study.slug} study={study} index={idx} />
-          ))}
-        </div>
-      </section>
+      {caseStudies.map((study, idx) => (
+        <CaseStudySection key={study.slug} study={study} index={idx} />
+      ))}
 
-      <SectionDivider tone="light" />
       <CaseStudiesNote />
 
       <CaseStudiesCTA />

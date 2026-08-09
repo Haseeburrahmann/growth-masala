@@ -1,79 +1,52 @@
-import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
+import { Info } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import { caseStudies } from "@/data/caseStudies";
 
 /**
  * Why there are no percentages on this page.
  *
- * This section exists because of what it replaced. The cards above used to
+ * This band exists because of what it replaced. The studies above used to
  * present "Live", "1-tap" and "100% Mobile Responsive" as results, and the
  * obvious fix — delete them — leaves an agency case-studies page conspicuously
  * missing the numbers every competitor's page has. A reader notices the absence
  * whether or not it is explained.
  *
- * So it is explained. Naming the gap is more persuasive than filling it badly,
- * and in a market where "300% growth" appears on agency sites with nothing
- * behind it, being the page that says which numbers it does not have is a
- * genuine differentiator rather than a hedge.
+ * So it is explained, briefly. Naming the gap is more persuasive than filling it
+ * badly, and in a market where "300% growth" appears on agency sites with
+ * nothing behind it, being the page that says which numbers it does not have is
+ * a differentiator rather than a hedge. It is a one-paragraph callout and not a
+ * section, because a three-paragraph apology reads as protesting too much.
  *
- * Delete this section the moment a client shares a real figure and `outcome`
- * gets populated in `caseStudies.ts` — at that point it stops being honest and
- * starts being false modesty.
+ * It carries no background of its own — it sits inside the last study's band, so
+ * the parity here has to follow `caseStudies.length`. Delete this component the
+ * moment a client shares a real figure and `outcome` gets populated in
+ * `caseStudies.ts`; at that point it stops being honest and starts being false
+ * modesty.
  */
 export default function CaseStudiesNote() {
+  const lastStudyIsAlternate = (caseStudies.length - 1) % 2 === 1;
+
   return (
-    <section className="bg-surface py-20 sm:py-28">
-      <div className="mx-auto max-w-3xl px-6 lg:px-8">
+    <section
+      className={`${lastStudyIsAlternate ? "bg-surface" : "bg-white"} pb-14 sm:pb-16 lg:pb-[72px]`}
+    >
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <AnimatedContainer>
-          <div className="rounded-3xl border border-border bg-white p-8 sm:p-12">
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-600/10">
-              <ShieldCheck aria-hidden="true" className="h-6 w-6 text-emerald-600" />
-            </span>
-
-            <h2 className="mt-6 font-heading text-2xl font-bold text-text-primary sm:text-3xl">
-              You will not find a percentage on this page
-            </h2>
-
-            <div className="mt-5 space-y-4 text-base leading-relaxed text-text-secondary">
-              <p>
-                Most agency case studies open with a number — 300% more traffic,
-                5x the leads — and almost none of them say what the number was
-                measured against, over what period, or by whom. We would rather
-                not join in.
-              </p>
-              <p>
-                What the {caseStudies.length} studies above claim is what we
-                built, and every line of it is checkable in about thirty seconds
-                by opening the client&apos;s live site. Where a claim needs you to
-                trust us, we have left it out.
-              </p>
-              <p>
-                When a client is ready to share real figures — enquiries a month,
-                admissions, search traffic — they will appear here with the
-                client&apos;s name attached to them. Until then, judge the work
-                by the work.
+          <div className="flex items-start gap-4 rounded-2xl border border-primary/15 bg-primary/[0.04] p-5 sm:items-center sm:gap-[18px] sm:rounded-[20px] sm:p-[26px]">
+            <Info
+              aria-hidden="true"
+              className="mt-0.5 h-5 w-5 shrink-0 text-primary sm:mt-0"
+            />
+            <div className="flex-1">
+              <h2 className="font-heading text-base font-semibold leading-[22px] text-text-primary sm:text-[17px]">
+                Why there are no percentages on this page
+              </h2>
+              <p className="mt-1.5 text-[15px] leading-[24px] text-text-secondary">
+                Nobody has measured enquiries or admissions for these clients
+                yet, so there is nothing true to put there. When a client gives
+                us a real number, it goes here — not before.
               </p>
             </div>
-
-            <p className="mt-8 border-t border-border pt-6 text-sm leading-relaxed text-text-secondary">
-              Want to see more of what we have built rather than how we think
-              about it?{" "}
-              <Link
-                href="/portfolio"
-                className="font-semibold text-primary underline decoration-primary/30 decoration-2 underline-offset-4 transition-colors hover:decoration-primary"
-              >
-                The full portfolio
-              </Link>{" "}
-              has every live project, and{" "}
-              <Link
-                href="/services#pricing"
-                className="font-semibold text-primary underline decoration-primary/30 decoration-2 underline-offset-4 transition-colors hover:decoration-primary"
-              >
-                the price list
-              </Link>{" "}
-              says what each of them costs.
-            </p>
           </div>
         </AnimatedContainer>
       </div>
