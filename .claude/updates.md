@@ -1,146 +1,198 @@
-# Growth Masala — Updates & Progress Tracker
+# Growth Masala — Shipped Work Log
 
-Last updated: 2026-03-14
+Chronological record of what has actually shipped, newest first. One entry per
+release, with the commit and — where a change was driven by a measurement — the
+before/after.
 
----
+This file is **history**. It is not a task list (see [`TODO.md`](TODO.md)) and
+not a scorecard (see [`docs/seo-scorecard.md`](../docs/seo-scorecard.md)).
 
-## Completed
-
-### Phase 1 — Foundation
-- [x] Project setup (Next.js + Tailwind CSS 4 + Lucide React + pnpm)
-- [x] Google Fonts configured: Poppins (headings), Inter (body)
-- [x] Brand design system in `globals.css` (custom Tailwind theme, CSS utilities for noise, dots, grid, gradients, glow borders)
-- [x] CSS keyframe animations replacing Framer Motion (`globals.css`) — fade-in-up, hero-reveal, dashboard-reveal, counter-reveal, bar-grow, etc.
-- [x] Lightweight `useInView` IntersectionObserver hook (`src/lib/useInView.ts`) — replaces Framer Motion scroll detection
-- [x] TypeScript interfaces (`src/types/index.ts`)
-- [x] Data files: services, portfolio, testimonials, navigation (`src/data/`)
-- [x] Reusable UI components: Button, Card, Badge, SectionHeading, AnimatedContainer (`src/components/ui/`)
-- [x] Navbar — scroll-adaptive (transparent → white/blurred), logo image, pill-bar nav, mobile fullscreen overlay
-- [x] Footer — dark navy, logo, watermark text, gradient orb, CTA strip, nav links (social icons commented out pending links)
-- [x] Homepage — all sections built with bold editorial aesthetic:
-  - Hero (dark navy, oversized stacked typography, gradient orbs, animated stat counters)
-  - Intro ("Growth is Not Luck" section, 3 numbered pillar cards)
-  - Services Preview (dark navy, glass-morphism cards, feature tags)
-  - Process (4-step with concentric ring icons, connecting gradient line)
-  - Portfolio Preview (3-column single row, project images, clickable links)
-  - Testimonials (3 cards, decorative quote marks, star ratings)
-  - CTA (navy rounded panel, noise overlay, trust signals)
-
-### Phase 2 — Inner Pages
-- [x] Services page (`/services`) — detailed breakdown with deliverables checklists
-- [x] Portfolio page (`/portfolio`) — filterable grid (All / Websites / Web Apps / Social Media / Marketing)
-- [x] Case Studies page (`/case-studies`) — 3 studies with Challenge → Solution → Results format
-- [x] About page (`/about`) — story, stats panel, 4 value cards, mission statement
-- [x] Contact page (`/contact`) — contact info sidebar + full form (posts to `/api/contact`)
-- [x] Contact API (`/api/contact`) — validates, sanitizes, sends email via Nodemailer + Gmail
-
-### Phase 3 — Blog
-- [x] Blog utility (`src/lib/blog.ts`) — getAllPosts() + getPostBySlug() using fs + gray-matter
-- [x] Blog listing page (`/blog`) — post cards with cover images, category badge, date, read time
-- [x] Blog post template (`/blog/[slug]`) — simple markdown-to-HTML renderer, hero cover image, generateStaticParams for SSG
-- [x] 3 blog posts in `src/content/blog/` with cover images:
-  - "Why Every Business Needs a Website in 2026" (Web Development)
-  - "5 Social Media Mistakes Killing Your Engagement" (Social Media)
-  - "Meta Ads for Small Businesses: A Beginner's Guide" (Performance Marketing)
-- [x] Blog cover images downloaded from Unsplash to `public/images/blog/`
-
-### Phase 4 — AI Chatbot
-- [x] System prompt (`src/lib/chatbot.ts`) — business info, services, portfolio stats (50+ projects with top 3 examples), FAQ, response rules, lead capture flow
-- [x] Chat API (`/api/chat`) — Claude API via @anthropic-ai/sdk, model claude-sonnet-4-6, max_tokens 350
-- [x] Rate limiting — in-memory, 20 requests/min per IP
-- [x] Message sanitization — last 20 messages, 2000 chars each
-- [x] Chat UI (`src/components/chatbot/ChatWidget.tsx`) — chat panel with navy header, typing dots, sessionStorage persistence, markdown bold + bullet rendering
-- [x] WhatsApp button — green circle beside chat button, links to wa.me/918688269427
-- [x] Chat panel absolutely positioned so it doesn't affect button layout (fixed wrapper width issue)
-- [x] Chat button toggles open/close (shows X icon when open)
-- [x] Chatbot lead capture → email: when user shares name + phone, bot outputs hidden `[LEAD]` tag, API strips it and sends lead email via Nodemailer
-
-### Phase 5 — Polish & Deploy
-- [x] Responsive fixes for 320px mobile viewport (hero headings, stats, intro heading, process section)
-- [x] SEO meta tags per page — layout.tsx enhanced (title template, metadataBase, keywords, OG, twitter, robots)
-- [x] Per-page metadata via layout.tsx files: services, portfolio, case-studies, about, contact
-- [x] Sitemap — `src/app/sitemap.ts` (Next.js native, auto-generates all static pages + blog posts)
-- [x] robots.txt — `public/robots.txt` (allows all crawlers, points to sitemap)
-- [x] Favicon — `public/favicon.ico` (32x32) + `public/images/icon.png` (180x180 apple touch icon)
-- [x] Deployed to Vercel (live)
-- [x] JSON-LD structured data — ProfessionalService schema in layout.tsx (name, services, phone, email, area served)
-- [x] 404 page — `src/app/not-found.tsx` (branded dark theme, large gradient "404", nav buttons)
-- [x] Page transitions — CSS fade-in-up animation on `<main>` element
-- [x] Tailwind CSS 4 canonical class fixes (bg-linear-to-b, text-black/3, top-15, h-30, w-30, etc.)
-
-### Performance Optimization
-- [x] Framer Motion fully removed (~60-70KB JS saved) — replaced with CSS `@keyframes` + `useInView` hook
-- [x] `src/lib/animations.ts` deleted (animation variants moved to CSS)
-- [x] All components rewritten without `motion` — HeroSection, IntroSection, ServicesPreview, ProcessSection, PortfolioPreview, TestimonialsSection, CTASection, AnimatedContainer, SectionHeading, Card
-- [x] All inner pages rewritten without Framer Motion — services, portfolio, about, case-studies
-
-### Contact Form & Email
-- [x] Nodemailer + Gmail App Password setup (replaced Resend)
-- [x] Email utility (`src/lib/email.ts`) — `sendContactEmail()` for form submissions + `sendLeadEmail()` for chatbot leads
-- [x] Professional email format: sender "Growth Masala", subject `[Growth Masala] New Inquiry: <service> — <name>`
-- [x] HTML email template with styled table layout
-- [x] Lead email format: subject `[Growth Masala] 🔥 Chatbot Lead: <name> — <need>`
-- [x] Contact form tested and working
-
-### Content & Branding
-- [x] Hero badge changed from "Digital Marketing Agency" to "Your Growth Partner"
-- [x] Google Ads removed from Performance Marketing — services data, services page, chatbot prompt, FAQ, layout keywords
-- [x] Logo updated to new Growth Masala arrow logo (`public/images/logo.png`)
-- [x] Logo path updated across Navbar, Footer, ChatWidget
-- [x] Portfolio data replaced with 6 real projects:
-  1. Kings Mobile World (kingsmobileworld.in) — Website
-  2. Automotive Dudes (automotivedudes.in) — Website
-  3. TrustWave FinServ (trustwavefinserv.com) — Website
-  4. Freewings School (freewingsschool.com) — Website
-  5. ZakatEasy (zakateasy.org) — Web App
-  6. LancerCalc (lancercalc.com) — Web App
-- [x] Portfolio screenshots uploaded by user to `public/images/portfolio/`
-- [x] iframe previews removed (ZakatEasy & Automotive Dudes block iframes), replaced with static images
-- [x] All placeholder emails (`hello@growthmasala.com`) replaced with `growthmasala@gmail.com` across contact page, footer, chatbot system prompt
-- [x] Phone number added to contact page: +91 8688269427 (clickable tel: link)
-- [x] WhatsApp number set in `.env.local`: 918688269427
-- [x] Social icons (LinkedIn, Instagram, X) commented out in footer — pending real profile links
+> Documentation describes the past; code describes the present. Before quoting
+> anything here as current state, grep the source.
 
 ---
 
-## Pending
+## 2026-08-09 — Images, headings, accessibility, performance, schema
 
-### Content / Assets
-- [ ] Real testimonials (currently placeholder names/quotes)
-- [ ] Real case studies data (currently placeholder)
-- [ ] Social media profile links (LinkedIn, Instagram, X) — uncomment icons in Footer when ready
-- [ ] Custom domain — update `NEXT_PUBLIC_SITE_URL` and `robots.txt` sitemap URL when purchased
+Six commits, all live on production and verified there.
 
-### Nice to Have
-- [ ] Google Analytics / tracking setup
-- [ ] Lighthouse audit and optimization (target 90+)
+### `a38351d` · Nine section images, generated to a brief
+
+Every image slot emptied by `f8f3b68` refilled at the same paths and sizes, so
+no component or layout changed to accept them.
+
+The brief came from the one photograph that survived — `hero-team.webp` — which
+sets the house style: real Indian subjects in a real small-city business,
+near-black navy environment, brand blue arriving as screen glow rather than a
+filter, one small amber practical, and a legible interface composited into the
+frame. Each image was written to that spec and to one sentence it must say
+without a caption.
+
+Generated with GPT Image via the Codex CLI, cropped per slot rather than
+uniformly: `consultation` keeps its left third near-empty because
+`ProcessSection` runs a left-to-right navy scrim across it; `services/ai` is
+cropped high so the card's short 2:1 window keeps the shutter and streetlight.
+WebP, all under 120KB.
+
+**The map is not generated.** It renders under a visible "Map data ©
+OpenStreetMap contributors" credit and calls itself a street map of a real town,
+so an invented one would have made that attribution a lie. It is a real z14 OSM
+tile export centred on Mahabubnagar.
+
+Four alt texts corrected in the same pass: two named Mahabubnagar for staged
+photographs, one called a stock photo "A Growth Masala consultation", and
+`LocationWhyLocal` interpolated `page.city` so one shared photograph claimed
+twelve different towns.
+
+### `12a011f` · Hero alt stops claiming the team
+
+The alt opened "Two Growth Masala team members…" on a staged photograph. Now
+describes the laptop screen instead — which genuinely is ours — so every keyword
+survives verbatim and only the claim about who is holding it is gone.
+
+### `5e237ce` · The missing word break in every two-tone heading
+
+The site's headline treatment is one heading split across two visual lines with
+`<span className="block">`. `display: block` breaks the line **in CSS, not in
+the DOM** — so the heading's text content had no separator:
+
+```
+"Digital marketing servicesin Mahabubnagar."
+"Someone nearby is searchingfor what you sell"
+```
+
+**27 headings across 8 pages**, compounded by every location page sharing the
+components. On `/services` it mangled the exact phrase the page exists to rank
+for. Fixed with one `{" "}` per seam — 21 files inline plus `SectionIntro` once,
+which covers every section heading site-wide. Screenshots pixel-identical.
+
+Found by an external audit, which reported it as 2 H1s; the real scope was 27.
+
+Also: service card `alt=""` replaced with a required `imageAlt` on
+`ServiceGroup` (the type had justified the empty alt as "abstract group
+artwork", which my own image replacement had made stale), and four meta
+descriptions trimmed from 187/216/212/181 to 141–155.
+
+### `9f6528e` · Three WCAG AA failures → accessibility 100
+
+PSI scored accessibility 89. axe-core pinned all three to exact nodes:
+
+1. **Footer wordmark** — "Masala" was `text-primary` on navy at **3.63:1**
+   against a 4.5:1 floor. Moved to `text-secondary`, same brand family, 5.2:1.
+   `SectionIntro` already documented this exact trap; it had never been applied
+   to the logo.
+2. **Service card numerals** — `text-slate-400` on white at **2.63:1**. They
+   carry `aria-hidden`, which was presumably the reasoning — but that removes an
+   element from the accessibility tree, not from the screen.
+3. **The `<dl>`** — "Reach us directly" had `<dt>`/`<dd>` one wrapper too deep,
+   so screen readers were not treating phone, email, studio and hours as a
+   labelled list at all. Rebuilt as a grid; rendering identical.
+
+**axe: 3 violations → 0.**
+
+### `eca5733` · Mobile performance 69 → 92
+
+The trace gave it away: **Speed Index 2.1s against LCP 6.3s.** The page was
+visually finished in two seconds and then spent four more waiting to be
+*counted*. Four self-inflicted causes:
+
+1. **The hero animated its own LCP element.** `hero-reveal` starts at
+   `opacity: 0` and Chrome does not count an invisible element as painted —
+   1061ms of "element render delay" against a 36ms TTFB. Added a transform-only
+   variant. **Fixing the h1 alone was not enough:** LCP tracks whichever element
+   is *largest*, so freeing the h1 promoted the subheading (600ms delay of its
+   own) to LCP. Every large hero element now uses it.
+2. **Render-blocking CSS** — one 16.8KB stylesheet between document and first
+   pixel. `experimental.inlineCss`.
+3. **GA on `afterInteractive`** — 165KB with ~70KB unused, executing the moment
+   hydration finished. Moved to `lazyOnload`. Accepted trade-off: a visitor who
+   leaves within ~1s may go uncounted.
+4. **A non-composited animation** — the amber headline rule faded via
+   `text-decoration-color`, which no browser can composite. Drawn statically now.
+
+| | before | after |
+|---|---|---|
+| PSI mobile | 69 | **92** |
+| LCP | 5.4s | **3.1s** |
+| FCP | 3.5s | **1.7s** |
+| TBT | 110ms | **0ms** |
+| PSI desktop | 98 | **100** |
+
+### `7ce9976` · Schema warnings 9 → 0
+
+`serviceType` is a property of `Service`, not `LocalBusiness`. It produced nine
+warnings — one per service — and was pure duplication: every title was already
+published in `hasOfferCatalog` on `Service` nodes where the property is valid.
+Removed the invalid copy.
+
+**validator.schema.org: 0 errors, 0 warnings.**
+
+### Also on this date, not code
+
+- Reviewed five external tools; see [`docs/seo-scorecard.md`](../docs/seo-scorecard.md)
+  for scores and, importantly, the eight verified **false positives** they produced
+- Crawled all links: 30 internal + 13 external, **0 broken**
+- Added item 7 to `CLAUDE.md` — the Next.js image optimizer cache trap that made
+  a verification pass silently confirm nine images that were not on disk
 
 ---
 
-## Key File Locations
+## 2026-08-07 → 2026-08-08 — Canvas redesign
 
-| What | Where |
-|------|-------|
-| Project config | `CLAUDE.md` (root) |
-| Chatbot template | `.claude/chatbot-template.md` |
-| This file | `.claude/updates.md` |
-| Homepage sections | `src/components/home/` |
-| Layout (Nav/Footer) | `src/components/layout/` |
-| Chat widget | `src/components/chatbot/ChatWidget.tsx` |
-| System prompt | `src/lib/chatbot.ts` |
-| Chat API | `src/app/api/chat/route.ts` |
-| Contact API | `src/app/api/contact/route.ts` |
-| Email utility | `src/lib/email.ts` |
-| Blog posts | `src/content/blog/` |
-| Blog images | `public/images/blog/` |
-| Portfolio data | `src/data/portfolio.ts` |
-| Brand logo | `public/images/logo.png` |
-| Portfolio images | `public/images/portfolio/` |
-| Design system | `src/app/globals.css` |
-| CSS animations | `src/app/globals.css` (keyframes section) |
-| IntersectionObserver hook | `src/lib/useInView.ts` |
-| JSON-LD schema | `src/app/layout.tsx` |
-| Sitemap | `src/app/sitemap.ts` |
-| 404 page | `src/app/not-found.tsx` |
-| Env vars | `.env.local` (never commit) |
-| Env template | `.env.example` |
+`73ba142` `1cd52e2` `32b71f8` `f320c1d` `8ab9c12` `e994580` `e4d53e8` `96f7e3a`
+`1df0c1a` `13d54d7`
+
+Full rebuild of every route to the approved canvas design: services, portfolio,
+case studies, about, contact, blog, location pages and all homepage sections.
+Hero rebuilt around the duo plate with a bleed layout and fixed-quote CTAs.
+Section dividers dropped, Why-us halved, FAQ rebuilt in two columns. Masala Bot
+given a face and brought up to the site's finish. Each `/services` entry expanded
+to show what is actually included.
+
+`e4d53e8` also restored social cards on ~20 pages: `openGraph` is **not**
+deep-merged in the App Router, so eight routes declaring their own had silently
+dropped the image. `pageOpenGraph()` in `src/lib/metadata.ts` now makes that
+impossible.
+
+---
+
+## 2026-08-06 — SEO remediation
+
+Full detail and the competitor teardown: [`docs/seo-audit-2026-08.md`](../docs/seo-audit-2026-08.md)
+
+- **Site-wide canonical bug** — `alternates.canonical` in the root layout is
+  inherited by every child route in the App Router, so every page declared itself
+  a duplicate of the homepage. This had taken the entire site out of Google's
+  index. Removed; every route now sets its own.
+- **Titles** — brand was double-printed and no title carried a location keyword
+- **NAP everywhere** — contact page said "Location: India"; `business.ts` became
+  the single source of truth
+- **Location keywords in visible copy** — "Mahabubnagar" appeared 0 times
+- **12 location landing pages** with genuinely unique copy
+- **Schema expansion** — `WebSite`, `BreadcrumbList`, `FAQPage`, `Service`,
+  `OfferCatalog`, `BlogPosting`
+- **FAQ sections** — server-rendered `<details>` so schema matches visible content
+- **Images** — 5.2MB → 788KB WebP
+- **Sitemap** — location and blog URLs derived automatically
+
+---
+
+## 2026-03 → 2026-08 — Initial build
+
+Next.js 14 App Router, Tailwind v4 (CSS-first, no config file), CSS keyframes +
+IntersectionObserver in place of Framer Motion, Lucide icons, Poppins/Inter via
+`next/font`.
+
+Delivered across five phases: foundation and design system; inner pages
+(services, portfolio, case studies, about, contact); markdown blog with
+`gray-matter`; the Claude-powered chat widget with rate limiting and error
+handling; then polish, responsive passes and the Vercel deploy.
+
+Two incidents from this period are recorded permanently in `CLAUDE.md` because
+both survived months of review:
+
+- **Every heading and all body copy rendered in the OS default font.** `@theme`
+  aliased `--font-heading` to a variable `next/font` defined on `<body>`, so at
+  `:root` it referenced an undefined variable — guaranteed-invalid, inherited
+  everywhere. Font variables now go on `<html>`.
+- **Triple `<h1>`** in the hero, one per visual line.

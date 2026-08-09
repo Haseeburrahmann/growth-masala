@@ -1,7 +1,13 @@
 # CLAUDE.md — Growth Masala Website Project
 
-> 📋 **Pending tasks & SEO action plan:** [`.claude/TODO.md`](.claude/TODO.md)
+> 📋 **Pending tasks:** [`.claude/TODO.md`](.claude/TODO.md)
 > Read TODO.md at the start of every session to know what needs to be worked on next.
+>
+> 📊 **SEO & performance tracking:** [`docs/seo-scorecard.md`](docs/seo-scorecard.md)
+> Current tool scores, the trend over time, how to re-run each check — and the
+> list of **verified false positives**. Read that list before acting on any
+> external audit: four different tools have confidently reported non-problems on
+> this site, including "no structured data" on a page carrying six JSON-LD blocks.
 >
 > 🔍 **Before touching metadata, schema, canonicals, the footer, or location pages:**
 > read [`docs/seo-architecture.md`](docs/seo-architecture.md). It documents rules
@@ -440,6 +446,7 @@ curl -s http://localhost:3000/services | grep -oE '<title>[^<]*</title>|<link re
 | Project config (this file) | `CLAUDE.md` (root) |
 | **Pending tasks & SEO plan** | **`.claude/TODO.md`** ← read this each session |
 | **SEO rules & conventions** | **`docs/seo-architecture.md`** ← read before touching metadata/schema |
+| **SEO & perf tracking + false positives** | **`docs/seo-scorecard.md`** ← read before acting on any audit |
 | SEO audit + competitor teardown | `docs/seo-audit-2026-08.md` |
 | **Business NAP (single source of truth)** | `src/data/business.ts` |
 | JSON-LD schema builders | `src/lib/schema.ts` |

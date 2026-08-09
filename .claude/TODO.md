@@ -1,212 +1,159 @@
-# Growth Masala — TODO & Pending Plan
+# Growth Masala — TODO
 
 > **Read this file before starting any session.**
-> Live task tracker for everything pending — content, SEO, and code.
 >
-> ⚠️ **Verify before you trust.** An earlier version of this file claimed the
-> testimonials and case studies were fake placeholders. They had already been
-> replaced with real clients months earlier, and that stale claim was repeated
-> into an SEO audit as a real finding. **Grep the source before acting on any
-> item here.**
+> ⚠️ **Verify before you trust.** This file has been stale before: it once
+> claimed the testimonials and case studies were fake placeholders months after
+> they had been replaced with real clients, and that dead claim was repeated
+> into an SEO audit as a live finding. **Grep the source before acting on any
+> item here.** When you find something already done, fix this file in the same
+> pass.
 
-Last updated: 2026-08-06
+Last verified against source: **2026-08-09**
 
----
-
-## ✅ Completed — 2026-08-06 SEO remediation
-
-Full detail: [`docs/seo-audit-2026-08.md`](../docs/seo-audit-2026-08.md)
-
-- [x] **Site-wide canonical bug** — every page pointed its canonical at the
-      homepage, blocking indexation of the whole site. Root cause was
-      `alternates.canonical` in the root layout, which App Router inherits into
-      every child route. Removed it; each route now sets its own relative canonical.
-- [x] **Title tags** — brand was double-printed (`Services — Growth Masala | Growth Masala`)
-      and no title contained a location keyword. All titles are now bare and
-      keyword-first; the root template appends the brand exactly once.
-- [x] **Broken `icon.png` reference** — deleted from the repo but still referenced
-      by the favicon and the LocalBusiness schema. Repointed to `/favicon.ico`
-      and `/images/logo.png`.
-- [x] **NAP on every page** — contact page said "Location: India". Now shows
-      Mahabubnagar, Telangana with phone and email; footer carries the full NAP
-      site-wide. Single source of truth: `src/data/business.ts`.
-- [x] **Location keywords in visible copy** — "Mahabubnagar" appeared 0 times in
-      visible body text. Now 13 on the homepage, 31 on the primary landing page.
-- [x] **12 location landing pages** — 5 Mahabubnagar service pages, 5 micro-local
-      (Shadnagar, Wanaparthy, Kalwakurthy, Jadcherla, Narayanpet), 2 Hyderabad.
-      Data in `src/data/locations.ts`, rendered by `src/app/[slug]/page.tsx`.
-- [x] **Schema expansion** — added `WebSite`, `BreadcrumbList` (all inner pages),
-      `FAQPage` (homepage + every location page), `Service`, `OfferCatalog`, and
-      `BlogPosting`. Builders live in `src/lib/schema.ts`.
-- [x] **FAQ sections** — 6 questions on the homepage, 4 per location page.
-      Server-rendered `<details>`, so schema and visible content match.
-- [x] **Image compression** — portfolio and blog images converted to WebP.
-      5.2MB → 788KB (85% smaller). Originals preserved in
-      `~/Desktop/2026/growth-masala-image-originals/20260806/`.
-- [x] **Sitemap** — now includes all 12 location pages (22 URLs total) and the
-      root entry matches the canonical form.
+Progress tracking lives in [`docs/seo-scorecard.md`](../docs/seo-scorecard.md).
+Shipped work lives in [`updates.md`](updates.md). This file is only what is
+*open*.
 
 ---
 
-## 🔴 BLOCKING — Only the owner can do these
+## 🔴 Blocking — only the owner can do these
 
-These are the highest-ROI items left. The code work is done and invisible to
-Google until #1 happens.
+Nothing in the codebase moves these.
 
-- [x] ~~**Deploy**~~ ✅ **DONE 2026-08-06** — commits `1c10a2d`, `9ce71da`, live and verified
-- [ ] **Set up Google Search Console** 🔥 ← **THIS IS THE NEXT ACTION**
-  - 📄 **Paste-ready browser-agent brief:** [`docs/search-console-setup.md`](../docs/search-console-setup.md)
-  - The deploy gate in that doc is already satisfied — production serves correct
-    per-page canonicals, 22 sitemap URLs, and 19 unique titles (verified)
-  - Verify ownership → submit `sitemap.xml` → request indexing on 10 priority URLs
-  - **Watch: Pages → Indexed. Should climb toward 22 within two weeks.**
-  - Nothing else on this list moves the needle until Google re-crawls
+- [ ] **Replace the placeholder street address** ⚠️ *highest risk item on this list*
+  - `src/data/business.ts` → currently `"Station Road"`, PIN `509001`
+  - Set on owner instruction. Road-level only — **not a verified premises**
+  - **Must be replaced before creating any directory listing.** Once a wrong NAP
+    is published to Justdial/Clutch/Sulekha, correcting it across every citation
+    is far more work than getting it right once, and inconsistent NAP actively
+    suppresses local ranking
+  - Whatever lands here must match every external listing character-for-character
 
-- [ ] **Replace the placeholder street address** ⚠️
-  - File: `src/data/business.ts` → currently `"Station Road"` / `"509001"`
-  - Set 2026-08-06 on owner instruction. Road-level only, **not a verified premises**
-  - 509001 is the correct PIN for Mahabubnagar town
-  - **Must be replaced with the real address BEFORE creating any directory listing** —
-    once a wrong NAP is published to Justdial/Clutch, correcting it everywhere is
-    far more work than getting it right once
-  - Whatever ends up here must match every listing character-for-character
+- [ ] **Confirm Google Search Console state**
+  - Runbook: [`docs/search-console-setup.md`](../docs/search-console-setup.md)
+  - Verify ownership → submit `sitemap.xml` → request indexing
+  - Cannot be checked from the codebase; only the console shows it
+  - **Watch: Pages → Indexed. Target 23.**
 
-- [ ] **Verify GA4 is live in production**
-  - `NEXT_PUBLIC_GA_ID=G-46R8LQJ581` is in `.env.local` — confirm it is also set
-    in Vercel's environment variables, or no data is being collected
-  - Check GA4 → Real-time for active users
+- [ ] **Collect client reviews** → unlocks `AggregateRating`
+  - Star ratings in the SERP are the largest CTR lift still available
+  - Target 5 reviews across Google / Justdial / Clutch
+  - Once they exist the schema is ~30 minutes of work. Not before — the builder
+    is deliberately absent rather than stubbed
 
----
-
-## 🟠 HIGH — Off-site citations (free, ~3 hours total)
-
-The site currently has zero citations. Every competitor that ranks has these.
-
-| Platform | URL | Why |
-|----------|-----|-----|
-| [ ] Justdial | justdial.com | Owns 3+ of the top 10 Mahabubnagar results |
-| [ ] Sulekha | sulekha.com | Same pattern, strong local presence |
-| [ ] Clutch | clutch.co/get-listed | AI tools cite Clutch when recommending agencies |
-| [ ] GoodFirms | goodfirms.co/directory/register | Appears in "Top 10 Hyderabad" SERPs |
-| [ ] Sortlist | sortlist.com/agency/register | Ranked #5 for "digital marketing agency Telangana" |
-| [ ] DesignRush | designrush.com | Ranked #2 for Hyderabad agency queries |
-
-Also worth pitching for inclusion in the "Top 10 agencies in Hyderabad" listicles
-that rank page-one: IIDE, ZeroAdo, AmigoCreatz, HivePulse.
-
-> **Note:** Google Business Profile is intentionally out of scope per the owner.
-> Everything above works without it — and Clutch/GoodFirms matter more for AI
-> visibility than GBP does.
+- [ ] **One real outcome metric for a case study** 🔥 *highest-value copy task*
+  - `src/data/caseStudies.ts` — every entry has `outcome?: string` and **all are
+    undefined** (verified 2026-08-09). That is the honest state
+  - One real number from any one client — enquiries a month, admissions, search
+    traffic — is enough. Set `outcome` and the card already has the treatment
+  - Delete `src/components/case-studies/CaseStudiesNote.tsx` at the same time:
+    once real figures exist, that section stops being honest and becomes false
+    modesty
 
 ---
 
-## 🟠 HIGH — Content the code can't invent
+## 🟠 High — off-site citations (free, ~3 hours)
 
-- [x] ~~**Publish pricing**~~ ✅ **DONE** — `src/data/pricing.ts` is the single
-      source of truth and is now rendered end to end
-  - Homepage `PricingSection` shows the three one-time build tiers only
-  - `/services` publishes the full list: builds, care plans, add-ons, fine print
-  - The same file feeds the `OfferCatalog` JSON-LD, the FAQ answers, and the
-    chatbot, so no surface can quote a price the page does not show
-  - Still forfeiting **"website design cost Mahabubnagar"** as a *query* — the
-    prices are published but no page targets that phrase. The blog post below
-    is the piece that would claim it.
+The site has zero citations. Every competitor ranking locally has these.
 
-- [ ] **Collect client reviews** → unlocks `AggregateRating` schema
-  - Star ratings in the SERP are the biggest CTR lift available
-  - Target: 5 reviews across Google/Justdial/Clutch within 2 weeks
-  - Once they exist, adding the schema is ~30 minutes of code
+| Platform | Why |
+|----------|-----|
+| [ ] Justdial | owns 3+ of the top 10 Mahabubnagar results |
+| [ ] Sulekha | same pattern, strong local presence |
+| [ ] Clutch | AI assistants cite Clutch when recommending agencies |
+| [ ] GoodFirms | appears in "Top 10 Hyderabad" SERPs |
+| [ ] Sortlist | ranked #5 for "digital marketing agency Telangana" |
+| [ ] DesignRush | ranked #2 for Hyderabad agency queries |
 
-- [ ] **Get one real outcome metric for a case study** 🔥 ← highest-value copy task
-  - Case study data now lives in `src/data/caseStudies.ts` (it used to be
-    hardcoded in the page). Every entry has an `outcome?: string` field and
-    **every one of them is undefined** — that is the honest state.
-  - The fake metrics are gone. The page used to render "Live", "1-tap" and
-    "100% Mobile Responsive" as a green RESULTS column at KPI typography.
-    Those were deliverables dressed as outcomes; they are now a plain
-    "What shipped" checklist, and `/case-studies` carries a section explaining
-    why it publishes no percentages.
-  - One real number — enquiries a month, admissions, search traffic — from any
-    one client is all it takes. Set `outcome` on that study and the card already
-    has the treatment for it (emerald, trending-up icon, the only figure on the
-    card). Delete `CaseStudiesNote.tsx` at the same time: once real figures
-    exist, that section stops being honest and becomes false modesty.
+**Do not start these until the street address is real** — see the blocking item
+above. Publishing a placeholder NAP to six directories is the expensive mistake.
 
-- [ ] **Confirm the remaining owner-supplied numbers**
-  - `trackRecord` in `src/data/business.ts` holds `projectsDelivered: 50` and
-    `clientsServed: 30`, confirmed by the owner 2026-08-07. They feed the
-    /portfolio title, the /portfolio hero and the /about stat block from one
-    place — previously the 50 was retyped per file, which is how /portfolio came
-    to promise "50+" in the SERP while rendering "8+" in its hero.
-  - **Deleted, not moved:** "3x Average Growth Rate" and "95% Client Retention".
-    Neither had a source. If they are real and measurable, say so and they can
-    go back — but they need a baseline and a period before they are publishable.
+Google Business Profile is intentionally out of scope per the owner. Clutch and
+GoodFirms matter more for AI visibility anyway.
 
 ---
 
-## 🟡 MEDIUM — Local blog content (2 posts/month)
+## 🟡 Medium — local blog content
 
-Existing posts are generic and compete against the whole internet. Local-intent
-posts have almost no competition here.
+Two of the five planned posts now exist (verified 2026-08-09). Local-intent
+posts have almost no competition here; the existing generic posts compete
+against the whole internet.
 
-- [ ] **"Website Design Cost in Mahabubnagar: 2026 Price Guide"** ← start here
-  - Target: `website design cost Mahabubnagar` · highest commercial intent
-  - `src/content/blog/website-design-cost-mahabubnagar.md`
-- [ ] **"Top 10 Digital Marketing Agencies in Mahabubnagar (2026)"**
+- [x] ~~"Website Design Cost in Mahabubnagar: 2026 Price Guide"~~ — shipped
+- [x] ~~"Website Design Cost in Hyderabad"~~ — shipped
+- [ ] **"Top 10 Digital Marketing Agencies in Mahabubnagar (2026)"** ← start here
   - A listicle including ourselves — exactly how IIDE and ZeroAdo rank for Hyderabad
-- [ ] **"How to Choose a Digital Marketing Agency in Mahabubnagar"**
-- [ ] **"Local SEO Guide for Mahabubnagar Businesses"**
-- [ ] **"Meta Ads for Telangana Small Businesses: What Actually Works"**
+- [ ] "How to Choose a Digital Marketing Agency in Mahabubnagar"
+- [ ] "Local SEO Guide for Mahabubnagar Businesses"
+- [ ] "Meta Ads for Telangana Small Businesses: What Actually Works"
 
-New posts get `BlogPosting` schema, breadcrumbs, and canonicals automatically —
-just add the markdown file.
+New posts get `BlogPosting` schema, breadcrumbs, canonical and a sitemap entry
+automatically. Drop the markdown in `src/content/blog/` and set a `.webp`
+`image` in the frontmatter.
 
 ---
 
-## 🟢 LOW — Code quality & performance
+## 🟢 Low — open engineering items
 
-- [ ] **Fix pre-existing lint error** — `src/components/layout/Navbar.tsx:22`
-  - `react-hooks/set-state-in-effect` — `pnpm lint` fails on it
-  - Predates the SEO work; left untouched to keep that change set clean
-  - `pnpm build` is unaffected
+- [ ] **Sitemap `lastmod` is the build timestamp**
+  - `src/app/sitemap.ts` uses `lastModified: new Date()` for all 19 non-blog
+    URLs, so every deploy claims all of them changed
+  - Google honours `lastmod` only when it is consistently accurate, and ignores
+    it otherwise — so the cost is that the signal stops working precisely when
+    it is wanted, e.g. after genuinely rewriting one location page
+  - The 4 blog posts already do this correctly, deriving from frontmatter
+  - **Fix needs a decision:** an explicit `updated` field per entry in
+    `locations.ts` (honest, manually maintained) vs deriving from git commit
+    dates (automatic, unreliable on Vercel's shallow clones). Recommend the
+    explicit field
 
-- [ ] **Run Lighthouse** (target 90+)
-  - `pnpm build && pnpm start` → Chrome DevTools → Lighthouse
-  - Image weight is already down 85%; JS is the remaining lever
+- [ ] **Mobile LCP is 3.1s, above the 2.5s "Good" threshold**
+  - Now font-swap bound: text paints fast, then repaints when Poppins arrives
+  - Closing it means `font-display: optional`, which trades the brand face for
+    the metric on slow first loads — **an owner decision, not a perf decision**,
+    on a site that sells web design and has already shipped an incident where
+    every heading rendered in the OS default font. Recommend leaving it
+  - Weights are already minimal: Poppins 600/700, Inter 400/500/600, latin
+    subset, each with a documented reason in `layout.tsx`
 
-- [ ] **Audit JS bundle** — largest chunk is 218KB, total ~600KB for a marketing site
-  - Check for barrel imports pulling in more than needed
-
-- [ ] **Social icons in Footer** — verify the three profile links resolve
-  - Instagram, Facebook, and X are live in the footer and in `sameAs` JSON-LD
-
-- [ ] **Stray file**: `public/logoo.png` is untracked and unreferenced (404s in
-      production). Left in place rather than deleted — confirm it's unwanted first.
+- [ ] **Amber headline rule wraps at 390px**
+  - At mobile width the `<h1>` breaks "your business found" across two lines and
+    `.headline-mark` draws the underline twice. `HeroSection`'s own comment calls
+    that outcome "a scribble" when discussing desktop sizing
+  - Pre-existing, cosmetic, a type-scale decision rather than a bug
 
 - [ ] **Rate limiter persistence** (low urgency)
-  - In-memory Map in `/api/chat/route.ts` resets on Vercel cold starts
+  - In-memory `Map` in `/api/chat/route.ts` resets on Vercel cold starts
   - Only matters at scale
 
 ---
 
-## 📋 QUICK WINS
+## ✅ Recently closed — verify before re-adding
 
-| Task | Effort | Impact |
-|------|--------|--------|
-| Deploy + submit sitemap to Search Console | 20 mins | 🔥 Critical |
-| Fill in street address + PIN in `business.ts` | 2 mins | High |
-| Verify GA4 env var in Vercel | 10 mins | Medium |
-| List on Justdial + Sulekha | 45 mins | High |
-| Register on Clutch + GoodFirms | 50 mins | High (AI visibility) |
-| Publish a starting price range | 30 mins | High |
+These were open in earlier versions of this file and are **done** (source-verified
+2026-08-09). Listed so they are not re-reported as findings.
+
+| Item | State |
+|------|-------|
+| Site-wide canonical bug | fixed; every route self-canonical, verified on production |
+| Lighthouse 90+ | mobile 92, desktop 100 |
+| Pre-existing lint error in `Navbar.tsx` | `pnpm lint` passes clean |
+| Stray `public/logoo.png` | gone |
+| Social profile links resolve | all three 200, verified by crawl |
+| JS bundle audit | GA moved to `lazyOnload`, CSS inlined, TBT 110ms → 0ms |
+| Publish pricing | `src/data/pricing.ts` renders end to end |
+| GA4 live in production | gtag renders on the live site |
+| 12 location landing pages | live, 9% duplicate content (Siteliner) |
+| Nine empty image slots | filled; see `updates.md` 2026-08-09 |
 
 ---
 
-## 🔗 Related Files
+## 🔗 Related
 
 - Project config: [`CLAUDE.md`](../CLAUDE.md)
-- **SEO audit + competitor teardown**: [`docs/seo-audit-2026-08.md`](../docs/seo-audit-2026-08.md)
-- SEO architecture: [`docs/seo-architecture.md`](../docs/seo-architecture.md)
-- **Search Console setup (browser brief)**: [`docs/search-console-setup.md`](../docs/search-console-setup.md)
-- Completed work log: [`.claude/updates.md`](updates.md)
-- Chatbot template: [`.claude/chatbot-template.md`](chatbot-template.md)
+- **Progress tracking / tool scores**: [`docs/seo-scorecard.md`](../docs/seo-scorecard.md)
+- SEO rules: [`docs/seo-architecture.md`](../docs/seo-architecture.md)
+- Audit + competitor teardown: [`docs/seo-audit-2026-08.md`](../docs/seo-audit-2026-08.md)
+- Search Console runbook: [`docs/search-console-setup.md`](../docs/search-console-setup.md)
+- Shipped work log: [`updates.md`](updates.md)

@@ -5,6 +5,7 @@ them correct. Read this before touching metadata, schema, the footer, or the
 location pages.
 
 Companion documents:
+- [`seo-scorecard.md`](seo-scorecard.md) — **what the tools currently say, the trend, and the false positives not to re-fix**
 - [`seo-audit-2026-08.md`](seo-audit-2026-08.md) — the audit that produced this design, plus the competitor teardown
 - [`.claude/TODO.md`](../.claude/TODO.md) — what's still outstanding
 
@@ -203,6 +204,93 @@ Oversized sources were 85% of the site's asset weight (5.2MB → 788KB). Keep ne
 images under ~120KB. Originals from the 2026-08-06 conversion are preserved in
 `~/Desktop/2026/growth-masala-image-originals/`.
 
+**Replacing an image at an existing path is invisible to Next's optimizer
+cache**, which keys on request URL rather than file contents. Clear it before
+verifying, or you are grading the previous version:
+
+```bash
+rm -rf .next/cache/images
+```
+
+This is a local trap only — Vercel builds fresh — which is exactly what makes it
+dangerous: it lies only to the person checking the work. Full account: `CLAUDE.md`
+item 7.
+
+**Alt text is a factual claim.** Do not name a real place or a real person for a
+staged photograph. Five alts on this site asserted things their images could not
+support — two named Mahabubnagar, one called stock photography "A Growth Masala
+consultation", one called a staged photo the team, and `LocationWhyLocal`
+interpolated `page.city` so one shared image claimed twelve different towns.
+Decorative images take `alt=""` **and** `aria-hidden` (the marquee's duplicate
+logo track is the correct pattern); informative ones get a real description.
+
+---
+
+## Rule 6 — Two-tone headings need a real word break
+
+The house headline treatment is one heading split across two visual lines:
+
+```tsx
+<h1>
+  <span className="block">Digital marketing services</span>{" "}
+  <span className="block text-slate-400">in {address.locality}.</span>
+</h1>
+```
+
+**The `{" "}` is load-bearing.** `display: block` breaks the line in CSS, not in
+the DOM. Without an explicit space the heading's *text content* concatenates —
+`"Digital marketing servicesin Mahabubnagar."` — which is what a screen reader
+announces, what Google extracts, and what every AI crawler reads. It renders
+identically either way, so this is invisible in review and in screenshots.
+
+This shipped broken across **27 headings on 8 pages**, and on `/services` it
+mangled the exact phrase the page exists to rank for. Both spans are `block`, so
+the space collapses to nothing visually.
+
+`SectionIntro` handles this once for every section heading. Only hand-written
+heroes and CTAs need it inline.
+
+---
+
+## Rule 7 — Nothing above the fold animates opacity from zero
+
+Chrome does not count an element at `opacity: 0` as painted, so an entrance
+animation on above-the-fold content postpones Largest Contentful Paint by its
+delay plus most of its duration. The hero was costing itself **1061ms of element
+render delay against a 36ms TTFB** — the page had arrived and was waiting on a
+fade.
+
+The trap: **LCP tracks whichever element is largest.** Fixing the `<h1>` alone
+did nothing to the metric — it promoted the subheading, which had a 600ms delay
+of its own, to LCP. Every large hero element has to be fixed together.
+
+```css
+/* Above the fold: transform only. Painted from the first frame. */
+@keyframes hero-reveal-text {
+  from { transform: translateY(28px); }
+  to   { transform: translateY(0); }
+}
+```
+
+Small elements (badges, promise strips) may still fade — they can never be the
+largest paint. Below the fold, `AnimatedContainer` is unaffected.
+
+Related: prefer compositable properties. The amber headline rule animated
+`text-decoration-color`, which no browser can composite, so it ran on the main
+thread every frame and was the one animation Lighthouse flagged. It is drawn
+statically now.
+
+---
+
+## Rule 8 — `serviceType` belongs to `Service`, not to the business
+
+`serviceType` is not a property of `LocalBusiness` or `ProfessionalService`.
+Emitting it on the business node produced nine validator warnings, one per
+service, and duplicated what `hasOfferCatalog` already declares properly.
+
+**`hasOfferCatalog` is the single place services are declared in JSON-LD.** Each
+entry is an `Offer` wrapping a `Service`, and `serviceType` is valid *there*.
+
 ---
 
 ## Verification
@@ -257,8 +345,10 @@ and re-check the similarity numbers. Sitemap and static params update themselves
 `image` in the frontmatter to a `.webp` path.
 
 **A new service:** add it to `src/data/services.ts`. It propagates to the
-homepage, the services page, the chatbot prompt, `serviceType`, and `OfferCatalog`
-without further edits.
+homepage, the services page, the chatbot prompt and the `OfferCatalog` JSON-LD
+without further edits. A new service *group* additionally requires `imageAlt` —
+the type enforces it, because those photographs are informative rather than
+decorative (Rule 5).
 
 **Business details change:** edit `src/data/business.ts` only. Then update every
 external directory listing to match character-for-character — inconsistent NAP
