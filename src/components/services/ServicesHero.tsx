@@ -59,7 +59,7 @@ export default function ServicesHero() {
               and two pages competing for one phrase split the signal
               (docs/seo-architecture.md §Rule 2). */}
           <h1 className="mt-6 max-w-4xl font-heading text-[2rem] font-bold leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-5xl lg:text-[3.25rem]">
-            <span className="block">Digital marketing services</span>
+            <span className="block">Digital marketing services</span>{" "}
             <span className="block text-slate-400">in {address.locality}.</span>
           </h1>
 

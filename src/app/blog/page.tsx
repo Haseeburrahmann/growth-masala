@@ -9,7 +9,7 @@ import { pageOpenGraph } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Website Costs & Marketing Advice",
-  description: `Website pricing guides and practical digital marketing advice for businesses in ${address.locality}, Hyderabad and across ${address.region} — with every figure taken from our published price list.`,
+  description: `Website pricing guides and practical marketing advice for businesses in ${address.locality}, Hyderabad and ${address.region} — every figure from our published price list.`,
   alternates: { canonical: "/blog" },
   openGraph: pageOpenGraph({
     title: "Website Costs & Marketing Advice | Growth Masala",
@@ -53,7 +53,7 @@ export default function BlogPage() {
               gradient-filled — the blue-to-amber ramp measured 3.64:1 on navy
               and was pulled off every other hero for that reason. */}
           <h1 className="mt-6 max-w-4xl font-heading text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-white text-balance sm:text-5xl lg:text-[52px]">
-            <span className="block">Straight answers to</span>
+            <span className="block">Straight answers to</span>{" "}
             <span className="block text-slate-400">what things cost.</span>
           </h1>
 

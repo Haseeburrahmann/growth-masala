@@ -100,7 +100,7 @@ export default function ServicesPreview() {
                   <div className="svc-band relative h-40 w-full shrink-0 overflow-hidden bg-navy sm:h-49">
                     <Image
                       src={group.image}
-                      alt=""
+                      alt={group.imageAlt}
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 400px"

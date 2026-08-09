@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     template: "%s | Growth Masala",
   },
   description:
-    "Growth Masala builds websites and runs social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana. Free consultation, fixed quotes before work starts.",
+    "Websites, SEO, social media and Meta ads for businesses in Mahabubnagar, Hyderabad and across Telangana. Fixed quotes before any work starts.",
   // NOTE: no `keywords` here on purpose. Google has ignored the meta keywords
   // tag since 2009 and Bing treats it as a spam signal, so the only thing it
   // ever did on this site was publish the entire target keyword list in view

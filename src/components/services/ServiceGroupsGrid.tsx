@@ -229,7 +229,7 @@ export default function ServiceGroupsGrid() {
                 build" while the data holds ten is the drift this file exists to
                 avoid. */}
             <h2 className="font-heading text-3xl font-bold leading-tight tracking-[-0.02em] text-text-primary text-balance sm:text-4xl lg:flex-3 lg:text-[2.875rem]">
-              <span className="block">{spellOut(serviceGroups.length)} groups.</span>
+              <span className="block">{spellOut(serviceGroups.length)} groups.</span>{" "}
               <span className="block text-text-secondary/75">
                 {spellOut(services.length)} things we build.
               </span>

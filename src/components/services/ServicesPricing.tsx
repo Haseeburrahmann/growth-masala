@@ -195,7 +195,7 @@ export default function ServicesPricing() {
 
           <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-16">
             <h2 className="font-heading text-3xl font-bold leading-tight tracking-[-0.02em] text-text-primary text-balance sm:text-4xl lg:flex-3 lg:text-[2.875rem]">
-              <span className="block">Published prices.</span>
+              <span className="block">Published prices.</span>{" "}
               <span className="block text-text-secondary/75">
                 No call required to see them.
               </span>

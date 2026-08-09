@@ -160,7 +160,7 @@ export default function HeroSection() {
               style={{ animationDelay: "150ms" }}
             >
               Websites that get
-            </span>
+            </span>{" "}
             <span
               className="block animate-hero-reveal"
               style={{ animationDelay: "300ms" }}

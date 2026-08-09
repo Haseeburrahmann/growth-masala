@@ -21,8 +21,13 @@ export interface ServiceGroup {
   /** The outcome, in the customer's words. Goes in the subhead, never the title. */
   outcome: string;
   icon: string;
-  /** Abstract group artwork. Decorative — every usage needs empty alt. */
+  /** Group photograph. These used to be abstract artwork, which is why every
+   *  usage carried `alt=""`; they are now photographs staged to depict the
+   *  service, so they carry real alt text from `imageAlt` below. */
   image: string;
+  /** Describes what the photograph shows. Required — these images convey
+   *  information the card copy does not, so an empty alt withholds it. */
+  imageAlt: string;
   /** Slugs from `services`, in display order. */
   serviceSlugs: string[];
   /** The hero group renders larger and carries the primary border. */

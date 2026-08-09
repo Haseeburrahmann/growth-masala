@@ -43,7 +43,7 @@ export default function LocationServices({
 
           <div className="mt-6 grid items-end gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-16">
             <h2 className="font-heading text-3xl font-bold leading-[1.1] tracking-[-0.02em] text-text-primary text-balance sm:text-4xl lg:text-[2.875rem]">
-              <span className="block">What we do</span>
+              <span className="block">What we do</span>{" "}
               <span className="block text-text-secondary/75">
                 for businesses in {city}.
               </span>

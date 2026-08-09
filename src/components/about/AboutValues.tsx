@@ -57,7 +57,7 @@ export default function AboutValues() {
 
           <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-16">
             <h2 className="font-heading text-3xl font-bold leading-tight tracking-tight text-text-primary sm:text-4xl lg:w-180 lg:shrink-0 lg:text-[2.875rem] lg:leading-13">
-              <span className="block">Four rules</span>
+              <span className="block">Four rules</span>{" "}
               <span className="block text-text-secondary/75">
                 we do not bend.
               </span>

@@ -74,7 +74,7 @@ export default function CTASection() {
 
             {/* One <h2>, two visual lines. The page's only <h1> is in the hero. */}
             <h2 className="mt-4 font-heading text-[34px] font-bold leading-[1.15] tracking-tight text-white text-balance sm:text-4xl lg:text-[2.875rem] lg:leading-[1.13]">
-              <span className="block">Tell us what you need.</span>
+              <span className="block">Tell us what you need.</span>{" "}
               <span className="block text-slate-400">Get a fixed quote back.</span>
             </h2>
 

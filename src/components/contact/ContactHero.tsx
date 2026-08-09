@@ -54,7 +54,7 @@ export default function ContactHero() {
 
           {/* One <h1>, two visual lines. Never two <h1> elements. */}
           <h1 className="mt-6 max-w-3xl font-heading text-[2rem] font-bold leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-5xl lg:text-[3.25rem]">
-            <span className="block">Tell us the problem.</span>
+            <span className="block">Tell us the problem.</span>{" "}
             <span className="block text-slate-400">
               Get a real answer back.
             </span>

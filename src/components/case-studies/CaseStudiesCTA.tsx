@@ -71,7 +71,7 @@ export default function CaseStudiesCTA() {
           </div>
 
           <h2 className="font-heading text-[34px] font-bold leading-[39px] tracking-[-0.8px] text-white sm:text-[40px] sm:leading-[46px] lg:text-[46px] lg:leading-[52px] lg:tracking-[-1.2px]">
-            <span className="block">Same problem?</span>
+            <span className="block">Same problem?</span>{" "}
             <span className="block text-slate-400">Tell us about it.</span>
           </h2>
 

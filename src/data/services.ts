@@ -42,6 +42,8 @@ export const serviceGroups: ServiceGroup[] = [
     outcome: "Get your business online — properly.",
     icon: "Globe",
     image: "/images/services/websites.webp",
+    imageAlt:
+      "A laptop and a phone side by side on a shop counter, showing the same website laid out for each screen",
     serviceSlugs: [
       "website-development",
       "ecommerce-development",
@@ -55,6 +57,8 @@ export const serviceGroups: ServiceGroup[] = [
     outcome: "Tools built for how your business actually works.",
     icon: "Code2",
     image: "/images/services/software.webp",
+    imageAlt:
+      "A shopkeeper tapping a stock list on a tablet at a billing counter, beside a cash drawer and a spike of paper bills",
     serviceSlugs: ["software-development"],
     // Off the homepage row. It is the one group nobody arrives searching for,
     // and holding it back lets the other three run wide enough to carry a
@@ -67,6 +71,8 @@ export const serviceGroups: ServiceGroup[] = [
     outcome: "Get found by people already looking for you.",
     icon: "TrendingUp",
     image: "/images/services/marketing.webp",
+    imageAlt:
+      "A phone held up in front of a busy shopfront, its screen showing a steadily rising line",
     serviceSlugs: ["seo", "performance-marketing", "social-media-growth"],
   },
   {
@@ -75,6 +81,8 @@ export const serviceGroups: ServiceGroup[] = [
     outcome: "Answer every enquiry, even at 2am.",
     icon: "Bot",
     image: "/images/services/ai.webp",
+    imageAlt:
+      "A phone lit up on the counter of a shuttered shop at night, showing an enquiry that has already been answered",
     serviceSlugs: ["ai-automation", "whatsapp-automation"],
   },
 ];

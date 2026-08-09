@@ -73,7 +73,7 @@ export default function PortfolioCTA() {
             </div>
 
             <h2 className="mt-4 font-heading text-[2.125rem]/[1.15] font-bold tracking-tight text-white text-balance sm:mt-5 sm:text-4xl/[1.1] lg:text-[2.875rem]/[1.13]">
-              <span className="block">Want one of these</span>
+              <span className="block">Want one of these</span>{" "}
               <span className="block text-slate-400">with your name on it?</span>
             </h2>
 

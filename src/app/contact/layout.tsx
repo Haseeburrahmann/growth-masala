@@ -6,7 +6,7 @@ import { pageOpenGraph } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Contact — Free Consultation in Mahabubnagar",
-  description: `Talk to Growth Masala about your website, social media, SEO, or ads. Based in ${address.locality}, ${address.region} — call, WhatsApp, or message us. Reply within 24 hours, free consultation, and every price published up front.`,
+  description: `Call, WhatsApp or message us about your website, SEO or ads. Based in ${address.locality}, ${address.region} — reply within 24 hours, free consultation, prices published.`,
   alternates: { canonical: "/contact" },
   openGraph: pageOpenGraph({
     title: "Contact — Free Consultation in Mahabubnagar | Growth Masala",

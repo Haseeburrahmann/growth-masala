@@ -65,7 +65,14 @@ export default function SectionIntro({
             dark ? "text-white" : "text-text-primary"
           }`}
         >
-          <span className="block">{lead}</span>
+          {/* The `{" "}` between the two spans is load-bearing, not formatting.
+              Both spans are `display: block`, so the space renders as nothing —
+              but without it the heading's TEXT CONTENT concatenates with no
+              separator, and "Someone nearby is searching" + "for what you sell"
+              becomes "…searchingfor…" to a screen reader, to Google, and to
+              every AI crawler that reads text rather than pixels. The visual
+              line break is CSS; the word break has to exist in the DOM. */}
+          <span className="block">{lead}</span>{" "}
           <span className={`block ${dark ? "text-slate-400" : "text-text-secondary/70"}`}>
             {trail}
           </span>

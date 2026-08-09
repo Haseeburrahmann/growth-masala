@@ -55,7 +55,7 @@ export default function AboutMission() {
           </div>
 
           <h2 className="mt-6 font-heading text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl lg:text-[2.875rem] lg:leading-13">
-            <span className="block text-white">Come and meet us,</span>
+            <span className="block text-white">Come and meet us,</span>{" "}
             <span className="block text-slate-400">
               or just send a message.
             </span>

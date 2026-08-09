@@ -43,7 +43,7 @@ export default function CaseStudiesHero() {
 
           {/* One <h1>, two visual lines. Two <h1>s shipped here once. */}
           <h1 className="max-w-3xl font-heading text-[33px] font-bold leading-[38px] tracking-[-0.9px] text-white sm:text-5xl sm:leading-[1.08] lg:text-[52px] lg:leading-[57px] lg:tracking-[-1.4px]">
-            <span className="block">{countTitleCase} builds,</span>
+            <span className="block">{countTitleCase} builds,</span>{" "}
             <span className="block text-slate-400">
               and why we made those calls.
             </span>

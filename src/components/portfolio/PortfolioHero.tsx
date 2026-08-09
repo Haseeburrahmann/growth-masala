@@ -68,7 +68,7 @@ export default function PortfolioHero() {
               opens the standfirst. The design's two-line, muted-second-line
               treatment is unchanged — only which sentence sits in the heading. */}
           <h1 className="max-w-3xl font-heading text-[2.0625rem]/[1.15] font-bold tracking-tight text-white text-balance sm:text-5xl/[1.1] lg:text-[3.25rem]/[1.1]">
-            <span className="block">Websites and web apps</span>
+            <span className="block">Websites and web apps</span>{" "}
             <span className="block text-slate-400">
               built from {address.locality}.
             </span>

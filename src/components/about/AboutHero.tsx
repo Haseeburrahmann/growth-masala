@@ -60,7 +60,7 @@ export default function AboutHero() {
           </div>
 
           <h1 className="mt-6 max-w-3xl font-heading text-4xl font-bold leading-[1.1] tracking-tight text-balance sm:text-5xl lg:text-[3.25rem]">
-            <span className="block text-white">A small studio</span>
+            <span className="block text-white">A small studio</span>{" "}
             <span className="block text-slate-400">in {address.locality}.</span>
           </h1>
 

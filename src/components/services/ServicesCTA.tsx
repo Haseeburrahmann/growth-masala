@@ -111,7 +111,7 @@ export default function ServicesCTA() {
           </div>
 
           <h2 className="mt-6 font-heading text-3xl font-bold leading-tight tracking-[-0.02em] text-white text-balance sm:text-4xl lg:text-[2.875rem]">
-            <span className="block">Tell us the problem.</span>
+            <span className="block">Tell us the problem.</span>{" "}
             <span className="block text-slate-400">
               We will tell you the price.
             </span>
