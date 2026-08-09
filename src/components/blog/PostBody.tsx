@@ -50,6 +50,45 @@ function slugify(text: string): string {
     .replace(/\s+/g, "-");
 }
 
+export interface PostHeading {
+  id: string;
+  text: string;
+}
+
+/**
+ * The `## ` headings of a post, for the "On this page" rail.
+ *
+ * Derived from the post's own markdown rather than listed by hand — a fixed
+ * table of contents is wrong the moment anybody edits an article, and silently
+ * so, because a dead `#anchor` still scrolls to the top of the page.
+ *
+ * Two things keep it honest:
+ *
+ *   - it splits on `\n\n` and tests `startsWith("## ")` exactly as the renderer
+ *     below does, so it can never see a heading the renderer skipped;
+ *   - the id is `slugify()`d from the *same* raw string the `<h2>` uses. Only
+ *     the visible label has its inline markdown stripped. Slugifying the
+ *     stripped text instead would produce a different id for any heading
+ *     containing a link, and the anchor would go nowhere.
+ */
+export function extractHeadings(content: string): PostHeading[] {
+  return content
+    .split("\n\n")
+    .map((raw) => raw.trim())
+    .filter((block) => block.startsWith("## "))
+    .map((block) => {
+      const raw = block.slice(3);
+      return { id: slugify(raw), text: stripInline(raw) };
+    });
+}
+
+/** Inline markdown removed, so a rail label is plain text rather than `**bold**`. */
+function stripInline(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\[(.+?)\]\((.+?)\)/g, "$1");
+}
+
 /**
  * Bold and links only.
  *
@@ -73,7 +112,11 @@ function Inline({ text, as = "span" }: { text: string; as?: "span" | "p" }) {
   const Tag = as;
   return (
     <Tag
-      className={as === "p" ? "my-5 text-base leading-relaxed text-text-secondary" : ""}
+      className={
+        as === "p"
+          ? "my-5 text-base leading-[1.75] text-text-secondary sm:text-[17px]"
+          : ""
+      }
       dangerouslySetInnerHTML={{ __html: inlineFormat(text) }}
     />
   );
@@ -172,8 +215,11 @@ function renderTable(block: string, key: number): ReactNode | null {
 export default function PostBody({ content }: { content: string }) {
   const blocks = content.split("\n\n");
 
+  /* No container of its own. The prose column is now one half of a split
+     layout on the post page, and a `mx-auto max-w-3xl px-6` here fought the
+     column it sits in — the caller owns the measure. */
   return (
-    <div className="mx-auto max-w-3xl px-6 lg:px-8">
+    <>
       {blocks.map((raw, key) => {
         const block = raw.trim();
         if (!block) return null;
@@ -194,7 +240,7 @@ export default function PostBody({ content }: { content: string }) {
             <h2
               key={key}
               id={slugify(text)}
-              className="mt-12 mb-4 scroll-mt-28 font-heading text-2xl font-bold text-text-primary sm:text-3xl"
+              className="mt-11 mb-4 scroll-mt-28 font-heading text-[23px] font-bold leading-tight tracking-[-0.02em] text-text-primary sm:text-[28px]"
             >
               <Inline text={text} />
             </h2>
@@ -222,7 +268,11 @@ export default function PostBody({ content }: { content: string }) {
           return (
             <blockquote
               key={key}
-              className="my-8 border-l-4 border-accent bg-surface py-5 pl-6 pr-5 text-base leading-relaxed text-text-primary"
+              /* Pull quote, not a boxed callout: the canvas marks emphasis with
+                 a bare accent rule and larger heading type. A surface fill here
+                 collided with the price callout below, which is the block that
+                 is meant to read as a box. */
+              className="my-9 border-l-[3px] border-accent py-1 pl-5 font-heading text-lg font-semibold leading-snug tracking-[-0.01em] text-text-primary sm:pl-6 sm:text-[22px]"
             >
               <Inline text={text} />
             </blockquote>
@@ -264,7 +314,7 @@ export default function PostBody({ content }: { content: string }) {
 
         return <Inline key={key} as="p" text={block.replace(/\n/g, " ")} />;
       })}
-    </div>
+    </>
   );
 }
 

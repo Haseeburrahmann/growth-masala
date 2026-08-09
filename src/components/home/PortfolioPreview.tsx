@@ -1,9 +1,10 @@
 "use client";
 
-import { ArrowUpRight, Quote } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
+import SectionIntro from "@/components/home/SectionIntro";
 import { portfolioItems, portfolioCategoryConfig } from "@/data/portfolio";
 import { testimonials } from "@/data/testimonials";
 
@@ -17,6 +18,11 @@ import { testimonials } from "@/data/testimonials";
  * section of its own but exactly right as project-card evidence.
  *
  * This is why there is no separate testimonials section on the homepage.
+ *
+ * ⚠️ The quotes, names and roles are real, named clients (see the note at the
+ * top of `src/data/testimonials.ts`). Nothing here trims, paraphrases or
+ * re-attributes them — the card renders `testimonial.quote` whole, and a card
+ * too short for it grows rather than clamping.
  */
 
 /** Testimonials keyed by the company name, which matches the portfolio title. */
@@ -38,105 +44,89 @@ const featured = [...withQuotes, ...withoutQuotes].slice(0, 3);
 
 export default function PortfolioPreview() {
   return (
-    <section className="relative overflow-hidden bg-white py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-white py-20 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <AnimatedContainer className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-2xl">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="h-px w-8 bg-primary/30" />
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                Our work
-              </span>
-            </div>
-            <h2 className="font-heading text-3xl font-bold leading-tight text-text-primary text-balance sm:text-4xl lg:text-[2.75rem]">
-              Real businesses.{" "}
-              <span className="text-text-secondary/65">Live sites. Named clients.</span>
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-text-secondary sm:text-lg">
-              Every site below is online right now, and every quote is from the
-              person who paid for it.
-            </p>
-          </div>
+        <SectionIntro
+          eyebrow="Work you can check"
+          lead="Real businesses."
+          trail="Live sites. Named clients."
+          standfirst="Every site below is live right now — open any of them. Every quote is from the client who paid."
+        />
 
-          <Link
-            href="/portfolio"
-            className="group hidden items-center gap-1.5 text-sm font-semibold text-primary sm:inline-flex"
-          >
-            <span className="link-sweep">See all projects</span>
-            <ArrowUpRight className="cta-arrow h-4 w-4" />
-          </Link>
-        </AnimatedContainer>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid items-stretch gap-5 md:grid-cols-3 lg:mt-14 lg:gap-8">
           {featured.map((item, idx) => {
             const config = portfolioCategoryConfig[item.category];
-            const Icon = config.icon;
             const testimonial = testimonialByCompany.get(item.title);
 
             return (
-              <AnimatedContainer key={item.title} delay={idx * 120}>
+              <AnimatedContainer key={item.title} delay={idx * 120} className="h-full">
                 <article className="hover-lift group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white">
+                  {/* The screenshot links out on its own so the whole card is
+                      not one giant anchor — the footer link needs to be
+                      separately reachable by keyboard. */}
                   <a
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover-zoom relative block aspect-[16/10] overflow-hidden bg-surface"
+                    className="hover-zoom relative block aspect-16/10 shrink-0 overflow-hidden bg-surface"
+                    aria-label={`Open the ${item.title} website in a new tab`}
                   >
                     <Image
                       src={item.image}
-                      alt={`${item.title} website built by Growth Masala`}
+                      alt={`Screenshot of the ${item.title} website`}
                       fill
                       className="object-cover object-top"
-                      sizes="(max-width: 768px) 100vw, 33vw"
+                      sizes="(max-width: 768px) 92vw, 33vw"
                     />
-                    <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-1 text-xs font-medium text-text-secondary backdrop-blur-sm">
-                      <Icon className="h-3 w-3" />
-                      {config.tag}
-                    </span>
                   </a>
 
-                  <div className="flex flex-1 flex-col p-6">
-                    <h3 className="font-heading text-lg font-bold text-text-primary">
+                  <div className="flex flex-1 flex-col p-5 sm:p-7">
+                    {/* `tag` is the per-project caption; `category` is the
+                        filter bucket and makes a poor label because six of
+                        eight projects share it. */}
+                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-primary">
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      {item.tag ?? config.tag}
+                    </span>
+
+                    <h3 className="mt-3.5 font-heading text-xl font-semibold leading-tight tracking-tight text-text-primary sm:text-[22px]">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-text-secondary line-clamp-2">
-                      {item.description}
-                    </p>
 
-                    {/* Evidence block — a quote where we have one, the live link
-                        otherwise, so card heights stay even either way.
+                    {testimonial ? (
+                      <blockquote className="mt-3.5 text-sm leading-6 text-text-secondary">
+                        &ldquo;{testimonial.quote}&rdquo;
+                      </blockquote>
+                    ) : (
+                      <p className="mt-3.5 text-sm leading-6 text-text-secondary">
+                        {item.summary ?? item.description}
+                      </p>
+                    )}
 
-                        The quote sits on a tinted ground rather than behind the
-                        amber left-stripe it used to carry. Three cards side by
-                        side each wearing a coloured rule down one edge read as a
-                        UI-framework default; a filled block reads as a
-                        pull-quote. */}
-                    <div className="mt-5 flex flex-1 flex-col justify-end border-t border-border pt-5">
+                    {/* `mt-auto` pins the footer to the card's foot, which is
+                        what keeps the attribution rows aligned across a row of
+                        three quotes of different lengths. */}
+                    <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 sm:pt-5">
                       {testimonial ? (
-                        <figure className="rounded-lg bg-accent/8 px-4 py-3.5">
-                          <Quote className="mb-2 h-3.5 w-3.5 text-accent" />
-                          <blockquote className="text-sm leading-relaxed text-text-primary">
-                            &ldquo;{testimonial.quote}&rdquo;
-                          </blockquote>
-                          <figcaption className="mt-3 text-xs text-text-secondary">
-                            <span className="font-semibold text-text-primary">
-                              {testimonial.name}
-                            </span>
-                            {" · "}
-                            {testimonial.role}
-                          </figcaption>
-                        </figure>
+                        <div>
+                          <p className="font-heading text-sm font-semibold text-text-primary">
+                            {testimonial.name}
+                          </p>
+                          <p className="text-xs text-slate-500">{testimonial.role}</p>
+                        </div>
                       ) : (
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group/link inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
-                        >
-                          <span className="link-sweep">Visit the live site</span>
-                          <ArrowUpRight className="cta-arrow h-4 w-4" />
-                        </a>
+                        <span />
                       )}
+
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary"
+                      >
+                        <span className="link-sweep">Visit the live site</span>
+                        <ArrowUpRight className="cta-arrow h-3.5 w-3.5" />
+                      </a>
                     </div>
                   </div>
                 </article>
@@ -145,13 +135,15 @@ export default function PortfolioPreview() {
           })}
         </div>
 
-        <AnimatedContainer className="mt-12 sm:hidden" animation="fade-in">
+        {/* The count comes from the data, so it cannot claim a portfolio size
+            the /portfolio page does not actually render. */}
+        <AnimatedContainer className="mt-10 flex justify-center lg:mt-12" animation="fade-in">
           <Link
             href="/portfolio"
-            className="group inline-flex items-center gap-2 rounded-full border-2 border-text-primary px-6 py-3 text-sm font-semibold text-text-primary transition-all hover:bg-text-primary hover:text-white"
+            className="group inline-flex min-h-14 items-center gap-2 rounded-full border border-border bg-white px-6 text-[15px] font-semibold text-text-primary transition-colors hover:border-primary/40"
           >
-            See all projects
-            <ArrowUpRight className="cta-arrow h-4 w-4" />
+            See all {portfolioItems.length} projects
+            <ArrowUpRight className="cta-arrow h-4 w-4 text-primary" />
           </Link>
         </AnimatedContainer>
       </div>

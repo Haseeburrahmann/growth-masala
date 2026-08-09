@@ -1,115 +1,119 @@
 import Image from "next/image";
+import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { address, areasServed } from "@/data/business";
+import {
+  address,
+  addressLine,
+  business,
+  openingHoursLine,
+} from "@/data/business";
 
 /**
- * What happens after you send, and where we actually are.
+ * Where we are — the map beside the NAP block.
  *
- * The three steps exist because a contact form is otherwise a black box: you
- * write into it and have no idea whether the next thing is a quote, a sales
- * call, or nothing. Saying so removes the main reason people close the tab
- * without sending.
+ * This is the canonical on-page rendering of the Name/Address/Phone that every
+ * external listing has to carry character for character. It is composed
+ * entirely from `business.ts` so a correction there propagates here; nothing on
+ * this card is typed twice.
  *
- * The map carries NO marker, and that is deliberate — see `CTASection`. The
- * street address in `business.ts` is a road-level placeholder, and a pin would
- * turn it into a specific claim about premises. Add the marker in the same
- * commit that lands the real address.
+ * The map carries NO marker, and that is deliberate. `address.streetAddress` is
+ * a road-level placeholder set on the owner's instruction, and a pin would turn
+ * it into a specific claim about premises. Add the marker in the same commit
+ * that lands the real address.
  *
  * It is a flat image rather than a live embed for the same reason it is on the
  * homepage: the OpenStreetMap iframe pulled 1.9MB of Leaflet and tiles and
  * swallowed vertical swipes on touch. OSM's licence wants visible credit, which
- * is the line under the image. Do not delete it.
+ * is the line under the image. **Do not delete it** — the canvas does not draw
+ * it, but the licence is not a design decision.
  */
 
-const steps = [
+const napRows = [
   {
-    title: "You send it",
-    body: "The form, WhatsApp, a call — whichever suits. Nothing is more official than the others.",
+    icon: MapPin,
+    label: "Address",
+    value: addressLine,
+    href: null,
   },
   {
-    title: "We ask questions",
-    body: "Usually within 24 hours. We would rather understand the problem than guess at a package.",
+    icon: Phone,
+    label: "Phone",
+    value: business.phoneDisplay,
+    href: `tel:${business.phone}`,
   },
   {
-    title: "You get a fixed quote",
-    body: "A number and a scope, in writing, before any work starts. If we are the wrong fit, we say so.",
+    icon: Mail,
+    label: "Email",
+    value: business.email,
+    href: `mailto:${business.email}`,
+  },
+  {
+    icon: Clock3,
+    label: "Hours",
+    value: openingHoursLine,
+    href: null,
   },
 ];
 
 export default function ContactLocal() {
   return (
-    <section className="bg-surface py-24 sm:py-28">
+    <section className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-16">
-          {/* What happens next */}
-          <AnimatedContainer>
-            <div className="flex items-center gap-3">
-              <div className="h-px w-8 bg-primary/30" />
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                What happens next
-              </span>
-            </div>
-            <h2 className="mt-5 font-heading text-3xl font-bold text-text-primary text-balance sm:text-4xl">
-              No sales funnel, no discovery call you have to sit through
-            </h2>
-
-            <ol className="mt-10 space-y-8">
-              {steps.map((step, idx) => (
-                <li key={step.title} className="flex gap-5">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy font-heading text-sm font-bold text-white">
-                    {idx + 1}
-                  </span>
-                  <div>
-                    <h3 className="font-heading text-lg font-semibold text-text-primary">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-base leading-relaxed text-text-secondary">
-                      {step.body}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </AnimatedContainer>
-
-          {/* Where we are */}
-          <AnimatedContainer delay={140}>
-            <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-border bg-white">
+        <div className="grid items-start gap-5 lg:grid-cols-5">
+          <AnimatedContainer className="lg:col-span-3">
+            <div className="relative aspect-[640/452] w-full overflow-hidden rounded-[20px] border border-border bg-surface">
               <Image
                 src="/images/sections/mahabubnagar-map.webp"
                 alt={`Street map of ${address.locality}, ${address.region}`}
                 fill
                 loading="lazy"
                 /* Desaturated so OSM's road colours sit inside the palette
-                   rather than pulling the eye off the copy beside them. */
+                   rather than pulling the eye off the card beside them. */
                 className="object-cover filter-[saturate(0.35)_contrast(1.05)]"
-                sizes="(max-width: 1023px) 90vw, 45vw"
+                sizes="(max-width: 1023px) 90vw, 55vw"
               />
             </div>
-            <p className="mt-3 text-[11px] text-text-secondary/60">
+            <p className="mt-3 text-[12px] text-text-secondary/60">
               Map data © OpenStreetMap contributors
             </p>
+          </AnimatedContainer>
 
-            <h3 className="mt-8 font-heading text-lg font-semibold text-text-primary">
-              A local agency, genuinely
-            </h3>
-            <p className="mt-3 text-base leading-relaxed text-text-secondary">
-              We are based in {address.locality}, not running this from a metro
-              office with a {address.region} landing page. That means we can meet
-              you, and it means we already know the market you sell into. We work
-              across:
-            </p>
+          <AnimatedContainer delay={120} className="lg:col-span-2">
+            <div className="rounded-[20px] border border-border bg-surface p-7">
+              <p className="font-heading text-xl font-semibold text-text-primary">
+                {business.name}
+              </p>
+              <p className="mt-1.5 text-sm leading-[21px] text-text-secondary/85">
+                Digital marketing agency · {address.locality}, {address.region}
+              </p>
 
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {areasServed.map((area) => (
-                <li
-                  key={area}
-                  className="rounded-full border border-border bg-white px-3.5 py-1.5 text-sm font-medium text-text-secondary"
-                >
-                  {area}
-                </li>
-              ))}
-            </ul>
+              <dl className="mt-5 divide-y divide-border">
+                {napRows.map(({ icon: Icon, label, value, href }) => (
+                  <div key={label} className="flex items-center gap-3.5 py-3.5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/8">
+                      <Icon aria-hidden="true" className="h-4 w-4 text-primary" />
+                    </span>
+                    <div className="min-w-0">
+                      <dt className="text-xs font-semibold uppercase tracking-[0.1em] text-text-secondary/85">
+                        {label}
+                      </dt>
+                      <dd className="mt-0.5 text-[15px] font-medium leading-[23px] text-text-primary">
+                        {href ? (
+                          <a
+                            href={href}
+                            className="break-words transition-colors hover:text-primary"
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          value
+                        )}
+                      </dd>
+                    </div>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </AnimatedContainer>
         </div>
       </div>

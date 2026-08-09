@@ -46,21 +46,23 @@ const faqSchema = buildFaqSchema(generalFaqs);
  * 7 is comparison. The moment two of them make the same argument the page goes
  * soft, which is the usual failure mode of a homepage this long.
  *
- * Backgrounds alternate so an eleven-section scroll has landmarks instead of
- * running together:
+ * Backgrounds, hero downwards:
  *
- *   navy · navy | light · light | navy | light · NAVY · light | light · light
+ *   navy · navy | white · white · surface · white | NAVY | white · surface | NAVY
  *
- * Why-us is the capitalised one. It used to be light, which left Portfolio,
- * Why-us and Pricing as three consecutive pale sections in the back half of the
- * page — the stretch where a reader is most likely to give up.
+ * Two dark rooms below the hero, not three. Process used to be navy as well,
+ * which made the mid-page anchor and the comparison anchor the same gesture
+ * twice within one screen of each other; moving Process to `surface` leaves
+ * Why-us as the only dark block in the middle of the page and the closing CTA
+ * as the one that ends it. The page now opens and closes dark, and the navy CTA
+ * runs straight into the navy footer without a seam that needs explaining.
  *
- * That alternation carries the navy boundaries on its own. It does nothing for
- * the light-on-light ones: #F8FAFC meeting #FFFFFF is invisible, so Problem →
- * Services and Pricing → FAQ read as one continuous white field with an
- * unexplained gap in it. <SectionDivider /> marks those two seams and only
- * those two — a divider at every boundary would become page furniture, and the
- * navy edges do not need help.
+ * The cost is a four-section light run (Problem → Services → Process → Work),
+ * which the alternation cannot mark on its own: #F8FAFC meeting #FFFFFF is
+ * invisible. <SectionDivider /> marks Problem → Services, and Process's surface
+ * ground separates the other two. The second divider marks Pricing → FAQ for
+ * the same reason. Those two seams and no others — a divider at every boundary
+ * would become page furniture, and the navy edges do not need help.
  */
 export default function Home() {
   return (
@@ -73,18 +75,23 @@ export default function Home() {
       <HeroSection />
       <TrustBar />
       <ProblemSection />
-      <SectionDivider tone="surface" />
+      {/* Both sides of this seam are white now — Problem moved off `surface`
+          when it gained its own bordered cards, which would have sat on a
+          tinted ground as cards on cards. */}
+      <SectionDivider />
       <ServicesPreview />
       <ProcessSection />
       <PortfolioPreview />
-      {/* No divider after Why-us any more: that section went navy, so the
-          boundary into Pricing is now a change of room and needs no marker. */}
+      {/* No divider either side of Why-us: it is navy, so both boundaries are
+          already a change of room. */}
       <WhyUsSection />
       <PricingSection />
       <SectionDivider />
       <FAQSection
         faqs={generalFaqs}
-        intro="Everything people usually ask before getting in touch. If your question isn't here, message us — we'll answer it straight."
+        eyebrow="Straight answers"
+        heading="The questions people actually ask us"
+        intro="Including the awkward ones. If yours is not here, message us on WhatsApp."
       />
       <CTASection />
     </>

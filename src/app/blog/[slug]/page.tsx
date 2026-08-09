@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, RefreshCw } from "lucide-react";
 import Image from "next/image";
 import { getAllPosts, getPostBySlug, parsePostDate } from "@/lib/blog";
 import {
@@ -8,8 +7,12 @@ import {
   buildBreadcrumbSchema,
   buildFaqSchema,
 } from "@/lib/schema";
-import PostBody from "@/components/blog/PostBody";
-import FAQSection from "@/components/ui/FAQSection";
+import PostBody, { extractHeadings } from "@/components/blog/PostBody";
+import PostFaqs, { POST_FAQ_HEADING } from "@/components/blog/PostFaqs";
+import PostRail from "@/components/blog/PostRail";
+import PriceCallout from "@/components/blog/PriceCallout";
+import BlogCTA from "@/components/blog/BlogCTA";
+import { business } from "@/data/business";
 import type { Metadata } from "next";
 
 /**
@@ -23,9 +26,14 @@ import type { Metadata } from "next";
  * post unwritable.
  *
  * Posts may now declare `faqs:` in their frontmatter. When present it renders
- * as visible `<details>` via the shared `FAQSection` *and* as `FAQPage` schema,
- * both from the same array — schema that does not match visible content is a
- * policy violation, not a shortcut (docs/seo-architecture.md §Rule 4).
+ * as visible `<details>` via `PostFaqs` *and* as `FAQPage` schema, both from the
+ * same array — schema that does not match visible content is a policy violation,
+ * not a shortcut (docs/seo-architecture.md §Rule 4).
+ *
+ * Layout is a two-column split: the prose measure on the left, a rail holding
+ * the derived table of contents and the ask on the right. The rail is desktop
+ * only; below `lg` the article is a single column, which is what the canvas
+ * mobile frame draws.
  */
 
 interface PageProps {
@@ -84,6 +92,13 @@ export default async function BlogPostPage({ params }: PageProps) {
     { name: post.meta.title, path: `/blog/${slug}` },
   ]);
 
+  // Derived from the post's own `## ` headings, plus the FAQ block when the
+  // post carries one — both are real anchors that exist on the rendered page.
+  const headings = [
+    ...extractHeadings(post.content),
+    ...(post.meta.faqs ? [POST_FAQ_HEADING] : []),
+  ];
+
   return (
     <>
       <script
@@ -101,109 +116,138 @@ export default async function BlogPostPage({ params }: PageProps) {
         />
       )}
 
-      {/* Header */}
-      <section className="relative overflow-hidden bg-navy pt-32 pb-16 sm:pt-40 sm:pb-20">
+      {/* Post header */}
+      <section className="relative overflow-hidden bg-navy pt-28 pb-14 sm:pt-36 sm:pb-18">
+        <div className="grid-bg pointer-events-none absolute inset-0 opacity-50" />
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-32 left-[30%] h-100 w-100 rounded-full bg-primary/15 blur-[120px]" />
+          <div className="absolute -top-40 right-[10%] h-100 w-100 rounded-full bg-primary/25 blur-[120px]" />
         </div>
-        <div className="relative mx-auto max-w-3xl px-6 lg:px-8">
-          <Link
-            href="/blog"
-            className="mb-6 inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors hover:text-white"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Blog
-          </Link>
-          <span className="mb-4 inline-block rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <nav aria-label="Breadcrumb">
+            <ol className="flex flex-wrap items-center gap-2 text-[13px] text-slate-400">
+              <li className="hidden sm:block">
+                <Link href="/" className="transition-colors hover:text-white">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true" className="hidden sm:block">
+                /
+              </li>
+              <li>
+                <Link href="/blog" className="transition-colors hover:text-white">
+                  Blog
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              {/* The last crumb is the post, not its category.
+
+                  It read `{post.meta.category}` to match the canvas, which
+                  broke two things at once: `buildBreadcrumbSchema` below ends
+                  this trail with the post title, so the visible trail and the
+                  BreadcrumbList disagreed about where the reader is — and
+                  `aria-current="page"` was announcing a category as the current
+                  page when there is no /blog/category/* route for it to be.
+
+                  The category still shows: it is the pill above the headline. */}
+              <li
+                aria-current="page"
+                className="max-w-[22ch] truncate font-semibold text-blue-300 sm:max-w-none"
+              >
+                {post.meta.title}
+              </li>
+            </ol>
+          </nav>
+
+          {/* The category, moved out of the breadcrumb. It is a useful label
+              and a poor crumb — there is no route behind it. */}
+          <p className="mt-5 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold text-blue-300">
             {post.meta.category}
-          </span>
-          <h1 className="font-heading text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+          </p>
+
+          <h1 className="mt-4 max-w-4xl font-heading text-3xl font-bold leading-[1.16] tracking-[-0.02em] text-white text-balance sm:text-4xl lg:text-[44px]">
             {post.meta.title}
           </h1>
-          <div className="mt-6 flex items-center gap-4 text-sm text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <Calendar className="h-4 w-4" />
+
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg sm:leading-relaxed">
+            {post.meta.excerpt}
+          </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-3.5 gap-y-2 text-[13px] text-slate-400 sm:text-sm">
+            <span className="font-semibold text-white">{business.name}</span>
+            <span aria-hidden="true" className="h-0.75 w-0.75 rounded-full bg-slate-400" />
+            <span>
               {parsePostDate(post.meta.date).toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
               })}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="h-4 w-4" />
-              {post.meta.readTime}
-            </span>
+            <span aria-hidden="true" className="h-0.75 w-0.75 rounded-full bg-slate-400" />
+            <span>{post.meta.readTime}</span>
             {/* Shown only when it differs from the publish date — "updated on
                 the day it was published" is noise, and on a price guide the
                 update date is the credibility signal, so it should mean
                 something when it appears. */}
             {post.meta.updated && post.meta.updated !== post.meta.date && (
-              <span className="flex items-center gap-1.5">
-                <RefreshCw className="h-4 w-4" />
-                Prices checked{" "}
-                {parsePostDate(post.meta.updated).toLocaleDateString("en-GB", {
-                  month: "long",
-                  year: "numeric",
-                })}
-              </span>
+              <>
+                <span
+                  aria-hidden="true"
+                  className="h-0.75 w-0.75 rounded-full bg-slate-400"
+                />
+                <span>
+                  Prices checked{" "}
+                  {parsePostDate(post.meta.updated).toLocaleDateString("en-GB", {
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </span>
+              </>
             )}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
       </section>
 
-      {/* Cover image */}
-      {post.meta.image && (
-        <div className="relative mx-auto -mt-12 max-w-4xl px-6 lg:px-8">
-          <div className="relative h-64 overflow-hidden rounded-2xl shadow-xl sm:h-80 lg:h-96">
-            <Image
-              src={post.meta.image}
-              alt={post.meta.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 896px"
-              priority
-            />
-          </div>
-        </div>
-      )}
+      {/* Article */}
+      <section className="bg-white py-12 sm:py-16">
+        {/* The prose column is capped at its measure and the rail is pinned to
+            the right edge, so extra width becomes gutter rather than line
+            length. Below `lg` the rail is not rendered at all. */}
+        <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 lg:flex-row lg:items-start lg:justify-between lg:gap-16 lg:px-8">
+          <article className="min-w-0 flex-1 lg:max-w-190">
+            {post.meta.image && (
+              <div className="relative h-52 overflow-hidden rounded-2xl sm:h-72 lg:h-100">
+                <Image
+                  src={post.meta.image}
+                  alt={post.meta.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 760px"
+                  priority
+                />
+              </div>
+            )}
 
-      {/* Content */}
-      <section className="bg-white py-16 sm:py-20">
-        <article className="prose-custom">
-          <PostBody content={post.content} />
-        </article>
+            <div className="mt-8">
+              <PostBody content={post.content} />
+            </div>
 
-        {/* Bottom CTA */}
-        <div className="mx-auto mt-16 max-w-3xl border-t border-border px-6 pt-10 lg:px-8">
-          <p className="text-sm text-text-secondary">
-            Want to learn more about growing your business online?
-          </p>
-          <div className="mt-4 flex gap-4">
-            <Link
-              href="/blog"
-              className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-text-primary transition-colors hover:bg-surface"
-            >
-              More Articles
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
-            >
-              Get in Touch
-            </Link>
-          </div>
+            <PriceCallout />
+
+            {/* Same array as `faqSchema` above — never a second, prettier copy. */}
+            {post.meta.faqs && <PostFaqs faqs={post.meta.faqs} />}
+          </article>
+
+          <PostRail headings={headings} />
         </div>
       </section>
 
-      {/* Same array as `faqSchema` above — never a second, prettier copy. */}
-      {post.meta.faqs && (
-        <FAQSection
-          faqs={post.meta.faqs}
-          heading="Questions people ask about this"
-          intro="Short answers to what usually comes up next. If yours is not here, WhatsApp us and we will answer it straight."
-        />
-      )}
+      <BlogCTA
+        eyebrow="Next step"
+        titleTop="Enough reading."
+        titleBottom="What would yours cost?"
+        body="Tell us what you sell and what is not working. A scope and a fixed number back — usually the same day."
+      />
     </>
   );
 }

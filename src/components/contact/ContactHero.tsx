@@ -1,124 +1,84 @@
-import Link from "next/link";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { Clock3, Languages, MapPin } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { address, business } from "@/data/business";
-import { formatPrice, websiteTiers } from "@/data/pricing";
+import { address, languages } from "@/data/business";
 
 /**
- * Contact hero.
+ * The one `<h1>` on /contact.
  *
- * Two deliberate choices:
+ * ⚠️ The headline used to read "Talk to a real person in Mahabubnagar", which
+ * put the locality in the H1. The approved canvas replaced it with "Tell us the
+ * problem. / Get a real answer back." — no locality, no keyword.
  *
- * The three channels sit above the fold as real links, not as a paragraph
- * pointing further down the page. In this market WhatsApp converts better than
- * a form by a wide margin, and burying it under a six-field form to make the
- * form look important costs enquiries.
+ * That is acceptable *here* in a way it would not be on /services: a contact
+ * page is not the ranking target for a service phrase, and the locality has not
+ * actually left the fold — it is the third trust pill below, it is the whole of
+ * the NAP card further down, and `layout.tsx` still carries
+ * "Free Consultation in Mahabubnagar" in the title and description. The metadata
+ * contract is untouched.
  *
- * The price line is here rather than in a pricing table. Repeating the whole
- * ladder on a contact page would be noise, but "you can find out what this
- * costs without talking to us" is the single most disarming thing this page can
- * say — every competitor in the district gates it behind a call.
+ * The three channel cards that used to sit in this hero moved down into
+ * `ContactChannels`, where the canvas gives each one a description and a
+ * response time instead of a bare number.
  *
- * White H1 with an amber underline, per the homepage. `.text-gradient` was here
- * and measured 3.64:1 on navy.
+ * The pills are derived, never typed. "Station Road, Mahabubnagar" is
+ * `address.streetAddress` + `address.locality` — the same placeholder street
+ * that every other surface renders, so it cannot drift out of NAP alignment on
+ * its own (see the warning at the top of `business.ts`).
  */
 export default function ContactHero() {
-  const channels = [
+  const pills = [
+    { icon: Clock3, label: "Replies the same working day" },
+    { icon: Languages, label: languages.join(" · ") },
     {
-      label: "WhatsApp",
-      value: business.phoneDisplay,
-      href: business.whatsapp,
-      external: true,
-      icon: MessageCircle,
-    },
-    {
-      label: "Call",
-      value: business.phoneDisplay,
-      href: `tel:${business.phone}`,
-      external: false,
-      icon: Phone,
-    },
-    {
-      label: "Email",
-      value: business.email,
-      href: `mailto:${business.email}`,
-      external: false,
-      icon: Mail,
+      icon: MapPin,
+      label: `${address.streetAddress}, ${address.locality}`,
     },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-navy pt-32 pb-24 sm:pt-40 sm:pb-28">
+    <section className="relative overflow-hidden bg-navy pt-32 pb-20 sm:pt-40 sm:pb-24">
       <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
       <div className="pointer-events-none absolute inset-0">
-        <div className="animate-float-slow hidden md:block absolute -top-32 right-[10%] h-72 w-72 rounded-full bg-primary/20 blur-[100px]" />
-        <div className="animate-float hidden md:block absolute top-24 left-[6%] h-56 w-56 rounded-full bg-accent/10 blur-[90px]" />
+        <div className="animate-float-slow hidden md:block absolute -top-40 right-[6%] h-80 w-80 rounded-full bg-primary/20 blur-[100px]" />
+        <div className="animate-float hidden md:block absolute top-40 left-[-6%] h-64 w-64 rounded-full bg-accent/10 blur-[90px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <AnimatedContainer>
-          <div className="mb-4 flex items-center gap-3">
-            <div className="h-px w-8 bg-primary/40" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
+          <div className="flex items-center gap-3">
+            <div className="h-px w-8 bg-accent/50" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               Contact
             </span>
           </div>
 
-          <h1 className="max-w-4xl font-heading text-4xl font-bold leading-[1.1] text-white text-balance sm:text-5xl lg:text-6xl">
-            <span className="block">Talk to a real person</span>
-            <span
-              className="headline-mark animate-headline-mark"
-              style={{ animationDelay: "600ms" }}
-            >
-              in {address.locality}
+          {/* One <h1>, two visual lines. Never two <h1> elements. */}
+          <h1 className="mt-6 max-w-3xl font-heading text-[2rem] font-bold leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-5xl lg:text-[3.25rem]">
+            <span className="block">Tell us the problem.</span>
+            <span className="block text-slate-400">
+              Get a real answer back.
             </span>
           </h1>
 
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
-            Not a call centre and not a chatbot handoff — the people who would do
-            the work. Tell us what the business does and what is not working, and
-            we will tell you straight whether we can help. The first conversation
-            is free and comes with no obligation.
-          </p>
-
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-400">
-            You do not need to contact us to find out what we charge.{" "}
-            <Link
-              href="/services#pricing"
-              className="font-semibold text-white underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent"
-            >
-              Every price is published
-            </Link>{" "}
-            — websites start at {formatPrice(websiteTiers[0].amount)}, excluding
-            GST.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-[17px]">
+            No discovery call and no form that disappears. Message us and a
+            person replies — usually within a few hours, always the same working
+            day.
           </p>
         </AnimatedContainer>
 
-        <AnimatedContainer delay={140} animation="fade-in">
-          <div className="mt-10 grid gap-3 sm:grid-cols-3">
-            {channels.map(({ label, value, href, external, icon: Icon }) => (
-              <a
+        <AnimatedContainer delay={120} animation="fade-in">
+          <ul className="mt-8 flex flex-wrap gap-2.5">
+            {pills.map(({ icon: Icon, label }) => (
+              <li
                 key={label}
-                href={href}
-                {...(external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-white/[0.08]"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/6 px-4 py-2.5 text-[13px] font-medium text-slate-300"
               >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/15 transition-colors group-hover:bg-primary/25">
-                  <Icon className="h-5 w-5 text-primary" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-                    {label}
-                  </span>
-                  <span className="block truncate text-sm font-medium text-white">
-                    {value}
-                  </span>
-                </span>
-              </a>
+                <Icon aria-hidden="true" className="h-3.5 w-3.5 text-sky" />
+                {label}
+              </li>
             ))}
-          </div>
+          </ul>
         </AnimatedContainer>
       </div>
     </section>

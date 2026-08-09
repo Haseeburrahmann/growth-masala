@@ -26,6 +26,19 @@ export const business = {
 } as const;
 
 /**
+ * Languages we actually answer the phone in.
+ *
+ * Lives here because it is a NAP-adjacent business fact that appears in page
+ * copy on /contact and on all twelve location pages. It was typed by hand in
+ * both places, which is how "Telugu, Hindi or English" and "Telugu · Hindi ·
+ * English" ended up as two different strings for the same claim.
+ *
+ * Join with the separator the surface wants — the array is the source of truth,
+ * not any one rendering of it.
+ */
+export const languages = ["Telugu", "Hindi", "English"] as const;
+
+/**
  * Headline delivery counts.
  *
  * Owner-supplied and confirmed 2026-08-07. Both are **floors** — always rendered
@@ -145,6 +158,20 @@ function to12Hour(time: string): string {
  * Assumes `days` is a contiguous run, which it is (Mon–Sat). A split schedule
  * would need real grouping logic, not a first-to-last dash.
  */
-export const openingHoursLine = `${openingHours.days[0]} – ${
+export const openingHoursDays = `${openingHours.days[0]} – ${
   openingHours.days[openingHours.days.length - 1]
-}, ${to12Hour(openingHours.opens)} – ${to12Hour(openingHours.closes)}`;
+}`;
+
+/** "9:00 am – 6:00 pm". */
+export const openingHoursTimes = `${to12Hour(openingHours.opens)} – ${to12Hour(
+  openingHours.closes,
+)}`;
+
+/**
+ * The two parts are exported separately because the contact page renders hours
+ * as a two-column row (days | times) and was otherwise forced to split this
+ * string on its first ", " to get them back. That worked only for as long as no
+ * day name contains a comma and the separator never changes — a parser reaching
+ * into a formatted string to undo the formatting.
+ */
+export const openingHoursLine = `${openingHoursDays}, ${openingHoursTimes}`;

@@ -1,39 +1,34 @@
 import ContactHero from "@/components/contact/ContactHero";
+import ContactChannels from "@/components/contact/ContactChannels";
 import ContactFormSection from "@/components/contact/ContactFormSection";
 import ContactLocal from "@/components/contact/ContactLocal";
 import FAQSection from "@/components/ui/FAQSection";
-import SectionDivider from "@/components/ui/SectionDivider";
 import { contactFaqs } from "@/data/faqs";
 import { buildFaqSchema } from "@/lib/schema";
 
 /**
- * /contact — three ways to reach us, what happens after, and where we are.
+ * /contact — four ways to reach us, the form, what happens after, and where we
+ * are.
  *
- * Was a client component that rendered a navy hero and a single white block
- * containing an icon list and the form. `"use client"` bought nothing: the only
- * interactive thing on the page is `ContactForm`, which carries its own
- * directive, so the wrapper was shipping a bundle to render static markup and
- * forcing the metadata into a sibling `layout.tsx`.
+ * Everything on this page except `ContactForm` is a server component. The page
+ * was a client component once; `"use client"` bought nothing but a bundle to
+ * render static markup, and it forced the metadata into a sibling `layout.tsx`
+ * — which is where it still lives, and where it must stay, because that file
+ * also owns the canonical and the `BreadcrumbList`.
  *
- * What the page was missing mattered more than how it looked:
+ * Section backgrounds alternate navy | white · surface · white · surface, so
+ * every seam is a tone change and none of them needs a `SectionDivider` —
+ * the two that used to sit here separated same-tone sections that no longer
+ * exist.
  *
- *   - Opening hours existed only inside the JSON-LD. Google knew when we were
- *     open; a visitor reading the page did not.
- *   - Nothing said what happens after you press send, which is the main reason
- *     a contact form goes unsent.
- *   - No FAQ, so the page had no `FAQPage` schema and no answer to the
- *     objections that actually stop an enquiry.
- *   - "Mahabubnagar" appeared twice in body copy, on the page whose entire job
- *     is local intent.
+ * The FAQ is NOT in the approved canvas. It stays: it is the only source of
+ * `FAQPage` schema on this page, a collapsed `<details>` list costs almost no
+ * vertical length, and removing it is a measurable search regression.
  *
- * Backgrounds follow the homepage convention — navy | light · surface · surface
- * — with a `SectionDivider` on the two light-on-light seams and nothing on the
- * navy one, which is a change of room and carries itself.
- *
- * Schema is `FAQPage` only. `BreadcrumbList` comes from `layout.tsx`, and the
- * NAP, geo, and opening hours are already on the site-wide `LocalBusiness` node
- * emitted by the root layout — repeating them here would describe one business
- * twice.
+ * Schema here is `FAQPage` only. `BreadcrumbList` comes from `layout.tsx`, and
+ * the NAP, geo and opening hours are already on the site-wide `LocalBusiness`
+ * node emitted by the root layout — repeating them here would describe one
+ * business twice.
  */
 
 const faqSchema = buildFaqSchema(contactFaqs);
@@ -47,12 +42,9 @@ export default function ContactPage() {
       />
 
       <ContactHero />
+      <ContactChannels />
       <ContactFormSection />
-
-      <SectionDivider tone="light" />
       <ContactLocal />
-
-      <SectionDivider tone="surface" />
       <FAQSection
         faqs={contactFaqs}
         heading="Before you write"

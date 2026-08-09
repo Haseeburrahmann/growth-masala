@@ -1,129 +1,56 @@
-import { Clock, MapPin, MessageCircle, Timer } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import ContactForm from "@/components/forms/ContactForm";
-import { address, addressLine, business, openingHoursLine } from "@/data/business";
+import ContactNextSteps from "@/components/contact/ContactNextSteps";
 
 /**
- * The form, with the details a visitor needs in order to trust sending it.
+ * The form, with the two things a visitor needs in order to send it: an idea of
+ * what comes back, and evidence that somebody is there.
  *
- * The sidebar is not decoration. Opening hours had lived only inside the
- * JSON-LD — Google was told when we are open and the visitor was not — and a
- * stated reply window is the thing that makes a form feel like it reaches
- * someone rather than a void.
+ * The section is a server component. Only `ContactForm` carries `"use client"`,
+ * so the heading, the four steps and the opening hours cost no JavaScript.
  *
- * The address is labelled "Based in", never "Visit us", and there is no
- * directions link. `address.streetAddress` is a road-level placeholder set on
- * the owner's instruction; it is accurate enough to keep NAP consistent across
- * citations and nowhere near accurate enough to send someone to a door. When
- * the real premises lands in `business.ts`, this is where a directions link
- * belongs.
+ * The old version put a column of assurance copy on the left and the form on the
+ * right. The canvas swaps them: the form leads on desktop because it is what the
+ * page is for, and on mobile it comes first for the same reason — "what happens
+ * next" is reassurance you want *while* filling the thing in, not before you
+ * have decided to.
  */
-
-const assurances = [
-  {
-    icon: Timer,
-    title: "A reply within 24 hours",
-    body: "Usually the same day if you write during working hours.",
-  },
-  {
-    icon: MessageCircle,
-    title: "A person, not a form letter",
-    body: "You will be talking to whoever would actually do the work.",
-  },
-];
-
 export default function ContactFormSection() {
   return (
-    <section className="bg-white py-24 sm:py-28">
+    <section className="bg-surface py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-14 lg:grid-cols-5 lg:gap-16">
-          {/* Details column */}
-          <div className="lg:col-span-2">
-            <AnimatedContainer>
-              <h2 className="font-heading text-2xl font-bold text-text-primary sm:text-3xl">
-                Send us the details
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-text-secondary">
-                The more you can tell us about the business and what you are
-                trying to change, the more useful our first reply will be. If you
-                would rather just talk, WhatsApp is faster than any form.
-              </p>
-
-              <div className="mt-9 space-y-5">
-                {assurances.map(({ icon: Icon, title, body }) => (
-                  <div key={title} className="flex items-start gap-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                      <Icon className="h-5 w-5 text-primary" />
-                    </span>
-                    <div>
-                      <p className="font-heading text-sm font-semibold text-text-primary">
-                        {title}
-                      </p>
-                      <p className="mt-1 text-sm leading-relaxed text-text-secondary">
-                        {body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* NAP + hours. This block must stay byte-identical to
-                  `business.ts` — it is the same address every external listing
-                  has to carry character for character. */}
-              <dl className="mt-10 space-y-5 border-t border-border pt-8">
-                <div className="flex items-start gap-4">
-                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-                      Based in
-                    </dt>
-                    <dd className="mt-1 text-sm font-medium text-text-primary">
-                      {addressLine}, India
-                    </dd>
-                    <dd className="mt-1 text-sm text-text-secondary">
-                      Serving {address.locality} district, Hyderabad, and the
-                      rest of India.
-                    </dd>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <Clock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-                      Working hours
-                    </dt>
-                    <dd className="mt-1 text-sm font-medium text-text-primary">
-                      {openingHoursLine}
-                    </dd>
-                    <dd className="mt-1 text-sm text-text-secondary">
-                      Closed Sundays. WhatsApp messages sent outside these hours
-                      are answered the next working morning.
-                    </dd>
-                  </div>
-                </div>
-              </dl>
-
-              <a
-                href={business.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 rounded-full border border-text-primary/15 px-6 py-3 text-sm font-semibold text-text-primary transition-all hover:border-primary hover:bg-primary hover:text-white"
-              >
-                <MessageCircle className="h-4 w-4" />
-                Message us on WhatsApp instead
-              </a>
-            </AnimatedContainer>
+        <AnimatedContainer>
+          <div className="flex items-center gap-3">
+            <div className="h-px w-8 bg-primary/30" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              Or just write it down
+            </span>
           </div>
 
-          {/* Form column */}
-          <div className="lg:col-span-3">
-            <AnimatedContainer delay={120}>
-              <div className="rounded-2xl border border-border bg-surface p-8 sm:p-10">
-                <ContactForm />
-              </div>
-            </AnimatedContainer>
+          <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-16">
+            <h2 className="font-heading text-[1.75rem] font-bold leading-[1.15] tracking-[-0.025em] text-text-primary text-balance sm:text-4xl lg:max-w-2xl lg:text-[2.875rem]">
+              <span className="block">Send us the brief.</span>
+              <span className="block text-text-secondary/75">
+                We send back a number.
+              </span>
+            </h2>
+            <p className="max-w-xl text-base leading-relaxed text-text-secondary lg:flex-1 lg:text-[17px]">
+              You do not need a spec. One paragraph about what you sell and what
+              is not working is enough for us to quote from.
+            </p>
           </div>
+        </AnimatedContainer>
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-5">
+          <AnimatedContainer className="lg:col-span-3">
+            <div className="rounded-3xl border border-border bg-white p-6 shadow-lg shadow-text-primary/5 sm:p-9">
+              <ContactForm />
+            </div>
+          </AnimatedContainer>
+
+          <AnimatedContainer delay={120} className="lg:col-span-2">
+            <ContactNextSteps />
+          </AnimatedContainer>
         </div>
       </div>
     </section>
