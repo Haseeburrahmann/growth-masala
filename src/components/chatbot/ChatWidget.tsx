@@ -442,7 +442,7 @@ export default function ChatWidget() {
               <p className="text-sm font-semibold text-white">Masala Bot</p>
               <div className="flex items-center gap-1.5">
                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                <p className="text-[11px] text-white/60">Online • Growth Masala</p>
+                <p className="text-xs text-white/60">Online • Growth Masala</p>
               </div>
             </div>
           </div>
@@ -568,7 +568,7 @@ export default function ChatWidget() {
           {showQuickReplies && !isLoading && !isTyping && (
             <div className="flex flex-wrap gap-2 pt-1">
               {quickReplyLevel === "services" && (
-                <p className="w-full text-[11px] text-text-secondary/60 px-1">
+                <p className="w-full text-xs text-text-secondary/60 px-1">
                   Which service are you interested in?
                 </p>
               )}

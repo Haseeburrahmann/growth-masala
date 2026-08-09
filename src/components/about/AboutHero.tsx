@@ -1,5 +1,11 @@
+import { CalendarDays, MapPin, Users } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { business, address, trackRecord } from "@/data/business";
+import {
+  address,
+  areasServed,
+  business,
+  trackRecord,
+} from "@/data/business";
 
 /**
  * About hero.
@@ -17,8 +23,25 @@ import { business, address, trackRecord } from "@/data/business";
  * The founding year and the project count are read from `business.ts`, not
  * typed. /about hardcoded its own "50+" once and it drifted out of step with the
  * /portfolio title — see the comment on `trackRecord`.
+ *
+ * The fact pills are the same component shape as ContactHero's, for the same
+ * reason. This hero is the shortest on the site — an eyebrow, two headline
+ * lines and a three-line standfirst, all inside `max-w-3xl` — so on a 1440
+ * screen it left roughly half the section as bare navy with nothing to weigh
+ * against the copy. Every value in them already exists in `business.ts`; none
+ * of it is invented to fill the space, which is the only reason it is worth
+ * adding at all.
  */
 export default function AboutHero() {
+  const facts = [
+    { icon: CalendarDays, label: `Working since ${business.foundingYear}` },
+    {
+      icon: Users,
+      label: `${trackRecord.clientsServed}+ clients served`,
+    },
+    { icon: MapPin, label: `${areasServed.length} areas across ${address.region}` },
+  ];
+
   return (
     <section className="relative overflow-hidden bg-navy pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-38 lg:pb-14">
       <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
@@ -47,6 +70,20 @@ export default function AboutHero() {
             later the way we work has not changed: fixed price, senior person on
             the job, everything handed over at the end.
           </p>
+        </AnimatedContainer>
+
+        <AnimatedContainer delay={120} animation="fade-in">
+          <ul className="mt-8 flex flex-wrap gap-2.5">
+            {facts.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/6 px-4 py-2.5 text-[13px] font-medium text-slate-300"
+              >
+                <Icon aria-hidden="true" className="h-3.5 w-3.5 text-sky" />
+                {label}
+              </li>
+            ))}
+          </ul>
         </AnimatedContainer>
       </div>
     </section>

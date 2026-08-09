@@ -18,6 +18,7 @@ import {
   buildFaqSchema,
   buildServiceSchema,
 } from "@/lib/schema";
+import { pageOpenGraph } from "@/lib/metadata";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -44,11 +45,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.title,
     description: page.metaDescription,
     alternates: { canonical: `/${page.slug}` },
-    openGraph: {
+    openGraph: pageOpenGraph({
       title: `${page.title} | Growth Masala`,
       description: page.metaDescription,
       url: `/${page.slug}`,
-    },
+    }),
   };
 }
 

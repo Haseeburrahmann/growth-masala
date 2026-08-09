@@ -321,10 +321,14 @@ export default function ContactForm() {
       )}
 
       <div className="flex flex-col gap-4 pt-1 sm:flex-row sm:items-center">
+        {/* `whitespace-nowrap` on the button: the label is three words and it
+            sits in a form column that narrows to ~215px at 1440 and ~172px at
+            1024. Without it "Get a fixed quote" broke after "fixed" and the
+            button rendered 73px tall beside 44px siblings. */}
         <button
           type="submit"
           disabled={status === "loading"}
-          className="group inline-flex min-h-11 w-full items-center justify-center gap-3 rounded-full bg-primary px-7 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark disabled:opacity-60 sm:w-auto"
+          className="group inline-flex min-h-11 w-full items-center justify-center gap-3 whitespace-nowrap rounded-full bg-primary px-7 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark disabled:opacity-60 sm:w-auto"
         >
           {status === "loading" ? (
             <>

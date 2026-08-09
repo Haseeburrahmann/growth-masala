@@ -89,14 +89,23 @@ export default function FAQSection({
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
 
+          {/* Shown at every width, not `hidden lg:block`.
+
+              It was desktop-only because on the homepage the rail collapses
+              above the questions on a phone and a tall photo pushed them down.
+              /services then adopted this slot as its only photograph — and
+              inherited the breakpoint with it, so the page that sells the work
+              had no imagery at all on the viewport most of its traffic arrives
+              on. Short on small screens, full height from lg, which costs the
+              homepage ~176px on mobile and buys /services a picture. */}
           {image && (
-            <div className="relative mt-8 hidden h-64 overflow-hidden rounded-2xl bg-surface lg:block">
+            <div className="relative mt-8 h-44 overflow-hidden rounded-2xl bg-surface sm:h-52 lg:h-64">
               <Image
                 src={image}
                 alt={imageAlt}
                 fill
                 className="object-cover object-center"
-                sizes="380px"
+                sizes="(max-width: 1023px) 92vw, 380px"
               />
             </div>
           )}

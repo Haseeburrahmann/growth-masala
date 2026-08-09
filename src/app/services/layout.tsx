@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { buildBreadcrumbSchema } from "@/lib/schema";
 import { formatPrice, websiteTiers } from "@/data/pricing";
+import { pageOpenGraph } from "@/lib/metadata";
 
 // The price is interpolated, never typed as a literal — same rule the FAQ and
 // pricing components follow. A description promising a figure the page does not
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
   description:
     `Websites from ${startingPrice}, e-commerce, custom software, SEO, Meta and Google ads, social media, and AI automation for businesses in Mahabubnagar, Hyderabad, and across Telangana. Full pricing published — no call required.`,
   alternates: { canonical: "/services" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Digital Marketing Services in Mahabubnagar | Growth Masala",
     description:
       `Websites from ${startingPrice}, plus SEO, ads, and AI automation for businesses across Telangana. Every price published up front.`,
     url: "/services",
-  },
+  }),
 };
 
 const breadcrumbSchema = buildBreadcrumbSchema([

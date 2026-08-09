@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { buildBreadcrumbSchema } from "@/lib/schema";
 import { address, business, trackRecord } from "@/data/business";
+import { pageOpenGraph } from "@/lib/metadata";
 
 /**
  * The title stays as it was — it is already keyword-first with the locality in
@@ -16,11 +17,11 @@ export const metadata: Metadata = {
   title: "About — Digital Agency in Mahabubnagar",
   description: `Growth Masala is a digital agency in ${address.locality}, ${address.region}, building websites and running campaigns for local businesses since ${business.foundingYear}. ${trackRecord.projectsDelivered}+ projects delivered, every price published.`,
   alternates: { canonical: "/about" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "About — Digital Agency in Mahabubnagar | Growth Masala",
     description: `A digital agency based in ${address.locality}, ${address.region} — ${trackRecord.projectsDelivered}+ projects delivered since ${business.foundingYear}, with every price published.`,
     url: "/about",
-  },
+  }),
 };
 
 const breadcrumbSchema = buildBreadcrumbSchema([

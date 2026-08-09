@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ChatWidgetLazy from "@/components/chatbot/ChatWidgetLazy";
 import { SITE_URL } from "@/data/business";
+import { OG_IMAGE } from "@/lib/metadata";
 import { buildLocalBusinessSchema, buildWebSiteSchema } from "@/lib/schema";
 
 const poppins = Poppins({
@@ -42,31 +43,12 @@ export const metadata: Metadata = {
   },
   description:
     "Growth Masala builds websites and runs social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana. Free consultation, fixed quotes before work starts.",
-  keywords: [
-    // Brand
-    "Growth Masala",
-    // Local — primary
-    "digital marketing agency Mahabubnagar",
-    "digital marketing agency near me Mahabubnagar",
-    "best digital marketing agency Mahabubnagar",
-    "website development Mahabubnagar",
-    "website designer Mahabubnagar",
-    "social media agency Mahabubnagar",
-    "SEO agency Mahabubnagar",
-    // Local — secondary
-    "digital marketing agency Telangana",
-    "performance marketing Hyderabad",
-    "social media management Telangana",
-    "website development Telangana",
-    // Generic
-    "digital marketing agency India",
-    "website development",
-    "social media growth",
-    "performance marketing",
-    "Meta ads",
-    "Facebook ads",
-    "SEO",
-  ],
+  // NOTE: no `keywords` here on purpose. Google has ignored the meta keywords
+  // tag since 2009 and Bing treats it as a spam signal, so the only thing it
+  // ever did on this site was publish the entire target keyword list in view
+  // source for any competitor who cared to look. The keywords themselves still
+  // matter — they live in titles, H1s, body copy and the location pages, which
+  // is where a crawler actually reads them.
   // NOTE: no `alternates.canonical` here on purpose. In the App Router this
   // field is inherited by every child route, so a canonical set at the root
   // makes all inner pages declare themselves duplicates of the homepage and
@@ -86,21 +68,24 @@ export const metadata: Metadata = {
     locale: "en_IN",
     siteName: "Growth Masala",
     url: SITE_URL,
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Growth Masala — Digital Marketing Agency in Mahabubnagar, Telangana",
-      },
-    ],
+    images: [OG_IMAGE],
   },
+  // Card type and artwork only. `title` and `description` are deliberately
+  // absent, and leaving them out is what makes the tags correct rather than what
+  // removes them.
+  //
+  // No child route declares `twitter`, so any literal set here is set on every
+  // page. This block used to repeat the homepage headline, which is exactly what
+  // /services, /portfolio, /about and all twelve location pages then rendered on
+  // their X cards. Omit the two fields and Next.js derives them per route from
+  // that route's own `title` and `openGraph.description` — verified in rendered
+  // HTML: /portfolio emits `twitter:title = "Portfolio — 8 Live Client Websites
+  // | Growth Masala"`.
+  //
+  // Do not put them back. A literal here is a literal everywhere.
   twitter: {
     card: "summary_large_image",
-    title: "Websites, SEO & Meta Ads in Mahabubnagar | Growth Masala",
-    description:
-      "Websites, social media, SEO, and Meta ads for businesses in Mahabubnagar, Hyderabad, and across Telangana.",
-    images: ["/images/og-image.png"],
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,

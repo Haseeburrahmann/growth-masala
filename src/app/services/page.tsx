@@ -15,8 +15,10 @@ import { buildFaqSchema } from "@/lib/schema";
  * into a single row of compact cards (`ServiceGroupsGrid`) and the full price
  * tables move behind a native disclosure inside `ServicesPricing`.
  *
- * `ServiceGroupSection.tsx` is now unreferenced. It is left in place
- * deliberately — deleting it is the orchestrator's call, not this page's.
+ * `ServiceGroupSection.tsx` has been deleted (2026-08-09). It sat unreferenced
+ * for a day and the only thing keeping it was nobody wanting to make the call.
+ * A copy is in ~/Desktop/2026/growth-masala-removed/20260809/, and git history
+ * has it either way.
  *
  * The FAQ is not in the canvas. It stays: `<FAQSection>` is what makes the
  * `FAQPage` JSON-LD below legal, since the schema must match visible copy, and a
@@ -57,11 +59,28 @@ export default function ServicesPage() {
 
       <ServicesPricing />
 
+      {/* The image is the only photograph on /services, and it is here on
+          purpose.
+
+          Swapping four `ServiceGroupSection` blocks for the compact grid took
+          every picture off the page with them. This route rendered three <img>
+          elements and all three were `logo.png` — nav, footer, chat button. An
+          agency selling design had exactly one page with no photography on it
+          and it was the page that sells the work.
+
+          It goes in the FAQ rail rather than back into the group cards: those
+          are compact by design and a photo band would undo the 7,800px of
+          scroll the grid was built to save. The rail already had the slot, it
+          is column-width so it costs no vertical space on desktop, and a face
+          beside "before you get in touch" is doing work rather than
+          decorating. */}
       <FAQSection
         tone="light"
         faqs={servicesFaqs}
         heading="Before you get in touch"
         intro="The questions we field most often once someone has read this far. If yours isn't here, WhatsApp us — we'll answer it straight."
+        image="/images/sections/consultation.webp"
+        imageAlt="A Growth Masala consultation — talking through scope and price before any work is quoted"
       />
 
       <ServicesCTA />

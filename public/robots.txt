@@ -17,7 +17,9 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
-User-agent: GoogleExtended
+# Google-Extended, with the hyphen. It was "GoogleExtended" here, which matches
+# no crawler at all — the directive read as if it did something and did nothing.
+User-agent: Google-Extended
 Allow: /
 
 User-agent: Bingbot

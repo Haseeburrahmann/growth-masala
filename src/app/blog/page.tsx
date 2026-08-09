@@ -5,16 +5,17 @@ import { address } from "@/data/business";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import BlogCTA from "@/components/blog/BlogCTA";
 import PostCard, { FeaturedPostCard } from "@/components/blog/PostCard";
+import { pageOpenGraph } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Blog — Website Costs & Local Marketing Advice",
+  title: "Website Costs & Marketing Advice",
   description: `Website pricing guides and practical digital marketing advice for businesses in ${address.locality}, Hyderabad and across ${address.region} — with every figure taken from our published price list.`,
   alternates: { canonical: "/blog" },
-  openGraph: {
-    title: "Blog — Website Costs & Local Marketing Advice | Growth Masala",
+  openGraph: pageOpenGraph({
+    title: "Website Costs & Marketing Advice | Growth Masala",
     description: `Website pricing guides and local marketing advice for businesses across ${address.region}.`,
     url: "/blog",
-  },
+  }),
 };
 
 const breadcrumbSchema = buildBreadcrumbSchema([

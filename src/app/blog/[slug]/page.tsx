@@ -14,6 +14,7 @@ import PriceCallout from "@/components/blog/PriceCallout";
 import BlogCTA from "@/components/blog/BlogCTA";
 import { business } from "@/data/business";
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/metadata";
 
 /**
  * Blog post template.
@@ -59,14 +60,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: seoTitle,
     description: post.meta.excerpt,
     alternates: { canonical: `/blog/${slug}` },
-    openGraph: {
+    openGraph: pageOpenGraph({
       title: `${post.meta.title} | Growth Masala`,
       description: post.meta.excerpt,
       url: `/blog/${slug}`,
       type: "article",
       publishedTime: post.meta.date,
       ...(post.meta.image && { images: [{ url: post.meta.image }] }),
-    },
+    }),
   };
 }
 

@@ -7,7 +7,17 @@ import { locationPages } from "@/data/locations";
 
 // Surfaced in the footer so every page links into the location cluster —
 // otherwise those pages are orphans with no internal links pointing at them.
-const footerLocationLinks = locationPages.slice(0, 6);
+//
+// ALL of them, not a slice. This was `locationPages.slice(0, 6)`, written when
+// six was all there were. Six more were added and the cap silently kept them
+// out: /digital-marketing-agency-hyderabad and /website-development-hyderabad —
+// the two largest markets on the list — plus Wanaparthy, Kalwakurthy, Jadcherla
+// and Narayanpet had zero inbound links from any static page. They were
+// reachable only from the sitemap and one or two sibling cross-links, which is
+// nothing to hang a ranking on for pages that exist solely to rank.
+//
+// If this list ever outgrows one column, wrap it — do not slice it.
+const footerLocationLinks = locationPages;
 
 export default function Footer() {
   return (
@@ -45,7 +55,7 @@ export default function Footer() {
         {/* Main footer grid */}
         <div className="grid gap-12 py-16 md:grid-cols-12">
           {/* Brand */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
             <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/images/logo.png"
@@ -107,11 +117,17 @@ export default function Footer() {
           </div>
 
           {/* Areas we serve — internal links into the location page cluster */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-4">
             <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
               Areas We Serve
             </h4>
-            <ul className="mt-4 space-y-2.5">
+            {/* Two columns from sm up, and the block takes 4 of the 12 grid
+                columns rather than 3 — the brand blurb gave one up for it.
+                Twelve of these single-file ran the footer past 700px; two
+                columns inside the old 3-span width wrapped every label onto
+                three lines, which was worse. At 4 spans they wrap to two at
+                most. */}
+            <ul className="mt-4 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
               {footerLocationLinks.map((page) => (
                 <li key={page.slug}>
                   <Link
@@ -119,7 +135,7 @@ export default function Footer() {
                     className="group inline-flex items-center gap-1 text-sm text-slate-400 transition-colors hover:text-white"
                   >
                     {page.serviceLabel} in {page.city}
-                    <ArrowUpRight className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
+                    <ArrowUpRight className="h-3 w-3 shrink-0 opacity-0 transition-all group-hover:opacity-100" />
                   </Link>
                 </li>
               ))}

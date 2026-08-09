@@ -65,6 +65,12 @@ export default function TrustBar() {
                 alt={idx >= clients.length ? "" : client.name}
                 width={client.width}
                 height={client.height}
+                /* These render 32-40px tall, never wider than ~220px, but the
+                   source plates are up to 702px across, so without `sizes` the
+                   optimiser was serving a 640w candidate for a 192px box —
+                   roughly 3x the pixels needed, on every page, for eight logos
+                   twice over. 256px covers the widest plate at 2x DPR. */
+                sizes="256px"
                 className="h-8 w-auto sm:h-10"
               />
             </div>

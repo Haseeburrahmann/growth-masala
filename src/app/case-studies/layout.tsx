@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { buildBreadcrumbSchema } from "@/lib/schema";
 import { address } from "@/data/business";
+import { pageOpenGraph } from "@/lib/metadata";
 
 /**
  * The title was "Case Studies — Real Client Results". The page had no results —
@@ -13,14 +14,14 @@ import { address } from "@/data/business";
  * the expectation the page can meet.
  */
 export const metadata: Metadata = {
-  title: "Case Studies — Three Client Builds in Detail",
+  title: "Case Studies — Three Client Builds",
   description: `How Growth Masala approached three real projects — two schools and a four-branch repair chain in ${address.region} and Bengaluru. The problem, the build, and exactly what shipped. Every study links to the live site.`,
   alternates: { canonical: "/case-studies" },
-  openGraph: {
-    title: "Case Studies — Three Client Builds in Detail | Growth Masala",
+  openGraph: pageOpenGraph({
+    title: "Case Studies — Three Client Builds | Growth Masala",
     description: `The problem, the build, and what shipped — three projects delivered from ${address.locality} for clients across ${address.region} and Bengaluru.`,
     url: "/case-studies",
-  },
+  }),
 };
 
 const breadcrumbSchema = buildBreadcrumbSchema([
