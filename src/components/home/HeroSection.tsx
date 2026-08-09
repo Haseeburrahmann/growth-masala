@@ -156,28 +156,31 @@ export default function HeroSection() {
                 52% width the copy column is set to. */}
           <h1 className="font-heading text-[2.6rem] font-bold leading-[1.03] tracking-tight text-balance text-white sm:text-5xl xl:text-6xl">
             <span
-              className="block animate-hero-reveal"
-              style={{ animationDelay: "150ms" }}
+              className="block animate-hero-reveal-text"
+              style={{ animationDelay: "0ms" }}
             >
               Websites that get
             </span>{" "}
             <span
-              className="block animate-hero-reveal"
-              style={{ animationDelay: "300ms" }}
+              className="block animate-hero-reveal-text"
+              style={{ animationDelay: "90ms" }}
             >
               {/* The emphasis mark. Sits under the phrase rather than
                     recolouring it, so the line keeps full white contrast —
                     the blue gradient this replaced measured 3.64:1 on navy.
 
-                    Two nested spans because they animate on different delays:
-                    the outer one lifts the words in, the inner one draws the
-                    rule 600ms later. The inner must stay a plain inline for
-                    `.headline-mark` to draw per line — this phrase wraps at
-                    every viewport width. */}
-              <span
-                className="headline-mark animate-headline-mark"
-                style={{ animationDelay: "900ms" }}
-              >
+                    The rule no longer animates in. It faded via
+                    `text-decoration-color`, which no browser can composite, so
+                    it ran on the main thread every frame — the single
+                    "non-composited animation" Lighthouse reports. A 700ms fade
+                    on a 4px underline is not worth main-thread time on a phone,
+                    and there is no compositable equivalent: a transform-based
+                    pseudo-element cannot follow this phrase, which wraps at
+                    every viewport width. So it is simply drawn.
+
+                    The inner span must stay a plain inline for `.headline-mark`
+                    to draw per line. */}
+              <span className="headline-mark">
                 your business found
               </span>
             </span>
@@ -188,8 +191,8 @@ export default function HeroSection() {
                 promise, which put three competing emphasis levels — the amber
                 rule, the highlights, the CTAs — inside 400px of vertical space. */}
           <p
-            className="animate-hero-reveal mt-7 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg"
-            style={{ animationDelay: "600ms" }}
+            className="animate-hero-reveal-text mt-7 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg"
+            style={{ animationDelay: "180ms" }}
           >
             Websites, online stores, SEO and ads for businesses in Mahabubnagar,
             Hyderabad and across Telangana. Fixed price agreed before work
@@ -197,8 +200,8 @@ export default function HeroSection() {
           </p>
 
           <div
-            className="animate-hero-reveal mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
-            style={{ animationDelay: "700ms" }}
+            className="animate-hero-reveal-text mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
+            style={{ animationDelay: "260ms" }}
           >
             <Link
               href="/contact"

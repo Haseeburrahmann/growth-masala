@@ -160,11 +160,24 @@ export default function RootLayout({
         {/* Google Analytics — only loads when GA_ID is set */}
         {GA_ID && (
           <>
+            {/* `lazyOnload`, not `afterInteractive`.
+
+                gtag.js is 165KB of which Lighthouse finds ~70KB unused — by far
+                the largest script on the page and the bulk of the "reduce unused
+                JavaScript" figure. On `afterInteractive` it is fetched and
+                executed as soon as hydration finishes, competing for the main
+                thread with the work that actually paints the page, on a
+                connection where that budget is already spent.
+
+                `lazyOnload` holds it until the browser is idle after `load`, so
+                it costs nothing before the page is usable. The trade-off is
+                real and accepted: a visitor who leaves within the first second
+                or so may not be counted. */}
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="lazyOnload">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}

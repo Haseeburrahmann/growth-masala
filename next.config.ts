@@ -2,6 +2,22 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   compress: true,
+  /**
+   * Inlines the CSS into the document instead of serving it as a <link>.
+   *
+   * The stylesheet is a single 16.8KB render-blocking request. On a throttled
+   * mobile connection that is a whole round-trip the browser must complete
+   * before it can paint anything at all — Lighthouse costed it at ~910ms. The
+   * file is small enough that inlining it is strictly cheaper than fetching it,
+   * and the HTML document is 29KB, comfortably under the 33KB average.
+   *
+   * Revisit if the stylesheet grows past ~30KB: past that, inlining starts
+   * costing more on repeat visits than the round-trip it saves, because the
+   * inlined copy cannot be cached separately from the HTML.
+   */
+  experimental: {
+    inlineCss: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 828, 1080, 1200],

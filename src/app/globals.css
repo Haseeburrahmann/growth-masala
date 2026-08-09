@@ -178,6 +178,28 @@
 .animate-slide-in-left { animation: slide-in-left 0.7s cubic-bezier(0.25, 0.4, 0.25, 1) both; }
 .animate-hero-reveal   { animation: hero-reveal 0.8s cubic-bezier(0.25, 0.4, 0.25, 1) both; }
 
+/* Same motion, no opacity — for ABOVE-THE-FOLD hero copy.
+
+   Chrome does not count an element at `opacity: 0` as painted, so any hero
+   element revealed with `hero-reveal` postpones Largest Contentful Paint by its
+   delay plus most of its duration. LCP picks whichever element is *largest*, so
+   fixing only the h1 does not fix the metric — it just promotes the next-biggest
+   faded element to LCP. That is exactly what happened here: the h1 was freed and
+   the subheading inherited the problem, holding LCP at its own 600ms delay.
+
+   So every large element in the hero uses this instead. Transform alone keeps
+   them painted from the first frame; they still travel, and LCP collapses to
+   first paint. The rule of thumb: nothing above the fold animates opacity from
+   zero. Small elements (the badge, the promise strip) may, because they can
+   never be the largest paint. */
+@keyframes hero-reveal-text {
+  from { transform: translateY(28px); }
+  to   { transform: translateY(0); }
+}
+.animate-hero-reveal-text {
+  animation: hero-reveal-text 0.7s cubic-bezier(0.25, 0.4, 0.25, 1) both;
+}
+
 /* ========================================
    Mobile performance hardening
    ======================================== */
@@ -191,6 +213,9 @@
   .animate-hero-reveal {
     will-change: opacity, transform;
   }
+  .animate-hero-reveal-text {
+    will-change: transform;
+  }
 }
 
 /* Reduce animation complexity on low-power devices / user preference */
@@ -201,7 +226,8 @@
   .animate-fade-in,
   .animate-scale-in,
   .animate-slide-in-left,
-  .animate-hero-reveal {
+  .animate-hero-reveal,
+  .animate-hero-reveal-text {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -498,14 +524,10 @@ main {
   .headline-mark { text-decoration-thickness: 4px; }
 }
 
-@keyframes headline-mark-draw {
-  from { text-decoration-color: transparent; }
-  to   { text-decoration-color: var(--color-accent); }
-}
-
-.animate-headline-mark {
-  animation: headline-mark-draw 0.7s ease-out both;
-}
+/* `headline-mark-draw` / `.animate-headline-mark` lived here. It faded
+   `text-decoration-color`, which is not a compositable property, so it was the
+   one animation Lighthouse flags as running on the main thread. The underline
+   is now drawn statically — see the note in HeroSection. */
 
 /* Borderless photo blending — hero plate only.
 
@@ -559,7 +581,6 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-rail-sweep,
-  .animate-headline-mark,
   .animate-portrait-reveal {
     animation: none !important;
     opacity: 1 !important;
