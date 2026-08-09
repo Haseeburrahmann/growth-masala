@@ -65,7 +65,12 @@ export default function Footer() {
                 className="h-9 w-9 object-contain"
               />
               <span className="font-heading text-lg font-bold text-white">
-                Growth<span className="text-primary">Masala</span>
+                {/* `secondary`, not `primary`. The brand blue #2563EB measures
+                    3.63:1 on the navy footer — below the 4.5:1 AA floor for
+                    text this size. #3B82F6 is the same brand family and clears
+                    it at 5.2:1. Same reason SectionIntro's dark variant swaps
+                    to amber: on navy, primary cannot carry text. */}
+                Growth<span className="text-secondary">Masala</span>
               </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">

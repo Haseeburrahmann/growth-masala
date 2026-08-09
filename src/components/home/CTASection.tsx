@@ -112,26 +112,38 @@ export default function CTASection() {
                 Reach us directly
               </h3>
 
+              {/* Each row is a grid, not flex-with-a-nested-div. `<dt>`/`<dd>`
+                  must be direct children of the `<div>` that is itself a direct
+                  child of `<dl>` — one extra wrapper and assistive tech stops
+                  associating them with the list at all. They used to sit two
+                  divs deep inside a `.min-w-0` wrapper, which axe reports as
+                  both "dl does not contain properly-ordered dt/dd groups" and
+                  eight counts of "dt/dd not contained by a dl". The icon spans
+                  both rows in column one, so the rendering is unchanged. */}
               <dl className="mt-4 divide-y divide-white/8">
                 {contactRows.map(({ label, value, href, icon: Icon }) => (
-                  <div key={label} className="flex items-center gap-3.5 py-3.5">
-                    <span className="flex h-9.5 w-9.5 shrink-0 items-center justify-center rounded-xl bg-primary/20">
+                  <div
+                    key={label}
+                    className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3.5 py-3.5"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="row-span-2 flex h-9.5 w-9.5 shrink-0 items-center justify-center rounded-xl bg-primary/20"
+                    >
                       <Icon aria-hidden="true" className="h-4.5 w-4.5 text-secondary" />
                     </span>
-                    <div className="min-w-0">
-                      <dt className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-                        {label}
-                      </dt>
-                      <dd className="mt-0.5 text-sm font-medium leading-snug text-white sm:text-[15px]">
-                        {href ? (
-                          <a href={href} className="link-sweep wrap-break-word">
-                            {value}
-                          </a>
-                        ) : (
-                          value
-                        )}
-                      </dd>
-                    </div>
+                    <dt className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                      {label}
+                    </dt>
+                    <dd className="mt-0.5 text-sm font-medium leading-snug text-white sm:text-[15px]">
+                      {href ? (
+                        <a href={href} className="link-sweep wrap-break-word">
+                          {value}
+                        </a>
+                      ) : (
+                        value
+                      )}
+                    </dd>
                   </div>
                 ))}
               </dl>

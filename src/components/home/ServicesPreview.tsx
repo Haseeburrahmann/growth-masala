@@ -113,7 +113,12 @@ export default function ServicesPreview() {
                     <div className="flex items-start gap-3">
                       <span
                         aria-hidden="true"
-                        className="mt-1 font-heading text-sm font-bold tabular-nums tracking-wide text-slate-400"
+                        /* slate-500, not slate-400. `aria-hidden` hides the
+                           numeral from screen readers but not from eyes —
+                           contrast still applies. slate-400 on white is 2.63:1
+                           against a 4.5:1 requirement (14px bold is not "large
+                           text"); slate-500 clears it at 4.8:1. */
+                        className="mt-1 font-heading text-sm font-bold tabular-nums tracking-wide text-slate-500"
                       >
                         {String(idx + 1).padStart(2, "0")}
                       </span>
