@@ -44,11 +44,14 @@ export default function AboutStory() {
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,560px)_1fr] lg:gap-14">
           <AnimatedContainer animation="fade-in">
             <div className="overflow-hidden rounded-2xl">
-              {/* Empty alt on purpose. This is generic workspace imagery, not a
-                  photograph of the Growth Masala team — describing it as one on
-                  the About page would be the same class of small untruth this
-                  rewrite exists to remove. Decorative, so it is hidden from
-                  assistive tech rather than narrated misleadingly. */}
+              {/* Empty alt on purpose. This is generic workspace imagery — a
+                  staged photograph of nobody in particular, not a photograph of
+                  the Growth Masala team. Describing it as one on the About page
+                  would be the same class of small untruth this rewrite exists to
+                  remove, and it sits directly beside the owner-confirmed stat
+                  row, which is the last place to put an implied claim. So it is
+                  decorative: hidden from assistive tech rather than narrated
+                  misleadingly. Keep the alt empty if this file is replaced. */}
               <Image
                 src="/images/sections/team-work.webp"
                 alt=""

@@ -80,7 +80,7 @@ export default function ServicesPage() {
         heading="Before you get in touch"
         intro="The questions we field most often once someone has read this far. If yours isn't here, WhatsApp us — we'll answer it straight."
         image="/images/sections/consultation.webp"
-        imageAlt="A Growth Masala consultation — talking through scope and price before any work is quoted"
+        imageAlt="A consultation across a table — talking through scope and price before any work is quoted"
       />
 
       <ServicesCTA />

@@ -25,7 +25,11 @@ export default function LocationWhyLocal({ page }: { page: LocationPage }) {
             <div className="hover-zoom relative aspect-13/10 w-full overflow-hidden rounded-3xl">
               <Image
                 src="/images/sections/search-phone.webp"
-                alt={`A customer searching for a local business on his phone before walking in, ${page.city}`}
+                /* Not interpolated with `page.city`. This is one shared
+                   photograph rendered on all twelve location pages, so naming
+                   each page's city in its alt asserted twelve different places
+                   for a single image — none of which it is a photograph of. */
+                alt="A customer searching for a local business on his phone before walking in"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 480px"

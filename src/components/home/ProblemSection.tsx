@@ -75,7 +75,7 @@ export default function ProblemSection() {
             <div className="hover-zoom relative h-55 w-full overflow-hidden rounded-2xl bg-surface sm:h-72 lg:h-full lg:min-h-110">
               <Image
                 src="/images/sections/search-phone.webp"
-                alt="A customer on a Mahabubnagar market street searching for a shop on his phone"
+                alt="A customer on a market street at night, searching for a local shop on his phone"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 92vw, 520px"

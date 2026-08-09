@@ -554,3 +554,25 @@ If that returns `ui-sans-serif`, the brand font is not rendering.
 **What happened:** After merging two feature branches, `git diff main feature/branch` showed large diffs that looked alarming. These diffs were just showing the feature branches as stale/behind main — not indicating missing code. The actual files on main were correct.
 
 **Rule:** After merging, verify the actual state of files on main directly (`grep` / `Read` the files) rather than reading cross-branch diffs which can be misleading.
+
+### 7. Verifying replaced images against Next.js's stale optimizer cache
+**What happened:** Nine deleted section photos were replaced with new files at the
+*same paths*. `pnpm build && pnpm start` came up clean, every URL returned 200,
+and the screenshots showed a laptop displaying a building and a teal/purple bar
+chart in a vegetable market — the **old, already-deleted stock photos**. Next's
+image optimizer caches by request URL (`/_next/image?url=…&w=…&q=…`), not by file
+contents or mtime, so `.next/cache/images` happily served optimizations of files
+that no longer existed on disk. 83 cached entries, zero written since the new
+files landed. The verification pass "confirmed" images that were not there.
+
+**Rule:** replacing an image at an existing path is invisible to the optimizer
+cache. Clear it before you verify, or you are grading the previous version:
+
+```bash
+rm -rf .next/cache/images && pnpm start
+```
+
+Vercel builds fresh, so this is a local verification trap rather than a
+production bug — which is exactly what makes it dangerous: it only ever lies to
+the person checking the work. If a screenshot disagrees with a file you know you
+just wrote, suspect this before suspecting the file.

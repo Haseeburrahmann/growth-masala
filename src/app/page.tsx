@@ -91,7 +91,7 @@ export default function Home() {
         heading="The questions people actually ask us"
         intro="Including the awkward ones. If yours is not here, message us on WhatsApp."
         image="/images/sections/hero-owner.webp"
-        imageAlt="A Mahabubnagar shop owner checking his phone behind the counter"
+        imageAlt="A shop owner behind his counter, reading an enquiry on his phone"
       />
       <CTASection />
     </>
