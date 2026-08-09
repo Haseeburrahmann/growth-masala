@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
 import TrustBar from "@/components/home/TrustBar";
 import FAQSection from "@/components/ui/FAQSection";
-import SectionDivider from "@/components/ui/SectionDivider";
 import { generalFaqs } from "@/data/faqs";
 import { buildFaqSchema } from "@/lib/schema";
 
@@ -48,7 +47,7 @@ const faqSchema = buildFaqSchema(generalFaqs);
  *
  * Backgrounds, hero downwards:
  *
- *   navy · navy | white · white · surface · white | NAVY | white · surface | NAVY
+ *   navy · navy | surface · white · surface · white | NAVY | white · surface | NAVY
  *
  * Two dark rooms below the hero, not three. Process used to be navy as well,
  * which made the mid-page anchor and the comparison anchor the same gesture
@@ -57,12 +56,16 @@ const faqSchema = buildFaqSchema(generalFaqs);
  * as the one that ends it. The page now opens and closes dark, and the navy CTA
  * runs straight into the navy footer without a seam that needs explaining.
  *
- * The cost is a four-section light run (Problem → Services → Process → Work),
- * which the alternation cannot mark on its own: #F8FAFC meeting #FFFFFF is
- * invisible. <SectionDivider /> marks Problem → Services, and Process's surface
- * ground separates the other two. The second divider marks Pricing → FAQ for
- * the same reason. Those two seams and no others — a divider at every boundary
- * would become page furniture, and the navy edges do not need help.
+ * Below the hero every seam is now a tone change, so the page carries no
+ * drawn dividers at all. It used to: two `<SectionDivider />` hairlines marked
+ * Problem → Services and Pricing → FAQ, the two places where the alternation
+ * had nothing to say. Both are gone on client instruction. Problem moved from
+ * white to `surface` (its cards went white to compensate) which makes the first
+ * seam visible on its own, and the second seam was already a tone change —
+ * white into surface — that simply needed no help.
+ *
+ * Keep it that way: if a section's background changes and two same-tone blocks
+ * end up adjacent, move one of them, do not draw a line between them.
  */
 export default function Home() {
   return (
@@ -75,10 +78,6 @@ export default function Home() {
       <HeroSection />
       <TrustBar />
       <ProblemSection />
-      {/* Both sides of this seam are white now — Problem moved off `surface`
-          when it gained its own bordered cards, which would have sat on a
-          tinted ground as cards on cards. */}
-      <SectionDivider />
       <ServicesPreview />
       <ProcessSection />
       <PortfolioPreview />
@@ -86,12 +85,13 @@ export default function Home() {
           already a change of room. */}
       <WhyUsSection />
       <PricingSection />
-      <SectionDivider />
       <FAQSection
         faqs={generalFaqs}
         eyebrow="Straight answers"
         heading="The questions people actually ask us"
         intro="Including the awkward ones. If yours is not here, message us on WhatsApp."
+        image="/images/sections/hero-owner.webp"
+        imageAlt="A Mahabubnagar shop owner checking his phone behind the counter"
       />
       <CTASection />
     </>

@@ -47,7 +47,13 @@ const problems = [
 
 export default function ProblemSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-20 sm:py-24">
+    /* `surface`, not white. The hairline divider that used to mark this
+       section's foot is gone site-wide, and Problem → Services was the one seam
+       on the page the alternation could not show on its own. Moving this block
+       onto the tinted ground makes the seam visible with no extra furniture;
+       the cards below went white in the same change so they still read as cards
+       rather than as tinted panels on a tinted field. */
+    <section className="relative overflow-hidden bg-surface py-20 sm:py-24">
       <div className="dot-pattern pointer-events-none absolute inset-0 opacity-50" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -80,8 +86,8 @@ export default function ProblemSection() {
           <div className="flex flex-col gap-4 lg:gap-6">
             {problems.map((problem, idx) => (
               <AnimatedContainer key={problem.title} delay={idx * 110}>
-                <div className="group flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5 sm:flex-row sm:items-start sm:gap-5 sm:p-6">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors duration-300 group-hover:border-primary/40">
+                <div className="group flex flex-col gap-3 rounded-2xl border border-border bg-white p-5 sm:flex-row sm:items-start sm:gap-5 sm:p-6">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-surface transition-colors duration-300 group-hover:border-primary/40">
                     <problem.icon className="h-5 w-5 text-primary" />
                   </span>
                   <div>

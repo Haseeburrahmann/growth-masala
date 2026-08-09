@@ -342,39 +342,18 @@ main {
    hero's foot, which fades its ambient bloom down to flat navy) and let the
    background change be a clean cut. Two rooms, one doorway.
 
-   What remains is the light-on-light case, which the alternation cannot solve:
+   The light-on-light case is now solved by the alternation too, not by a
+   drawn line. `<SectionDivider />` — a fading hairline with a small amber
+   diamond at its centre — used to mark Problem → Services and Pricing → FAQ.
+   It has been removed on client instruction: two of them on one page read as
+   page furniture rather than as landmarks, and the seams they marked are
+   cheaper to solve by moving a section onto `--color-surface`. Problem is now
+   surface and its cards are white, which is why Problem → Services no longer
+   needs a mark at all.
 
-     <SectionDivider />  — the marker between two LIGHT sections.
-     .edge-rule          — a hairline that fades out at both ends, so it reads
-                           as a mark rather than a full-width border.
+   If a same-tone seam ever reappears, change one of the two backgrounds. Do
+   not reintroduce a drawn line.
    ======================================== */
-
-/* #E2E8F0 (--color-border) disappears against #F8FAFC at 1px. The rule needs to
-   be readable as a landmark, so it runs a step darker than the token used for
-   card edges — it is doing a different job. */
-.edge-rule {
-  height: 1px;
-  background-image: linear-gradient(
-    to right,
-    transparent,
-    #cbd5e1 18%,
-    #cbd5e1 82%,
-    transparent
-  );
-}
-
-/* The divider's amber mark draws itself outward from the centre as it enters
-   view — a small piece of motion at exactly the moment the reader crosses from
-   one section to the next, which is when a landmark is worth noticing. */
-@keyframes rule-draw {
-  from { transform: scaleX(0); opacity: 0; }
-  to   { transform: scaleX(1); opacity: 1; }
-}
-
-.animate-rule-draw {
-  animation: rule-draw 0.9s cubic-bezier(0.25, 0.4, 0.25, 1) both;
-  transform-origin: center;
-}
 
 /* ========================================
    Brand strip
@@ -528,7 +507,6 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-rule-draw,
   .animate-rail-sweep,
   .animate-headline-mark,
   .animate-portrait-reveal {

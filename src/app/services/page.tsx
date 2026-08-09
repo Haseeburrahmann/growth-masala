@@ -3,7 +3,6 @@ import ServiceGroupsGrid from "@/components/services/ServiceGroupsGrid";
 import ServicesPricing from "@/components/services/ServicesPricing";
 import ServicesCTA from "@/components/services/ServicesCTA";
 import FAQSection from "@/components/ui/FAQSection";
-import SectionDivider from "@/components/ui/SectionDivider";
 import { servicesFaqs } from "@/data/faqs";
 import { buildFaqSchema } from "@/lib/schema";
 
@@ -26,10 +25,12 @@ import { buildFaqSchema } from "@/lib/schema";
  *
  * Background rhythm, which is what tells a reader a new section has started:
  *
- *   navy | white · surface · surface | navy
+ *   navy | white · surface · white | navy
  *
- * The navy edges are a change of room and carry themselves. The one
- * surface→surface seam (pricing into FAQ) gets a <SectionDivider>.
+ * The navy edges are a change of room and carry themselves. Pricing into FAQ
+ * used to be surface→surface with a `<SectionDivider>` hairline across it;
+ * the divider has been removed site-wide, so the FAQ takes `tone="light"`
+ * instead and the seam marks itself.
  *
  * Schema: `FAQPage` only. `BreadcrumbList` comes from `layout.tsx`, and the
  * prices below are already in the site-wide `OfferCatalog` on the business node
@@ -56,8 +57,8 @@ export default function ServicesPage() {
 
       <ServicesPricing />
 
-      <SectionDivider tone="surface" />
       <FAQSection
+        tone="light"
         faqs={servicesFaqs}
         heading="Before you get in touch"
         intro="The questions we field most often once someone has read this far. If yours isn't here, WhatsApp us — we'll answer it straight."
