@@ -478,21 +478,43 @@ main {
   animation: headline-mark-draw 0.7s ease-out both;
 }
 
-/* Borderless photo blending.
+/* Borderless photo blending — hero plate only.
 
    The reference heroes do not put a frame around the subject; the photograph
    dissolves into the page. A rounded card with a 1px white border reads as a
    stock image dropped into a template no matter how good the photograph is.
+   A mask does that without needing a cut-out alpha channel — the shot only has
+   to have been taken against a dark background.
 
-   An elliptical mask fades every edge at once, so the shot needs no cut-out
-   alpha channel — it only needs to have been taken against a dark background.
-   Paired with a subject lit on near-black, the seam disappears completely.
+   This replaced `.photo-blend`, which faded all four edges with one ellipse.
+   That suited the head-and-shoulders portrait it was written for, sitting in a
+   contained box. The current plate is a full-bleed panel whose subject is the
+   laptop screen in the lower RIGHT, and the ellipse faded exactly that corner:
+   "Online Stores" and "Ads & AI Chat" dissolved into the background. So the
+   fade is directional now, and only ever runs along the edge that meets the
+   copy — every other edge is meant to bleed off the section.
+
+   The gradient is short (opaque by 16-18%) on purpose. The nearer subject sits
+   about 20% in from the leading edge; anything longer erases her.
 
    Both properties are needed: Safari still wants the -webkit- prefix, and
    omitting it drops the effect rather than degrading it. */
-.photo-blend {
-  -webkit-mask-image: radial-gradient(62% 60% at 52% 45%, #000 30%, transparent 88%);
-  mask-image: radial-gradient(62% 60% at 52% 45%, #000 30%, transparent 88%);
+.hero-photo-mask {
+  /* Mobile: the plate spans the full viewport width, so left and right are
+     flush with the screen and only the horizontal edges have a seam to hide.
+     The bottom stop is late and short — the laptop sits low in the frame and a
+     longer fade there dims the panel it carries. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 94%, transparent 100%);
+}
+
+@media (min-width: 1024px) {
+  /* Desktop: bleeds off the top, right and bottom; dissolves leftward into the
+     navy behind the headline. */
+  .hero-photo-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 18%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 18%);
+  }
 }
 
 /* Portrait anchor rises and settles rather than sliding in from the edge —

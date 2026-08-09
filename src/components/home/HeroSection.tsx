@@ -1,46 +1,58 @@
-import { ArrowRight, ArrowUpRight, Flame, Check, MapPin } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { formatPrice, websiteTiers } from "@/data/pricing";
 
 /**
  * Hero.
  *
- * Three constraints shape this section, in order of how much they cost to get
+ * Four constraints shape this section, in order of how much they cost to get
  * wrong.
  *
- * 1. It has to fit one viewport. That is a height budget, not a preference, and
- *    it is spent almost entirely by the headline and the portrait. The headline
- *    lost its third line (see below) and the amber capability panel moved from
- *    sitting BELOW the portrait to overlapping it, which is what the reference
- *    layouts do and what returns ~250px.
+ * 1. It has to fit one viewport. That is a height budget, not a preference. The
+ *    photograph is what used to blow it: as a grid cell it dictated the section
+ *    height and pushed it 26px past a 900px viewport. It is now an absolutely
+ *    positioned bleed panel from lg up, so above that breakpoint the copy alone
+ *    decides how tall the hero is and the section lands exactly on min-h-svh.
  *
  * 2. "in Mahabubnagar" is gone from the <h1>. The homepage <title> still carries
  *    the city, and /digital-marketing-agency-mahabubnagar and
  *    /website-development-mahabubnagar carry exact-match H1s for the queries
  *    that actually convert on it — repeating the city here competes with the
- *    pages built to win it. For a reader it survives three more times above the
- *    fold: the badge on the photo, the subheading, and the promise strip. A
- *    fourth mention in 72px display type was buying nothing and costing a line.
+ *    pages built to win it. For a reader it survives twice above the fold: the
+ *    subheading and the promise strip. A third mention in 72px display type was
+ *    buying nothing and costing a line.
  *
  * 3. No frame around the photograph. A rounded card with a 1px border reads as
  *    a stock image dropped into a template regardless of the photograph's
- *    quality. `.photo-blend` masks every edge to transparent, and the shot is
- *    lit against a near-black backdrop specifically so that mask lands
- *    invisibly against the navy.
+ *    quality. `.hero-photo-mask` dissolves whichever edge faces the copy, and
+ *    the plate is lit against a near-black backdrop specifically so that fade
+ *    lands invisibly against the navy.
+ *
+ * 4. The secondary CTA carries a real number, read from `src/data/pricing.ts`.
+ *    A hero that says "see our pricing" asks for a click; one that says "from
+ *    ₹9,999" has already answered the question the click was going to ask, and
+ *    publishing the floor is the same trust signal the pricing section sells.
+ *    Never hardcode the figure — it is one of several surfaces fed by that file.
+ *
+ * The "what we build" panel is IN the photograph, composited onto the laptop
+ * screen — see `.gen-images/hero-duo/` for the source plates. There is
+ * deliberately no HTML card duplicating it: one was built here first and
+ * rendering both put the same four words on screen twice. The words are still
+ * reachable without the image because `alt` spells them out, and ServicesPreview
+ * two sections down carries them as real headings, so nothing load-bearing is
+ * trapped in a raster. If the offer changes, the plate has to be regenerated —
+ * that is the cost of this composition and the reason nothing else on the site
+ * bakes text into an image.
  */
-
-const capabilities = [
-  "Websites & online stores",
-  "SEO & Google Business Profile",
-  "Meta & Google Ads",
-  "AI chatbots & WhatsApp",
-];
 
 const promises = [
   "Fixed quote before any work starts",
   "Prices published — no hidden costs",
   "Based in Mahabubnagar, not a call centre",
 ];
+
+const startingPrice = formatPrice(websiteTiers[0].amount);
 
 export default function HeroSection() {
   return (
@@ -76,34 +88,79 @@ export default function HeroSection() {
         <div className="hidden md:block absolute -bottom-32 left-[5%] h-72 w-72 rounded-full bg-accent/15 blur-[80px]" />
       </div>
 
-      <div className="relative mx-auto w-full max-w-7xl px-6 pt-28 pb-12 sm:pt-32 lg:px-8 lg:pt-28 lg:pb-10">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 xl:gap-14">
-          {/* ---------- Left column ---------- */}
-          <div>
-            <div className="mb-6 animate-hero-reveal">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 backdrop-blur-sm">
-                <Flame className="h-4 w-4 text-accent" />
-                Your Growth Partner
-                <span className="h-1 w-1 rounded-full bg-accent" />
-                <span className="text-accent">India</span>
-              </span>
-            </div>
+      {/* ---------- Photograph ----------
 
-            {/* One <h1> per page. The visual line breaks are spans — three
+          Not a column in the grid. From lg up it is a full-height panel pinned
+          to the section's right edge, bleeding off the top, right and bottom
+          and dissolving leftward into the navy — the canvas composition. Laying
+          it out as a grid cell instead put it in a contained box, which (a) let
+          the picture dictate the section height, pushing it 26px past the
+          viewport, and (b) left a visible gutter on the right where the canvas
+          has none.
+
+          `order-last` puts it after the copy in the flex column on phones,
+          where it is a static full-bleed block; `lg:absolute` takes it out of
+          the flow entirely above that, so from lg up the copy alone decides how
+          tall the hero is. */}
+      <div className="animate-portrait-reveal relative order-last -mt-4 w-full lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:w-[56%] xl:w-[54%]">
+        {/* Warm shape behind the subjects, so the masked plate has something to
+            separate from instead of dissolving into flat navy. */}
+        <div className="pointer-events-none absolute left-[58%] top-1/2 hidden h-[70%] w-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/12 blur-[80px] md:block" />
+
+        {/* Mobile keeps a fixed 4:5 so the block has a height at all; desktop
+            takes its height from the section and crops with object-cover. */}
+        <div className="hero-photo-mask relative aspect-4/5 w-full sm:aspect-3/2 lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
+          <Image
+            src="/images/sections/hero-team.webp"
+            alt="Two Growth Masala team members reviewing a laptop that lists what we build: websites, online stores, SEO, and ads with AI chat — with a fixed quote before any work starts, from Mahabubnagar"
+            fill
+            priority
+            className="object-cover object-[62%_center] lg:object-center"
+            sizes="(max-width: 1023px) 100vw, 56vw"
+          />
+        </div>
+      </div>
+
+      <div className="relative mx-auto w-full max-w-7xl px-6 pt-28 pb-14 sm:pt-32 lg:px-8 lg:pt-28 lg:pb-16">
+        {/* The copy never crosses into the photograph's half. 52% at lg leaves
+            a ~40px breathing gap before the plate's fade begins at 44%. */}
+        <div className="lg:w-[52%]">
+          <div className="mb-6 animate-hero-reveal">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 backdrop-blur-sm">
+              {/* The trend arrow, not a flame — it is the shape in
+                    `public/brand-assets/logo-mark.svg`, so the badge reads as
+                    the mark rather than as a generic "hot" pill. */}
+              <TrendingUp className="h-4 w-4 text-accent" />
+              Your Growth Partner
+              <span className="h-1 w-1 rounded-full bg-accent" />
+              <span className="text-accent">India</span>
+            </span>
+          </div>
+
+          {/* One <h1> per page. The visual line breaks are spans — three
                 separate <h1> elements is a mistake this project has already
                 made once. */}
-            <h1 className="font-heading text-[2.6rem] font-bold leading-[1.03] tracking-tight text-balance text-white sm:text-6xl xl:text-7xl">
-              <span
-                className="block animate-hero-reveal"
-                style={{ animationDelay: "150ms" }}
-              >
-                Websites that get
-              </span>
-              <span
-                className="block animate-hero-reveal"
-                style={{ animationDelay: "300ms" }}
-              >
-                {/* The emphasis mark. Sits under the phrase rather than
+          {/* Sized to hold TWO lines, which is the whole point of the amber
+                rule: it underlines one phrase on one line. At 72px the second
+                line measured 717px against a 638px column and broke into
+                "your business" / "found", drawing the rule twice and turning
+                the emphasis into a scribble. The steps below are the largest
+                that still fit "your business found" unbroken at each breakpoint
+                — 48px against the 499px lg column, 60px against the 632px xl
+                one. Re-measure before raising either, or before changing the
+                52% width the copy column is set to. */}
+          <h1 className="font-heading text-[2.6rem] font-bold leading-[1.03] tracking-tight text-balance text-white sm:text-5xl xl:text-6xl">
+            <span
+              className="block animate-hero-reveal"
+              style={{ animationDelay: "150ms" }}
+            >
+              Websites that get
+            </span>
+            <span
+              className="block animate-hero-reveal"
+              style={{ animationDelay: "300ms" }}
+            >
+              {/* The emphasis mark. Sits under the phrase rather than
                     recolouring it, so the line keeps full white contrast —
                     the blue gradient this replaced measured 3.64:1 on navy.
 
@@ -112,107 +169,51 @@ export default function HeroSection() {
                     rule 600ms later. The inner must stay a plain inline for
                     `.headline-mark` to draw per line — this phrase wraps at
                     every viewport width. */}
-                <span
-                  className="headline-mark animate-headline-mark"
-                  style={{ animationDelay: "900ms" }}
-                >
-                  your business found
-                </span>
+              <span
+                className="headline-mark animate-headline-mark"
+                style={{ animationDelay: "900ms" }}
+              >
+                your business found
               </span>
-            </h1>
+            </span>
+          </h1>
 
-            <p
-              className="animate-hero-reveal mt-7 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg"
-              style={{ animationDelay: "600ms" }}
-            >
-              Websites, online stores, SEO, and ads for businesses in{" "}
-              <span className="text-white">Mahabubnagar, Hyderabad</span>, and
-              across Telangana — with a{" "}
-              <span className="text-white">fixed quote before any work starts.</span>
-            </p>
+          {/* Set in one weight throughout. The white-highlighted spans this
+                replaced picked out "Mahabubnagar, Hyderabad" and the fixed-price
+                promise, which put three competing emphasis levels — the amber
+                rule, the highlights, the CTAs — inside 400px of vertical space. */}
+          <p
+            className="animate-hero-reveal mt-7 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg"
+            style={{ animationDelay: "600ms" }}
+          >
+            Websites, online stores, SEO and ads for businesses in Mahabubnagar,
+            Hyderabad and across Telangana. Fixed price agreed before work
+            starts.
+          </p>
 
-            <div
-              className="animate-hero-reveal mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
-              style={{ animationDelay: "700ms" }}
+          <div
+            className="animate-hero-reveal mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
+            style={{ animationDelay: "700ms" }}
+          >
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-primary px-7 py-4 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25"
             >
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-primary px-7 py-4 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25"
-              >
-                Get a free quote
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
-                  <ArrowRight className="cta-arrow h-3.5 w-3.5" />
-                </span>
-              </Link>
-              {/* Publishing prices is itself a trust signal, so the hero says so */}
-              <Link
-                href="#pricing"
-                className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/5"
-              >
-                See our pricing
-                <ArrowUpRight className="cta-arrow h-4 w-4 text-accent" />
-              </Link>
-            </div>
+              Get a fixed quote
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
+                <ArrowRight className="cta-arrow h-3.5 w-3.5" />
+              </span>
+            </Link>
+            <Link
+              href="#pricing"
+              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/5"
+            >
+              See pricing — from {startingPrice}
+              <ArrowUpRight className="cta-arrow h-4 w-4 text-accent" />
+            </Link>
           </div>
 
-          {/* ---------- Right column ---------- */}
-          <div className="animate-portrait-reveal relative" style={{ animationDelay: "400ms" }}>
-            {/* Warm shape behind the subject, so the masked photo has something
-                to separate from instead of dissolving into flat navy. */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/12 blur-[70px] md:block" />
-
-            {/* Square crop on phones. The shot is head-and-shoulders, so a 4:5
-                frame spends 100px on shirt; cropping square reclaims that from
-                a hero that cannot fit one viewport on a 390px screen no matter
-                what, and loses nothing from the picture. */}
-            <div className="photo-blend relative mx-auto aspect-square w-full max-w-sm sm:aspect-4/5 lg:max-w-none">
-              <Image
-                src="/images/sections/hero-agency.webp"
-                alt="A Growth Masala designer, photographed against a dark studio backdrop"
-                fill
-                priority
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 90vw, 560px"
-              />
-            </div>
-
-            {/* With the city gone from the <h1>, this badge is the locality
-                anchor above the fold. Top-right: the amber panel owns the
-                bottom-left corner and at bottom-right it was covering this. */}
-            <div className="absolute right-0 top-4 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-navy/80 px-3 py-1.5 backdrop-blur-sm sm:right-2 lg:top-8">
-              <MapPin className="h-3.5 w-3.5 text-accent" />
-              <span className="text-[11px] font-semibold tracking-wide text-white">
-                Mahabubnagar, Telangana
-              </span>
-            </div>
-
-            {/* Amber capability panel. Overlaps the portrait rather than sitting
-                under it — that is the reference move, and it is also what buys
-                back the ~250px the section needs to hold one viewport. Absolute
-                only from lg up; on a phone it would cover the subject's face, so
-                below that it drops back into the flow. */}
-            <div
-              className="animate-fade-in-up relative z-10 -mt-10 rounded-2xl bg-accent p-5 shadow-2xl shadow-accent/25 sm:-mt-14 sm:p-6 lg:absolute lg:-left-10 lg:bottom-2 lg:mt-0 lg:w-[86%] xl:-left-16"
-              style={{ animationDelay: "900ms" }}
-            >
-              <p className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-navy/75">
-                What we build
-              </p>
-              <ul className="mt-3 grid gap-2.5">
-                {capabilities.map((item) => (
-                  <li key={item} className="flex items-center gap-2.5">
-                    <Check className="h-4 w-4 shrink-0 text-navy" strokeWidth={3} />
-                    <span className="font-heading text-sm font-semibold text-navy sm:text-[15px]">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/*
+          {/*
           Promises, not counters.
 
           This strip previously claimed "50+ Projects Delivered" and "30+ Happy
@@ -222,20 +223,26 @@ export default function HeroSection() {
           counter undercuts the very thing being sold. Every line below is a
           commitment we can be held to, and the proof itself moved to the client
           strip immediately underneath.
+
+          It also has to be HTML. The photograph's laptop screen makes two of
+          these three promises, but it makes them in pixels — unreadable at
+          390px, invisible to a screen reader beyond the alt string, and worth
+          nothing to a crawler. This strip is where those claims actually exist.
         */}
-        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/10 pt-7 lg:mt-8">
-          {promises.map((point, i) => (
-            <div
-              key={point}
-              className="animate-fade-in-up flex items-center gap-2.5"
-              style={{ animationDelay: `${800 + i * 100}ms` }}
-            >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/15">
-                <Check className="h-3 w-3 text-accent" />
-              </span>
-              <span className="text-sm text-slate-300">{point}</span>
-            </div>
-          ))}
+          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/10 pt-7 lg:mt-8">
+            {promises.map((point, i) => (
+              <div
+                key={point}
+                className="animate-fade-in-up flex items-center gap-2.5"
+                style={{ animationDelay: `${800 + i * 100}ms` }}
+              >
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/15">
+                  <Check className="h-3 w-3 text-accent" />
+                </span>
+                <span className="text-sm text-slate-300">{point}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
