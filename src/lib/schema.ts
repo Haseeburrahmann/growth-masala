@@ -71,7 +71,18 @@ export function buildLocalBusinessSchema() {
       closes: openingHours.closes,
     },
     sameAs: socialProfiles,
-    serviceType: services.map((service) => service.title),
+    /* No `serviceType` here.
+     *
+     * `serviceType` is a property of `Service`, not of `LocalBusiness` /
+     * `ProfessionalService`. Emitting it on the business node produced nine
+     * warnings on validator.schema.org — one per service — each reading "The
+     * property serviceType is not recognized by the schema for an object of
+     * type LocalBusiness". It was also pure duplication: every one of those
+     * titles is already published below in `hasOfferCatalog`, on `Service`
+     * nodes where `serviceType` IS valid and where each one also carries a
+     * description, a provider and an areaServed.
+     *
+     * Keep the offer catalog as the single place services are declared. */
     areaServed: areasServed.map((city) => ({ "@type": "City", name: city })),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
