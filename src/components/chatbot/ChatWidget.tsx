@@ -1,8 +1,22 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
-import Image from "next/image";
+import {
+  BarChart3,
+  Bot,
+  CalendarDays,
+  Globe,
+  IndianRupee,
+  Loader2,
+  type LucideIcon,
+  MessageCircle,
+  Search,
+  Send,
+  Smartphone,
+  Sparkles,
+  X,
+} from "lucide-react";
+import MasalaBotMark from "@/components/chatbot/MasalaBotMark";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -38,7 +52,7 @@ const WHATSAPP_URL = "https://wa.me/918688269427";
 const WELCOME_MESSAGE: Message = {
   role: "assistant",
   content:
-    "👋 Hey! I'm **Masala Bot** — Growth Masala's assistant.\n\nLooking to grow your business online? I can help you get started in 2 minutes.",
+    "Hey! I'm **Masala Bot**, Growth Masala's assistant.\n\nLooking to grow your business online? I can help you get started in 2 minutes.",
 };
 
 // ─── Quick Reply Config (initial chips) ────────────────────────────────────
@@ -48,6 +62,7 @@ type QuickReplyLevel = "main" | "services";
 interface QuickReply {
   id: string;
   label: string;
+  icon: LucideIcon;
   message?: string;
   href?: string;
   nextLevel?: QuickReplyLevel;
@@ -56,23 +71,27 @@ interface QuickReply {
 const MAIN_QUICK_REPLIES: QuickReply[] = [
   {
     id: "book",
-    label: "📅 Book a Call",
+    label: "Book a call",
+    icon: CalendarDays,
     message: "I'd like to book a free consultation call",
   },
   {
     id: "services",
-    label: "🚀 Our Services",
+    label: "Our services",
+    icon: Sparkles,
     message: "What services do you offer?",
     nextLevel: "services",
   },
   {
     id: "quote",
-    label: "💰 Get a Quote",
+    label: "Get a quote",
+    icon: IndianRupee,
     message: "I'd like to get a quote for my business",
   },
   {
     id: "whatsapp",
-    label: "💬 WhatsApp",
+    label: "WhatsApp",
+    icon: MessageCircle,
     href: WHATSAPP_URL,
   },
 ];
@@ -80,49 +99,61 @@ const MAIN_QUICK_REPLIES: QuickReply[] = [
 const SERVICES_QUICK_REPLIES: QuickReply[] = [
   {
     id: "website",
-    label: "🌐 Website Dev",
+    label: "Website dev",
+    icon: Globe,
     message: "Tell me more about website development",
   },
   {
     id: "social",
-    label: "📱 Social Media",
+    label: "Social media",
+    icon: Smartphone,
     message: "Tell me more about social media management",
   },
   {
     id: "ads",
-    label: "📊 Performance Ads",
+    label: "Performance ads",
+    icon: BarChart3,
     message: "Tell me more about performance marketing and ads",
   },
   {
     id: "seo",
-    label: "🔍 SEO",
+    label: "SEO",
+    icon: Search,
     message: "Tell me more about your SEO services",
   },
   {
     id: "ai",
-    label: "🤖 AI & Automation",
+    label: "AI & automation",
+    icon: Bot,
     message: "Tell me more about AI chatbots and automation",
   },
 ];
 
 // ─── Lead service options (shown inline during lead capture) ───────────────
 
-const LEAD_SERVICE_OPTIONS = [
-  { id: "website", label: "🌐 Website Development", value: "Website Development" },
-  { id: "social", label: "📱 Social Media Management", value: "Social Media Management" },
-  { id: "ads", label: "📊 Performance Marketing & Ads", value: "Performance Marketing & Ads" },
-  { id: "seo", label: "🔍 SEO", value: "SEO" },
-  { id: "ai", label: "🤖 AI & Automation", value: "AI & Automation" },
+const LEAD_SERVICE_OPTIONS: {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  value: string;
+}[] = [
+  { id: "website", label: "Website development", icon: Globe, value: "Website Development" },
+  { id: "social", label: "Social media", icon: Smartphone, value: "Social Media Management" },
+  { id: "ads", label: "Performance ads", icon: BarChart3, value: "Performance Marketing & Ads" },
+  { id: "seo", label: "SEO", icon: Search, value: "SEO" },
+  { id: "ai", label: "AI & automation", icon: Bot, value: "AI & Automation" },
 ];
 
 // ─── Chip button (shared style for initial quick replies) ──────────────────
 
 function ChipButton({
   label,
+  icon: Icon,
   onClick,
   disabled,
 }: {
   label: string;
+  icon?: LucideIcon;
   onClick: () => void;
   disabled?: boolean;
 }) {
@@ -132,9 +163,16 @@ function ChipButton({
       disabled={disabled}
       /* min-h-11 rather than more padding: these chips sit four to a 336px
          panel, so growing them vertically is the only way to reach a 44px
-         target without forcing them onto extra rows. */
-      className="inline-flex min-h-11 items-center rounded-full border border-primary/40 bg-white px-3 py-1.5 text-xs font-medium text-primary transition-all hover:border-primary hover:bg-primary/5 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.97]"
+         target without forcing them onto extra rows.
+
+         The leading glyph is a Lucide icon, not an emoji. Every chip carried
+         one before ("📅 Book a Call", "🤖 AI & Automation") — emoji render in
+         the OS font, so the widget was the one surface on the site whose icon
+         set changed shape between a Mac, a Pixel and a Windows laptop, and
+         none of those shapes matched the Lucide set used everywhere else. */
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-primary/25 bg-white px-3.5 py-1.5 text-xs font-medium text-primary transition-all hover:border-primary/60 hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-40 active:scale-[0.97]"
     >
+      {Icon && <Icon aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />}
       {label}
     </button>
   );
@@ -427,28 +465,35 @@ export default function ChatWidget() {
         }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between bg-navy px-5 py-4">
-          <div className="flex items-center gap-3">
-            <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-white/15">
-              <Image
-                src="/images/logo.png"
-                alt="Growth Masala"
-                width={28}
-                height={28}
-                className="h-7 w-7 object-contain"
-              />
+        <div className="relative flex items-center justify-between overflow-hidden bg-navy px-5 py-4">
+          {/* Same ambient treatment as every other navy surface on the site —
+              a soft blue bloom off the top-right corner. Flat navy here read
+              as a placeholder next to the hero and the CTA band. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-16 -right-10 h-36 w-36 rounded-full bg-primary/30 blur-[46px]"
+          />
+
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10">
+              <MasalaBotMark className="h-6.5 w-6.5" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">Masala Bot</p>
+              <p className="font-heading text-sm font-semibold text-white">
+                Masala Bot
+              </p>
               <div className="flex items-center gap-1.5">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                <p className="text-xs text-white/60">Online • Growth Masala</p>
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                <p className="text-xs text-white/70">Online • Growth Masala</p>
               </div>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            className="relative -mr-2 flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
             aria-label="Close chat"
           >
             <X className="h-4 w-4" />
@@ -461,15 +506,30 @@ export default function ChatWidget() {
             const isLastMessage = i === messages.length - 1;
             return (
               <div key={i}>
-                {/* Message bubble */}
+                {/* Message bubble.
+
+                    Assistant turns carry the avatar; user turns do not. That
+                    asymmetry is the convention in every messaging app and it is
+                    what makes a thread scannable — you find the replies by the
+                    face, not by re-reading which side each bubble is on. It
+                    only renders on the FIRST of a run of assistant messages, so
+                    a three-part answer shows one face and not three. */}
                 <div
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex items-start gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
+                  {msg.role === "assistant" &&
+                    (messages[i - 1]?.role !== "assistant" ? (
+                      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy">
+                        <MasalaBotMark className="h-4.5 w-4.5" />
+                      </span>
+                    ) : (
+                      <span aria-hidden="true" className="h-7 w-7 shrink-0" />
+                    ))}
                   <div
                     className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                       msg.role === "user"
                         ? "rounded-br-md bg-primary text-white"
-                        : "rounded-bl-md bg-surface text-text-primary"
+                        : "rounded-bl-md border border-border bg-surface text-text-primary"
                     }`}
                   >
                     <FormattedMessage content={msg.content} />
@@ -481,11 +541,12 @@ export default function ChatWidget() {
                   msg.showServicePicker &&
                   isLastMessage &&
                   !isLoading && (
-                    <div className="flex flex-wrap gap-2 mt-3 ml-1">
+                    <div className="mt-3 ml-9 flex flex-wrap gap-2">
                       {LEAD_SERVICE_OPTIONS.map((opt) => (
                         <ChipButton
                           key={opt.id}
                           label={opt.label}
+                          icon={opt.icon}
                           onClick={() =>
                             sendMessage(`I'm interested in ${opt.value}`)
                           }
@@ -500,8 +561,8 @@ export default function ChatWidget() {
                   msg.pendingLead &&
                   isLastMessage &&
                   !leadConfirmed && (
-                    <div className="mt-3 ml-1 rounded-xl border border-primary/20 bg-primary/5 p-4">
-                      <p className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider mb-2">
+                    <div className="mt-3 ml-9 rounded-xl border border-primary/20 bg-primary/5 p-4">
+                      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-text-secondary">
                         Your Details
                       </p>
                       <div className="space-y-1 text-sm text-text-primary mb-3">
@@ -540,8 +601,13 @@ export default function ChatWidget() {
 
           {/* Auto-open fake typing indicator */}
           {isTyping && (
-            <div className="flex justify-start">
-              <div className="rounded-2xl rounded-bl-md bg-surface px-4 py-3">
+            <div className="flex items-start justify-start gap-2">
+              {/* Avatar here too, or the dots sit 36px left of the reply they
+                  turn into and the whole column jumps when it lands. */}
+              <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy">
+                <MasalaBotMark className="h-4.5 w-4.5" />
+              </span>
+              <div className="rounded-2xl rounded-bl-md border border-border bg-surface px-4 py-3">
                 <div className="flex items-center gap-1">
                   <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:0ms]" />
                   <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:150ms]" />
@@ -553,8 +619,13 @@ export default function ChatWidget() {
 
           {/* Bot responding indicator */}
           {isLoading && (
-            <div className="flex justify-start">
-              <div className="rounded-2xl rounded-bl-md bg-surface px-4 py-3">
+            <div className="flex items-start justify-start gap-2">
+              {/* Avatar here too, or the dots sit 36px left of the reply they
+                  turn into and the whole column jumps when it lands. */}
+              <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy">
+                <MasalaBotMark className="h-4.5 w-4.5" />
+              </span>
+              <div className="rounded-2xl rounded-bl-md border border-border bg-surface px-4 py-3">
                 <div className="flex items-center gap-1">
                   <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:0ms]" />
                   <span className="h-2 w-2 animate-bounce rounded-full bg-primary/40 [animation-delay:150ms]" />
@@ -576,6 +647,7 @@ export default function ChatWidget() {
                 <ChipButton
                   key={reply.id}
                   label={reply.label}
+                  icon={reply.icon}
                   onClick={() => handleQuickReply(reply)}
                   disabled={isLoading}
                 />
@@ -640,7 +712,13 @@ export default function ChatWidget() {
             try { sessionStorage.setItem(CHAT_SEEN_KEY, "1"); } catch {}
           }
         }}
-          className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 hover:bg-primary-dark active:scale-95 ${wiggle ? "animate-wiggle" : ""}`}
+          /* Navy, not primary blue. The mark is itself a blue gradient, so on a
+             #2563EB disc it was blue-on-blue and the face disappeared at 56px —
+             the whole point of drawing one. Navy also stops the launcher
+             competing with the green WhatsApp button beside it: two saturated
+             discs of equal weight read as two equal choices, and WhatsApp is
+             the one we actually want tapped (see the contact page). */
+          className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-navy text-white shadow-lg shadow-navy/40 ring-1 ring-white/10 transition-all hover:scale-105 hover:bg-navy-light active:scale-95 ${wiggle ? "animate-wiggle" : ""}`}
           aria-label={isOpen ? "Close chat" : "Open chat"}
           style={{ touchAction: "manipulation" }}
         >
@@ -648,7 +726,7 @@ export default function ChatWidget() {
             <X className="h-6 w-6" />
           ) : (
             <>
-              <MessageCircle className="h-6 w-6" />
+              <MasalaBotMark className="h-8 w-8" />
               {/* Notification dot */}
               {showDot && (
                 <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
