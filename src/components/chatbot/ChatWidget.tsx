@@ -39,7 +39,7 @@ const STORAGE_KEY = "gm-chat-history";
 const AUTO_OPENED_KEY = "gm-chat-auto-opened";
 
 /**
- * Whether the panel opens itself after the nudge delay, or only wiggles.
+ * Whether the panel opens itself after the nudge delay, or only nudges.
  *
  * `false` on purpose — see the nudge effect below for what the open panel was
  * covering. Flip to `true` to restore the old force-open behaviour.
@@ -188,7 +188,7 @@ export default function ChatWidget() {
   const [showQuickReplies, setShowQuickReplies] = useState(false);
   const [quickReplyLevel, setQuickReplyLevel] = useState<QuickReplyLevel>("main");
   const [isTyping, setIsTyping] = useState(false);
-  const [wiggle, setWiggle] = useState(false);
+  const [popNudge, setPopNudge] = useState(false);
   const [leadConfirmed, setLeadConfirmed] = useState(() => {
     try {
       return !!sessionStorage.getItem(LEAD_CONFIRMED_KEY);
@@ -249,7 +249,7 @@ export default function ChatWidget() {
   // the site's whole argument is that the prices are published and you do not
   // have to ask. There is no bottom-right position where a 520px panel avoids
   // this, so the panel no longer opens itself; it nudges, exactly as it already
-  // did on mobile. The dot and the wiggle still say "there is something here",
+  // did on mobile. The dot, the halo and the pop still say "there is something
   // and opening it stays the reader's decision.
   //
   // One flag restores the old behaviour if the owner wants it back.
@@ -266,8 +266,8 @@ export default function ChatWidget() {
         return;
       }
 
-      setWiggle(true);
-      setTimeout(() => setWiggle(false), 1000);
+      setPopNudge(true);
+      setTimeout(() => setPopNudge(false), 1000);
     }, 4000);
 
     return () => {
@@ -703,40 +703,73 @@ export default function ChatWidget() {
           </svg>
         </a>
 
-        {/* Chat toggle */}
-        <button
-          onClick={() => {
-          setIsOpen((prev) => !prev);
-          if (showDot) {
-            setShowDot(false);
-            try { sessionStorage.setItem(CHAT_SEEN_KEY, "1"); } catch {}
-          }
-        }}
-          /* Navy, not primary blue. The mark is itself a blue gradient, so on a
-             #2563EB disc it was blue-on-blue and the face disappeared at 56px —
-             the whole point of drawing one. Navy also stops the launcher
-             competing with the green WhatsApp button beside it: two saturated
-             discs of equal weight read as two equal choices, and WhatsApp is
-             the one we actually want tapped (see the contact page). */
-          className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-navy text-white shadow-lg shadow-navy/40 ring-1 ring-white/10 transition-all hover:scale-105 hover:bg-navy-light active:scale-95 ${wiggle ? "animate-wiggle" : ""}`}
-          aria-label={isOpen ? "Close chat" : "Open chat"}
-          style={{ touchAction: "manipulation" }}
-        >
-          {isOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
+        {/* Chat toggle.
+
+            Wrapped so the halo rings have something to be absolute against.
+            They are siblings of the button, not children: a child would be
+            clipped by `rounded-full` and would inherit the button's own hover
+            scale, so the ring would grow twice. */}
+        <div className="relative">
+          {/* The standing highlight, and the reason the eye lands here at all.
+              Two rings on opposite phases so one is always mid-flight.
+
+              Rendered only while unopened and closed. `showDot` is cleared to
+              sessionStorage the first time the launcher is clicked, so this
+              runs once per session and then stops for good — an attention loop
+              that keeps going after the user has answered it is a nag, not a
+              highlight.
+
+              Blue then amber: the same two-colour emphasis pairing the rest of
+              the site uses, rather than two of the same ring. */}
+          {showDot && !isOpen && (
             <>
-              <MasalaBotMark className="h-8 w-8" />
-              {/* Notification dot */}
-              {showDot && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex h-3 w-3 rounded-full bg-accent" />
-                </span>
-              )}
+              <span
+                aria-hidden="true"
+                className="animate-bot-halo pointer-events-none absolute inset-0 rounded-full border-2 border-primary"
+              />
+              <span
+                aria-hidden="true"
+                className="animate-bot-halo pointer-events-none absolute inset-0 rounded-full border-2 border-accent"
+                style={{ animationDelay: "1.3s" }}
+              />
             </>
           )}
-        </button>
+
+          <button
+            onClick={() => {
+            setIsOpen((prev) => !prev);
+            if (showDot) {
+              setShowDot(false);
+              try { sessionStorage.setItem(CHAT_SEEN_KEY, "1"); } catch {}
+            }
+          }}
+            /* Navy, not primary blue. The mark is itself a blue gradient, so on a
+               #2563EB disc it was blue-on-blue and the face disappeared at 56px —
+               the whole point of drawing one. Navy also stops the launcher
+               competing with the green WhatsApp button beside it: two saturated
+               discs of equal weight read as two equal choices, and WhatsApp is
+               the one we actually want tapped (see the contact page). */
+            className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-navy text-white shadow-lg shadow-navy/40 ring-1 ring-white/10 transition-all hover:scale-105 hover:bg-navy-light active:scale-95 ${popNudge ? "animate-bot-pop" : ""}`}
+            aria-label={isOpen ? "Close chat" : "Open chat"}
+            style={{ touchAction: "manipulation" }}
+          >
+            {isOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <>
+                <MasalaBotMark className="h-8 w-8" />
+                {/* Notification dot. Static — it used to carry its own
+                    `animate-ping`, which was a second expanding ring on top of
+                    the halo's two. Three pulse cycles on one 56px button read
+                    as a glitch rather than as emphasis. The halo does the
+                    motion; the dot just marks "unread". */}
+                {showDot && (
+                  <span className="absolute -top-0.5 -right-0.5 h-3 w-3 rounded-full bg-accent ring-2 ring-navy" />
+                )}
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

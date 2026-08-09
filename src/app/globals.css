@@ -228,20 +228,49 @@ main {
   animation: page-enter 0.4s ease-out;
 }
 
-/* Chat button wiggle — mobile attention nudge */
-@keyframes wiggle {
-  0%   { transform: rotate(0deg) scale(1); }
-  15%  { transform: rotate(-12deg) scale(1.1); }
-  30%  { transform: rotate(10deg) scale(1.1); }
-  45%  { transform: rotate(-8deg) scale(1.05); }
-  60%  { transform: rotate(6deg) scale(1.05); }
-  75%  { transform: rotate(-4deg) scale(1); }
-  90%  { transform: rotate(2deg) scale(1); }
-  100% { transform: rotate(0deg) scale(1); }
+/* ── Chat launcher attention treatment ────────────────────────────────────
+ *
+ * Two separate jobs, deliberately kept as two animations rather than one.
+ *
+ * `bot-halo` is the standing highlight: a ring that grows out of the launcher
+ * and fades, twice over on staggered delays so there is almost always one in
+ * flight. It runs only while the bot has not been opened yet — `showDot` in
+ * ChatWidget gates it, and that flag is cleared to sessionStorage on the first
+ * click — so it draws the eye once per session and then never again. An
+ * attention loop that keeps running after the user has answered it stops being
+ * a highlight and becomes a nag.
+ *
+ * `bot-pop` is the one-time nudge at the 4s mark. It replaced `wiggle`, which
+ * rotated the button ±12°. That was fine when the launcher held a generic
+ * speech bubble; it is not fine now that it holds a face, because a rotating
+ * head reads as broken rather than playful. A scale bounce says "look here"
+ * without tipping the character over. The overshoot curve is what makes it
+ * feel like a pop rather than a swell.
+ *
+ * Both animate only `transform` and `opacity`, so they stay off the main
+ * thread — this thing sits on every page of the site and the halo is infinite
+ * until dismissed.
+ */
+@keyframes bot-halo {
+  0%   { transform: scale(0.85); opacity: 0; }
+  18%  { opacity: 0.6; }
+  100% { transform: scale(1.9); opacity: 0; }
 }
 
-.animate-wiggle {
-  animation: wiggle 0.8s ease-in-out;
+.animate-bot-halo {
+  animation: bot-halo 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes bot-pop {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.16); }
+  55%  { transform: scale(0.96); }
+  78%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-bot-pop {
+  animation: bot-pop 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ========================================
@@ -573,8 +602,11 @@ main {
        The site has real anchors — the hero's "See our pricing" and the four
        service-group links — so this is the one a reader actually feels.
      - `main`'s page-enter fade-and-lift, on every route change.
-     - the chat button's wiggle, which is a deliberate attention grab and
-       exactly the kind of thing the preference exists to suppress.
+     - the chat launcher's halo and pop, which are a deliberate attention grab
+       and exactly the kind of thing the preference exists to suppress. The
+       halo is also the only infinite animation on the site, so leaving it out
+       of here would mean a reduced-motion reader gets a ring pulsing at them
+       for the whole visit.
 
    Anything new that animates without an `.animate-*` class needs adding here
    by hand. A blanket `*{animation:none}` is tempting and wrong — it would also
@@ -589,9 +621,16 @@ main {
     animation: none !important;
   }
 
-  .animate-wiggle {
+  .animate-bot-pop {
     animation: none !important;
     transform: none !important;
+  }
+
+  /* The halo is display:none rather than animation:none — its resting frame is
+     a 0.85-scale ring at zero opacity, so stopping the animation would leave a
+     static ring sitting on the launcher rather than nothing. */
+  .animate-bot-halo {
+    display: none !important;
   }
 }
 
