@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Globe } from "lucide-react";
+import { ArrowUpRight, Check, Globe, Plus } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
   serviceGroups,
@@ -15,9 +15,15 @@ import type { ServiceGroup, ServiceGroupId } from "@/types";
  *
  * This replaces four full-width `ServiceGroupSection` blocks — roughly 7,800px
  * of scroll with a deliverables list per service — which the client rejected as
- * overwhelming. The trade is real: the deliverable copy and the group artwork no
- * longer render anywhere on the site. What survives is what a buyer scans for —
- * the group, the outcome, and which services sit inside it.
+ * overwhelming. Collapsing them cost the deliverable copy, which then rendered
+ * nowhere on the site at all — nine services' worth of already-written detail
+ * sitting unread in `services.ts` while /services could not answer "what do I
+ * actually get". Each service name is now a native <details>: the card still
+ * scans in a second, and the answer is one click away instead of one page away.
+ *
+ * <details>, not state, so this stays a server component with no bundle, works
+ * before hydration and without JavaScript, and is keyboard-operable for free.
+ * It is the same disclosure ServicesPricing uses for the care plans.
  *
  * Everything shown is derived from `src/data/services.ts`. Nothing here is a
  * second copy of a service name.
@@ -61,23 +67,107 @@ const EXPLORE_LABEL: Record<ServiceGroupId, string> = {
   software: "Talk about software",
 };
 
+/** One expandable row on a group card. */
+interface DetailRow {
+  title: string;
+  description: string;
+  points: string[];
+}
+
 /**
- * The service names shown as bullets.
+ * The rows shown on a group card, each one expandable.
  *
- * Normally one bullet per service in the group. Custom Software is a group of
- * exactly one service whose title ("Custom Software & Web Apps") merely repeats
- * the card heading — for that shape the service's own `subItems` are the useful
- * breakdown, and they are what the canvas draws.
+ * Normally one row per service: its name, its description, its deliverables.
+ *
+ * Custom Software is the exception. It is a group of exactly one service whose
+ * title ("Custom Software & Web Apps") merely repeats the card heading, so a
+ * single row would read as a card containing itself. Its `subItems` are the
+ * useful breakdown and each carries its own description, so those become the
+ * rows — and because they have no deliverables of their own, the parent
+ * service's list is appended as a final row. Nothing in `services.ts` goes
+ * unrendered either way.
  */
-function groupBullets(group: ServiceGroup): string[] {
+function groupRows(group: ServiceGroup): DetailRow[] {
   const groupServices = servicesInGroup(group);
   const [only] = groupServices;
 
   if (groupServices.length === 1 && only?.subItems?.length) {
-    return only.subItems.map((item) => item.title);
+    return [
+      ...only.subItems.map((item) => ({
+        title: item.title,
+        description: item.description,
+        points: [],
+      })),
+      {
+        title: "Included in every build",
+        description: only.description,
+        points: only.deliverables,
+      },
+    ];
   }
 
-  return groupServices.map((service) => service.title);
+  return groupServices.map((service) => ({
+    title: service.title,
+    description: service.description,
+    points: service.deliverables,
+  }));
+}
+
+/**
+ * One disclosure row.
+ *
+ * The summary is the whole 44px target, not just the text — `min-h-11` plus
+ * `w-full`, because a caret you have to hit precisely is worse than no caret.
+ * `list-none` and the `::-webkit-details-marker` reset remove the browser's
+ * default triangle; Safari needs the second one specifically.
+ *
+ * The plus rotates 45° into a cross on open, which is the same open/close
+ * marker `FAQSection` uses. Rotation rather than an icon swap so it animates,
+ * and `transition-transform` alone means it is exempt from nothing in the
+ * reduced-motion block — transitions on hover/state are not what that
+ * preference is aimed at, and the site already treats them that way.
+ */
+function DetailDisclosure({ row }: { row: DetailRow }) {
+  return (
+    <details className="group/row border-t border-border first:border-t-0">
+      <summary className="flex min-h-11 w-full cursor-pointer list-none items-center gap-2.5 py-2.5 marker:hidden [&::-webkit-details-marker]:hidden">
+        <span
+          aria-hidden="true"
+          className="h-1.25 w-1.25 shrink-0 rounded-full bg-accent"
+        />
+        <span className="flex-1 text-sm font-medium leading-tight text-text-primary">
+          {row.title}
+        </span>
+        <Plus
+          aria-hidden="true"
+          className="h-4 w-4 shrink-0 text-primary transition-transform duration-200 group-open/row:rotate-45"
+        />
+      </summary>
+
+      <div className="pb-3.5 pl-5.5">
+        <p className="text-[13px] leading-relaxed text-text-secondary">
+          {row.description}
+        </p>
+
+        {row.points.length > 0 && (
+          <ul className="mt-3 flex flex-col gap-1.5">
+            {row.points.map((point) => (
+              <li key={point} className="flex items-start gap-2">
+                <Check
+                  aria-hidden="true"
+                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"
+                  strokeWidth={2.5}
+                />
+                <span className="text-[13px] leading-snug text-text-secondary">
+                  {point}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </details>
+  );
 }
 
 function GroupCard({ group, index }: { group: ServiceGroup; index: number }) {
@@ -101,19 +191,11 @@ function GroupCard({ group, index }: { group: ServiceGroup; index: number }) {
           {group.outcome}
         </p>
 
-        <ul className="mt-4.5 flex flex-col gap-2.5 border-t border-border pt-4">
-          {groupBullets(group).map((label) => (
-            <li key={label} className="flex items-start gap-2.5">
-              <span
-                aria-hidden="true"
-                className="mt-2 h-1.25 w-1.25 shrink-0 rounded-full bg-accent"
-              />
-              <span className="text-sm font-medium leading-tight text-text-primary">
-                {label}
-              </span>
-            </li>
+        <div className="mt-4.5 border-t border-border pt-1.5">
+          {groupRows(group).map((row) => (
+            <DetailDisclosure key={row.title} row={row} />
           ))}
-        </ul>
+        </div>
       </div>
 
       <Link
