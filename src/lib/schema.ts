@@ -187,7 +187,17 @@ export interface FaqItem {
 }
 
 /**
- * FAQPage schema. Drives FAQ rich results and feeds AI Overviews directly.
+ * FAQPage schema.
+ *
+ * This no longer drives a Google SERP feature. FAQ rich results were narrowed
+ * to government and health sites in August 2023 and removed outright on
+ * 2026-05-07; Search Console dropped the FAQ appearance filter and rich-result
+ * report the following month. Do not expect to see FAQ data in Search Console.
+ *
+ * It is still emitted because `FAQPage` remains a valid schema.org type that AI
+ * answer engines parse, and `public/robots.txt` explicitly invites those
+ * crawlers for citation visibility.
+ *
  * Only emit this when the same questions and answers are visible on the page —
  * hidden FAQ schema is a structured-data policy violation.
  */

@@ -7,7 +7,7 @@ import LocationHero from "@/components/locations/LocationHero";
 import LocationServices from "@/components/locations/LocationServices";
 import LocationWhyLocal from "@/components/locations/LocationWhyLocal";
 import { services } from "@/data/services";
-import { buildLocationFaqs } from "@/data/faqs";
+import { getLocationFaqs } from "@/data/faqs";
 import {
   getLocationPage,
   locationPages,
@@ -78,7 +78,7 @@ export default async function LocationPageRoute({ params }: PageProps) {
     .map((relatedSlug) => getLocationPage(relatedSlug))
     .filter((p): p is LocationPage => Boolean(p));
 
-  const faqs = buildLocationFaqs(page.city, page.serviceLabel);
+  const faqs = getLocationFaqs(slug, page.city, page.serviceLabel);
 
   const schemas = [
     buildServiceSchema({
