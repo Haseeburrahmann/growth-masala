@@ -170,10 +170,31 @@ export default function PricingSection() {
         </AnimatedContainer>
 
         <AnimatedContainer animation="fade-in" delay={180}>
+          {/* The text is wrapped in a <span> so the two links do not become
+              flex items of their own. Without it each <Link> lays out as a
+              separate item beside the icon and the paragraph stops wrapping as
+              one block of prose. */}
           <p className="mt-5 flex items-start gap-2.5 text-[13px] leading-5 text-slate-500">
             <Info aria-hidden="true" className="mt-px h-4 w-4 shrink-0" />
-            Prices exclude GST. Anything else is quoted as a fixed price first.
-            The first consultation is free.
+            <span>
+              Prices exclude GST. Anything else is quoted as a fixed price
+              first. The first consultation is free. Still comparing quotes? Our{" "}
+              <Link
+                href="/blog/website-design-cost-mahabubnagar"
+                className="font-medium text-primary underline underline-offset-2 hover:text-primary-dark"
+              >
+                website design cost guide for Mahabubnagar
+              </Link>{" "}
+              breaks down what each price band actually buys, alongside the
+              other{" "}
+              <Link
+                href="/blog"
+                className="font-medium text-primary underline underline-offset-2 hover:text-primary-dark"
+              >
+                price guides on our blog
+              </Link>
+              .
+            </span>
           </p>
         </AnimatedContainer>
       </div>

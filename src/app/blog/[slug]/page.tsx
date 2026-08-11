@@ -7,6 +7,7 @@ import {
   buildBreadcrumbSchema,
   buildFaqSchema,
 } from "@/lib/schema";
+import MorePosts from "@/components/blog/MorePosts";
 import PostBody, { extractHeadings } from "@/components/blog/PostBody";
 import PostFaqs, { POST_FAQ_HEADING } from "@/components/blog/PostFaqs";
 import PostRail from "@/components/blog/PostRail";
@@ -237,6 +238,10 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             {/* Same array as `faqSchema` above — never a second, prettier copy. */}
             {post.meta.faqs && <PostFaqs faqs={post.meta.faqs} />}
+
+            {/* The only path between posts. See the component for why it is
+                here rather than in the desktop-only rail. */}
+            <MorePosts currentSlug={slug} />
           </article>
 
           <PostRail headings={headings} />
