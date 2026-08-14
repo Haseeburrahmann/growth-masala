@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
-import { navLinks } from "@/data/navigation";
+import { legalLinks, navLinks } from "@/data/navigation";
 import { addressLine, business } from "@/data/business";
 import { locationPages } from "@/data/locations";
 
@@ -180,8 +180,32 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-slate-400 md:flex-row">
+        <div className="flex flex-col items-center gap-4 border-t border-white/10 py-6 text-xs text-slate-400 md:flex-row md:justify-between">
           <span>&copy; {new Date().getFullYear()} Growth Masala. All rights reserved.</span>
+
+          {/* Legal, on every page.
+              Same reasoning as the location cluster above: a page reachable
+              only from the sitemap is a page nobody finds. These three have the
+              extra constraint that Meta's app review fetches /privacy and
+              /data-deletion directly, and a visitor deciding whether to enquire
+              looks for them here and nowhere else.
+              Driven by `legalLinks` so adding a fourth document does not
+              require remembering this file exists. */}
+          <nav aria-label="Legal">
+            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              {legalLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <span>Crafted with strategy & spice.</span>
         </div>
       </div>

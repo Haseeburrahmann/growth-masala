@@ -199,6 +199,31 @@ export interface BlogPost {
 }
 
 /**
+ * A legal document — privacy policy, terms, data deletion.
+ *
+ * Deliberately thinner than `BlogPost`. These pages have no category, no read
+ * time, no cover image and no listing to appear in; they exist to be correct
+ * and to be found when someone goes looking. `updated` is the only date that
+ * matters on a legal document, so unlike a post there is no separate `date`.
+ */
+export interface LegalDoc {
+  slug: LegalSlug;
+  /** The `<h1>`. Also the bare `<title>` — these need no keyword engineering. */
+  title: string;
+  /** Meta description. Written per document, never derived from the body. */
+  description: string;
+  /** One sentence under the H1, setting the tone before the legalese starts. */
+  standfirst: string;
+  /** ISO date of the last substantive revision. Shown on the page *and* used as
+   *  `dateModified` in the WebPage schema — on a legal document those two must
+   *  agree, because the visible date is the one a reader relies on. */
+  updated: string;
+}
+
+/** The three legal routes. A closed set — each has its own static route. */
+export type LegalSlug = "privacy" | "terms" | "data-deletion";
+
+/**
  * Structurally identical to `FaqItem` in `lib/schema.ts`, declared separately
  * because `types/index.ts` must not import from `lib/` — nothing else here does.
  */

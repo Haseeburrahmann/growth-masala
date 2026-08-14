@@ -243,6 +243,50 @@ export function buildServiceSchema({
   };
 }
 
+export interface WebPageSchemaInput {
+  name: string;
+  description: string;
+  path: string;
+  /** ISO date of the last substantive revision. */
+  dateModified: string;
+}
+
+/**
+ * A plain `WebPage` node, used by the three legal documents.
+ *
+ * Deliberately minimal. schema.org has no `PrivacyPolicy` or `TermsOfService`
+ * type — the closest thing is Google's merchant-specific vocabulary, which does
+ * not apply to an agency — so inventing a narrower `@type` here would produce
+ * exactly the validator warnings Rule 8 exists to avoid. `WebPage` is the
+ * correct type, and correct beats specific.
+ *
+ * Worth emitting at all for one reason: `dateModified`. "When did these terms
+ * last change" is a real question with a machine-readable answer, and
+ * `public/robots.txt` invites GPTBot, PerplexityBot and ClaudeBot, which is
+ * increasingly how anyone asks it.
+ *
+ * `isPartOf` and `publisher` reference the site and business nodes by @id
+ * rather than restating them, the same as every other page-level node here.
+ */
+export function buildWebPageSchema({
+  name,
+  description,
+  path,
+  dateModified,
+}: WebPageSchemaInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url: `${SITE_URL}${path}`,
+    isPartOf: { "@id": WEBSITE_ID },
+    publisher: { "@id": BUSINESS_ID },
+    inLanguage: "en-IN",
+    dateModified,
+  };
+}
+
 export interface ArticleSchemaInput {
   title: string;
   description: string;
