@@ -465,6 +465,8 @@ curl -s http://localhost:3000/services | grep -oE '<title>[^<]*</title>|<link re
 | Contact API | `src/app/api/contact/route.ts` |
 | Email utility | `src/lib/email.ts` |
 | Blog posts | `src/content/blog/` |
+| **Legal documents (privacy/terms/deletion)** | `src/content/legal/` — markdown; NAP via `{{token}}`, see seo-architecture §Rule 9 |
+| Legal doc loader | `src/lib/legal.ts` |
 | Blog images | `public/images/blog/` |
 | Portfolio data | `src/data/portfolio.ts` |
 | Brand logo | `public/images/logo.png` |

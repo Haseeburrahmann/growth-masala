@@ -20,8 +20,9 @@ Companion documents:
 | Titles, descriptions, canonicals | Each route's `layout.tsx` / `page.tsx` | Never the root layout — see the canonical rule below. |
 | FAQ content | `src/data/faqs.ts` | Must stay in sync with what `FAQSection` renders. |
 | Location landing pages | `src/data/locations.ts` + `src/app/[slug]/page.tsx` | Data-driven; one component serves all 12. |
-| Sitemap | `src/app/sitemap.ts` | Derives location and blog URLs automatically. |
+| Sitemap | `src/app/sitemap.ts` | Derives location, blog and legal URLs automatically. |
 | Crawler directives | `public/robots.txt` | Explicitly allows AI crawlers (GPTBot, PerplexityBot, ClaudeBot…). |
+| Legal documents | `src/content/legal/*.md` + `src/lib/legal.ts` | Markdown. NAP is interpolated from `business.ts` — see Rule 9. |
 
 ---
 
@@ -293,6 +294,51 @@ entry is an `Offer` wrapping a `Service`, and `serviceType` is valid *there*.
 
 ---
 
+## Rule 9 — Legal pages interpolate NAP, they never retype it
+
+`/privacy`, `/terms` and `/data-deletion` are markdown in `src/content/legal/`,
+rendered through the blog's `PostBody` and loaded by `src/lib/legal.ts`.
+
+Markdown cannot import `business.ts`, so without help these three would be the
+one surface allowed to keep private copies of the email address and phone
+number — on the pages where a regulator, an opted-out lead and Meta's app
+review are all told where to write. `lib/legal.ts` therefore resolves
+`{{email}}`, `{{phoneDisplay}}`, `{{phone}}`, `{{addressLine}}`, `{{locality}}`,
+`{{region}}`, `{{name}}` and `{{site}}` at read time, the same way
+`lib/blog.ts` resolves `{{price:…}}`.
+
+An unknown token is left in place verbatim rather than blanked. A stray
+`{{emial}}` in rendered output is obvious in review; an empty space where the
+contact address belongs is not.
+
+**Frontmatter values must be quoted.** `updated: 2026-08-13` unquoted is parsed
+by YAML as a *timestamp*, so gray-matter returns a `Date` and the
+`as string` cast used throughout this repo compiles and then throws
+`e.split is not a function` — during sitemap prerender, several files from the
+edit that caused it. `toIsoDate()` in `lib/legal.ts` now absorbs both shapes,
+but quote them anyway; every blog post already does.
+
+### These pages are indexed on purpose
+
+Priority 0.3, `changefreq: yearly`. A published privacy policy and terms are a
+trust signal for a local business and the pages a cautious buyer checks before
+enquiring, and Meta fetches `/privacy` and `/data-deletion` during app review.
+Low priority keeps them from competing with a service or location page; it is
+not an instruction to hide them.
+
+`lastmod` comes from the `updated` frontmatter, not from git. The sitemap date,
+the date rendered in the hero, and `dateModified` on the `WebPage` node all read
+that one field, so a revision cannot update two of the three and leave the
+sitemap claiming the terms changed on a day they did not.
+
+### `/data-deletion` is a fixed URL
+
+That slug is typed into the Meta Developer console as the app's **Data Deletion
+Instructions URL**, and Meta will not let an app be published without it.
+Renaming the route silently breaks a setting nothing in this repo can see.
+
+---
+
 ## Verification
 
 Assumptions about metadata are unreliable — Next.js merges parent and child
@@ -343,6 +389,14 @@ and re-check the similarity numbers. Sitemap and static params update themselves
 **A new blog post:** drop the markdown in `src/content/blog/`. Canonical,
 `BlogPosting` schema, breadcrumbs, and the sitemap entry are all automatic. Set
 `image` in the frontmatter to a `.webp` path.
+
+**A new legal document:** add the markdown to `src/content/legal/` with quoted
+frontmatter, add the slug to `LegalSlug` in `src/types/index.ts`, add an entry
+to `legalLinks` in `src/data/navigation.ts`, and create the route's
+`layout.tsx` / `page.tsx` from `/privacy`'s. The footer link and the sitemap
+entry both follow `legalLinks`, so neither needs touching. `getLegalDoc()`
+throws on a missing file, which makes a mismatch a failed build rather than a
+404 discovered by Meta.
 
 **A new service:** add it to `src/data/services.ts`. It propagates to the
 homepage, the services page, the chatbot prompt and the `OfferCatalog` JSON-LD

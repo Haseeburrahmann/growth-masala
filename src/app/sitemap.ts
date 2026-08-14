@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts, parsePostDate } from "@/lib/blog";
+import { getLegalDoc, parseLegalDate } from "@/lib/legal";
 import { SITE_URL } from "@/data/business";
 import { lastModifiedFor } from "@/lib/lastModified";
 import { locationPages } from "@/data/locations";
+import { legalLinks } from "@/data/navigation";
+import type { LegalSlug } from "@/types";
 
 /**
  * Source paths behind each static route.
@@ -95,5 +98,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...locationUrls, ...blogPages];
+  // Legal documents. `lastModified` comes from frontmatter rather than git for
+  // the same reason blog posts do, only more strictly: on a legal document the
+  // effective date is a claim being made TO the reader. The date in the
+  // sitemap, the date rendered in the hero, and `dateModified` in the WebPage
+  // schema all read the one `updated` field, so a revision cannot update two of
+  // the three and leave the sitemap insisting the terms changed on a day they
+  // did not.
+  //
+  // Priority 0.3, yearly: these must never compete with a service or location
+  // page for attention. They are indexed because a published privacy policy is
+  // a trust signal and because Meta's app review fetches them — not because
+  // they are meant to rank.
+  const legalPages: MetadataRoute.Sitemap = legalLinks.map((link) => {
+    const slug = link.href.replace("/", "") as LegalSlug;
+    const { meta } = getLegalDoc(slug);
+
+    return {
+      url: `${SITE_URL}${link.href}`,
+      lastModified: parseLegalDate(meta.updated),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    };
+  });
+
+  return [...staticPages, ...locationUrls, ...blogPages, ...legalPages];
 }
