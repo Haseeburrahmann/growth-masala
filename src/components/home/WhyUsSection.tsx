@@ -47,8 +47,8 @@ import SectionIntro from "@/components/home/SectionIntro";
 const pillars = [
   {
     icon: MapPin,
-    title: "We are actually here",
-    body: "A Mahabubnagar address. Telugu, Hindi or English.",
+    title: "A Telangana-based team",
+    body: "Based in Mahabubnagar, working remotely in Telugu, Hindi or English.",
     accent: false,
   },
   {
@@ -86,7 +86,7 @@ const comparisons = [
   {
     option: "A freelancer",
     usually: "Goes quiet halfway through.",
-    ours: "A registered business you can walk into.",
+    ours: "A registered business with direct access to the people doing the work.",
     blocked: false,
   },
   {

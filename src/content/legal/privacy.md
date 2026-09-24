@@ -2,7 +2,7 @@
 title: "Privacy Policy"
 description: "What Growth Masala collects, why, who it is shared with, and how to have it deleted. Covers the website, our chatbot, and business outreach on WhatsApp."
 standfirst: "This policy describes exactly what we collect and what we do with it. It is written to be read, not to be survived."
-updated: "2026-08-13"
+updated: "2026-09-24"
 ---
 
 Growth Masala ("we", "us") is a digital marketing agency based in {{locality}}, {{region}}. This policy covers [{{site}}]({{site}}), our website chatbot, and the messages we send to businesses on WhatsApp.
@@ -138,7 +138,7 @@ If we change how we handle information, we will update this page and change the 
 
 ## Contact us
 
-**{{name}}** — {{addressLine}}, India
+**{{name}}** — based in {{locality}}, {{region}}, India (remote service)
 
 - Email: [{{email}}](mailto:{{email}})
 - Phone: [{{phoneDisplay}}](tel:{{phone}})

@@ -22,7 +22,7 @@ import { addOns, websiteTiers, carePlans, formatPrice } from "@/data/pricing";
 export const generalFaqs: FaqItem[] = [
   {
     question: "Where is Growth Masala based?",
-    answer: `Growth Masala is a digital marketing agency based in ${address.locality}, ${address.region}. We work with businesses across ${address.locality} district, Hyderabad, and the rest of India — most of our work is delivered remotely, and we meet locally when a project calls for it.`,
+    answer: `Growth Masala is a digital marketing agency based in ${address.locality}, ${address.region}. We work remotely with businesses across ${address.locality} district, Hyderabad, and the rest of India. We do not have a customer-facing office.`,
   },
   {
     question: "What services does Growth Masala offer?",
@@ -74,7 +74,7 @@ export const generalFaqs: FaqItem[] = [
 export const servicesFaqs: FaqItem[] = [
   {
     question: `Which services do you actually deliver in ${address.locality}?`,
-    answer: `All of them. Websites and online stores, custom software and internal tools, SEO and Google Business Profile, Meta and Google ads, social media management, and AI chatbots and WhatsApp automation. We are based in ${address.locality}, so local projects can be run face to face; everything else is delivered remotely.`,
+    answer: `All of them. Websites and online stores, custom software and internal tools, SEO and Google Business Profile, Meta and Google ads, social media management, and AI chatbots and WhatsApp automation. We are based in ${address.locality} and deliver projects remotely, including work for local businesses.`,
   },
   {
     question: "Can I start with one service and add others later?",
@@ -108,11 +108,8 @@ export const servicesFaqs: FaqItem[] = [
  * have ready, whether it costs anything — rather than re-answering what we sell.
  * That keeps it from competing with the homepage and `/services` sets.
  *
- * ⚠️ Note the meeting answer. It says we meet clients in and around the
- * district; it does not invite anyone to an office. `address.streetAddress` is
- * a road-level placeholder, and an FAQ that tells someone to turn up at a
- * building we have not verified is the one mistake here that wastes a
- * customer's afternoon. Rewrite it when the real address lands, not before.
+ * Meeting answers must not imply an office or a walk-in address. The stated
+ * operating model is remote service delivery.
  */
 export const contactFaqs: FaqItem[] = [
   {
@@ -136,8 +133,8 @@ export const contactFaqs: FaqItem[] = [
       "No. Most people arrive knowing what is not working rather than which service fixes it — that is a normal starting point. Tell us what the business does and what you are trying to change, and we will work out the rest.",
   },
   {
-    question: `Can we meet in person in ${address.locality}?`,
-    answer: `Yes. We are based in ${address.locality} and regularly meet clients in and around the district — that is the point of hiring someone local rather than a metro agency. Call or WhatsApp first and we will arrange a time and a place that suits you.`,
+    question: `Do you have an office in ${address.locality} that I can visit?`,
+    answer: `We are based in ${address.locality} and deliver projects remotely; we do not have a customer-facing office. Contact us to discuss the best way to work together for your project.`,
   },
   {
     question: "Do I have to talk to you to find out your prices?",
@@ -171,8 +168,8 @@ export function buildLocationFaqs(city: string, serviceLabel: string): FaqItem[]
       answer: `Website packages start at ${formatPrice(websiteTiers[0].amount)} and go up to ${formatPrice(websiteTiers[2].amount)} for an online store, excluding GST. Marketing, SEO, and software work varies too much to list a flat rate, so we scope it and send a fixed quote before any work begins.`,
     },
     {
-      question: `Why choose a local agency in ${city} over a large agency elsewhere?`,
-      answer: `A local agency understands the market you actually sell into — the customers, the competition, and the seasons that matter. We are based in ${address.locality}, not a metro office running a template, so you get direct access to the people doing the work.`,
+      question: `How does Growth Masala work with businesses in ${city}?`,
+      answer: `Growth Masala is based in ${address.locality} and works remotely with businesses in ${city}. You speak directly with the people doing the work, and we shape the plan around the customers, competition, and goals you share with us.`,
     },
     {
       question: "How do I get a quote?",
@@ -234,6 +231,27 @@ function addOnPrice(name: string): string {
  * explicitly invites — still parse `FAQPage`.
  */
 export const locationFaqOverrides: Record<string, FaqItem[]> = {
+  "website-development-hyderabad": [
+    {
+      question: "What is included in your Hyderabad website development service?",
+      answer:
+        "We build responsive websites with search-ready page structure, hosting and SSL setup, performance optimisation, and post-launch support. The exact page count and features depend on the package and agreed scope.",
+    },
+    {
+      question: "How much does a small business website cost?",
+      answer: `The five-page Starter website is ${formatPrice(websiteTiers[0].amount)}, excluding GST. It includes website copy, mobile-responsive design, on-page SEO basics, a WhatsApp enquiry button and contact form, and 30 days of post-launch support.`,
+    },
+    {
+      question: "Can you build a website for my Hyderabad business remotely?",
+      answer:
+        "Yes. Growth Masala is based in Mahabubnagar and works remotely with Hyderabad businesses through calls, WhatsApp, email, and shared online workspaces. We do not have a customer-facing office in Hyderabad.",
+    },
+    {
+      question: "Have you built a website for a Hyderabad business?",
+      answer:
+        "Yes. The public Kings Mobile World project covers its four Hyderabad branches, repair and brand information, and WhatsApp enquiry path. We have not published measured traffic or revenue outcomes for that project.",
+    },
+  ],
   "digital-marketing-agency-wanaparthy": [
     {
       question:
@@ -244,7 +262,7 @@ export const locationFaqOverrides: Record<string, FaqItem[]> = {
     {
       question:
         "You are based in Mahabubnagar, not Wanaparthy. How does that work day to day?",
-      answer: `Most of it — the build, the ads, the content, the reporting — is delivered remotely and would be identical from anywhere. The part that benefits from being close is the beginning: seeing the business, photographing it properly rather than buying stock, and sitting with whoever makes the decision. We work in ${languages.join(", ")}, and we are reachable on ${business.phoneDisplay}, ${openingHoursLine}.`,
+      answer: `The build, ads, content, and reporting are delivered remotely. We work in ${languages.join(", ")}, and we are reachable on ${business.phoneDisplay}, ${openingHoursLine}.`,
     },
     {
       question: "Should I start with a website or with social media?",
@@ -313,7 +331,7 @@ export const locationFaqOverrides: Record<string, FaqItem[]> = {
     },
     {
       question: "Do you meet clients in Hyderabad?",
-      answer: `Yes, when a project calls for it. Day to day the work runs on calls and WhatsApp, which is how most clients in the city prefer it anyway. We are reachable on ${business.phoneDisplay} or ${business.email}, ${openingHoursLine}.`,
+      answer: `We work with Hyderabad clients remotely through calls, WhatsApp, email, and shared online workspaces. Growth Masala is based in ${address.locality} and has no customer-facing office in Hyderabad. Contact us on ${business.phoneDisplay} or ${business.email}, ${openingHoursLine}.`,
     },
     {
       question: "How does your pricing compare with a Hyderabad agency retainer?",

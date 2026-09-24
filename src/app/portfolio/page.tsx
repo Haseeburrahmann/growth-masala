@@ -23,7 +23,7 @@ import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
  * project. Every seam is a light/dark change, so no `SectionDivider` is needed.
  *
  * Schema: none here. `BreadcrumbList` comes from `layout.tsx`, and these
- * projects are already covered by the site-wide `LocalBusiness` node. There is
+ * projects are already covered by the site-wide `Organization` node. There is
  * no `CreativeWork` markup because Google does not surface it for agency
  * portfolios, and emitting schema no rich result consumes is noise.
  */

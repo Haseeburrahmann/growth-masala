@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { legalLinks, navLinks } from "@/data/navigation";
-import { addressLine, business } from "@/data/business";
+import { baseLocationLine, business } from "@/data/business";
 import { locationPages } from "@/data/locations";
 
 // Surfaced in the footer so every page links into the location cluster —
@@ -74,7 +74,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
-              A digital marketing agency in {addressLine}. We blend strategy,
+              A digital marketing agency based in {baseLocationLine}. We blend strategy,
               creativity, and data to cook up campaigns that deliver real,
               measurable growth — for businesses here, in Hyderabad, and across
               India.
@@ -173,7 +173,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2 text-sm text-slate-400">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <address className="not-italic">{addressLine}, India</address>
+                <span>{baseLocationLine}, India · remote service</span>
               </li>
             </ul>
           </div>

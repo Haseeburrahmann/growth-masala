@@ -24,7 +24,7 @@ import { address, areasServed, business, trackRecord } from "@/data/business";
  *
  * The two replacements are derived rather than asserted: the founding year, and
  * `areasServed.length` — the same list that feeds the `areaServed` property on
- * the LocalBusiness JSON-LD, so the coverage the page claims and the coverage
+ * the Organization JSON-LD, so the coverage the page claims and the coverage
  * Google is told about can never diverge.
  *
  * Both `trackRecord` figures are floors and must always render with a trailing
@@ -79,8 +79,8 @@ export default function AboutStory() {
                 find you.
               </p>
               <p>
-                So we set up here — an address you can walk into and a phone
-                answered in Telugu, Hindi or English. Whoever quotes your job is
+                So we built a Telangana-based team that works remotely, with a
+                phone answered in Telugu, Hindi or English. Whoever quotes your job is
                 the one who builds it, and nothing gets handed to a trainee once
                 the invoice clears.
               </p>

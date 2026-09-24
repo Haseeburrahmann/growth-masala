@@ -2,7 +2,7 @@
 title: "Terms of Service"
 description: "The terms Growth Masala works under — quotes, payment, ownership and handover, what we guarantee and what we honestly cannot. Written for clients to read before signing."
 standfirst: "The terms we work under. Short, specific, and written so a client can read them before agreeing rather than after a dispute."
-updated: "2026-08-13"
+updated: "2026-09-24"
 ---
 
 These terms apply when you engage {{name}} ("we", "us") to carry out work, and when you use [{{site}}]({{site}}).
@@ -108,7 +108,7 @@ We may update this page. The version that applies to your project is the one in 
 
 ## Contact
 
-**{{name}}** — {{addressLine}}, India
+**{{name}}** — based in {{locality}}, {{region}}, India (remote service)
 
 - Email: [{{email}}](mailto:{{email}})
 - Phone: [{{phoneDisplay}}](tel:{{phone}})

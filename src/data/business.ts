@@ -1,11 +1,9 @@
 /**
- * Single source of truth for Growth Masala's NAP (Name, Address, Phone) and
- * core business facts.
+ * Single source of truth for Growth Masala's identity, contact details,
+ * operating base, and core business facts. Growth Masala works remotely and
+ * does not publish a customer-facing street address.
  *
- * Local SEO depends on this data being byte-identical everywhere it appears —
- * on-page, in JSON-LD, and on external directories (Justdial, Sulekha, Clutch,
- * GoodFirms). Every surface should import from here rather than hardcoding, so
- * a change in one place propagates to all of them.
+ * Every surface should import business facts from here rather than hardcoding.
  */
 
 export const SITE_URL =
@@ -21,7 +19,6 @@ export const business = {
   /** Human-readable form shown in the UI. */
   phoneDisplay: "+91 86882 69427",
   whatsapp: "https://wa.me/918688269427",
-  priceRange: "₹₹",
   foundingYear: 2024,
 } as const;
 
@@ -65,46 +62,22 @@ export const trackRecord = {
 } as const;
 
 /**
- * Postal address.
- *
- * ⚠️ PLACEHOLDER — set on the owner's explicit instruction (2026-08-06).
- *
- * `streetAddress` is road-level only ("Station Road" is a real public
- * thoroughfare in Mahabubnagar), not a verified premises. `postalCode` 509001 is
- * the correct PIN for Mahabubnagar town.
- *
- * This is good enough to emit a complete PostalAddress in the JSON-LD, which is
- * what local ranking wants to see. It is NOT good enough to build citations on.
- *
- * TODO(owner): replace with the real registered address BEFORE creating any
- * directory listing (Justdial, Sulekha, Clutch, GoodFirms). Local SEO scores NAP
- * consistency across sources — once a wrong address is published to a directory,
- * correcting it everywhere is far more work than getting it right the first time.
- * Whatever ends up here must appear character-for-character on every listing.
+ * Publicly stated operating base. These city/region values do not identify a
+ * customer-facing premises and must not be emitted as PostalAddress or Geo data.
  */
 export const address = {
-  streetAddress: "Station Road",
-  postalCode: "509001",
   locality: "Mahabubnagar",
   region: "Telangana",
   country: "IN",
 } as const;
 
-/** Rendered as a single line wherever a short address is needed. */
-export const addressLine = [
-  address.streetAddress,
+/** Backward-compatible display label for the business base, not a postal address. */
+export const baseLocationLine = [
   address.locality,
   address.region,
-  address.postalCode,
 ]
   .filter(Boolean)
   .join(", ");
-
-/** Coordinates for Mahabubnagar, Telangana. */
-export const geo = {
-  latitude: 16.7488,
-  longitude: 77.9869,
-} as const;
 
 export const socialProfiles = [
   "https://www.instagram.com/growthmasala",
@@ -149,11 +122,10 @@ function to12Hour(time: string): string {
 }
 
 /**
- * Opening hours as one display line, derived the same way `addressLine` is.
+ * Contact-response hours as one display line; these are not visitor hours.
  *
- * These hours existed only inside the JSON-LD until the contact page rendered
- * them — the structured data told Google when we are open while the page told
- * a visitor nothing. Derived rather than retyped so the two can never disagree.
+ * These hours describe when enquiries are answered and are not emitted as
+ * customer-visit hours in structured data.
  *
  * Assumes `days` is a contiguous run, which it is (Mon–Sat). A split schedule
  * would need real grouping logic, not a first-to-last dash.

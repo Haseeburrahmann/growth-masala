@@ -3,7 +3,7 @@ import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-re
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
   address,
-  addressLine,
+  baseLocationLine,
   business,
   openingHoursLine,
 } from "@/data/business";
@@ -32,8 +32,8 @@ const contactRows = [
     value: business.email,
     href: `mailto:${business.email}`,
   },
-  { icon: MapPin, label: "Studio", value: addressLine, href: null },
-  { icon: Clock, label: "Hours", value: openingHoursLine, href: null },
+  { icon: MapPin, label: "Based in", value: baseLocationLine, href: null },
+  { icon: Clock, label: "Reply hours", value: openingHoursLine, href: null },
 ];
 
 export default function AboutMission() {
@@ -55,15 +55,16 @@ export default function AboutMission() {
           </div>
 
           <h2 className="mt-6 font-heading text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl lg:text-[2.875rem] lg:leading-13">
-            <span className="block text-white">Come and meet us,</span>{" "}
+            <span className="block text-white">Work with us remotely,</span>{" "}
             <span className="block text-slate-400">
               or just send a message.
             </span>
           </h2>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-[17px] sm:leading-[1.65]">
-            {address.streetAddress}, {address.locality} — or WhatsApp, if that
-            is easier. Either way you get a scope and a fixed number back.
+            Based in {address.locality}, we work with clients across Hyderabad
+            and Telangana through calls, WhatsApp, email, and shared workspaces.
+            You get a scope and a fixed number before work starts.
           </p>
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">

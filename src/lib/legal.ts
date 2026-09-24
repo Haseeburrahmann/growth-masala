@@ -5,7 +5,6 @@ import type { LegalDoc, LegalSlug } from "@/types";
 import {
   SITE_URL,
   address,
-  addressLine,
   business,
 } from "@/data/business";
 
@@ -54,7 +53,6 @@ function buildBusinessTokens(): Record<string, string> {
     phoneDisplay: business.phoneDisplay,
     whatsapp: business.whatsapp,
     site: SITE_URL,
-    addressLine,
     locality: address.locality,
     region: address.region,
   };

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { addressLine, business, openingHoursLine } from "@/data/business";
+import { address, business, openingHoursLine } from "@/data/business";
 
 /**
  * Closing CTA — one ask on the left, the ways to reach a human on the right.
@@ -38,11 +38,8 @@ const contactRows = [
     href: `mailto:${business.email}`,
     icon: Mail,
   },
-  // Not a link. `address.streetAddress` is a road-level placeholder set on the
-  // owner's instruction, so it must not become a "get directions" affordance
-  // that sends someone to a building nobody has verified.
-  { label: "Studio", value: addressLine, href: undefined, icon: MapPin },
-  { label: "Hours", value: openingHoursLine, href: undefined, icon: Clock },
+  { label: "Based in", value: `${address.locality}, ${address.region}`, href: undefined, icon: MapPin },
+  { label: "Reply hours", value: openingHoursLine, href: undefined, icon: Clock },
 ];
 
 export default function CTASection() {

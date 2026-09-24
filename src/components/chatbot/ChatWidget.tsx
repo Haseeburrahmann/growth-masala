@@ -17,6 +17,7 @@ import {
   X,
 } from "lucide-react";
 import MasalaBotMark from "@/components/chatbot/MasalaBotMark";
+import { trackAcceptedLead } from "@/lib/analytics";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -365,6 +366,7 @@ export default function ChatWidget() {
         });
 
         if (res.ok) {
+          trackAcceptedLead("chatbot");
           setLeadConfirmed(true);
           try { sessionStorage.setItem(LEAD_CONFIRMED_KEY, "1"); } catch {}
           setMessages((prev) => [

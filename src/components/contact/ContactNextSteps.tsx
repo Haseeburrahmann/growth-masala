@@ -14,7 +14,7 @@ import {
  * which is the main reason a filled-in form goes unsent.
  *
  * Opening hours are **derived**, never typed. They lived only inside the
- * `LocalBusiness` JSON-LD for months: Google was told when we are open and the
+ * `Organization` JSON-LD for months: Google was told when we are open and the
  * visitor was not. Anything typed here would be free to drift away from the
  * structured data, and a mismatch between the two is a local-ranking signal
  * working against itself.
@@ -94,12 +94,12 @@ export default function ContactNextSteps() {
         </ol>
       </div>
 
-      {/* When we are open */}
+      {/* Reply availability; these are not customer-visit hours. */}
       <div className="rounded-[20px] border border-border bg-white p-6">
         <div className="flex items-center gap-2.5">
           <Clock3 aria-hidden="true" className="h-4.5 w-4.5 text-primary" />
           <h3 className="font-heading text-[17px] font-semibold text-text-primary">
-            When we are open
+            When we reply
           </h3>
         </div>
 

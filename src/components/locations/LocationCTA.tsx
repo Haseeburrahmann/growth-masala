@@ -10,7 +10,7 @@ import {
 
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
-  addressLine,
+  baseLocationLine,
   business,
   openingHoursLine,
 } from "@/data/business";
@@ -19,8 +19,8 @@ import {
  * Closing CTA, with the NAP card beside it.
  *
  * Every value in the card is read from `src/data/business.ts` — phone, email,
- * address line and opening hours are all derived there, so this block cannot
- * drift from the `LocalBusiness` JSON-LD or from an external directory listing.
+ * base location, and response hours — so it cannot imply a customer-facing
+ * office.
  * The eyebrow carries the city, which is the only per-page element here.
  */
 
@@ -44,8 +44,8 @@ const contactRows: ContactRow[] = [
     href: `mailto:${business.email}`,
     Icon: Mail,
   },
-  { label: "Studio", value: addressLine, Icon: MapPin },
-  { label: "Hours", value: openingHoursLine, Icon: Clock },
+  { label: "Based in", value: baseLocationLine, Icon: MapPin },
+  { label: "Reply hours", value: openingHoursLine, Icon: Clock },
 ];
 
 function ContactCard() {
