@@ -143,16 +143,20 @@ the schema and the component read the same array. Don't break that coupling.
 `buildPostalAddress()` omits any address field left empty in `business.ts`, so a
 partial address degrades gracefully instead of emitting a guess.
 
-**Current state:** `streetAddress` is `"Station Road"` — a real public
-thoroughfare in Mahabubnagar, but road-level only, not a verified premises. It
-was set on the owner's explicit instruction (2026-08-06) to complete the schema.
-`postalCode` `509001` is correct for Mahabubnagar town.
+**Remote-business decision (2026-08-17):** Growth Masala has no customer-facing
+office and operates remotely. `streetAddress: "Station Road"`, postal code, and
+the town-centre coordinates are legacy placeholders and must be removed rather
+than replaced. The public site must not render a map pin, directions link,
+“Studio,” walk-in promise, customer-visit hours, or premises address.
 
-**This must be replaced with the real address before any directory listing is
-created.** Local ranking scores NAP consistency across sources, so whatever is in
-this file has to appear character-for-character on Justdial, Sulekha, Clutch, and
-everywhere else. Correcting a published inconsistency is far more work than
-setting it right once.
+The business may truthfully state that it is based in Mahabubnagar and serves
+Mahabubnagar and Telangana remotely. The schema should retain the organization/
+professional-service identity, phone, email, URL, social profiles, services, and
+`areaServed`, while omitting a public `PostalAddress` and `GeoCoordinates`.
+
+Google Business Profile and local-pack ranking are intentionally out of scope.
+Use only remote-compatible agency profiles and directories; skip any platform
+that requires a fabricated public address.
 
 ---
 
@@ -405,5 +409,6 @@ the type enforces it, because those photographs are informative rather than
 decorative (Rule 5).
 
 **Business details change:** edit `src/data/business.ts` only. Then update every
-external directory listing to match character-for-character — inconsistent NAP
-across citations actively suppresses local ranking.
+remote-compatible external profile so the business name, phone, email, website,
+services, and service area match. Do not add a public address or premises geo to
+the site or any profile while Growth Masala remains a remote business.

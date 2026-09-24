@@ -9,7 +9,7 @@
 > item here.** When you find something already done, fix this file in the same
 > pass.
 
-Last verified against source: **2026-08-09**
+Last verified against source: **2026-08-17**
 
 Progress tracking lives in [`docs/seo-scorecard.md`](../docs/seo-scorecard.md).
 Shipped work lives in [`updates.md`](updates.md). This file is only what is
@@ -17,30 +17,37 @@ Shipped work lives in [`updates.md`](updates.md). This file is only what is
 
 ---
 
-## 🔴 Blocking — only the owner can do these
+## 🔴 Immediate — identity, measurement, and proof
 
-Nothing in the codebase moves these.
+These are the highest-priority items. The remote-business decision is settled;
+the matching code cleanup is now actionable.
 
-- [ ] **Replace the placeholder street address** ⚠️ *highest risk item on this list*
-  - `src/data/business.ts` → currently `"Station Road"`, PIN `509001`
-  - Set on owner instruction. Road-level only — **not a verified premises**
-  - **Must be replaced before creating any directory listing.** Once a wrong NAP
-    is published to Justdial/Clutch/Sulekha, correcting it across every citation
-    is far more work than getting it right once, and inconsistent NAP actively
-    suppresses local ranking
-  - Whatever lands here must match every external listing character-for-character
+- [ ] **Remove the placeholder physical-office identity** ⚠️ *highest risk item on this list*
+  - Owner confirmed 2026-08-17 that Growth Masala operates remotely and has no
+    customer-facing office
+  - `src/data/business.ts` still publishes `"Station Road"`, PIN `509001`, and
+    town-centre coordinates as if they identify a premises
+  - Remove the public street address and geo from schema and remove “Studio,”
+    directions, map, walk-in, and customer-visit claims across the site
+  - Replace them with one truthful statement: based in Mahabubnagar, working
+    remotely, and serving businesses across Mahabubnagar and Telangana
+  - Never fabricate an address to qualify for Google Business Profile or a directory
 
-- [ ] **Confirm Google Search Console state**
-  - Runbook: [`docs/search-console-setup.md`](../docs/search-console-setup.md)
-  - Verify ownership → submit `sitemap.xml` → request indexing
-  - Cannot be checked from the codebase; only the console shows it
-  - **Watch: Pages → Indexed. Target 23.**
+- [x] **Confirm Google Search Console baseline** — verified 2026-08-17
+  - 22 indexed pages; 4 excluded (3 intentional redirect variants and
+    `/digital-marketing-agency-narayanpet` discovered but not indexed)
+  - Submitted sitemap is successful but reports 23 discovered URLs; the live
+    sitemap now contains 26
+- [ ] **Refresh sitemap processing and Narayanpet indexing**
+  - Resubmit/refresh the canonical sitemap and monitor for 26 discovered URLs
+  - Strengthen and request indexing for the Narayanpet page after a substantive update
 
-- [ ] **Collect client reviews** → unlocks `AggregateRating`
-  - Star ratings in the SERP are the largest CTR lift still available
-  - Target 5 reviews across Google / Justdial / Clutch
-  - Once they exist the schema is ~30 minutes of work. Not before — the builder
-    is deliberately absent rather than stubbed
+- [ ] **Collect verifiable client proof**
+  - Target five genuine reviews on remote-compatible agency platforms such as
+    Clutch or GoodFirms, plus permissioned testimonials and quantified outcomes
+  - Do not pursue Google reviews while Google Business Profile remains out of scope
+  - Do not add self-serving `AggregateRating` markup merely because testimonials
+    appear on the site; third-party proof and real outcomes are the objective
 
 - [ ] **One real outcome metric for a case study** 🔥 *highest-value copy task*
   - `src/data/caseStudies.ts` — every entry has `outcome?: string` and **all are
@@ -66,11 +73,14 @@ The site has zero citations. Every competitor ranking locally has these.
 | [ ] Sortlist | ranked #5 for "digital marketing agency Telangana" |
 | [ ] DesignRush | ranked #2 for Hyderabad agency queries |
 
-**Do not start these until the street address is real** — see the blocking item
-above. Publishing a placeholder NAP to six directories is the expensive mistake.
+Use only platforms that accept a remote/service-area agency without a public
+office. Skip any platform that requires a fabricated address. Keep the business
+name, phone, email, website, services, social profiles, and Mahabubnagar service
+area consistent everywhere.
 
-Google Business Profile is intentionally out of scope per the owner. Clutch and
-GoodFirms matter more for AI visibility anyway.
+Google Business Profile and local-pack ranking are intentionally out of scope per
+the owner. Clutch, GoodFirms, client links, and organic content are the relevant
+authority routes.
 
 ---
 
