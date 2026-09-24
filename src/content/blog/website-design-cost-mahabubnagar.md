@@ -12,8 +12,8 @@ faqs:
     answer: "Advertised prices in and around Mahabubnagar start near ₹3,800 for a template site and run past ₹40,000 for a larger build. A custom-designed five-page site for a local business realistically sits between ₹10,000 and ₹25,000. Ours is {{price:starter}}, excluding GST."
   - question: "Are Hyderabad agencies more expensive than local ones?"
     answer: "Often yes, and the gap is rarely about skill — it is office rent and account management priced into the quote. The bigger practical difference is that a Hyderabad agency will not visit your shop, and for a business whose customers are all within a few kilometres, that matters more than the rate card."
-  - question: "Do you actually meet clients in Mahabubnagar?"
-    answer: "Yes. We work from Mahabubnagar, so a site visit is a drive rather than a flight. For most local projects we would rather see the business in person before quoting, because photographs of the actual shop beat stock imagery every time."
+  - question: "How do projects work if you are based in Mahabubnagar?"
+    answer: "Growth Masala is based in Mahabubnagar and delivers projects remotely. We discuss your goals by phone, WhatsApp, or email and use the business information and photos you share to prepare a scope and quote. There is no customer-facing office."
   - question: "What is the cheapest website that is still worth buying?"
     answer: "If the site's only job is to exist so customers can confirm you are real, a template at ₹3,000 to ₹5,000 does that honestly. If the site has to win a customer who is comparing you against two competitors on their phone, it does not."
   - question: "Do you work outside Mahabubnagar town?"
@@ -66,7 +66,7 @@ We bill domain and hosting at cost with no markup, and the [full price list](/se
 
 A Hyderabad agency will usually quote higher, and the honest reason is overhead rather than talent — office rent, account managers, and a client list where you would be one of the smaller accounts.
 
-The practical difference matters more. They will not walk into your shop. They will not know that the road outside is dug up for three months, or which weeks are dead here and which are frantic, or that half your customers find you through a WhatsApp group rather than through Google.
+The practical difference matters more. An outside team will need you to share the context that shapes the project: how customers find you, what changes during busy seasons, and which questions come up before someone enquires. We work remotely, so we ask for that context directly rather than assuming we know it.
 
 That is not an argument that local is always better. It is an argument that for a business whose customers are all within a few kilometres, someone who can visit is worth something real. If you are hiring in Hyderabad instead, [we have a guide to those prices too](/blog/website-design-cost-hyderabad).
 

@@ -13,8 +13,6 @@ import {
   address,
   areasServed,
   business,
-  geo,
-  openingHours,
   socialProfiles,
 } from "@/data/business";
 import { services } from "@/data/services";
@@ -25,59 +23,28 @@ const BUSINESS_ID = `${SITE_URL}/#business`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
 /**
- * Builds a PostalAddress, omitting `streetAddress` and `postalCode` when they
- * are not yet known. An absent property is neutral; a wrong one actively
- * damages local trust signals, so we never emit a placeholder.
- */
-function buildPostalAddress() {
-  return {
-    "@type": "PostalAddress",
-    ...(address.streetAddress ? { streetAddress: address.streetAddress } : {}),
-    ...(address.postalCode ? { postalCode: address.postalCode } : {}),
-    addressLocality: address.locality,
-    addressRegion: address.region,
-    addressCountry: address.country,
-  };
-}
-
-/**
- * The primary LocalBusiness node. Rendered once, in the root layout, and
+ * The primary Organization node. Rendered once, in the root layout, and
  * referenced by @id from page-level schema rather than being repeated.
  */
-export function buildLocalBusinessSchema() {
+export function buildOrganizationSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@type": "Organization",
     "@id": BUSINESS_ID,
     name: business.name,
-    description: `Digital marketing agency in ${address.locality}, ${address.region} offering website development, social media management, SEO, and performance marketing to help local businesses grow online.`,
+    description: `Digital marketing agency based in ${address.locality}, ${address.region}, serving businesses remotely across Telangana and India with website development, social media management, SEO, and performance marketing.`,
     url: SITE_URL,
     email: business.email,
     telephone: business.phone,
     image: `${SITE_URL}/images/og-image.png`,
     logo: `${SITE_URL}/images/logo.png`,
-    priceRange: business.priceRange,
     foundingDate: String(business.foundingYear),
-    address: buildPostalAddress(),
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: geo.latitude,
-      longitude: geo.longitude,
-    },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [...openingHours.days],
-      opens: openingHours.opens,
-      closes: openingHours.closes,
-    },
     sameAs: socialProfiles,
     /* No `serviceType` here.
      *
-     * `serviceType` is a property of `Service`, not of `LocalBusiness` /
-     * `ProfessionalService`. Emitting it on the business node produced nine
-     * warnings on validator.schema.org — one per service — each reading "The
-     * property serviceType is not recognized by the schema for an object of
-     * type LocalBusiness". It was also pure duplication: every one of those
+     * `serviceType` belongs on each `Service` node, not on the `Organization`.
+     * Keeping it only within each item avoids unsupported properties and
+     * duplication: every one of those
      * titles is already published below in `hasOfferCatalog`, on `Service`
      * nodes where `serviceType` IS valid and where each one also carries a
      * description, a provider and an areaServed.

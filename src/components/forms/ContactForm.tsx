@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { services } from "@/data/services";
+import { trackAcceptedLead } from "@/lib/analytics";
 
 /**
  * The only client component on /contact.
@@ -144,6 +145,14 @@ export default function ContactForm() {
       });
 
       if (res.ok) {
+        const serviceCategory =
+          services.find((service) => service.title === values.service)?.slug ??
+          (values.service === "Full Digital Marketing Package"
+            ? "full-package"
+            : values.service === "Not sure — need consultation"
+              ? "not-sure"
+              : undefined);
+        trackAcceptedLead("contact_form", serviceCategory);
         setStatus("success");
         setValues(EMPTY_FORM);
       } else {

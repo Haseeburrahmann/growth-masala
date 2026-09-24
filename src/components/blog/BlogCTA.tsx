@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { addressLine, business, openingHoursLine } from "@/data/business";
+import { baseLocationLine, business, openingHoursLine } from "@/data/business";
 
 /**
  * Closing CTA for the two blog routes.
@@ -13,8 +13,8 @@ import { addressLine, business, openingHoursLine } from "@/data/business";
  *
  * The headline differs between the listing and a post, so the copy is props
  * rather than a constant. Everything in the contact card is read from
- * `src/data/business.ts`, so it can never drift from the `LocalBusiness` JSON-LD
- * or from an external listing.
+ * `src/data/business.ts`, so the contact card does not imply a
+ * customer-facing office.
  *
  * This duplicates `ServicesCTA`'s contact card rather than importing it: that
  * component is not shared, is owned elsewhere in this refactor, and exports only
@@ -41,8 +41,8 @@ const contactRows: ContactRow[] = [
     href: `mailto:${business.email}`,
     Icon: Mail,
   },
-  { label: "Studio", value: addressLine, Icon: MapPin },
-  { label: "Hours", value: openingHoursLine, Icon: Clock },
+  { label: "Based in", value: baseLocationLine, Icon: MapPin },
+  { label: "Reply hours", value: openingHoursLine, Icon: Clock },
 ];
 
 function ContactCard() {

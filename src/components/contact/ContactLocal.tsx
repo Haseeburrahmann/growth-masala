@@ -1,38 +1,22 @@
-import Image from "next/image";
 import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
   address,
-  addressLine,
   business,
   openingHoursLine,
 } from "@/data/business";
 
 /**
- * Where we are — the map beside the NAP block.
- *
- * This is the canonical on-page rendering of the Name/Address/Phone that every
- * external listing has to carry character for character. It is composed
- * entirely from `business.ts` so a correction there propagates here; nothing on
- * this card is typed twice.
- *
- * The map carries NO marker, and that is deliberate. `address.streetAddress` is
- * a road-level placeholder set on the owner's instruction, and a pin would turn
- * it into a specific claim about premises. Add the marker in the same commit
- * that lands the real address.
- *
- * It is a flat image rather than a live embed for the same reason it is on the
- * homepage: the OpenStreetMap iframe pulled 1.9MB of Leaflet and tiles and
- * swallowed vertical swipes on touch. OSM's licence wants visible credit, which
- * is the line under the image. **Do not delete it** — the canvas does not draw
- * it, but the licence is not a design decision.
+ * Explains the remote service area beside verified contact methods. Growth
+ * Masala has no customer-facing premises, so this section deliberately has no
+ * map pin, directions link, or postal address.
  */
 
 const napRows = [
   {
     icon: MapPin,
-    label: "Address",
-    value: addressLine,
+    label: "Based in",
+    value: `${address.locality}, ${address.region} · serving remotely`,
     href: null,
   },
   {
@@ -49,7 +33,7 @@ const napRows = [
   },
   {
     icon: Clock3,
-    label: "Hours",
+    label: "Reply hours",
     value: openingHoursLine,
     href: null,
   },
@@ -61,21 +45,22 @@ export default function ContactLocal() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid items-start gap-5 lg:grid-cols-5">
           <AnimatedContainer className="lg:col-span-3">
-            <div className="relative aspect-[640/452] w-full overflow-hidden rounded-[20px] border border-border bg-surface">
-              <Image
-                src="/images/sections/mahabubnagar-map.webp"
-                alt={`Street map of ${address.locality}, ${address.region}`}
-                fill
-                loading="lazy"
-                /* Desaturated so OSM's road colours sit inside the palette
-                   rather than pulling the eye off the card beside them. */
-                className="object-cover filter-[saturate(0.35)_contrast(1.05)]"
-                sizes="(max-width: 1023px) 90vw, 55vw"
-              />
+            <div className="flex h-full min-h-72 flex-col justify-between rounded-[20px] border border-border bg-surface p-8 sm:p-10">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <MapPin aria-hidden="true" className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="font-heading text-2xl font-semibold text-text-primary">
+                  Based in {address.locality}
+                </p>
+                <p className="mt-3 max-w-lg text-base leading-relaxed text-text-secondary">
+                  We serve Hyderabad and businesses across Telangana remotely.
+                  Project discussions and delivery happen by phone, WhatsApp,
+                  email, and shared online workspaces. We do not have a
+                  customer-facing office.
+                </p>
+              </div>
             </div>
-            <p className="mt-3 text-[12px] text-text-secondary/60">
-              Map data © OpenStreetMap contributors
-            </p>
           </AnimatedContainer>
 
           <AnimatedContainer delay={120} className="lg:col-span-2">
@@ -84,7 +69,7 @@ export default function ContactLocal() {
                 {business.name}
               </p>
               <p className="mt-1.5 text-sm leading-[21px] text-text-secondary/85">
-                Digital marketing agency · {address.locality}, {address.region}
+                Digital marketing agency · based in {address.locality}, {address.region}
               </p>
 
               <dl className="mt-5 divide-y divide-border">

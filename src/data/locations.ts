@@ -52,7 +52,7 @@ export const locationPages: LocationPage[] = [
     intro:
       "Growth Masala is a digital marketing agency based in Mahabubnagar, Telangana. We build websites and run social media, SEO, and paid ad campaigns for businesses that want customers in Mahabubnagar — not vanity metrics from somewhere else. Everything we do is measured against one question: did it bring you enquiries?",
     whyLocal:
-      "Most agencies that appear when you search for digital marketing in Mahabubnagar are not in Mahabubnagar. They are metro operations running a city-name template, and you will never meet the person doing your work. We are actually here. That means we can visit your shop, shoot your own photos instead of stock images, and understand why your enquiries drop during exam season or spike before a festival.",
+      "Growth Masala is based in Mahabubnagar and delivers work remotely. You speak directly with the people doing the work, in Telugu, Hindi, or English. Bring your own business context, photos, and seasonal priorities into the plan; we shape the website and campaigns around what your customers need to see.",
     marketContext:
       "Mahabubnagar businesses compete for a customer who now researches on a phone before walking in. Schools get judged on their website before a parent books a visit. Retailers lose walk-ins to whoever shows up in the map results first. Service businesses live and die on WhatsApp enquiries. The businesses winning here are not spending the most — they are simply findable, credible, and easy to contact.",
     featuredServices: [
@@ -122,7 +122,7 @@ export const locationPages: LocationPage[] = [
     intro:
       "We run social media for Mahabubnagar businesses — content calendars, post design, copy, community management, and monthly reporting. The goal is an audience that buys from you, not a follower count that looks good and does nothing.",
     whyLocal:
-      "Content that works here does not look like content made for a metro audience. Language mix matters, festival timing matters, and the businesses that do well post things their actual customers recognise — the shop, the staff, the work. Being local means we can get those photographs instead of buying stock and hoping.",
+      "Content for Mahabubnagar should reflect its audience rather than copy a metro template. Language mix, festival timing, and real photographs supplied by the business can all shape the content plan. We coordinate remotely and help turn the material you provide into a consistent publishing schedule.",
     marketContext:
       "Instagram and WhatsApp are where a lot of local buying decisions now start in Mahabubnagar. Most businesses either post nothing for weeks or post irregularly with no plan behind it. Consistency alone puts you ahead of most of your competition here, and consistency is a process problem — which is exactly what an agency is for.",
     featuredServices: ["social-media-growth", "performance-marketing", "ai-automation"],
@@ -163,10 +163,10 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Digital Marketing",
     title: "Digital Marketing Agency in Shadnagar",
     metaDescription:
-      "Digital marketing for businesses in Shadnagar, Telangana — websites, social media, SEO, and Meta ads from a local agency on the Hyderabad–Mahabubnagar corridor.",
+      "Digital marketing for Shadnagar businesses — websites, social media, SEO, and Meta ads delivered remotely by a Telangana-based team.",
     h1: "Digital Marketing Agency in Shadnagar",
     intro:
-      "Growth Masala works with businesses in Shadnagar on websites, social media, SEO, and paid ads. We are based nearby in Mahabubnagar, which means you get an agency that can actually turn up — and one that understands a town changing as fast as this one.",
+      "Growth Masala works remotely with businesses in Shadnagar on websites, social media, SEO, and paid ads. We are based in Mahabubnagar and plan each project around the business, audience, and goals you share with us.",
     whyLocal:
       "Shadnagar sits on the highway between Hyderabad and Mahabubnagar, and that position shapes who your customers are. Some are local, some are passing through, and an increasing number work in Hyderabad but live here. Marketing that treats all three the same tends to miss all three. Knowing the corridor is the difference.",
     marketContext:
@@ -187,9 +187,9 @@ export const locationPages: LocationPage[] = [
       "Digital marketing for Wanaparthy businesses — websites, social media, SEO, and Meta ads from a nearby Telangana agency. Free consultation, fixed quotes.",
     h1: "Digital Marketing Agency in Wanaparthy",
     intro:
-      "We help businesses in Wanaparthy get found online and turn that attention into enquiries — websites, social media, SEO, and paid ads, run by a team based nearby in Mahabubnagar.",
+      "We help businesses in Wanaparthy get found online and turn that attention into enquiries — websites, social media, SEO, and paid ads, delivered remotely by a team based in Mahabubnagar.",
     whyLocal:
-      "Smaller towns get the worst of the agency market: either nobody serves them, or a distant firm sells a package and disappears. Being close by means we can meet, photograph your actual business, and stay reachable after launch — which matters far more than a slide deck.",
+      "Businesses in smaller towns should be able to work with a team that stays reachable after launch. We work remotely, agree the scope and communication process up front, and use the business details and imagery you provide to make the site specific to your customers.",
     marketContext:
       "Wanaparthy has a strong base of established local businesses and institutions, most with little or no online presence. That makes search competition here genuinely thin. A business that sets up properly now can occupy the top results for its category well before anyone else here starts trying.",
     featuredServices: ["website-development", "social-media-growth", "seo"],
@@ -205,10 +205,10 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Digital Marketing",
     title: "Digital Marketing Agency in Kalwakurthy",
     metaDescription:
-      "Websites, social media, SEO, and Meta ads for businesses in Kalwakurthy, Telangana. A nearby local agency with fixed quotes and a free first consultation.",
+      "Websites, social media, SEO, and Meta ads for businesses in Kalwakurthy, Telangana. A Telangana-based team, remote delivery, fixed quotes, and a free first consultation.",
     h1: "Digital Marketing Agency in Kalwakurthy",
     intro:
-      "Growth Masala builds websites and runs social media, SEO, and ad campaigns for businesses in Kalwakurthy. We are based in Mahabubnagar, close enough to work with you properly rather than over email alone.",
+      "Growth Masala builds websites and runs social media, SEO, and ad campaigns for businesses in Kalwakurthy. We are based in Mahabubnagar and work with clients remotely through calls, messages, and shared online workspaces.",
     whyLocal:
       "In a town this size, reputation travels by word of mouth — and now that word of mouth happens in WhatsApp groups and on Instagram as much as in person. Marketing here works when it reinforces what people already say about you, not when it sounds like an advertisement written elsewhere.",
     marketContext:
@@ -226,12 +226,12 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Digital Marketing",
     title: "Digital Marketing Agency in Jadcherla",
     metaDescription:
-      "Digital marketing for Jadcherla businesses — websites, social media, SEO, and Meta ads from a local Mahabubnagar-based agency. Free consultation.",
+      "Digital marketing for Jadcherla businesses — websites, social media, SEO, and Meta ads delivered remotely by a team based in Mahabubnagar. Free consultation.",
     h1: "Digital Marketing Agency in Jadcherla",
     intro:
-      "We work with businesses in Jadcherla on the things that actually bring customers in: a website worth visiting, social media that stays consistent, search results you own, and ads that are measured properly.",
+      "We work remotely with businesses in Jadcherla on the things that help customers choose and contact them: a useful website, consistent social media, accurate search information, and measured ad campaigns.",
     whyLocal:
-      "Jadcherla is close enough to Mahabubnagar that we can be on site when it helps, and that changes the quality of the work. Real photographs of your premises, a conversation about what your customers ask before they buy, and a person who picks up the phone afterwards.",
+      "A clear project brief helps a remote team understand what customers ask before they buy. We agree how to share source material, review drafts, and communicate after launch before work starts.",
     marketContext:
       "Jadcherla's position on the main route south brings steady passing trade alongside its local customer base. Businesses that show up in map and search results capture the passing traffic; those that do not are invisible to anyone who has not already been told about them.",
     featuredServices: ["website-development", "social-media-growth", "performance-marketing"],
@@ -250,9 +250,9 @@ export const locationPages: LocationPage[] = [
       "Websites, social media, SEO, and Meta ads for businesses in Narayanpet, Telangana — including handloom and retail brands looking to sell beyond the district.",
     h1: "Digital Marketing Agency in Narayanpet",
     intro:
-      "Growth Masala helps Narayanpet businesses build an online presence that reaches beyond the district — websites, social media, SEO, and paid campaigns, run from nearby Mahabubnagar.",
+      "Growth Masala helps Narayanpet businesses build an online presence that reaches beyond the district — websites, social media, SEO, and paid campaigns, delivered remotely from Mahabubnagar.",
     whyLocal:
-      "Narayanpet is known well outside Telangana for its weaving tradition, and that name recognition is an asset most local businesses never use online. Working with a nearby team means we can photograph the real product and the real process, which is exactly what sells a craft product to a buyer who cannot visit.",
+      "Narayanpet is known well outside Telangana for its weaving tradition, and that name recognition is an asset local businesses can use online. Product and process photos supplied by the business can help a remote buyer understand the craft before enquiring.",
     marketContext:
       "For a handloom or retail business here, the customer worth reaching is often not in Narayanpet at all — they are in Hyderabad, Bengaluru, or overseas. That changes the priorities: the website has to carry the product properly, Instagram becomes a catalogue, and ads can target far beyond the district.",
     featuredServices: ["social-media-growth", "website-development", "performance-marketing"],
@@ -272,10 +272,10 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Digital Marketing",
     title: "Digital Marketing Agency in Hyderabad",
     metaDescription:
-      "Digital marketing agency serving Hyderabad — websites, social media, SEO, and Meta ads. Telangana-based team, senior attention, and fixed quotes before work starts.",
+      "Digital marketing for Hyderabad businesses — websites, social media, SEO, and Meta ads delivered remotely by a Telangana-based team. Senior attention and fixed quotes before work starts.",
     h1: "Digital Marketing Agency in Hyderabad",
     intro:
-      "We work with Hyderabad businesses on websites, social media, SEO, and performance marketing. We are a small Telangana team, which means the people you brief are the people who do the work — no account-manager layer between you and the output.",
+      "We work remotely with Hyderabad businesses on websites, social media, SEO, and performance marketing. Growth Masala is based in Mahabubnagar, Telangana; the people you brief are the people who do the work, with no account-manager layer between you and the output.",
     whyLocal:
       "Hyderabad has no shortage of large agencies, and they are a good fit if you have a large budget and a marketing team to manage them. If you are a growing business that wants senior attention, direct communication, and a fixed quote before anyone starts, a small team is usually the better trade.",
     marketContext:
@@ -299,14 +299,14 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Website Development",
     title: "Website Development in Hyderabad",
     metaDescription:
-      "Custom website design and development for Hyderabad businesses — fast, mobile-first, SEO-ready builds with performance optimisation and 30-day post-launch support.",
+      "Need a website for a Hyderabad business? Growth Masala builds mobile-first, search-ready sites remotely from Mahabubnagar. Packages start at ₹9,999 + GST, with 30-day support.",
     h1: "Website Development in Hyderabad",
     intro:
-      "We build custom websites for Hyderabad businesses — fast, responsive, structured for search, and built to convert visitors into enquiries. Every build ships with performance optimisation, hosting and SSL setup, and 30 days of post-launch support.",
+      "Growth Masala is based in Mahabubnagar and builds websites for Hyderabad businesses remotely. We plan mobile-first pages around the questions your customers ask, with search-ready structure, hosting and SSL setup, performance optimisation, and 30 days of post-launch support.",
     whyLocal:
-      "Hyderabad buyers compare. Your site is being viewed next to competitors with real budgets, so load speed, mobile layout, and how quickly someone can find what they need all decide whether you get the enquiry. We build for those specifics rather than handing over a template and calling it done.",
+      "Our public Kings Mobile World project is for a Hyderabad mobile-repair business with four branches. The site brings branch details, repair and brand information, and WhatsApp enquiries together so customers can find the right branch and understand the service. Growth Masala works remotely from Mahabubnagar; no traffic or revenue result is claimed for this project.",
     marketContext:
-      "A lot of Hyderabad businesses are on heavy page-builder sites that take too long to load on mobile data and cannot be optimised much further. Rebuilding on a modern stack is often the single highest-return change available — it improves search performance and conversion rate at the same time.",
+      "A Hyderabad business website needs to make its service, proof, contact path, and next step clear on a phone. We review the current site and goals first, then quote the pages and features needed; a rebuild is not automatically the right answer if the existing site can be improved.",
     featuredServices: ["website-development", "seo", "ai-automation"],
     relatedSlugs: [
       "digital-marketing-agency-hyderabad",

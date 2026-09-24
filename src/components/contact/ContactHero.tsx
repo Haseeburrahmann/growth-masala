@@ -20,10 +20,7 @@ import { address, languages } from "@/data/business";
  * `ContactChannels`, where the canvas gives each one a description and a
  * response time instead of a bare number.
  *
- * The pills are derived, never typed. "Station Road, Mahabubnagar" is
- * `address.streetAddress` + `address.locality` — the same placeholder street
- * that every other surface renders, so it cannot drift out of NAP alignment on
- * its own (see the warning at the top of `business.ts`).
+ * The location pill states the team's base without suggesting a walk-in office.
  */
 export default function ContactHero() {
   const pills = [
@@ -31,7 +28,7 @@ export default function ContactHero() {
     { icon: Languages, label: languages.join(" · ") },
     {
       icon: MapPin,
-      label: `${address.streetAddress}, ${address.locality}`,
+      label: `Based in ${address.locality}, ${address.region} · serving remotely`,
     },
   ];
 

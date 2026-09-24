@@ -26,8 +26,8 @@ import { buildFaqSchema } from "@/lib/schema";
  * vertical length, and removing it is a measurable search regression.
  *
  * Schema here is `FAQPage` only. `BreadcrumbList` comes from `layout.tsx`, and
- * the NAP, geo and opening hours are already on the site-wide `LocalBusiness`
- * node emitted by the root layout — repeating them here would describe one
+ * the Organization identity is already on the site-wide schema node emitted by
+ * the root layout — repeating it here would describe one
  * business twice.
  */
 

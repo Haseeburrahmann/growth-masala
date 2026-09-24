@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   Clock3,
+  Languages,
   Mail,
   MapPin,
   MessageCircle,
@@ -8,12 +9,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import {
-  address,
-  addressLine,
-  business,
-  openingHoursLine,
-} from "@/data/business";
+import { address, business, openingHoursLine, languages } from "@/data/business";
 
 /**
  * Four ways to reach us, ranked.
@@ -28,12 +24,8 @@ import {
  * failure mode NAP consistency is scored on — see the warning at the top of that
  * file.
  *
- * ⚠️ "Get directions" on the fourth card. `address.streetAddress` is a
- * road-level placeholder set on the owner's instruction, so this link resolves
- * to the road we publish everywhere, not to a specific door — which is all the
- * published address claims. The card copy says "message first" for the same
- * reason. When the real premises lands in `business.ts` nothing here needs to
- * change; it simply gets more precise.
+ * The final card explains the remote service model; Growth Masala has no
+ * customer-facing office or walk-in location.
  */
 
 interface Channel {
@@ -89,18 +81,16 @@ const channels: Channel[] = [
     external: false,
   },
   {
-    title: "Visit us",
-    value: `${address.streetAddress}, ${address.locality}`,
+    title: "Remote service",
+    value: "Hyderabad and Telangana",
     description:
-      "Come in and talk it through in person. Message first so someone is at the desk.",
-    meta: `${address.region} ${address.postalCode}`,
-    metaIcon: MapPin,
+      `Based in ${address.locality}, we plan and deliver projects remotely. There is no customer-facing office.`,
+    meta: languages.join(" · "),
+    metaIcon: Languages,
     icon: MapPin,
-    cta: "Get directions",
-    href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      `${business.name}, ${addressLine}`
-    )}`,
-    external: true,
+    cta: "Explore services",
+    href: "/services",
+    external: false,
   },
 ];
 

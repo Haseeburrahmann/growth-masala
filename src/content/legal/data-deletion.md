@@ -2,7 +2,7 @@
 title: "Data Deletion Request"
 description: "How to have Growth Masala delete the information we hold about you or your business, what gets removed, what we are legally required to keep, and how long it takes."
 standfirst: "How to have us delete what we hold about you. One email does it, and we act within 30 days."
-updated: "2026-08-13"
+updated: "2026-09-24"
 ---
 
 You can ask us to delete the information we hold about you or your business at any time. You do not need a reason, and there is no charge.
@@ -85,7 +85,7 @@ If that does not resolve it, you may raise a complaint with the Data Protection 
 
 ## Contact
 
-**{{name}}** — {{addressLine}}, India
+**{{name}}** — based in {{locality}}, {{region}}, India (remote service)
 
 - Email: [{{email}}](mailto:{{email}})
 - Phone: [{{phoneDisplay}}](tel:{{phone}})

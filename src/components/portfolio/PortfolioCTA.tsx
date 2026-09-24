@@ -3,7 +3,7 @@ import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-re
 import type { LucideIcon } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
-  addressLine,
+  baseLocationLine,
   business,
   openingHoursLine,
 } from "@/data/business";
@@ -18,14 +18,8 @@ import {
  * wants a number, or wants to message a human, before they want a form. The
  * card gives both without a page load.
  *
- * Every value in it is imported. `addressLine` and `openingHoursLine` are
- * derived in `business.ts` from the same fields the JSON-LD reads, so the
- * visible NAP and the structured NAP cannot drift — which is the whole point of
- * that file. Retyping either here is the bug it exists to prevent.
- *
- * ⚠️ The street address is still a road-level placeholder (see `business.ts`).
- * It is rendered because a visitor asking "where are you" deserves an answer,
- * but it must be replaced before any directory listing is created.
+ * The base location and response hours are imported from `business.ts`; this
+ * block does not imply a customer-facing premises.
  */
 
 interface ContactRow {
@@ -49,8 +43,8 @@ const contactRows: ContactRow[] = [
     icon: Mail,
     href: `mailto:${business.email}`,
   },
-  { label: "Studio", value: addressLine, icon: MapPin },
-  { label: "Hours", value: openingHoursLine, icon: Clock },
+  { label: "Based in", value: baseLocationLine, icon: MapPin },
+  { label: "Reply hours", value: openingHoursLine, icon: Clock },
 ];
 
 export default function PortfolioCTA() {

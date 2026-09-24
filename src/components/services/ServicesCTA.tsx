@@ -3,7 +3,7 @@ import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-re
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
   address,
-  addressLine,
+  baseLocationLine,
   business,
   openingHoursLine,
 } from "@/data/business";
@@ -16,9 +16,8 @@ import {
  * market WhatsApp outperforms a form badly enough that making it the secondary
  * option costs real enquiries.
  *
- * Every value in the card is read from `src/data/business.ts` — the phone, the
- * address line and the opening hours are all derived there, so this block can
- * never drift from the `LocalBusiness` JSON-LD or from an external listing.
+ * The base location and response hours are derived from `src/data/business.ts`;
+ * this block does not represent a customer-facing premises.
  */
 
 interface ContactRow {
@@ -41,8 +40,8 @@ const contactRows: ContactRow[] = [
     href: `mailto:${business.email}`,
     Icon: Mail,
   },
-  { label: "Studio", value: addressLine, Icon: MapPin },
-  { label: "Hours", value: openingHoursLine, Icon: Clock },
+  { label: "Based in", value: baseLocationLine, Icon: MapPin },
+  { label: "Reply hours", value: openingHoursLine, Icon: Clock },
 ];
 
 function ContactCard() {
@@ -120,8 +119,8 @@ export default function ServicesCTA() {
           <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-[17px]">
             One message with what you are trying to fix. You get a scope and a
             fixed number back — usually the same day, not after a discovery
-            call. The consultation is free, and we are in {address.locality} if
-            you would rather meet.
+            call. The consultation is free. We are based in {address.locality}
+            and deliver work remotely across Hyderabad and Telangana.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">

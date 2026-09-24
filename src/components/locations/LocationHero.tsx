@@ -30,7 +30,7 @@ export default function LocationHero({ page }: { page: LocationPage }) {
   const pills = [
     {
       icon: MapPin,
-      label: `Based on ${address.streetAddress}, ${address.locality}`,
+      label: `Based in ${address.locality}, ${address.region} · remote service`,
     },
     { icon: Languages, label: languages.join(" · ") },
     { icon: FileCheck, label: "Fixed price before work starts" },

@@ -3,7 +3,7 @@ import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-re
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
   address,
-  addressLine,
+  baseLocationLine,
   business,
   openingHoursLine,
 } from "@/data/business";
@@ -40,13 +40,13 @@ const contactRows = [
   },
   {
     icon: MapPin,
-    label: "Studio",
-    value: addressLine,
+    label: "Based in",
+    value: baseLocationLine,
     href: undefined,
   },
   {
     icon: Clock,
-    label: "Hours",
+    label: "Reply hours",
     value: openingHoursLine,
     href: undefined,
   },

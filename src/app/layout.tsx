@@ -7,7 +7,7 @@ import Footer from "@/components/layout/Footer";
 import ChatWidgetLazy from "@/components/chatbot/ChatWidgetLazy";
 import { SITE_URL } from "@/data/business";
 import { OG_IMAGE } from "@/lib/metadata";
-import { buildLocalBusinessSchema, buildWebSiteSchema } from "@/lib/schema";
+import { buildOrganizationSchema, buildWebSiteSchema } from "@/lib/schema";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -109,7 +109,7 @@ export const metadata: Metadata = {
 
 // Site-wide entity graph. Page-level schema (breadcrumbs, FAQ, services,
 // articles) lives on the individual routes and references these by @id.
-const localBusinessSchema = buildLocalBusinessSchema();
+const organizationSchema = buildOrganizationSchema();
 const webSiteSchema = buildWebSiteSchema();
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -129,7 +129,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <script
           type="application/ld+json"

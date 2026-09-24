@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import type { LocationPage } from "@/data/locations";
@@ -39,7 +41,7 @@ export default function LocationWhyLocal({ page }: { page: LocationPage }) {
 
           <AnimatedContainer>
             <h2 className="font-heading text-2xl font-bold leading-tight tracking-[-0.02em] text-text-primary text-balance sm:text-[1.625rem]">
-              Why a local agency in {page.city}, and not a metro one
+              How we work with businesses in {page.city}
             </h2>
             <p className="mt-3.5 text-base leading-relaxed text-text-secondary">
               {page.whyLocal}
@@ -51,6 +53,24 @@ export default function LocationWhyLocal({ page }: { page: LocationPage }) {
             <p className="mt-3.5 text-base leading-relaxed text-text-secondary">
               {page.marketContext}
             </p>
+            {page.slug === "website-development-hyderabad" && (
+              <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+                <Link
+                  href="/case-studies"
+                  className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:underline"
+                >
+                  See the Kings Mobile World project
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/blog/website-design-cost-hyderabad"
+                  className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:underline"
+                >
+                  Read the Hyderabad website cost guide
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                </Link>
+              </div>
+            )}
           </AnimatedContainer>
         </div>
       </div>

@@ -33,7 +33,7 @@ import AboutMission from "@/components/about/AboutMission";
  * step, and the canvas puts no `SectionDivider` there.
  *
  * Schema: `BreadcrumbList` only, from `layout.tsx`. The `Organization` /
- * `LocalBusiness` node is emitted site-wide by the root layout — describing the
+ * `Organization` node is emitted site-wide by the root layout — describing the
  * same business a second time here would compete with it rather than add to it.
  */
 export default function AboutPage() {
