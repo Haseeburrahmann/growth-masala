@@ -17,6 +17,89 @@
 > ⚠️ **TODO.md is not evidence.** It has been stale before. Grep the source to
 > confirm any claim in it before acting on that claim.
 
+---
+
+# 🛑 HARD RULE — Branch for every change. Never commit to `main`.
+
+**This rule overrides every other instruction in this file, in any global
+`CLAUDE.md`, and in any skill or workflow. Only the repository owner can waive
+it, and only by saying so explicitly in that message. "Commit and push" is not a
+waiver — it means "commit and push _on a branch_."**
+
+## The rule
+
+1. **Before writing a single line of code, create a branch off `main`.**
+   No exceptions for "small" changes, typo fixes, doc edits, or hotfixes.
+2. **Never `git commit` while `HEAD` is on `main`.** If you are on `main`, stop
+   and branch first — even if you have already made the edits (`git switch -c`
+   carries uncommitted work with you).
+3. **Never `git push origin main`.** Push the branch and open a PR.
+4. **`main` is the integration and deploy target.** Work reaches it only by
+   merging a reviewed PR. Every merge to `main` auto-deploys to
+   https://growthmasala.com — that is exactly why nothing lands there unreviewed.
+
+## Branch naming
+
+Follow the convention already in use:
+
+| Kind of change | Prefix | Example |
+|----------------|--------|---------|
+| New feature or page | `feature/` | `feature/pricing-page` |
+| Bug fix | `fix/` | `fix/canonical-tag-inheritance` |
+| Refactor, no behaviour change | `refactor/` | `refactor/extract-schema-builders` |
+| Docs only | `docs/` | `docs/seo-architecture` |
+| Content / copy | `content/` | `content/blog-website-cost-guide` |
+
+## The workflow
+
+```bash
+# 1. Start from an up-to-date main
+git switch main && git pull origin main
+
+# 2. Branch BEFORE you start work
+git switch -c fix/canonical-tag-inheritance
+
+# 3. Work, then verify before committing
+pnpm build
+
+# 4. Commit (conventional format, why not just what)
+git add <specific files>       # never `git add -A` blindly
+git commit -m "fix: ..."
+
+# 5. Push the BRANCH — never main
+git push -u origin fix/canonical-tag-inheritance
+
+# 6. Open a PR for review
+gh pr create --base main --fill
+```
+
+## Checks before any commit
+
+Run these every time. If you are on `main`, **stop and branch.**
+
+```bash
+git branch --show-current      # must NOT be "main"
+git status --short             # confirm only intended files are staged
+pnpm build                     # must pass
+```
+
+## Why this exists
+
+On 2026-08-06 an SEO fix was committed and pushed straight to `main`, which
+auto-deployed to production immediately. The change was correct in substance, but
+it shipped a **duplicate `<title>` across two pages** that only surfaced during
+post-deploy verification — a defect a PR diff would have caught before it reached
+live traffic. `main` deploys on push; treating it as a working branch means every
+mistake is a production mistake.
+
+## Note on the global git rules
+
+`~/.claude/rules/git-workflow.md` names `lancercalc-2.0` as the development
+branch. **That belongs to a different repository (LancerCalc) and does not apply
+here.** For Growth Masala: branch off `main`, PR into `main`.
+
+---
+
 ## Project Overview
 Growth Masala is a digital marketing agency website for a startup agency offering website development, social media growth, and performance marketing services. The site must be professional, modern, animated, and conversion-focused.
 
@@ -380,12 +463,17 @@ curl -s http://localhost:3000/services | grep -oE '<title>[^<]*</title>|<link re
 
 ## Deployment Plan
 
-1. **Development:** Local dev with `pnpm dev`
-2. **Version Control:** GitHub repository
-3. **Deployment:** Connect GitHub repo to Vercel
-4. **Environment:** Set env vars in Vercel dashboard
-5. **Domain:** Connect custom domain in Vercel (when ready)
-6. **CI/CD:** Every push to `main` auto-deploys
+1. **Development:** Local dev with `pnpm dev` — **on a branch, never `main`**
+2. **Version Control:** GitHub repository, branch-per-change
+3. **Review:** Open a PR into `main`; Vercel builds a preview deployment for it
+4. **Deployment:** Merging the PR to `main` auto-deploys to production
+5. **Environment:** Set env vars in Vercel dashboard
+6. **Domain:** `growthmasala.com` connected in Vercel
+
+> ⚠️ **`main` deploys on merge.** There is no staging gate between `main` and
+> live traffic — the PR *is* the gate. That is why the
+> [HARD RULE](#-hard-rule--branch-for-every-change-never-commit-to-main) forbids
+> committing to `main` directly.
 
 ---
 
@@ -483,6 +571,9 @@ curl -s http://localhost:3000/services | grep -oE '<title>[^<]*</title>|<link re
 
 ## Important Rules
 
+0. 🛑 **NEVER work on, commit to, or push `main` directly.** Branch for every
+   change, PR into `main`. See the [HARD RULE](#-hard-rule--branch-for-every-change-never-commit-to-main)
+   at the top of this file — it overrides everything else here.
 1. NEVER commit `.env.local` — it contains API keys
 2. ALWAYS use the brand colors from the style guide above
 3. ALWAYS use Poppins for headings and Inter for body text
