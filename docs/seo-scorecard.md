@@ -11,6 +11,19 @@ Companion documents:
 - [`../.claude/TODO.md`](../.claude/TODO.md) — what is still open
 - [`../.claude/updates.md`](../.claude/updates.md) — chronological log of shipped work
 
+## Search performance snapshots
+
+These are Search Console rolling windows, not separate cohorts. The September 24 and 27 windows overlap by 25 days, and Search Console data on September 27 ends September 25. Changes made on September 24 therefore have too little post-launch data to attribute any movement to them.
+
+| Checked | Search dates (28 days) | Clicks | Impressions | CTR | Average position | Hyderabad service page |
+|---------|-------------------------|-------:|------------:|----:|-----------------:|------------------------|
+| 2026-09-24 | 2026-08-26 to 2026-09-22 | 11 | 417 | 2.6% | 16.0 | 0 clicks / 3 impressions |
+| 2026-09-27 | 2026-08-29 to 2026-09-25 | 10 | 496 | 2.0% | 15.7 | 0 clicks / 3 impressions |
+
+On September 27, `/blog/website-design-cost-mahabubnagar` had 111 impressions, 0 clicks, and average position 12.6 in the latest 28 days. Its highest-impression queries included “quotes for website design” (12) and “website costs” (7). Bing Webmaster Tools showed 0 clicks and 8 impressions for June 26 to September 25, unchanged from the September 24 review. GA4's last-seven-days home card showed 4 organic-search sessions and no key events; this is a different measurement and date window from Search Console.
+
+The September 27 content revision to the Mahabubnagar cost guide clarifies the published GST treatment and remote delivery, and adds a three-year quote comparison. This revision is committed locally but requires a GitHub push and deployment before any indexing request or outcome measurement.
+
 > **Read this before acting on any external audit.** Four of the tools below
 > have produced confident false positives on this site. The
 > [False positives](#false-positives-do-not-fix-these) section exists so nobody
