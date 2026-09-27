@@ -22,7 +22,7 @@ These are Search Console rolling windows, not separate cohorts. The September 24
 
 On September 27, `/blog/website-design-cost-mahabubnagar` had 111 impressions, 0 clicks, and average position 12.6 in the latest 28 days. Its highest-impression queries included “quotes for website design” (12) and “website costs” (7). Bing Webmaster Tools showed 0 clicks and 8 impressions for June 26 to September 25, unchanged from the September 24 review. GA4's last-seven-days home card showed 4 organic-search sessions and no key events; this is a different measurement and date window from Search Console.
 
-The September 27 content revision to the Mahabubnagar cost guide clarifies the published GST treatment and remote delivery, and adds a three-year quote comparison. This revision is committed locally but requires a GitHub push and deployment before any indexing request or outcome measurement.
+The September 27 content revision to the Mahabubnagar cost guide clarifies the published GST treatment and remote delivery, and adds a three-year quote comparison. It deployed through [PR #4](https://github.com/Haseeburrahmann/growth-masala/pull/4) on September 27. The production page showed the new copy and date, Google Search Console accepted a request to recrawl the already indexed URL, and IndexNow returned HTTP 200 for the update. Outcome measurement should start after the deployment date, allowing for Search Console's reporting lag.
 
 > **Read this before acting on any external audit.** Four of the tools below
 > have produced confident false positives on this site. The
