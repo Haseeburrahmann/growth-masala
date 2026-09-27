@@ -14,7 +14,7 @@ import { spellOut } from "@/lib/spellOut";
  *
  * The fix is to state the relationship instead of hiding it. Fifty is the work
  * delivered; eight is what we can show, because a portfolio entry needs a named
- * client and a URL that still resolves. The standfirst says exactly that —
+ * client and a project record. The standfirst says exactly that —
  * "a curated slice of 50+ projects delivered" — which is why the stat strip that
  * used to sit under this copy is gone: it repeated both numbers side by side
  * without the sentence that reconciles them.
@@ -28,9 +28,8 @@ import { spellOut } from "@/lib/spellOut";
  */
 
 /**
- * Spelled-out counts for the headline. The canvas headline reads "Eight sites",
- * not "8 sites", and a numeral opening an H1 reads like a stat rather than a
- * sentence. Anything past the table falls back to the numeral, which is correct
+ * Spelled-out counts for the standfirst. Anything past the table falls back to
+ * the numeral, which is correct
  * rather than pretty — the alternative is a headline that silently disagrees
  * with the grid below it.
  */
@@ -75,8 +74,7 @@ export default function PortfolioHero() {
           </h1>
 
           <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-300 sm:mt-5 sm:text-[1.0625rem] sm:leading-7">
-            {liveCountWord} sites you can open right now — every link below is
-            live. Named clients, real businesses, a curated slice of{" "}
+            {liveCountWord} named projects you can inspect below. A curated slice of{" "}
             {trackRecord.projectsDelivered}+ projects delivered.
           </p>
         </AnimatedContainer>

@@ -56,7 +56,7 @@ export default function LocationWhyLocal({ page }: { page: LocationPage }) {
             {page.slug === "website-development-hyderabad" && (
               <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
                 <Link
-                  href="/case-studies"
+                  href="/case-studies#kings-mobile-world"
                   className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:underline"
                 >
                   See the Kings Mobile World project

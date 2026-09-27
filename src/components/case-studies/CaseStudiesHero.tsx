@@ -1,6 +1,6 @@
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import { caseStudies } from "@/data/caseStudies";
-import { spellOut, spellOutLower } from "@/lib/spellOut";
+import { spellOut } from "@/lib/spellOut";
 
 /**
  * Case studies hero.
@@ -9,8 +9,8 @@ import { spellOut, spellOutLower } from "@/lib/spellOut";
  * three cards whose "results" were "Live", "1-tap" and "100% Mobile
  * Responsive". The headline wrote a cheque the page could not cash.
  *
- * The replacement promises exactly what follows: a build, the reasoning, and a
- * live URL to check it against. It is a weaker claim than "results", and it is
+ * The replacement promises exactly what follows: a build and the reasoning
+ * behind it. It is a weaker claim than "results", and it is
  * the one we can substantiate — which on a page competing against agencies
  * advertising "300% growth" is closer to an advantage than a concession.
  *
@@ -22,7 +22,6 @@ import { spellOut, spellOutLower } from "@/lib/spellOut";
  * moment a fourth study is added to `caseStudies.ts`.
  */
 export default function CaseStudiesHero() {
-  const count = spellOutLower(caseStudies.length);
   const countTitleCase = spellOut(caseStudies.length);
 
   return (
@@ -51,7 +50,7 @@ export default function CaseStudiesHero() {
 
           <p className="mt-4 max-w-[620px] text-base leading-[26px] text-slate-300 lg:mt-5 lg:text-[17px] lg:leading-[28px]">
             What the client was actually up against, what we built, and what
-            shipped. All {count} sites are live — open them and check.
+            shipped. Explore each project and the site screenshots below.
           </p>
         </AnimatedContainer>
       </div>

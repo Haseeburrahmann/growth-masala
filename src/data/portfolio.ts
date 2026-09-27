@@ -51,13 +51,13 @@ export const portfolioItems: PortfolioItem[] = [
   {
     title: "Kings Mobile World",
     summary:
-      "Mobile repair across four Hyderabad branches, with WhatsApp enquiries built in.",
+      "Repair website built for four Hyderabad branches; see the archived project.",
     tag: "Local retail",
     category: "website",
     description:
-      "Business website for Hyderabad's leading mobile repair service — showcasing 4 branches, repair stats, brand carousel, and WhatsApp-driven lead capture.",
+      "Repair website project for a Hyderabad business — showcasing four branches, repair stats, brand carousel, and WhatsApp-driven lead capture. The current client website differs from this archived version.",
     image: "/images/portfolio/kings-mobile.webp",
-    link: "https://kingsmobileworld.in",
+    link: "/case-studies#kings-mobile-world",
   },
   {
     title: "Automotive Dudes",

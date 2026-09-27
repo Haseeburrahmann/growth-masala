@@ -103,8 +103,8 @@ export default function PortfolioGrid() {
               >
                 <a
                   href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={item.link?.startsWith("http") ? "_blank" : undefined}
+                  rel={item.link?.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="block h-full"
                 >
                   <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl lg:rounded-[1.25rem]">
@@ -148,7 +148,7 @@ export default function PortfolioGrid() {
                           the row of links stays on one baseline even though the
                           titles wrap to different heights. */}
                       <span className="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-semibold text-primary">
-                        Visit the live site
+                        {item.link?.startsWith("http") ? "Visit the live site" : "View the project"}
                         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                       </span>
                     </div>

@@ -304,7 +304,7 @@ export const locationPages: LocationPage[] = [
     intro:
       "Growth Masala is based in Mahabubnagar and builds websites for Hyderabad businesses remotely. We plan mobile-first pages around the questions your customers ask, with search-ready structure, hosting and SSL setup, performance optimisation, and 30 days of post-launch support.",
     whyLocal:
-      "Our public Kings Mobile World project is for a Hyderabad mobile-repair business with four branches. The site brings branch details, repair and brand information, and WhatsApp enquiries together so customers can find the right branch and understand the service. Growth Masala works remotely from Mahabubnagar; no traffic or revenue result is claimed for this project.",
+      "Our Kings Mobile World case study shows a repair website built for a Hyderabad business with four branches. That version brought branch details, repair and brand information, and WhatsApp enquiries together. The client's current website has changed since this project. Growth Masala works remotely from Mahabubnagar; no traffic or revenue result is claimed for the project.",
     marketContext:
       "A Hyderabad business website needs to make its service, proof, contact path, and next step clear on a phone. We review the current site and goals first, then quote the pages and features needed; a rebuild is not automatically the right answer if the existing site can be improved.",
     featuredServices: ["website-development", "seo", "ai-automation"],

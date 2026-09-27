@@ -130,10 +130,12 @@ export interface CaseStudy {
   /** Where the client trades. Local-intent copy, and true for each of them. */
   location: string;
   link?: string;
+  /** Clarifies when the pictured project differs from the client's current site. */
+  projectNote?: string;
   image: string;
   challenge: string;
   solution: string;
-  /** What was built. Verifiable by opening `link` — nothing else belongs here. */
+  /** What was built. Keep historical versions clearly labelled. */
   delivered: string[];
   /**
    * A measured business outcome — enquiries per month, admissions, traffic.

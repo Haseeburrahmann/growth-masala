@@ -15,7 +15,7 @@ import { pageOpenGraph } from "@/lib/metadata";
  */
 export const metadata: Metadata = {
   title: "Case Studies — Three Client Builds",
-  description: `How Growth Masala approached three real projects — two schools and a four-branch repair chain in ${address.region} and Bengaluru. The problem, the build, and exactly what shipped. Every study links to the live site.`,
+  description: `How Growth Masala approached three real projects — two schools and a four-branch repair chain in ${address.region} and Bengaluru. The problem, the build, and what shipped.`,
   alternates: { canonical: "/case-studies" },
   openGraph: pageOpenGraph({
     title: "Case Studies — Three Client Builds | Growth Masala",
