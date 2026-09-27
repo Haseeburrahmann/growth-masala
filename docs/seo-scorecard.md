@@ -24,6 +24,8 @@ On September 27, `/blog/website-design-cost-mahabubnagar` had 111 impressions, 0
 
 The September 27 content revision to the Mahabubnagar cost guide clarifies the published GST treatment and remote delivery, and adds a three-year quote comparison. It deployed through [PR #4](https://github.com/Haseeburrahmann/growth-masala/pull/4) on September 27. The production page showed the new copy and date, Google Search Console accepted a request to recrawl the already indexed URL, and IndexNow returned HTTP 200 for the update. Outcome measurement should start after the deployment date, allowing for Search Console's reporting lag.
 
+The next September 27 review found that the current Kings Mobile World domain shows a parts storefront, while our screenshot and case study show an earlier four-branch repair website. The current site therefore cannot verify the pictured build. The case study and Hyderabad service copy now label that version as historical, and the portfolio links to the archived case study instead of presenting the current client domain as proof. The services page also gained contextual links to the Mahabubnagar and Hyderabad website service pages. No new page was created. These are accuracy and internal-link improvements; no ranking or click gain is yet measurable.
+
 > **Read this before acting on any external audit.** Four of the tools below
 > have produced confident false positives on this site. The
 > [False positives](#false-positives-do-not-fix-these) section exists so nobody

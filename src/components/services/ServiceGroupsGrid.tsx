@@ -248,6 +248,26 @@ export default function ServiceGroupsGrid() {
             </AnimatedContainer>
           ))}
         </div>
+
+        <AnimatedContainer>
+          <p className="mt-8 text-sm leading-relaxed text-text-secondary">
+            Planning a website? See how we build remotely for businesses in{" "}
+            <Link
+              href="/website-development-mahabubnagar"
+              className="font-semibold text-primary hover:underline"
+            >
+              Mahabubnagar
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/website-development-hyderabad"
+              className="font-semibold text-primary hover:underline"
+            >
+              Hyderabad
+            </Link>
+            .
+          </p>
+        </AnimatedContainer>
       </div>
     </section>
   );

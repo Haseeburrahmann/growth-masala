@@ -249,7 +249,7 @@ export const locationFaqOverrides: Record<string, FaqItem[]> = {
     {
       question: "Have you built a website for a Hyderabad business?",
       answer:
-        "Yes. The public Kings Mobile World project covers its four Hyderabad branches, repair and brand information, and WhatsApp enquiry path. We have not published measured traffic or revenue outcomes for that project.",
+        "Yes. Our Kings Mobile World case study shows a repair website built for four Hyderabad branches, with repair and brand information and a WhatsApp enquiry path. The client's current website has changed since that version. We have not published measured traffic or revenue outcomes for the project.",
     },
   ],
   "digital-marketing-agency-wanaparthy": [

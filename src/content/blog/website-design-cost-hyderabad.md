@@ -64,7 +64,7 @@ Where it does matter is photography. If your business is a showroom, a restauran
 
 ![A web designer explaining a website layout on a laptop to a business owner in a bright office](/images/blog/designer-client-review.webp "Most of the work happens on calls and screen shares regardless of who you hire. Location matters for photography more than for development.")
 
-We are based in Mahabubnagar and work remotely with Hyderabad businesses. One public example is [Kings Mobile World](/case-studies), a Hyderabad mobile-repair business with four branches.
+We are based in Mahabubnagar and work remotely with Hyderabad businesses. One past project is the [Kings Mobile World repair website](/case-studies#kings-mobile-world), built for a Hyderabad business with four branches. The case study shows the version we delivered; the client's current website has changed.
 
 ## The four things left out of nearly every quote
 

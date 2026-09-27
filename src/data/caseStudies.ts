@@ -3,8 +3,9 @@ import type { CaseStudy } from "@/types";
 /**
  * The three projects written up in full on /case-studies.
  *
- * These are real Growth Masala clients with live URLs — verify before editing,
- * the same rule that applies to `testimonials.ts`.
+ * These are real Growth Masala clients. Current client sites may change after
+ * delivery; verify a live URL before presenting it as proof of the pictured build.
+ * The same care applies to `testimonials.ts`.
  *
  * This data used to live inside `src/app/case-studies/page.tsx`, which meant the
  * page could not be a server component and the content could not be reused. It
@@ -51,17 +52,18 @@ export const caseStudies: CaseStudy[] = [
     client: "Kings Mobile World",
     category: "Website · Local Retail",
     location: "Hyderabad",
-    link: "https://kingsmobileworld.in",
     image: "/images/portfolio/kings-mobile.webp",
+    projectNote:
+      "This screenshot shows the repair website we built. The client's current website has since changed and does not show this version of the project.",
     challenge:
-      "Kings Mobile World runs mobile repair across four branches in Hyderabad and had no website at all. Phone repair is a trust purchase — someone is handing over a device with their photos, their banking apps, and their contacts on it — and there was nothing online to establish that trust. Four branches also meant customers had no way to find out which one was nearest.",
+      "Kings Mobile World operated mobile repair across four branches in Hyderabad and had no website at the time of this project. Phone repair is a trust purchase — someone is handing over a device with their photos, their banking apps, and their contacts on it — and there was nothing online to establish that trust. Four branches also meant customers had no way to find out which one was nearest.",
     solution:
       "A conversion-focused business site that leads with the things that make a repair shop credible: how many branches, how many repairs, which brands they handle. The brand carousel and repair stats sit above the fold because they answer the trust question before the visitor has to ask it, and every branch has its own details with WhatsApp lead capture attached.",
     delivered: [
       "All four Hyderabad branches listed with their own details, so customers can find the nearest one",
       "Repair stats and a brand carousel positioned as the trust proof, above the fold",
       "WhatsApp-driven enquiry capture — the channel this customer base already uses",
-      "An online storefront that holds up when someone searches the shop name before walking in",
+      "A business website for customers checking the shop before walking in",
     ],
     gradient: "from-accent/20 to-orange-500/10",
   },

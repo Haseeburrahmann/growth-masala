@@ -19,15 +19,16 @@ interface CaseStudySectionProps {
  * reasoning, which is the only thing on this page a competitor cannot copy.
  *
  * The order is now the order someone reads in: what was wrong → what we built →
- * what shipped → go and look. `index` drives two things and they move together:
+ * what shipped. `index` drives two things and they move together:
  * the background alternates white/surface so consecutive studies separate
  * without a divider, and the image side alternates so the eye is not tracking
  * down a single column for three screens.
  *
  * ── On the delivered list ──────────────────────────────────────────────────
  *
- * Checkmarks make a completeness claim, which is true and verifiable by opening
- * `study.link`. Big numerals make a measurement claim, which the previous
+ * Checkmarks describe delivered work; a live URL verifies it only when the
+ * current client site still shows that version. Big numerals make a measurement
+ * claim, which the previous
  * version made with "Live", "1-tap" and "100% Mobile Responsive" typeset as
  * KPIs. Nothing here needs the reader to take our word for it.
  *
@@ -42,6 +43,7 @@ export default function CaseStudySection({ study, index }: CaseStudySectionProps
 
   return (
     <section
+      id={study.slug}
       className={`${isAlternate ? "bg-surface" : "bg-white"} py-14 sm:py-16 lg:py-[72px]`}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -106,6 +108,12 @@ export default function CaseStudySection({ study, index }: CaseStudySectionProps
                   </li>
                 ))}
               </ul>
+
+              {study.projectNote && (
+                <p className="mt-5 text-sm leading-relaxed text-text-secondary">
+                  {study.projectNote}
+                </p>
+              )}
 
               {/* Reserved for a real measured figure. Undefined on every study
                   today — see the note in `caseStudies.ts`. */}
