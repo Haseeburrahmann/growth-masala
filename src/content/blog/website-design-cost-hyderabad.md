@@ -3,7 +3,7 @@ title: "Website Design Cost in Hyderabad (2026): What Each Price Band Buys"
 seoTitle: "Website Design Cost in Hyderabad (2026)"
 excerpt: "Hyderabad quotes run from ₹999 to well past ₹1,00,000 for a small business site. The gap is mostly overhead, not quality. Here is how to read a quote and work out what you are paying for."
 date: "2026-08-07"
-updated: "2026-08-07"
+updated: "2026-10-05"
 readTime: "8 min read"
 category: "Website Costs"
 image: "/images/blog/website-cost-hyderabad-hero.webp"
@@ -86,6 +86,13 @@ We bill domain and hosting at cost with no markup, and every price we charge is 
 
 ## If you would rather just see the work
 
-Every project in [our portfolio](/portfolio) links to the live site, including the Hyderabad repair chain. Open them on a phone and judge for yourself before speaking to anyone.
+[Our portfolio](/portfolio) includes current project links and an explicitly labelled archive for the Hyderabad repair chain. Open the available websites on a phone and inspect the work before speaking to anyone.
 
 More on what we deliver in the city: [website development in Hyderabad](/website-development-hyderabad). Outside the city, the same guide for [Mahabubnagar](/blog/website-design-cost-mahabubnagar).
+
+
+## Compare the scope in writing
+
+[Download our website quote comparison worksheet](/downloads/website-quote-comparison.csv) and compare build cost, tax treatment, domain and hosting renewals, content, support and account ownership. It is a blank comparison template, not a market-price estimate. Keep unknown amounts blank until the supplier confirms them.
+
+For a recent example of what a website scope can include, read the [SQC Solar & Loans build](/blog/sqc-solar-loans-website-mahabubnagar) or the [Health Factor Dental Clinic write-up](/blog/health-factor-dental-website-case-study). They describe delivered features, without invented traffic or revenue results.

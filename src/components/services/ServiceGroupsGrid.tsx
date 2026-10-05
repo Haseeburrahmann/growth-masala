@@ -267,6 +267,12 @@ export default function ServiceGroupsGrid() {
             </Link>
             .
           </p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-primary">
+            <Link href="/seo-services-mahabubnagar" className="inline-flex min-h-11 items-center hover:underline">SEO in Mahabubnagar</Link>
+            <Link href="/seo-services-hyderabad" className="inline-flex min-h-11 items-center hover:underline">SEO in Hyderabad</Link>
+            <Link href="/ai-automation-mahabubnagar" className="inline-flex min-h-11 items-center hover:underline">AI automation in Mahabubnagar</Link>
+            <Link href="/ai-automation-hyderabad" className="inline-flex min-h-11 items-center hover:underline">AI automation in Hyderabad</Link>
+          </div>
         </AnimatedContainer>
       </div>
     </section>

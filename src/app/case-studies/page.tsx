@@ -3,6 +3,8 @@ import CaseStudySection from "@/components/case-studies/CaseStudySection";
 import CaseStudiesNote from "@/components/case-studies/CaseStudiesNote";
 import CaseStudiesCTA from "@/components/case-studies/CaseStudiesCTA";
 import { caseStudies } from "@/data/caseStudies";
+import Link from "next/link";
+import Image from "next/image";
 
 /**
  * /case-studies — three projects, told as problem → build → what shipped.
@@ -40,6 +42,26 @@ export default function CaseStudiesPage() {
   return (
     <>
       <CaseStudiesHero />
+
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Recently launched</p>
+          <h2 className="mt-4 font-heading text-3xl font-bold text-text-primary">Two new builds, explained.</h2>
+          <div className="mt-8 grid gap-8 md:grid-cols-2">
+            {[
+              { href: "/blog/sqc-solar-loans-website-mahabubnagar", title: "SQC Solar & Loans", image: "/images/portfolio/sqc-solar-loans.webp", text: "Two service journeys for a Mahabubnagar business, with a clear path to an enquiry." },
+              { href: "/blog/health-factor-dental-website-case-study", title: "Health Factor Dental Clinic", image: "/images/portfolio/health-factor-dental.webp", text: "Treatment information, clinic evidence and a WhatsApp appointment-request flow for a Delhi practice." },
+            ].map((project) => (
+              <article key={project.href} className="overflow-hidden rounded-2xl border border-border">
+                <Link href={project.href} className="block focus-visible:outline-2 focus-visible:outline-primary">
+                  <Image src={project.image} alt={`Screenshot of the ${project.title} website`} width={1512} height={771} className="aspect-video w-full object-cover object-top" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <div className="p-6"><h3 className="font-heading text-xl font-semibold text-text-primary">{project.title}</h3><p className="mt-3 leading-7 text-text-secondary">{project.text}</p><span className="mt-5 inline-block text-sm font-semibold text-primary">Read the project story →</span></div>
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {caseStudies.map((study, idx) => (
         <CaseStudySection key={study.slug} study={study} index={idx} />

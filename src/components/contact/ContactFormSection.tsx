@@ -17,26 +17,27 @@ import ContactNextSteps from "@/components/contact/ContactNextSteps";
  */
 export default function ContactFormSection() {
   return (
-    <section className="bg-surface py-20 sm:py-24">
+    <section id="project-brief" className="scroll-mt-24 bg-surface py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <AnimatedContainer>
           <div className="flex items-center gap-3">
             <div className="h-px w-8 bg-primary/30" />
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              Or just write it down
+              Prepare your WhatsApp brief
             </span>
           </div>
 
           <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-16">
             <h2 className="font-heading text-[1.75rem] font-bold leading-[1.15] tracking-[-0.025em] text-text-primary text-balance sm:text-4xl lg:max-w-2xl lg:text-[2.875rem]">
-              <span className="block">Send us the brief.</span>{" "}
+              <span className="block">Write a short brief.</span>{" "}
               <span className="block text-text-secondary/75">
-                We send back a number.
+                Continue in WhatsApp.
               </span>
             </h2>
             <p className="max-w-xl text-base leading-relaxed text-text-secondary lg:flex-1 lg:text-[17px]">
               You do not need a spec. One paragraph about what you sell and what
-              is not working is enough for us to quote from.
+              is not working is enough. We will open it as a WhatsApp draft for
+              you to review and send.
             </p>
           </div>
         </AnimatedContainer>

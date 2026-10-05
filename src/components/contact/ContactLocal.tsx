@@ -27,7 +27,7 @@ const napRows = [
   },
   {
     icon: Mail,
-    label: "Email",
+    label: "Privacy & existing projects",
     value: business.email,
     href: `mailto:${business.email}`,
   },

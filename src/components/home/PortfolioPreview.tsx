@@ -49,8 +49,8 @@ export default function PortfolioPreview() {
         <SectionIntro
           eyebrow="Work you can check"
           lead="Real businesses."
-          trail="Live sites. Named clients."
-          standfirst="Every site below is live right now — open any of them. Every quote is from the client who paid."
+          trail="Named clients. Work you can inspect."
+          standfirst="Explore the project links, including archived work where a client site has changed. Every quote is from the client who paid."
         />
 
         <div className="mt-10 grid items-stretch gap-5 md:grid-cols-3 lg:mt-14 lg:gap-8">

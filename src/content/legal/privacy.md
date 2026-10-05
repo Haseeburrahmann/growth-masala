@@ -2,7 +2,7 @@
 title: "Privacy Policy"
 description: "What Growth Masala collects, why, who it is shared with, and how to have it deleted. Covers the website, our chatbot, and business outreach on WhatsApp."
 standfirst: "This policy describes exactly what we collect and what we do with it. It is written to be read, not to be survived."
-updated: "2026-09-24"
+updated: "2026-10-05"
 ---
 
 Growth Masala ("we", "us") is a digital marketing agency based in {{locality}}, {{region}}. This policy covers [{{site}}]({{site}}), our website chatbot, and the messages we send to businesses on WhatsApp.
@@ -11,7 +11,8 @@ If anything here is unclear, email us at [{{email}}](mailto:{{email}}) and we wi
 
 ## The short version
 
-- We collect what you type into our contact form or chatbot, and we email it to ourselves. There is no customer database behind this website.
+- Our contact form prepares a WhatsApp draft in your browser. It is not stored or emailed by this website; you choose whether to send it in WhatsApp.
+- Chatbot messages are processed by Anthropic and kept in your browser for the session. Its enquiry button also opens a WhatsApp draft. There is no customer database behind this website.
 - We use Google Analytics to count visits.
 - We identify businesses from **publicly listed** information and may contact them once with an offer.
 - You can tell us to stop at any time, and we will.
@@ -21,20 +22,20 @@ If anything here is unclear, email us at [{{email}}](mailto:{{email}}) and we wi
 
 ### The contact form
 
-The form on our [contact page](/contact) asks for your name, email address, phone number, business name, the service you are interested in, and your message. Name, email and message are required; the rest are optional.
+The form on our [contact page](/contact) asks for your name, business name, the service you are interested in, and your message. Name and message are required; business and service are optional. It does not ask for an email address or phone number.
 
-When you submit it, we send that information to our own inbox as an email. **It is not written to a database and it is not stored on this website.** The email sits in our mailbox until we delete it.
+When you choose **Continue in WhatsApp**, your browser opens WhatsApp with these details in a prefilled message. **Our website does not submit, store, or email your form contents.** The draft is passed to WhatsApp in the link and may appear in your browser history. Opening it does not send a message to our team: you must review it and press Send in WhatsApp. WhatsApp processes the draft and any message you send under its own privacy policy.
 
-We use it to reply to you and to prepare a quote. Nothing else.
+If you send the message, we receive your WhatsApp number and the information you send. We use them to reply and prepare a quote.
 
 ### Masala Bot, our website chatbot
 
 The chat widget in the corner of the site is an AI assistant. Two things happen when you use it:
 
 - **Your messages are sent to Anthropic**, the company that provides the AI model, so it can generate a reply. Anthropic processes the text to produce the response. Do not paste passwords, bank details, or anything confidential into it — the same advice applies to any chatbot on any website.
-- **The conversation is stored in your own browser**, in something called session storage. It stays on your device so the chat is still there if you move between pages, and your browser clears it when you close the tab. We cannot read it.
+- **The conversation is stored in your own browser**, in something called session storage. It stays on your device so the chat is still there if you move between pages, and your browser clears it when you close the tab. This browser copy is not a customer record stored by us; the messages you send are still processed through our chatbot service as described above.
 
-If the bot asks for your name, phone number and what you need, and you choose to give them, those three details are emailed to us in the same way the contact form is. That is the only part of a chat conversation that ever reaches us.
+If you give the bot your name, phone number and what you need, those details are part of the conversation processed by Anthropic. The **Continue in WhatsApp** button prepares a draft containing those details. It does not email them or send them to our team automatically. You review the draft and press Send in WhatsApp to contact us.
 
 We apply a temporary rate limit based on your IP address to stop the chatbot being abused. That count is held in memory for one minute and is never written to disk or stored.
 
@@ -43,6 +44,8 @@ We apply a temporary rate limit based on your IP address to stop the chatbot bei
 ### Analytics
 
 We use **Google Analytics** to understand how many people visit, which pages they read, and roughly where they are in the world. It sets cookies in your browser and collects your approximate location, device type, browser, and the pages you view.
+
+We also count clicks to continue in WhatsApp as contact intent, not confirmed enquiries. These events contain only the source (contact form or chatbot) and, when available, a predefined service category; they do not contain your name, number, business name, or message.
 
 This is aggregate and statistical. We are looking at whether a blog post is being read, not at what you personally did.
 
@@ -91,9 +94,9 @@ We use a small number of established service providers. Each one only ever recei
 |---|---|---|
 | Google Analytics | Anonymous usage data, cookies | Counting visits |
 | Anthropic | Chatbot messages you type | Generating the bot's reply |
-| Meta (WhatsApp Business Platform) | Phone number and message content | Delivering WhatsApp messages |
+| Meta (WhatsApp) | Prefilled drafts opened in WhatsApp, account information, and messages you choose to send | Preparing and delivering WhatsApp messages |
 | Vercel | Technical request logs | Hosting the site |
-| Google (Gmail) | Contact form and chatbot lead emails | Delivering those emails to us |
+| Google (Gmail) | Emails you send directly, and earlier enquiry emails | Handling email correspondence |
 
 We do not sell personal information. We do not share it for anyone else's advertising. We will disclose information if the law requires it of us, and not otherwise.
 
@@ -103,7 +106,8 @@ Some of the providers above operate outside India, so information may be process
 
 ## How long we keep it
 
-- **Contact form and chatbot enquiries** — kept in our email for as long as they are useful, and deleted on request.
+- **WhatsApp enquiries you send** — kept in our WhatsApp correspondence for as long as useful to handle your enquiry or project, and deleted on request where no other retention requirement applies. Unsaved contact-form drafts stay only in your browser until you open WhatsApp; WhatsApp then processes the draft.
+- **Earlier enquiry emails and direct email correspondence** — kept in our email for as long as useful, and deleted on request where no other retention requirement applies.
 - **Client records** — kept for the duration of the project, and afterwards for as long as tax and accounting law requires us to keep them.
 - **Do-not-contact list** — kept indefinitely, because deleting it is what would cause us to contact you again.
 - **Chat conversations** — cleared by your own browser when you close the tab.

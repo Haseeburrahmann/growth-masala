@@ -13,12 +13,15 @@ Companion documents:
 
 ## Search performance snapshots
 
+Latest review: [October 5 SEO check and creation plan](seo-audit-2026-10-05.md). The Mahabubnagar pricing guide now shows 182 impressions and zero clicks at position 12.5. Sitemap processing is successful with 26 discovered URLs; indexing data remains delayed to September 20.
+
 These are Search Console rolling windows, not separate cohorts. The September 24 and 27 windows overlap by 25 days, and Search Console data on September 27 ends September 25. Changes made on September 24 therefore have too little post-launch data to attribute any movement to them.
 
 | Checked | Search dates (28 days) | Clicks | Impressions | CTR | Average position | Hyderabad service page |
 |---------|-------------------------|-------:|------------:|----:|-----------------:|------------------------|
 | 2026-09-24 | 2026-08-26 to 2026-09-22 | 11 | 417 | 2.6% | 16.0 | 0 clicks / 3 impressions |
 | 2026-09-27 | 2026-08-29 to 2026-09-25 | 10 | 496 | 2.0% | 15.7 | 0 clicks / 3 impressions |
+| 2026-10-05 | 2026-09-06 to 2026-10-03 | 13 | 552 | 2.4% | 14.3 | Not separately captured |
 
 On September 27, `/blog/website-design-cost-mahabubnagar` had 111 impressions, 0 clicks, and average position 12.6 in the latest 28 days. Its highest-impression queries included “quotes for website design” (12) and “website costs” (7). Bing Webmaster Tools showed 0 clicks and 8 impressions for June 26 to September 25, unchanged from the September 24 review. GA4's last-seven-days home card showed 4 organic-search sessions and no key events; this is a different measurement and date window from Search Console.
 

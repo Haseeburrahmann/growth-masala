@@ -2,7 +2,7 @@
 title: "Data Deletion Request"
 description: "How to have Growth Masala delete the information we hold about you or your business, what gets removed, what we are legally required to keep, and how long it takes."
 standfirst: "How to have us delete what we hold about you. One email does it, and we act within 30 days."
-updated: "2026-09-24"
+updated: "2026-10-05"
 ---
 
 You can ask us to delete the information we hold about you or your business at any time. You do not need a reason, and there is no charge.
@@ -21,12 +21,13 @@ The same works if you tell us on a call, or email us asking to be removed.
 
 Depending on how you came into contact with us:
 
-- **If you filled in our contact form** — your name, email, phone number, business name and message, sitting in our email inbox.
-- **If you gave details to our website chatbot** — your name, phone number, and what you said you needed.
+- **If you filled in the current contact form** — the draft stays in your browser until you choose to open WhatsApp. The website does not store or email the form. If you send the message in WhatsApp, we receive your number and the details you send.
+- **If you used our earlier email enquiry form or emailed us directly** — your details and message may remain in our email correspondence.
+- **If you gave details to our website chatbot** — messages are processed by Anthropic and kept in your browser session. The current enquiry button prepares a WhatsApp draft; we receive it only if you send it there. Details submitted through the earlier chatbot email flow may remain in our inbox.
 - **If we contacted your business** — publicly listed business details (name, category, locality, published phone number) and the WhatsApp conversation, if there was one.
 - **If you have been a client** — project files, correspondence, and billing records.
 
-There is no customer database behind our website. Enquiries reach us as email, which is why deletion is genuinely deletion rather than a flag on a row.
+There is no customer database behind our website. We can delete enquiry correspondence held by us in WhatsApp, email, and working records. Closing the browser tab clears the chatbot session copy on your device; drafts opened through WhatsApp links may also appear in browser history. Our deletion process does not erase copies held independently by Anthropic, Meta, or on your device. See our [Privacy Policy](/privacy) for how those services process information.
 
 ## How to request deletion
 
@@ -40,7 +41,7 @@ Tell us:
 
 That is genuinely all we need. A single line — *"please delete everything you have for 98xxxxxxxx"* — is a valid request and we will act on it.
 
-You can also send the same request on WhatsApp to [{{phoneDisplay}}](tel:{{phone}}), or call that number during business hours.
+You can also send the same request on [WhatsApp]({{whatsapp}}), or call [{{phoneDisplay}}](tel:{{phone}}) during business hours.
 
 ## If you reached us through Facebook, Instagram or WhatsApp
 
@@ -58,8 +59,8 @@ The whole process is complete **within 30 days**, and usually much sooner.
 
 ## What we delete
 
-- Enquiry emails and their contents
-- Chatbot lead details
+- Earlier enquiry emails, direct emails, and their contents
+- Chatbot enquiry details held by us through earlier emails or messages you sent in WhatsApp
 - WhatsApp conversation history held by us
 - Your contact details from our working records
 

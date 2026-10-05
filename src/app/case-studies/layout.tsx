@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { buildBreadcrumbSchema } from "@/lib/schema";
-import { address } from "@/data/business";
 import { pageOpenGraph } from "@/lib/metadata";
 
 /**
@@ -14,12 +13,12 @@ import { pageOpenGraph } from "@/lib/metadata";
  * the expectation the page can meet.
  */
 export const metadata: Metadata = {
-  title: "Case Studies — Three Client Builds",
-  description: `How Growth Masala approached three real projects — two schools and a four-branch repair chain in ${address.region} and Bengaluru. The problem, the build, and what shipped.`,
+  title: "Website Case Studies — Client Projects",
+  description: "Explore Growth Masala website projects for solar, finance, dental, education and retail businesses. Real screenshots, design decisions and delivered scope.",
   alternates: { canonical: "/case-studies" },
   openGraph: pageOpenGraph({
-    title: "Case Studies — Three Client Builds | Growth Masala",
-    description: `The problem, the build, and what shipped — three projects delivered from ${address.locality} for clients across ${address.region} and Bengaluru.`,
+    title: "Website Case Studies — Client Projects | Growth Masala",
+    description: "Client website projects: the user journey, design decisions and what shipped, with screenshots and honest measurement limits.",
     url: "/case-studies",
   }),
 };

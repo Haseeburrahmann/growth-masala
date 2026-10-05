@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   Clock,
-  Mail,
+  FileText,
   MapPin,
   MessageCircle,
   Phone,
@@ -18,7 +18,7 @@ import {
 /**
  * Closing CTA, with the NAP card beside it.
  *
- * Every value in the card is read from `src/data/business.ts` — phone, email,
+ * Every value in the card is read from `src/data/business.ts` — phone, enquiry path,
  * base location, and response hours — so it cannot imply a customer-facing
  * office.
  * The eyebrow carries the city, which is the only per-page element here.
@@ -39,10 +39,10 @@ const contactRows: ContactRow[] = [
     Icon: Phone,
   },
   {
-    label: "Email",
-    value: business.email,
-    href: `mailto:${business.email}`,
-    Icon: Mail,
+    label: "Project brief",
+    value: "Prepare a WhatsApp enquiry",
+    href: "/contact#project-brief",
+    Icon: FileText,
   },
   { label: "Based in", value: baseLocationLine, Icon: MapPin },
   { label: "Reply hours", value: openingHoursLine, Icon: Clock },

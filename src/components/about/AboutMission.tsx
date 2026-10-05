@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Clock, FileText, MapPin, MessageCircle, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
   address,
@@ -27,10 +27,10 @@ const contactRows = [
     href: `tel:${business.phone}`,
   },
   {
-    icon: Mail,
-    label: "Email",
-    value: business.email,
-    href: `mailto:${business.email}`,
+    icon: FileText,
+    label: "Project brief",
+    value: "Prepare a WhatsApp enquiry",
+    href: "/contact#project-brief",
   },
   { icon: MapPin, label: "Based in", value: baseLocationLine, href: null },
   { icon: Clock, label: "Reply hours", value: openingHoursLine, href: null },
@@ -95,7 +95,7 @@ export default function AboutMission() {
               Reach us directly
             </p>
 
-            {/* A <ul>, not a <dl>: the phone and email values are links, and an
+            {/* A <ul>, not a <dl>: the phone and project brief values are links, and an
                 anchor wrapping a <dt>/<dd> pair is invalid markup. */}
             <ul className="mt-3 divide-y divide-white/10">
               {contactRows.map((row) => (

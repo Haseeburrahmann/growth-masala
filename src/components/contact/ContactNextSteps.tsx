@@ -22,8 +22,8 @@ import {
 
 const steps = [
   {
-    title: "You send the message",
-    detail: "Whatever detail you have. A photo of your current site is plenty.",
+    title: "Review and send in WhatsApp",
+    detail: "The form opens a draft. Press Send in WhatsApp to start the conversation.",
   },
   {
     title: "We reply the same day",

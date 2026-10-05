@@ -36,12 +36,15 @@ const ROUTE_SOURCES: Record<string, string[]> = {
     "src/app/case-studies",
     "src/components/case-studies",
     "src/data/caseStudies.ts",
+    "src/content/blog/sqc-solar-loans-website-mahabubnagar.md",
+    "src/content/blog/health-factor-dental-website-case-study.md",
   ],
   "/about": ["src/app/about", "src/components/about"],
   "/blog": ["src/app/blog/page.tsx", "src/components/blog", "src/content/blog"],
   "/contact": [
     "src/app/contact",
     "src/components/contact",
+    "src/components/forms/ContactForm.tsx",
     "src/data/business.ts",
   ],
 };
@@ -54,6 +57,7 @@ const LOCATION_SOURCES = [
   "src/app/[slug]/page.tsx",
   "src/components/locations",
   "src/data/locations.ts",
+  "src/data/locationDetails.ts",
   "src/data/faqs.ts",
 ];
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Clock, FileText, MapPin, MessageCircle, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import { address, business, openingHoursLine } from "@/data/business";
 
@@ -33,10 +33,10 @@ const contactRows = [
     icon: Phone,
   },
   {
-    label: "Email",
-    value: business.email,
-    href: `mailto:${business.email}`,
-    icon: Mail,
+    label: "Project brief",
+    value: "Prepare a WhatsApp enquiry",
+    href: "/contact#project-brief",
+    icon: FileText,
   },
   { label: "Based in", value: `${address.locality}, ${address.region}`, href: undefined, icon: MapPin },
   { label: "Reply hours", value: openingHoursLine, href: undefined, icon: Clock },

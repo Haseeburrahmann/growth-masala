@@ -1,6 +1,4 @@
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { caseStudies } from "@/data/caseStudies";
-import { spellOut } from "@/lib/spellOut";
 
 /**
  * Case studies hero.
@@ -22,7 +20,6 @@ import { spellOut } from "@/lib/spellOut";
  * moment a fourth study is added to `caseStudies.ts`.
  */
 export default function CaseStudiesHero() {
-  const countTitleCase = spellOut(caseStudies.length);
 
   return (
     <section className="relative overflow-hidden bg-navy pt-28 pb-12 sm:pt-32 sm:pb-14 lg:pt-[152px] lg:pb-16">
@@ -42,7 +39,7 @@ export default function CaseStudiesHero() {
 
           {/* One <h1>, two visual lines. Two <h1>s shipped here once. */}
           <h1 className="max-w-3xl font-heading text-[33px] font-bold leading-[38px] tracking-[-0.9px] text-white sm:text-5xl sm:leading-[1.08] lg:text-[52px] lg:leading-[57px] lg:tracking-[-1.4px]">
-            <span className="block">{countTitleCase} builds,</span>{" "}
+            <span className="block">The websites we built,</span>{" "}
             <span className="block text-slate-400">
               and why we made those calls.
             </span>

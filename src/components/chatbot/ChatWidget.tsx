@@ -17,7 +17,9 @@ import {
   X,
 } from "lucide-react";
 import MasalaBotMark from "@/components/chatbot/MasalaBotMark";
-import { trackAcceptedLead } from "@/lib/analytics";
+import { trackWhatsAppClick } from "@/lib/analytics";
+import { enquiryWhatsappLink } from "@/lib/whatsapp";
+import { business } from "@/data/business";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -47,8 +49,7 @@ const AUTO_OPENED_KEY = "gm-chat-auto-opened";
  */
 const AUTO_OPEN_PANEL = false;
 const CHAT_SEEN_KEY = "gm-chat-seen";
-const LEAD_CONFIRMED_KEY = "gm-lead-confirmed";
-const WHATSAPP_URL = "https://wa.me/918688269427";
+const WHATSAPP_URL = business.whatsapp;
 
 const WELCOME_MESSAGE: Message = {
   role: "assistant",
@@ -190,14 +191,6 @@ export default function ChatWidget() {
   const [quickReplyLevel, setQuickReplyLevel] = useState<QuickReplyLevel>("main");
   const [isTyping, setIsTyping] = useState(false);
   const [popNudge, setPopNudge] = useState(false);
-  const [leadConfirmed, setLeadConfirmed] = useState(() => {
-    try {
-      return !!sessionStorage.getItem(LEAD_CONFIRMED_KEY);
-    } catch {
-      return false;
-    }
-  });
-  const [leadConfirmLoading, setLeadConfirmLoading] = useState(false);
   const [showDot, setShowDot] = useState(() => {
     try {
       return !sessionStorage.getItem(CHAT_SEEN_KEY);
@@ -354,61 +347,23 @@ export default function ChatWidget() {
     [input, isLoading, messages]
   );
 
-  // ── Confirm lead — calls /api/lead, fires email ───────────────────────────
-  const handleConfirmLead = useCallback(
-    async (lead: LeadData) => {
-      setLeadConfirmLoading(true);
-      try {
-        const res = await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(lead),
-        });
-
-        if (res.ok) {
-          trackAcceptedLead("chatbot");
-          setLeadConfirmed(true);
-          try { sessionStorage.setItem(LEAD_CONFIRMED_KEY, "1"); } catch {}
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content:
-                "✅ Done! Our team will reach out to you shortly.\n\nYou can also WhatsApp us anytime at **+91 86882 69427** or email **growthmasala@gmail.com**.",
-            },
-          ]);
-        } else {
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content:
-                "Sorry, something went wrong. Please reach us directly on WhatsApp at **+91 86882 69427**.",
-            },
-          ]);
-        }
-      } catch {
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content:
-              "Network error. Please reach us directly on WhatsApp at **+91 86882 69427**.",
-          },
-        ]);
-      } finally {
-        setLeadConfirmLoading(false);
-      }
-    },
-    []
-  );
+  // Opening a draft is only intent; the visitor still has to press Send in WhatsApp.
+  const handleContinueInWhatsApp = (lead: LeadData) => {
+    trackWhatsAppClick("chatbot");
+    window.location.assign(enquiryWhatsappLink({
+      name: lead.name,
+      phone: lead.phone,
+      service: lead.need,
+    }));
+  };
 
   // ── Handle initial quick reply chip click ─────────────────────────────────
   const handleQuickReply = (reply: QuickReply) => {
     if (isLoading) return;
 
     if (reply.href) {
-      window.open(reply.href, "_blank", "noopener,noreferrer");
+      trackWhatsAppClick("chatbot");
+      window.location.assign(reply.href);
       return;
     }
 
@@ -561,8 +516,7 @@ export default function ChatWidget() {
                 {/* Confirm card — shown with collected lead data */}
                 {msg.role === "assistant" &&
                   msg.pendingLead &&
-                  isLastMessage &&
-                  !leadConfirmed && (
+                  isLastMessage && (
                     <div className="mt-3 ml-9 rounded-xl border border-primary/20 bg-primary/5 p-4">
                       <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-text-secondary">
                         Your Details
@@ -581,19 +535,16 @@ export default function ChatWidget() {
                           {msg.pendingLead.need}
                         </div>
                       </div>
+                      <p className="mb-3 text-xs leading-relaxed text-text-secondary">
+                        Open your draft in WhatsApp, review it, and press Send there.
+                        Only sending the message in WhatsApp contacts our team.
+                      </p>
                       <button
-                        onClick={() => handleConfirmLead(msg.pendingLead!)}
-                        disabled={leadConfirmLoading}
-                        className="w-full rounded-lg bg-primary py-2 text-sm font-semibold text-white transition-all hover:bg-primary-dark disabled:opacity-60 flex items-center justify-center gap-2"
+                        type="button"
+                        onClick={() => handleContinueInWhatsApp(msg.pendingLead!)}
+                        className="w-full min-h-11 rounded-lg bg-primary py-2 text-sm font-semibold text-white transition-all hover:bg-primary-dark flex items-center justify-center gap-2"
                       >
-                        {leadConfirmLoading ? (
-                          <>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Sending...
-                          </>
-                        ) : (
-                          "✅ Yes, send my details!"
-                        )}
+                        Continue in WhatsApp
                       </button>
                     </div>
                   )}

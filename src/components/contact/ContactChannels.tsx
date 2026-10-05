@@ -69,10 +69,10 @@ const channels: Channel[] = [
     external: false,
   },
   {
-    title: "Email",
+    title: "Privacy & existing projects",
     value: business.email,
     description:
-      "Best for a detailed brief, a document, or anything you want in writing.",
+      "For privacy requests and existing project correspondence. Start a new enquiry on WhatsApp.",
     meta: "Same working day",
     metaIcon: Clock3,
     icon: Mail,

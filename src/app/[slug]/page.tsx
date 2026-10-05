@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import LocationCTA from "@/components/locations/LocationCTA";
+import LocationDetails from "@/components/locations/LocationDetails";
 import LocationFaq from "@/components/locations/LocationFaq";
 import LocationHero from "@/components/locations/LocationHero";
 import LocationServices from "@/components/locations/LocationServices";
@@ -106,6 +107,7 @@ export default async function LocationPageRoute({ params }: PageProps) {
 
       <LocationHero page={page} />
       <LocationWhyLocal page={page} />
+      <LocationDetails slug={page.slug} />
       <LocationServices city={page.city} services={featured} />
       <LocationFaq city={page.city} faqs={faqs} related={related} />
       <LocationCTA city={page.city} />

@@ -38,6 +38,45 @@ export interface LocationPage {
 }
 
 export const locationPages: LocationPage[] = [
+  {
+    slug: "seo-services-hyderabad",
+    city: "Hyderabad",
+    serviceLabel: "SEO Services",
+    title: "SEO Services in Hyderabad",
+    metaDescription: "SEO for Hyderabad businesses: technical fixes, useful content, AI search readiness and clear reporting. Get a scoped plan from Growth Masala.",
+    h1: "SEO services in Hyderabad, with a clear scope",
+    intro: "Growth Masala helps Hyderabad businesses improve how their websites are discovered and understood in search. We audit the existing site, prioritize service and pricing questions, and measure page-level visibility and enquiry intent. Delivery is remote from Mahabubnagar, with a written scope before work starts.",
+    whyLocal: "The first conversation is about the services you want enquiries for, the customers you can serve and what your website already earns from search. We review that evidence with you instead of assuming a new website or a large monthly content package is required. You retain access to your website, Search Console and analytics accounts.",
+    marketContext: "A customer comparing Hyderabad providers may need a service scope, a credible example and an explanation of costs before making contact. A broad agency page cannot answer every buying question well. We separate commercial service pages from cost guides and project write-ups, and connect them where the link helps the reader make a decision.",
+    featuredServices: ["seo", "website-development"],
+    relatedSlugs: ["website-development-hyderabad", "digital-marketing-agency-hyderabad", "ai-automation-hyderabad", "seo-services-mahabubnagar"],
+  },
+  {
+    slug: "ai-automation-mahabubnagar",
+    city: "Mahabubnagar",
+    serviceLabel: "AI Automation",
+    title: "AI Automation in Mahabubnagar",
+    metaDescription: "AI chatbots and enquiry workflows for Mahabubnagar businesses. Start with one useful task, clear handoffs and a scoped quote from Growth Masala.",
+    h1: "AI automation for Mahabubnagar businesses",
+    intro: "Start with the questions you answer every day. Growth Masala builds website assistants and enquiry workflows around approved business information, with a clear route to a person. We scope the task, test the answers and explain any recurring platform costs before you commit.",
+    whyLocal: "A small business may need a simple way to collect a brief while its owner is busy, rather than a complex customer-management system. We can begin with the website you already have, your approved service information and the phone your team actually answers. Planning and delivery are remote, with direct communication in Telugu, Hindi or English.",
+    marketContext: "Consider a school admissions question, a repair enquiry or a request for a solar consultation. Each needs different information and a responsible person to take over. These are possible workflow examples, not claims of completed AI deployments. We agree one practical use case and test it with your staff before expanding the system.",
+    featuredServices: ["ai-automation", "whatsapp-automation", "software-development"],
+    relatedSlugs: ["website-development-mahabubnagar", "seo-services-mahabubnagar", "digital-marketing-agency-mahabubnagar", "ai-automation-hyderabad"],
+  },
+  {
+    slug: "ai-automation-hyderabad",
+    city: "Hyderabad",
+    serviceLabel: "AI Automation",
+    title: "AI Automation Services in Hyderabad",
+    metaDescription: "AI chatbots, lead routing and workflow automation for Hyderabad teams. Define the process, test a pilot and retain human oversight with Growth Masala.",
+    h1: "AI automation services for Hyderabad teams",
+    intro: "Connect your website enquiries to a process your team can use. Growth Masala scopes AI chatbots, lead routing and workflow integrations for Hyderabad businesses, with testing, human escalation and a clear account of running costs. We work remotely from Mahabubnagar.",
+    whyLocal: "When several people handle sales or support, an automated answer is only one part of the job. The enquiry must reach the right owner, carry the required context and have a fallback when a tool is unavailable. We map those responsibilities with your team before recommending a model, platform or integration.",
+    marketContext: "A service company can have a polished website and still lose context between its form, WhatsApp conversations and internal records. We look at the actual handoffs rather than promise a generic AI transformation. A pilot can focus on one enquiry type or team so you can review its usefulness, failure cases and cost before a wider rollout.",
+    featuredServices: ["ai-automation", "software-development", "whatsapp-automation"],
+    relatedSlugs: ["website-development-hyderabad", "seo-services-hyderabad", "digital-marketing-agency-hyderabad", "ai-automation-mahabubnagar"],
+  },
   // ---------------------------------------------------------------------------
   // Mahabubnagar — primary money pages
   // ---------------------------------------------------------------------------
@@ -96,7 +135,7 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "SEO Services",
     title: "SEO Services in Mahabubnagar",
     metaDescription:
-      "Local SEO services in Mahabubnagar, Telangana. Get found when customers search for your business — technical SEO, local search, and content built for real enquiries.",
+      "SEO for Mahabubnagar businesses: technical audits, useful content and AI search readiness. Clear scope, Search Console reporting and WhatsApp enquiries.",
     h1: "SEO Services in Mahabubnagar",
     intro:
       "SEO is how customers find you when they are already looking. We handle the technical foundations, the local search signals, and the content that gets a Mahabubnagar business showing up for the searches that actually end in a phone call.",
@@ -272,7 +311,7 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Digital Marketing",
     title: "Digital Marketing Agency in Hyderabad",
     metaDescription:
-      "Digital marketing for Hyderabad businesses — websites, social media, SEO, and Meta ads delivered remotely by a Telangana-based team. Senior attention and fixed quotes before work starts.",
+      "Digital marketing for Hyderabad businesses: websites, SEO, social media and ads. Remote delivery, clear scope and direct WhatsApp enquiries.",
     h1: "Digital Marketing Agency in Hyderabad",
     intro:
       "We work remotely with Hyderabad businesses on websites, social media, SEO, and performance marketing. Growth Masala is based in Mahabubnagar, Telangana; the people you brief are the people who do the work, with no account-manager layer between you and the output.",
@@ -290,7 +329,8 @@ export const locationPages: LocationPage[] = [
     relatedSlugs: [
       "website-development-hyderabad",
       "digital-marketing-agency-mahabubnagar",
-      "digital-marketing-agency-shadnagar",
+      "seo-services-hyderabad",
+      "ai-automation-hyderabad",
     ],
   },
   {
@@ -299,7 +339,7 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Website Development",
     title: "Website Development in Hyderabad",
     metaDescription:
-      "Need a website for a Hyderabad business? Growth Masala builds mobile-first, search-ready sites remotely from Mahabubnagar. Packages start at ₹9,999 + GST, with 30-day support.",
+      "Website development for Hyderabad businesses. Mobile-ready pages, clear ownership, WhatsApp enquiries and 30-day support, delivered remotely.",
     h1: "Website Development in Hyderabad",
     intro:
       "Growth Masala is based in Mahabubnagar and builds websites for Hyderabad businesses remotely. We plan mobile-first pages around the questions your customers ask, with search-ready structure, hosting and SSL setup, performance optimisation, and 30 days of post-launch support.",
@@ -311,7 +351,8 @@ export const locationPages: LocationPage[] = [
     relatedSlugs: [
       "digital-marketing-agency-hyderabad",
       "website-development-mahabubnagar",
-      "seo-services-mahabubnagar",
+      "seo-services-hyderabad",
+      "ai-automation-hyderabad",
     ],
   },
 ];

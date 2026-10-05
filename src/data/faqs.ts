@@ -53,7 +53,7 @@ export const generalFaqs: FaqItem[] = [
   },
   {
     question: "How do I get started?",
-    answer: `Call or WhatsApp us on ${business.phoneDisplay}, email ${business.email}, or send a message through the contact form. We will set up a free consultation to understand what you need before quoting anything.`,
+    answer: `Call or WhatsApp us on ${business.phoneDisplay}, or prepare a brief with our contact form and send it in WhatsApp. We will set up a free consultation to understand what you need before quoting anything.`,
   },
 ];
 
@@ -115,12 +115,12 @@ export const contactFaqs: FaqItem[] = [
   {
     question: "How quickly will I get a reply?",
     answer:
-      "Within 24 hours, and usually the same day if you message during working hours. WhatsApp is the fastest of the three — it goes straight to a phone rather than an inbox.",
+      "Within 24 hours, and usually the same day if you send a WhatsApp message during working hours. Opening a draft from the contact form does not send it; press Send in WhatsApp to reach us.",
   },
   {
-    question: "What happens after I send the form?",
+    question: "What happens when I continue from the contact form?",
     answer:
-      "We read it and come back with questions about what you actually need. If it is something we can price, you get a fixed quote before any work starts. If it is not something we should be doing, we will say so and point you somewhere better.",
+      "The form opens WhatsApp with your brief as a draft. Review it and press Send there; the website does not send or email it automatically. Once we receive your message, we reply with any questions and prepare a fixed quote before work starts.",
   },
   {
     question: "Does the first conversation cost anything?",
@@ -173,7 +173,7 @@ export function buildLocationFaqs(city: string, serviceLabel: string): FaqItem[]
     },
     {
       question: "How do I get a quote?",
-      answer: `Call or WhatsApp ${business.phoneDisplay}, email ${business.email}, or use the contact form. We respond within 24 hours and the first consultation is free.`,
+      answer: `Call or WhatsApp ${business.phoneDisplay}, or use the contact form to prepare a draft that you review and send in WhatsApp. We respond within 24 hours and the first consultation is free.`,
     },
   ];
 }
@@ -231,6 +231,24 @@ function addOnPrice(name: string): string {
  * explicitly invites — still parse `FAQPage`.
  */
 export const locationFaqOverrides: Record<string, FaqItem[]> = {
+  "seo-services-hyderabad": [
+    { question: "What does an SEO engagement include?", answer: "The scope can include a technical and indexing audit, query-to-page mapping, on-page fixes, content improvements, internal links and reporting. We agree the pages, work and reporting period after reviewing your site; we do not sell an undefined number of monthly keywords." },
+    { question: "Can you guarantee clicks or a first-page ranking?", answer: "No. Search visibility depends on Google, competition, demand and the site's existing position. We can commit to an agreed body of work and transparent measurement. A click target is a planning goal, not a guaranteed result or a reason to buy artificial traffic." },
+    { question: "Is AI SEO different from installing a chatbot?", answer: "Yes. AI search optimization improves the clarity, accessibility and evidence of your public content so search systems can understand it. A chatbot helps visitors after they reach your website. Neither guarantees inclusion in AI answers, and the two services should have separate objectives." },
+    { question: "Do you have an office in Hyderabad?", answer: "No. Growth Masala is based in Mahabubnagar and delivers work remotely. We review access, scope and progress through calls, WhatsApp and shared documents. We do not publish a Hyderabad office address or require an in-person visit." },
+  ],
+  "ai-automation-mahabubnagar": [
+    { question: "What is a useful first automation for a small business?", answer: "Start with one repeated, well-defined task: answering approved service questions, collecting a project brief or handing an enquiry to the right person. A simple form or WhatsApp link may be sufficient; we recommend AI only when the task benefits from it." },
+    { question: "Does a WhatsApp redirect send a message automatically?", answer: "No. A prefilled link opens WhatsApp so the visitor can review and send the message. It does not automatically reply or confirm a booking. API-based messaging automation is separately scoped and has platform and permission requirements." },
+    { question: "Can the assistant answer in Telugu or Hindi?", answer: "We communicate with clients in Telugu, Hindi and English. For an automated assistant, the required languages, approved answers and evaluation examples must be agreed and tested as part of the scope; support is not assumed simply because a model can generate those languages." },
+    { question: "What happens when the assistant cannot answer?", answer: "It should state the limit and offer a human contact path instead of inventing an answer, price or availability. We agree handoff ownership and test out-of-scope questions before launch." },
+  ],
+  "ai-automation-hyderabad": [
+    { question: "Can you connect our website to our CRM?", answer: "We first inspect the tools, supported APIs, account permissions and routing requirements. A supported integration can be included in the scope; we do not promise compatibility with every CRM or make access changes without agreement." },
+    { question: "How do you price an AI automation project?", answer: "We quote the defined workflow, integrations, testing, handover and support. Model usage, messaging charges and third-party subscriptions are identified separately. There is no universal price before the process and expected usage are understood." },
+    { question: "Will AI make decisions for our staff?", answer: "The approved scope defines what can be automated and what must go to a person. Sensitive or uncertain requests need escalation. We do not assume permission to make eligibility, payment or other consequential decisions just because a workflow is automated." },
+    { question: "How do we know a pilot works?", answer: "Agree test questions, expected routing, failure handling and staff review criteria before implementation. Measure successful handoffs and the usefulness of the captured information. A generated reply or a WhatsApp click alone does not prove a sale or a resolved enquiry." },
+  ],
   "website-development-hyderabad": [
     {
       question: "What is included in your Hyderabad website development service?",
@@ -331,7 +349,7 @@ export const locationFaqOverrides: Record<string, FaqItem[]> = {
     },
     {
       question: "Do you meet clients in Hyderabad?",
-      answer: `We work with Hyderabad clients remotely through calls, WhatsApp, email, and shared online workspaces. Growth Masala is based in ${address.locality} and has no customer-facing office in Hyderabad. Contact us on ${business.phoneDisplay} or ${business.email}, ${openingHoursLine}.`,
+      answer: `We work with Hyderabad clients remotely through calls, WhatsApp, email, and shared online workspaces. Growth Masala is based in ${address.locality} and has no customer-facing office in Hyderabad. Start a new enquiry by calling or messaging us on WhatsApp at ${business.phoneDisplay}, ${openingHoursLine}.`,
     },
     {
       question: "How does your pricing compare with a Hyderabad agency retainer?",

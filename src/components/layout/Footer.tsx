@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, MessageCircle, MapPin, Phone } from "lucide-react";
 import { legalLinks, navLinks } from "@/data/navigation";
 import { baseLocationLine, business } from "@/data/business";
 import { locationPages } from "@/data/locations";
@@ -155,11 +155,11 @@ export default function Footer() {
             <ul className="mt-4 space-y-3">
               <li>
                 <a
-                  href={`mailto:${business.email}`}
+                  href={business.whatsapp}
                   className="inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-primary"
                 >
-                  <Mail className="h-4 w-4" />
-                  {business.email}
+                  <MessageCircle className="h-4 w-4" />
+                  Enquire on WhatsApp
                 </a>
               </li>
               <li>

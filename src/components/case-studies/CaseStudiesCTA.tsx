@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Clock, FileText, MapPin, MessageCircle, Phone } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import {
   address,
@@ -18,7 +18,7 @@ import {
  *
  * The contact card beside it is the real change. A centred CTA with two buttons
  * asks the reader to start a form; this asks nothing — the phone number, the
- * email, where we are and when we answer are all just there. Someone who has
+ * enquiry path, where we are and when we answer are all just there. Someone who has
  * read three case studies and wants to ring rather than type should not have to
  * navigate to /contact to find the number.
  *
@@ -33,10 +33,10 @@ const contactRows = [
     href: `tel:${business.phone}`,
   },
   {
-    icon: Mail,
-    label: "Email",
-    value: business.email,
-    href: `mailto:${business.email}`,
+    icon: FileText,
+    label: "Project brief",
+    value: "Prepare a WhatsApp enquiry",
+    href: "/contact#project-brief",
   },
   {
     icon: MapPin,

@@ -3,7 +3,7 @@ title: "How Much Does a 5-Page Website Cost in India? (2026)"
 seoTitle: "5-Page Website Cost in India — 2026 Guide"
 excerpt: "Quotes for the same five pages range from ₹999 to ₹80,000. Here is what each price band actually buys, what the quote leaves out, and how to tell which one you are being sold."
 date: "2026-08-07"
-updated: "2026-08-07"
+updated: "2026-10-05"
 readTime: "9 min read"
 category: "Website Costs"
 image: "/images/blog/website-cost-india-hero.webp"
@@ -11,7 +11,7 @@ faqs:
   - question: "How much does a 5-page website cost in India in 2026?"
     answer: "Realistically ₹8,000 to ₹35,000 for a custom-designed five-page site from a small agency. Below about ₹5,000 you are buying a template with your details typed into it. Above ₹50,000 you are usually paying for a larger team rather than more website. Growth Masala's five-page Starter package is {{price:starter}}, excluding GST."
   - question: "Why do some companies advertise a 5-page website for ₹3,000?"
-    answer: "Because the design is a template reused across hundreds of customers, the content is filler text you are expected to replace yourself, and the headline price often covers the first year only. Those are real businesses selling a real product — it is just a different product from a site designed around what you actually sell."
+    answer: "A low price can reflect a smaller scope or a template-based build. Ask the provider what is included, who supplies content, which accounts you own and what renewals cost. The headline alone does not establish those answers."
   - question: "What is not included in a website quote?"
     answer: "Usually four things: GST, the domain name, hosting, and the writing. Domain and hosting are annual costs that continue forever, and content is the item most often assumed to be the customer's job. Always ask which of the four are in the number you have been given."
   - question: "Do I have to pay monthly for a website?"
@@ -58,7 +58,7 @@ Ask explicitly: is the copy written for me, or am I writing it? The answer moves
 
 A website that exists and a website that gets found are different jobs. The second needs a proper page structure, unique titles and descriptions for each page, schema markup, image compression, and a site that loads fast on a mid-range Android over a patchy connection.
 
-None of that is visible in a screenshot, which is exactly why it is the first thing dropped from a cheap quote.
+These details are not established by a screenshot. Ask the supplier to include the launch checks in the written scope and show how they will be verified.
 
 ![A shopkeeper checking a website on a phone behind the counter of a small retail shop](/images/blog/shopkeeper-checking-website.webp "Most people who find your business online will open it on a mid-range phone, one-handed, while doing something else. That is the device the site has to be good on.")
 
@@ -85,7 +85,7 @@ It genuinely sometimes is, and an agency that tells you otherwise is selling rat
 
 A ₹3,000 template site is a reasonable buy if you need an address online this week, if you are testing whether an idea has customers at all, or if the site's only job is to exist so people can confirm you are real. Spending ₹25,000 to find out whether anyone wants your product is worse value than spending ₹3,000 to find out.
 
-It is the wrong call when the website is the thing that has to win the customer. If someone is choosing between you and two competitors, comparing three sites on their phone, the template will read as the least serious of the three — because it was built to be cheap, and that shows.
+It is the wrong call when the website is the thing that has to win the customer. When customers compare providers on a phone, assess whether the design makes your offer, proof and contact path clear. A template or a custom build can fail that test; review the actual work and agreed scope.
 
 ## How to check a quote before you pay
 
@@ -112,4 +112,11 @@ Every figure above is the same number on [our price list](/services#pricing). We
 
 We build from Mahabubnagar. If you are nearby, there are two more specific versions of this guide: [website design cost in Mahabubnagar](/blog/website-design-cost-mahabubnagar) and [website design cost in Hyderabad](/blog/website-design-cost-hyderabad), both with the local market rather than the national average.
 
-You can also just look at [what we have built](/portfolio) — every project links to the live site, so you can open them on your phone and judge the work before speaking to anyone.
+You can also look at [what we have built](/portfolio). Current projects have website links; archived work is labelled. Open the available sites on your phone and judge the work before speaking to anyone.
+
+
+## Compare the scope in writing
+
+[Download our website quote comparison worksheet](/downloads/website-quote-comparison.csv) and compare build cost, tax treatment, domain and hosting renewals, content, support and account ownership. It is a blank comparison template, not a market-price estimate. Keep unknown amounts blank until the supplier confirms them.
+
+For a recent example of what a website scope can include, read the [SQC Solar & Loans build](/blog/sqc-solar-loans-website-mahabubnagar) or the [Health Factor Dental Clinic write-up](/blog/health-factor-dental-website-case-study). They describe delivered features, without invented traffic or revenue results.
