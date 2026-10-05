@@ -52,10 +52,4 @@ export const clients: Client[] = [
     width: 372,
     height: 128,
   },
-  {
-    name: "Automotive Dudes",
-    logo: "/images/clients/automotive-dudes.webp",
-    width: 702,
-    height: 128,
-  },
 ];

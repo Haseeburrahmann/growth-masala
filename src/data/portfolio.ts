@@ -60,17 +60,6 @@ export const portfolioItems: PortfolioItem[] = [
     link: "/case-studies#kings-mobile-world",
   },
   {
-    title: "Automotive Dudes",
-    summary:
-      "Car modification store. Product reviews, photo uploads and ShipRocket tracking.",
-    tag: "E-commerce",
-    category: "ecommerce",
-    description:
-      "E-commerce store for car modification accessories — dark themed Shopify build with product reviews, photo uploads, and ShipRocket delivery tracking.",
-    image: "/images/portfolio/automotive-dudes.webp",
-    link: "https://automotivedudes.in",
-  },
-  {
     title: "TrustWave FinServ",
     summary:
       "Loan provider in Mahabubnagar with a live EMI calculator and 20+ bank partners.",
