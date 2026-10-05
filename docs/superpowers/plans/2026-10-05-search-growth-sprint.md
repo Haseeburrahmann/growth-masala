@@ -46,7 +46,7 @@
 - [x] Article/worksheet links work and no spreadsheet text triggers formula injection.
 - [x] Full production build and lint, helper tests, rendered crawl, desktop/mobile form and content visual checks.
 - [x] Fresh independent code/content review; fix material findings before deploying.
-- [ ] Commit only scoped changes, deploy via main, verify production pages and assets; submit updated sitemap/new pages once where tools allow.
+- [x] Commit only scoped changes, deploy via main, verify production pages and assets; submit updated sitemap/new pages once where tools allow.
 
 ## Progress
-Baseline: 13 clicks/552 impressions over Sep6–Oct3; 50 clicks in15 days requires roughly7.2x that daily pace. Initial portfolio update6d28f80 already live. Current sprint passed build, seven helper tests, lint, 32-page core SEO crawl, 33 internal destination checks, desktop/mobile form checks and independent review. WhatsApp draft destination/Unicode verified without sending. Daily 10:30 local-time heartbeat created: growth-masala-50-organic-clicks. Deployment and indexing submission pending.
+Baseline: 13 clicks/552 impressions over Sep6–Oct3; 50 clicks in15 days requires roughly7.2x that daily pace. Initial portfolio update6d28f80 already live. Current sprint passed build, seven helper tests, lint, 32-page core SEO crawl, 33 internal destination checks, desktop/mobile form checks and independent review. WhatsApp draft destination/Unicode verified without sending. Daily 10:30 local-time heartbeat created: growth-masala-50-organic-clicks. Deployed production commit `0db3aa8`; Vercel success. All32 live sitemap URLs pass core checks. Google accepted the updated sitemap and recrawl request for the substantially changed Mahabubnagar pricing guide. Workbook release records updated separately. Outcome remains pending October6–20 data.
