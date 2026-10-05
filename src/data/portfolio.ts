@@ -27,6 +27,28 @@ export const portfolioCategories = [
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    title: "SQC Solar & Loans",
+    summary:
+      "Mahabubnagar solar and finance business. Separate service journeys with direct enquiry options.",
+    tag: "Solar & finance",
+    category: "website",
+    description:
+      "Website for SQC Solar & Loans in Mahabubnagar — a split homepage for solar power and loan services, dedicated service pages, and direct phone and WhatsApp enquiries.",
+    image: "/images/portfolio/sqc-solar-loans.webp",
+    link: "https://www.sqcsolarloans.com/",
+  },
+  {
+    title: "Health Factor Dental Clinic",
+    summary:
+      "Hari Nagar dental clinic in New Delhi. Treatment pages, dentist profiles and WhatsApp appointment requests.",
+    tag: "Dental clinic",
+    category: "website",
+    description:
+      "Website for Health Factor Dental Clinic in Hari Nagar, New Delhi — treatment information, dentist profiles, clinic photos, opening hours, and appointment requests through WhatsApp.",
+    image: "/images/portfolio/health-factor-dental.webp",
+    link: "https://healthfactordelhi.com/",
+  },
+  {
     title: "Triveni Balavikas Central School",
     summary:
       "ICSE school in Bengaluru. Admissions portal, academics pages and a campus gallery.",

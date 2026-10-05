@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { buildBreadcrumbSchema } from "@/lib/schema";
-import { address } from "@/data/business";
 import { portfolioItems } from "@/data/portfolio";
 import { pageOpenGraph } from "@/lib/metadata";
 
@@ -27,12 +26,12 @@ import { pageOpenGraph } from "@/lib/metadata";
  * The locality is carried by the description, the H1, and the body copy instead.
  */
 export const metadata: Metadata = {
-  title: `Portfolio — ${portfolioItems.length} Live Client Websites`,
-  description: `See websites, e-commerce stores, and web apps Growth Masala has built for schools, retailers, and service businesses in ${address.locality}, Hyderabad, and across ${address.region}. Every project links to the live site.`,
+  title: `Portfolio — ${portfolioItems.length} Website Projects`,
+  description: "Explore our website and web app projects for schools, clinics, solar and finance businesses in Telangana and Delhi, with screenshots and project links.",
   alternates: { canonical: "/portfolio" },
   openGraph: pageOpenGraph({
-    title: `Portfolio — ${portfolioItems.length} Live Client Websites | Growth Masala`,
-    description: `Websites, stores, and web apps delivered for businesses in ${address.locality}, Hyderabad, and across ${address.region}.`,
+    title: `Portfolio — ${portfolioItems.length} Website Projects | Growth Masala`,
+    description: "Websites and web apps for schools, clinics, solar and finance businesses in Telangana and Delhi. Explore screenshots and project links.",
     url: "/portfolio",
   }),
 };
