@@ -120,7 +120,7 @@ export default function ServicesCTA() {
             One message with what you are trying to fix. You get a scope and a
             fixed number back — usually the same day, not after a discovery
             call. The consultation is free. We are based in {address.locality}
-            and deliver work remotely across Hyderabad and Telangana.
+            and deliver work remotely for Hyderabad, Bengaluru and Telangana businesses.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">

@@ -76,8 +76,8 @@ export default function Footer() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
               A digital marketing agency based in {baseLocationLine}. We blend strategy,
               creativity, and data to cook up campaigns that deliver real,
-              measurable growth — for businesses here, in Hyderabad, and across
-              India.
+              measurable growth — for businesses in Hyderabad, Bengaluru,
+              Mahabubnagar and across India.
             </p>
             <div className="mt-6 flex items-center gap-4">
               {[

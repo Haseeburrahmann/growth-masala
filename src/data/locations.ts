@@ -1,3 +1,5 @@
+import { formatPrice, websiteTiers } from "@/data/pricing";
+
 /**
  * Location + service landing pages.
  *
@@ -10,9 +12,8 @@
  * doorway pages and get filtered by Google. If you add a city, write real copy
  * for it — do not clone an existing entry and find-replace the name.
  *
- * Geography note: these towns are all in Telangana within reach of Mahabubnagar.
- * District boundaries were redrawn in 2016, so the copy deliberately avoids
- * asserting which district each town now belongs to.
+ * Service areas include Telangana and Bengaluru. Delivery is remote from
+ * Mahabubnagar; a service-area page must never imply an office in that city.
  */
 
 export interface LocationPage {
@@ -38,6 +39,19 @@ export interface LocationPage {
 }
 
 export const locationPages: LocationPage[] = [
+  {
+    slug: "website-development-bangalore",
+    city: "Bengaluru",
+    serviceLabel: "Website Development",
+    title: "Website Development in Bangalore",
+    metaDescription: `Websites for Bangalore businesses from ${formatPrice(websiteTiers[0].amount)} + GST. See our Bengaluru school project, compare scope and enquire on WhatsApp. Remote delivery.`,
+    h1: "Website development for Bangalore businesses",
+    intro: `A website should help a visitor understand your business and take the next step. We build websites for Bengaluru (Bangalore) schools and service businesses, with mobile layouts, clear content and WhatsApp enquiries. Our five-page Starter package is ${formatPrice(websiteTiers[0].amount)} before GST; custom admissions systems and integrations are scoped separately. Delivery is remote from Mahabubnagar, Telangana.`,
+    whyLocal: "Our published Bengaluru work includes Triveni Balavikas Central School in Bagalagunte. Its website brings academics, teaching approach, leadership, school-life photos and admissions information into one place. Parents can move from learning about the school to an enquiry without relying on a social-media feed. You can inspect the live project below; we do not claim an admissions or traffic increase without measured results.",
+    marketContext: "For a school, the important journey may be curriculum to campus information to an admissions enquiry. For a service business, it may be service scope to project evidence to a quote. We use those decisions to choose the pages and contact flow. A Bengaluru address is not a requirement for remote delivery: you provide approved business details and photographs, and we review a working draft with you before launch.",
+    featuredServices: ["website-development", "seo", "ai-automation"],
+    relatedSlugs: ["website-development-hyderabad", "website-development-mahabubnagar"],
+  },
   {
     slug: "seo-services-hyderabad",
     city: "Hyderabad",
@@ -339,10 +353,10 @@ export const locationPages: LocationPage[] = [
     serviceLabel: "Website Development",
     title: "Website Development in Hyderabad",
     metaDescription:
-      "Website development for Hyderabad businesses. Mobile-ready pages, clear ownership, WhatsApp enquiries and 30-day support, delivered remotely.",
+      `Hyderabad business websites from ${formatPrice(websiteTiers[0].amount)} + GST: five pages, copy, mobile design and WhatsApp enquiries. See project work and compare the scope.`,
     h1: "Website Development in Hyderabad",
     intro:
-      "Growth Masala is based in Mahabubnagar and builds websites for Hyderabad businesses remotely. We plan mobile-first pages around the questions your customers ask, with search-ready structure, hosting and SSL setup, performance optimisation, and 30 days of post-launch support.",
+      `Business website development in Hyderabad starts with a clear scope: our five-page Starter package is ${formatPrice(websiteTiers[0].amount)} before GST, including copy, mobile-responsive design, on-page SEO basics, WhatsApp enquiries and 30 days of support. We build remotely from Mahabubnagar for service businesses, clinics and retailers. Additional branches, booking systems and integrations are quoted before work starts.`,
     whyLocal:
       "Our Kings Mobile World case study shows a repair website built for a Hyderabad business with four branches. That version brought branch details, repair and brand information, and WhatsApp enquiries together. The client's current website has changed since this project. Growth Masala works remotely from Mahabubnagar; no traffic or revenue result is claimed for the project.",
     marketContext:

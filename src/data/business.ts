@@ -97,6 +97,7 @@ export const areasServed = [
   "Jadcherla",
   "Narayanpet",
   "Hyderabad",
+  "Bengaluru",
 ] as const;
 
 export const openingHours = {

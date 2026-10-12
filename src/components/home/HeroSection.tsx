@@ -194,9 +194,9 @@ export default function HeroSection() {
             className="animate-hero-reveal-text mt-7 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg"
             style={{ animationDelay: "180ms" }}
           >
-            Websites, online stores, SEO and ads for businesses in Mahabubnagar,
-            Hyderabad and across Telangana. Fixed price agreed before work
-            starts.
+            Websites, online stores, SEO and AI workflows for businesses in
+            Hyderabad, Bengaluru and Mahabubnagar. Remote delivery, with a fixed
+            price agreed before work starts.
           </p>
 
           <div

@@ -1,3 +1,5 @@
+import { formatPrice, websiteTiers } from "@/data/pricing";
+
 /** Specific scopes and evidence, kept separate from shared service summaries. */
 export interface LocationDetail {
   heading: string;
@@ -6,6 +8,24 @@ export interface LocationDetail {
 }
 
 export const locationDetails: Record<string, LocationDetail> = {
+  "website-development-bangalore": {
+    heading: "From a Bengaluru school website to your own project brief",
+    sections: [
+      { title: "School website design: help parents find the essentials", text: "The Triveni Balavikas Central School website separates academics, pedagogy, admissions and school life. That structure gives parents a route to the information they need before contacting the school. For a new school project, we agree who maintains notices, which admission details can be published and where enquiries should go. A school-management platform, fee collection or student login is a separate requirement, not an assumed part of a brochure website." },
+      { title: "Small business websites: make the enquiry specific", text: "For a consultant, clinic or other service business, we plan around the offer, evidence and next action. A useful brief describes the service needed and reaches the person who can answer it. A WhatsApp button opens a conversation; it does not automatically confirm an appointment or reply to a customer. We test the mobile path and explain what your team needs to handle after launch." },
+      { title: "Compare the build price and the ongoing costs", text: `Starter is ${formatPrice(websiteTiers[0].amount)} for five pages. Growth is ${formatPrice(websiteTiers[1].amount)} for up to ten pages plus a blog, with analytics and Search Console setup. Both prices exclude GST. The quote separates domain and hosting renewals, optional care, paid tools and custom functionality. A school admissions portal is not promised at the Starter price; its fields, workflow and access requirements need a separate scope.` },
+      { title: "SEO for a Bengaluru business", text: "Website packages include the search foundations specified in the package. Ongoing SEO begins with the existing site and Search Console evidence: the services customers search for, which pages appear and whether those pages answer the question. We can scope technical fixes, useful service content and reporting separately. A new city page or an AI-generated article alone cannot guarantee rankings or enquiries." },
+      { title: "AI and WhatsApp: choose the next step after the website", text: "If your team repeatedly answers the same service questions, a website assistant can use approved information and offer a human handoff. A CRM connection or WhatsApp Business API workflow needs its own access, routing and running-cost review. These are available project scopes, not claims that the Triveni website uses AI or that we have measured automation results for a Bengaluru client." },
+      { title: "Remote reviews and a clear handover", text: "We are based in Mahabubnagar and have no Bengaluru office. Share the existing website, approved text, brand files, photographs and desired contact flow. We agree the scope and timeline, review a working preview, then hand over the agreed site and account access. Communication is available in English, Telugu and Hindi; Kannada content requires a supplied or agreed language-review process." },
+    ],
+    links: [
+      { href: "https://trivenibalavikascentralschool.in", label: "View the live Triveni Balavikas school website in Bengaluru" },
+      { href: "/services#pricing", label: "Compare website packages and ongoing care" },
+      { href: "/blog/5-page-website-cost-india", label: "What a five-page website quote should include" },
+      { href: "/blog/ai-seo-local-businesses", label: "How SEO for AI search differs from a website chatbot" },
+      { href: "/contact#project-brief", label: "Prepare your project brief for WhatsApp" },
+    ],
+  },
   "website-development-mahabubnagar": {
     heading: "A website brief you can compare before you commit",
     sections: [
@@ -22,6 +42,7 @@ export const locationDetails: Record<string, LocationDetail> = {
   "website-development-hyderabad": {
     heading: "A practical scope for your Hyderabad website",
     sections: [
+      { title: "Choose the right website package", text: `A five-page Starter website is ${formatPrice(websiteTiers[0].amount)} before GST. Growth is ${formatPrice(websiteTiers[1].amount)} for up to ten pages plus a blog, with analytics and Search Console setup. Domain and hosting renewals, optional care, paid tools and custom integrations are separate quote items. Compare the pages and ongoing charges as well as the build price; the Hyderabad cost guide below includes a quote checklist.` },
       { title: "Plan the enquiry before the pages", text: "A business with several branches needs clear location choices. A clinic needs treatment information, credentials and an appointment request that explains what happens next. We decide those paths with you, then build the pages around them. The Kings Mobile World archive shows our earlier Hyderabad repair-site work; Health Factor demonstrates a separate clinic project in Delhi." },
       { title: "One owner for each account", text: "The proposal sets out who controls the domain, hosting and analytics, what content you need to supply, and which edits are included. We work remotely from Mahabubnagar and review drafts through calls, WhatsApp and shared links. There is no Hyderabad office or required site visit." },
       { title: "Launch with a measurement plan", text: "Mobile checks, indexable page content, route-specific titles, a sitemap and a tested enquiry path form the launch checklist. A WhatsApp click records intent, not a completed sale. Ongoing SEO and AI automation are separately scoped when they solve a real need." },

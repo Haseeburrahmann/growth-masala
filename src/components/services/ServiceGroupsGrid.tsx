@@ -257,13 +257,19 @@ export default function ServiceGroupsGrid() {
               className="font-semibold text-primary hover:underline"
             >
               Mahabubnagar
-            </Link>{" "}
-            and{" "}
+            </Link>,{" "}
             <Link
               href="/website-development-hyderabad"
               className="font-semibold text-primary hover:underline"
             >
               Hyderabad
+            </Link>
+            {" "}and{" "}
+            <Link
+              href="/website-development-bangalore"
+              className="font-semibold text-primary hover:underline"
+            >
+              Bengaluru (Bangalore)
             </Link>
             .
           </p>
