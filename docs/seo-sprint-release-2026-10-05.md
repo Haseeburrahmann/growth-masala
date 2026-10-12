@@ -1,5 +1,7 @@
 # Growth Masala — release and measurement record, 5 October 2026
 
+Follow-up: [October 12 search-demand release](seo-demand-release-2026-10-12.md) records fresh query evidence, cost-guide improvements and a running-cost estimator. Continue from that release when assessing later results.
+
 ## Live outcome
 
 Production commit `0db3aa8` deployed successfully through Vercel. The prior portfolio deployment `6d28f80` includes SQC and Health Factor; Automotive Dudes remains removed. All requested website changes are live. The 50-click outcome is still pending.

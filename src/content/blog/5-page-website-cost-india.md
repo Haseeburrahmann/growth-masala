@@ -1,122 +1,90 @@
 ---
 title: "How Much Does a 5-Page Website Cost in India? (2026)"
 seoTitle: "5-Page Website Cost in India — 2026 Guide"
-excerpt: "Quotes for the same five pages range from ₹999 to ₹80,000. Here is what each price band actually buys, what the quote leaves out, and how to tell which one you are being sold."
+excerpt: "Our five-page website costs {{price:starter}} excluding GST, with design and copywriting. Compare scope, renewals, optional care and ownership."
 date: "2026-08-07"
-updated: "2026-10-05"
-readTime: "9 min read"
+updated: "2026-10-12"
+readTime: "4 min read"
 category: "Website Costs"
 image: "/images/blog/website-cost-india-hero.webp"
 faqs:
   - question: "How much does a 5-page website cost in India in 2026?"
-    answer: "Realistically ₹8,000 to ₹35,000 for a custom-designed five-page site from a small agency. Below about ₹5,000 you are buying a template with your details typed into it. Above ₹50,000 you are usually paying for a larger team rather than more website. Growth Masala's five-page Starter package is {{price:starter}}, excluding GST."
-  - question: "Why do some companies advertise a 5-page website for ₹3,000?"
-    answer: "A low price can reflect a smaller scope or a template-based build. Ask the provider what is included, who supplies content, which accounts you own and what renewals cost. The headline alone does not establish those answers."
-  - question: "What is not included in a website quote?"
-    answer: "Usually four things: GST, the domain name, hosting, and the writing. Domain and hosting are annual costs that continue forever, and content is the item most often assumed to be the customer's job. Always ask which of the four are in the number you have been given."
+    answer: "Growth Masala's five-page Starter package is {{price:starter}} excluding GST. It includes custom design, copywriting, mobile layouts, a WhatsApp enquiry button, on-page SEO basics and 30 days of post-launch support. Domain and hosting are billed separately at cost. This is our published offer, not an India-wide average."
+  - question: "Why do companies quote different prices for five pages?"
+    answer: "Five pages can involve different design, writing, editing tools, integrations and support. Ask suppliers to quote against the same page list and requirements. A headline price does not establish what is included or the quality of the finished site."
+  - question: "What is not included in Growth Masala's website build price?"
+    answer: "GST, domain and hosting are separate. Domain and hosting are billed at cost. Ongoing care is optional, and work outside the package is quoted separately before it starts. Website copywriting is included in Starter; you provide your business information and photos."
   - question: "Do I have to pay monthly for a website?"
-    answer: "Not for the build. A website package should be a one-time payment and the site should be yours outright. Ongoing care — backups, security patches, content edits — is a separate optional cost; ours starts at {{price:care-basic}} a month and you can decline it."
-  - question: "Is a 5-page website enough for a small business?"
-    answer: "For most local businesses, yes. Home, About, Services, a proof page such as gallery or testimonials, and Contact will cover what nearly every visitor came to check. Add pages later when you know which questions people keep asking — extra pages cost {{price:extra-page}} each with us."
+    answer: "Our website build packages are one-time payments. Domain, hosting and any paid tools still have their own renewal or usage charges. Our ongoing care starts at {{price:care-basic}} a month excluding GST and is optional; declining it does not change your ownership of the delivered site. Other suppliers may offer subscription-based builds, so check their terms."
+  - question: "Is a five-page website enough for a small business?"
+    answer: "It can cover a clear offer, business background, services, proof of work and contact details. Separate services, products or customer journeys may need additional pages. Agree the page list around customer questions rather than adding pages just to reach a number."
 ---
 
-Ask five companies what a five-page website costs in India and you will get five answers between ₹999 and ₹80,000. That is not a market with unclear pricing. It is several different products being sold under the same three words.
+**Our five-page Starter website costs {{price:starter}} excluding GST.** It includes custom design, website copy, mobile layouts, a WhatsApp enquiry button, on-page SEO basics and 30 days of post-launch support. Domain and hosting are separate at cost.
 
-This guide breaks down what each price band actually delivers, which costs get left out of the quote, and how to work out which product you are being offered before you pay for it.
+That is Growth Masala's published offer, not a national average. Website quotes vary because the work can vary, even when each supplier says “five pages.” This guide helps you define those pages and compare what the price includes.
 
-## The short answer
+## What should the five pages contain?
 
-| Price band | What it usually is | Sensible for |
-|---|---|---|
-| ₹999 – ₹5,000 | A template with your text and logo dropped in | Testing an idea, or a business that just needs an address online |
-| ₹5,000 – ₹10,000 | Lightly customised template, you supply the content | A second site, a side project, a very tight budget |
-| ₹10,000 – ₹25,000 | Designed for your business, content written for you, basic SEO | **Most local businesses** |
-| ₹25,000 – ₹60,000 | Larger build, e-commerce, or a marketing team attached | Businesses selling online or running paid ads |
-| ₹60,000+ | Agency team, custom software, multiple stakeholders | Companies with a marketing department |
+A useful starting brief for a small service business is:
 
-Most small businesses in India end up somewhere in the ₹15,000 to ₹60,000 range for their first proper website. Our own five-page package sits at **{{price:starter}}** excluding GST, which is deliberately near the bottom of the band where the site is genuinely built for you rather than assembled from a template.
+| Page | Question it should answer |
+|---|---|
+| Home | What do you offer, who is it for and what should a visitor do next? |
+| About | Who provides the service, and why can a customer trust them? |
+| Services | What is included, how does it work and what should someone know before enquiring? |
+| Work or gallery | What real examples help a visitor evaluate your work? |
+| Contact | How can someone reach you, and what information should they send? |
 
-## What actually changes between the bands
+This is a starting structure, not a rule for every business. A clinic, school and building contractor have different questions to answer. If separate services need detailed explanations, agree those additional pages in the brief. Our extra-page add-on is {{price:extra-page}}; work with a different functional scope needs its own quote.
 
-The page count barely matters. Five pages is five pages. What moves the price is four things, and it is worth knowing which of them you are buying.
+## Compare the work, not just the page count
 
-### 1. Whether the design is yours
+### Design and copywriting
 
-At the bottom of the market you are buying a theme that has been sold to hundreds of other businesses. It will look fine. It will also look like a lot of other sites, and you will be fitting your business into its layout rather than the other way round.
+Ask whether the quote uses an existing layout or includes a new design, and who writes the text. Either approach should make your offer, proof and contact options easy to understand. Judge delivered examples instead of assuming a template is unsuitable or a custom design is automatically better.
 
-A designed site starts from what you sell and who buys it. If ninety per cent of your enquiries come through WhatsApp, the WhatsApp button is the loudest thing on the page. A template cannot make that decision because it does not know your business.
+Our Starter price includes website copywriting. You provide the facts about your business and the photos you want to use. Confirm any photography, translation or other content needs separately before work starts.
 
-### 2. Whether someone writes the content
+### Editing and enquiry features
 
-This is the single most common hidden cost, and it catches almost everyone.
+Ask which parts you can update yourself and whether a content management system, training or paid licence is included. A brochure site, an appointment request, confirmed calendar booking and an online checkout are different scopes. Specify the journey your customer needs and how your team will receive the enquiry.
 
-Most quotes assume **you** will supply the words. You will be sent a document with headings and asked to fill it in. Six weeks later the site is still not live because writing about your own business turns out to be hard, and the developer is waiting on you.
+### Search setup and testing
 
-Ask explicitly: is the copy written for me, or am I writing it? The answer moves the real cost more than any other single line.
+Agree which launch checks are included: page titles, headings, mobile layouts, image handling and enquiry testing. Our Starter package includes on-page SEO basics. That launch setup is different from an ongoing SEO campaign and does not guarantee rankings or enquiries.
 
-### 3. Whether it is built to be found
+![A shopkeeper checking a website on a phone behind the counter of a small retail shop](/images/blog/shopkeeper-checking-website.webp "Try delivered websites on your own phone: read the services, inspect the work and find the contact path.")
 
-A website that exists and a website that gets found are different jobs. The second needs a proper page structure, unique titles and descriptions for each page, schema markup, image compression, and a site that loads fast on a mid-range Android over a patchy connection.
+### Support after launch
 
-These details are not established by a screenshot. Ask the supplier to include the launch checks in the written scope and show how they will be verified.
+Write down the support period and covered tasks, revision allowance, response arrangements and how later changes are priced. Our Starter package includes 30 days of post-launch support. Optional care is a separate arrangement, with its scope on the [published price list](/services#pricing).
 
-![A shopkeeper checking a website on a phone behind the counter of a small retail shop](/images/blog/shopkeeper-checking-website.webp "Most people who find your business online will open it on a mid-range phone, one-handed, while doing something else. That is the device the site has to be good on.")
+## Build cost and running costs are separate
 
-### 4. Whether anyone is there afterwards
+| Item | What to confirm in the quote |
+|---|---|
+| One-time build | Page list, design, content, features, support and price before tax |
+| Domain | Registration and renewal rates, billing interval and account ownership |
+| Hosting | Initial and renewal charges, billing interval and included services |
+| Optional care | Monthly price and the actual maintenance/content tasks included |
+| Paid integrations | Subscription or usage costs, if required |
+| Additional work | A separate scope for requests outside the package |
 
-A site is not finished at launch. Something breaks, a price changes, a festival offer needs adding. At the cheap end there is often nobody to call, or a per-change fee that arrives as a surprise.
+Growth Masala's build packages are one-time payments. Domain and hosting are charged at cost with no markup. All our published prices exclude GST, so ask for the final payable amount. Ongoing care is optional and starts at {{price:care-basic}} a month. The website remains yours if you decline care, but the domain and hosting still need to be kept active.
 
-## The costs that are not in the quote
+To estimate a year of running costs, add the year's domain and hosting charges, any selected months of care and any required tools. For a multi-year comparison, add the build once and each year's running costs. Keep introductory rates separate from renewals and unknown charges separate from confirmed zero costs. Our [Mahabubnagar guide includes a running-cost estimator](/blog/website-design-cost-mahabubnagar#website-cost-estimator) using the same published packages.
 
-Four recurring items are usually left out. None of them is a scam — they are simply not part of the build — but they are the reason a ₹4,000 website is rarely ₹4,000.
+## When do you need more than Starter?
 
-- **GST.** 18% on top of most quotes, including ours. A ₹10,000 site is ₹11,800 paid.
-- **Domain name.** Yours annually, forever. A `.in` or `.com` typically runs a few hundred to about fifteen hundred rupees a year at ordinary registrar rates.
-- **Hosting.** Also annual. Cheap shared hosting is genuinely cheap; the thing to check is what it renews at, because introductory rates on hosting are common.
-- **Content.** Photography, text, product details. Either you do it or you pay someone.
+Our **Growth** package at {{price:growth}} adds up to ten pages plus a blog, full on-page SEO and schema, analytics setup, one ad landing page and 90 days of support. **Premium** at {{price:premium}} adds an online store with up to 100 products, Razorpay payments, product/order administration and six months of support. Domain, hosting and GST remain separate.
 
-> Watch the renewal, not the headline. A ₹3,000 first year that renews at ₹8,000 costs more over three years than a ₹10,000 site with hosting bought at cost. Ask what year two looks like before you compare anything.
+Choose by the customer journey and the work your team needs to do. A larger package is useful when you need its additional scope; it is not a substitute for clear content on a smaller site.
 
-We publish [our full price list](/services#pricing) for this reason, and we bill domain and hosting at cost with no markup — those two lines are where padding is easiest to hide.
+## Get comparable website quotations
 
-## When the cheapest option is the right call
+[Download our website quote comparison worksheet](/downloads/website-quote-comparison.csv). Give each supplier the same page list and feature requirements, then compare content, account ownership, launch support and renewal costs alongside the build price. It is a blank comparison template, not a market-price estimate.
 
-It genuinely sometimes is, and an agency that tells you otherwise is selling rather than advising.
+Inspect two delivered examples on your phone before choosing. Our [portfolio](/portfolio) labels current sites and archived work. The [SQC Solar & Loans project](/blog/sqc-solar-loans-website-mahabubnagar) and [Health Factor Dental Clinic write-up](/blog/health-factor-dental-website-case-study) explain real delivered features without claiming unmeasured traffic or revenue results.
 
-A ₹3,000 template site is a reasonable buy if you need an address online this week, if you are testing whether an idea has customers at all, or if the site's only job is to exist so people can confirm you are real. Spending ₹25,000 to find out whether anyone wants your product is worse value than spending ₹3,000 to find out.
-
-It is the wrong call when the website is the thing that has to win the customer. When customers compare providers on a phone, assess whether the design makes your offer, proof and contact path clear. A template or a custom build can fail that test; review the actual work and agreed scope.
-
-## How to check a quote before you pay
-
-Six questions. Any honest supplier answers all of them in a sentence each, and the answers are more revealing than the price.
-
-1. **Is the design a template or built for my business?** Ask to see two other sites they built. If they look identical, you have your answer.
-2. **Who writes the words?** If it is you, add several weeks and your own time to the real cost.
-3. **What happens in year two?** Get domain, hosting and renewal figures in writing.
-4. **Do I own it?** The site, the domain and the hosting account should be in your name. You should be able to leave.
-5. **How fast does it load on a phone?** Ask for a PageSpeed Insights score on a site they have already built.
-6. **What happens when something breaks?** A named person and a response time, or a support plan with a price on it.
-
-## What we charge, and why
-
-Our five-page **Starter** package is **{{price:starter}}**, excluding GST. That includes the design, the copy written for you, mobile-responsive build, a WhatsApp enquiry button, on-page SEO basics, and thirty days of support after launch.
-
-It is roughly double the cheapest quotes you will find, and we would rather explain the gap than pretend it is not there. The difference is that the design is yours, somebody writes the content, and the site is built to be found rather than only to exist.
-
-Above that, **Growth** at {{price:growth}} adds up to ten pages, a blog, full schema markup, and analytics setup; **Premium** at {{price:premium}} adds an online store with payments. Ongoing care is optional and starts at {{price:care-basic}} a month — the site is yours outright whether you take it or not.
-
-Every figure above is the same number on [our price list](/services#pricing). We do not quote one price in an article and a different one on a call.
-
-## If you are in Telangana
-
-We build from Mahabubnagar. If you are nearby, there are two more specific versions of this guide: [website design cost in Mahabubnagar](/blog/website-design-cost-mahabubnagar) and [website design cost in Hyderabad](/blog/website-design-cost-hyderabad), both with the local market rather than the national average.
-
-You can also look at [what we have built](/portfolio). Current projects have website links; archived work is labelled. Open the available sites on your phone and judge the work before speaking to anyone.
-
-
-## Compare the scope in writing
-
-[Download our website quote comparison worksheet](/downloads/website-quote-comparison.csv) and compare build cost, tax treatment, domain and hosting renewals, content, support and account ownership. It is a blank comparison template, not a market-price estimate. Keep unknown amounts blank until the supplier confirms them.
-
-For a recent example of what a website scope can include, read the [SQC Solar & Loans build](/blog/sqc-solar-loans-website-mahabubnagar) or the [Health Factor Dental Clinic write-up](/blog/health-factor-dental-website-case-study). They describe delivered features, without invented traffic or revenue results.
+We work remotely from Mahabubnagar with businesses across India. For the local service context, read our [Mahabubnagar cost guide](/blog/website-design-cost-mahabubnagar) or [Hyderabad cost guide](/blog/website-design-cost-hyderabad). To request your own quote, [send your business type, proposed pages and required features](/contact).

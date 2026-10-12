@@ -13,6 +13,7 @@ import PostFaqs, { POST_FAQ_HEADING } from "@/components/blog/PostFaqs";
 import PostRail from "@/components/blog/PostRail";
 import PriceCallout from "@/components/blog/PriceCallout";
 import BlogCTA from "@/components/blog/BlogCTA";
+import WebsiteCostEstimator from "@/components/blog/WebsiteCostEstimator";
 import { business } from "@/data/business";
 import type { Metadata } from "next";
 import { pageOpenGraph } from "@/lib/metadata";
@@ -87,6 +88,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   });
 
   const faqSchema = post.meta.faqs ? buildFaqSchema(post.meta.faqs) : null;
+  const hasCostEstimator = slug === "website-design-cost-mahabubnagar";
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
@@ -98,6 +100,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   // post carries one — both are real anchors that exist on the rendered page.
   const headings = [
     ...extractHeadings(post.content),
+    ...(hasCostEstimator ? [{ id: "website-cost-estimator", text: "Estimate your website running costs" }] : []),
     ...(post.meta.faqs ? [POST_FAQ_HEADING] : []),
   ];
 
@@ -235,6 +238,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
 
             <PriceCallout />
+            {hasCostEstimator && <WebsiteCostEstimator />}
 
             {/* Same array as `faqSchema` above — never a second, prettier copy. */}
             {post.meta.faqs && <PostFaqs faqs={post.meta.faqs} />}

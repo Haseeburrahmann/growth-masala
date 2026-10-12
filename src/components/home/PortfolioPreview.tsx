@@ -57,6 +57,8 @@ export default function PortfolioPreview() {
           {featured.map((item, idx) => {
             const config = portfolioCategoryConfig[item.category];
             const testimonial = testimonialByCompany.get(item.title);
+            const isExternal = item.link?.startsWith("http");
+            const linkLabel = isExternal ? "Visit the live site" : "Read the archived project";
 
             return (
               <AnimatedContainer key={item.title} delay={idx * 120} className="h-full">
@@ -66,10 +68,12 @@ export default function PortfolioPreview() {
                       separately reachable by keyboard. */}
                   <a
                     href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
                     className="hover-zoom relative block aspect-16/10 shrink-0 overflow-hidden bg-surface"
-                    aria-label={`Open the ${item.title} website in a new tab`}
+                    aria-label={isExternal
+                      ? `Open the ${item.title} website in a new tab`
+                      : `Read the ${item.title} archived project`}
                   >
                     <Image
                       src={item.image}
@@ -120,11 +124,11 @@ export default function PortfolioPreview() {
 
                       <a
                         href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
                         className="group/link inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary"
                       >
-                        <span className="link-sweep">Visit the live site</span>
+                        <span className="link-sweep">{linkLabel}</span>
                         <ArrowUpRight className="cta-arrow h-3.5 w-3.5" />
                       </a>
                     </div>

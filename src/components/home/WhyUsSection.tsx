@@ -1,48 +1,11 @@
-import { MapPin, UserCheck, FileCheck, Bot, Check, Minus, X } from "lucide-react";
+import { MapPin, UserCheck, FileCheck, Bot, Check } from "lucide-react";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import SectionIntro from "@/components/home/SectionIntro";
 
 /**
- * Differentiation by comparison, not by adjective.
- *
- * The reader is not choosing between us and nothing — they are choosing between
- * us, a Hyderabad agency, a freelancer, a relative who "knows computers", and a
- * DIY site builder. Naming those options directly is more persuasive than a list
- * of qualities we assert about ourselves. Five options, and the headline says so.
- *
- * Every claim here has to be provable. An unprovable differentiator is worse
- * than none, because the first one that turns out to be false discredits the
- * rest.
- *
- * Rebuilt shorter on client instruction — it was the longest section on the
- * page and read as a wall of text. Three things went:
- *
- *   - The photograph. It bled off the left edge of the viewport and the pillars
- *     sat in a slab overlapping its lower corner. The interlock was the most
- *     complicated composition on the site and it forced the heading and the
- *     pillars into `lg:pl-[48%]` / `lg:pl-[22%]` offsets that only made sense at
- *     one width. Removing it takes roughly 660px of height and a 37KB request
- *     out of the section and costs the argument nothing — the photo carried no
- *     claim. (`team-work.webp` is still used on /about, so it is not orphaned.)
- *
- *   - The pillar paragraphs. Four titles with a sentence each restated what the
- *     comparison below already proves; they are now one short line apiece and
- *     read as a strip rather than as four cards competing with the four rows
- *     beneath them.
- *
- *   - The third comparison column. "Instead of us" and "what usually happens"
- *     were separate cells saying one thing between them, which left three
- *     narrow columns of prose. Folded into two, each column gets a readable
- *     measure and the mobile-only duplicate of the first column heading — the
- *     same words printed twice in the markup — is gone with it.
- *
- * Net effect is a section a little under half its previous height with the same
- * argument intact. Keep it that way: this is the page's comparison, not its
- * feature list, and anything added here should replace something.
- *
- * This is the only navy section in the lower half of the page. Process went
- * light in the same pass as the last rebuild, so this one is now doing all of
- * that work alone; keep it dark.
+ * Four buying questions paired with the commitments we already publish.
+ * Keep the compact four-pillar strip and four-row layout; describe our work
+ * without assigning unsupported shortcomings to other providers.
  */
 const pillars = [
   {
@@ -65,41 +28,32 @@ const pillars = [
   },
   {
     icon: Bot,
-    title: "AI nobody else here offers",
+    title: "AI enquiry workflows",
     body: "Chatbots, WhatsApp automation, voice agents.",
     accent: true,
   },
 ];
 
-/**
- * `blocked` marks the alternative that fails outright rather than merely
- * disappointing — a platform you cannot leave is a different kind of problem
- * from a freelancer who goes quiet, and it gets the cross instead of the dash.
- */
-const comparisons = [
+const buyingQuestions = [
   {
-    option: "A Hyderabad agency",
-    usually: "Big retainer. You are a small account.",
+    topic: "Project scope",
+    question: "What is included in the quote?",
+    ours: "Scope and price in writing before work starts.",
+  },
+  {
+    topic: "Your point of contact",
+    question: "Who will answer questions about the work?",
     ours: "A direct line to the person building it.",
-    blocked: false,
   },
   {
-    option: "A freelancer",
-    usually: "Goes quiet halfway through.",
-    ours: "A registered business with direct access to the people doing the work.",
-    blocked: false,
-  },
-  {
-    option: "Someone's nephew",
-    usually: "Free. Still unfinished a year later.",
+    topic: "Delivery",
+    question: "When will the website be ready?",
     ours: "A launch date agreed in writing.",
-    blocked: false,
   },
   {
-    option: "A DIY site builder",
-    usually: "Free to start. Then you are stuck on their platform.",
+    topic: "Ownership and handover",
+    question: "Who controls the domain and website accounts?",
     ours: "Your domain. Your logins. Handed over.",
-    blocked: true,
   },
 ];
 
@@ -121,9 +75,9 @@ export default function WhyUsSection() {
         <SectionIntro
           tone="dark"
           eyebrow="Why choose us"
-          lead="You have five options."
-          trail="We are only one of them."
-          standfirst="The honest comparison — including where we are not the answer."
+          lead="Compare the scope."
+          trail="Know who will deliver."
+          standfirst="Four questions to ask any website provider, and how we work."
         />
 
         {/* Four short claims as a strip, not as cards. A hairline above each
@@ -162,12 +116,8 @@ export default function WhyUsSection() {
           </div>
         </AnimatedContainer>
 
-        {/* The comparison itself. One markup, two shapes. From `md` it is a
-            two-column grid with a header strip; below that each row becomes a
-            card, the header would be meaningless, and the ✕/✓ marks carry the
-            distinction on their own. Not a real <table>: the cells are prose,
-            not data, and a screen reader announcing "row 3, column 2" of a
-            sales argument helps nobody. */}
+        {/* Buying questions and our commitments share one responsive layout:
+            two columns on desktop, a stacked question and answer on mobile. */}
         <AnimatedContainer animation="fade-in" delay={160} className="mt-10 lg:mt-14">
           <div className="md:overflow-hidden md:rounded-2xl md:border md:border-white/12 md:bg-navy-light">
             {/* Column headings only exist where there are columns. Separation
@@ -175,7 +125,7 @@ export default function WhyUsSection() {
                 border on the row, so it never has to out-rank `md:border-0`. */}
             <div className="hidden bg-white/4 md:grid md:grid-cols-2 md:border-b md:border-white/8">
               <p className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-slate-400">
-                Instead of us, you could use
+                Ask before you choose
               </p>
               <p className="bg-primary/15 px-6 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-blue-300">
                 With Growth Masala
@@ -186,27 +136,22 @@ export default function WhyUsSection() {
                 out-specifies `md:border-0`, so the card border can be switched
                 off at `md` without the row separators going with it. */}
             <div className="flex flex-col gap-3 md:gap-0 md:divide-y md:divide-white/8">
-              {comparisons.map((row) => (
+              {buyingQuestions.map((row) => (
                 <div
-                  key={row.option}
+                  key={row.topic}
                   className="overflow-hidden rounded-2xl border border-white/12 bg-navy-light md:grid md:grid-cols-2 md:items-stretch md:rounded-none md:border-0"
                 >
                   <div className="px-4 pb-3.5 pt-4 sm:px-6 md:py-5">
                     <p className="font-heading text-base font-semibold leading-snug text-white">
-                      {row.option}
+                      {row.topic}
                     </p>
-                    <p className="mt-1.5 flex gap-2.5 text-sm leading-snug text-slate-400">
-                      {row.blocked ? (
-                        <X aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
-                      ) : (
-                        <Minus aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
-                      )}
-                      {row.usually}
+                    <p className="mt-1.5 text-sm leading-snug text-slate-400">
+                      {row.question}
                     </p>
                   </div>
 
                   {/* Top-aligned, not centred: from `md` this line sits on the
-                      same baseline as the option name it answers, so the eye
+                      same baseline as the topic it answers, so the eye
                       pairs them across the gutter without a rule between. */}
                   <p className="flex gap-2.5 bg-primary/12 px-4 py-3.5 text-sm font-medium leading-snug text-white sm:px-6 md:py-5">
                     <Check
