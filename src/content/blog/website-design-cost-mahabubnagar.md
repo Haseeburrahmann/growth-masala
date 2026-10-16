@@ -1,9 +1,9 @@
 ---
 title: "Website Design Cost in Mahabubnagar (2026 Price Guide)"
-seoTitle: "Website Design Cost in Mahabubnagar 2026"
-excerpt: "Mahabubnagar websites from {{price:starter}} excluding GST. Compare build prices, yearly running costs, optional care and a website quotation checklist."
+seoTitle: "Website Cost Mahabubnagar: Prices & Calculator"
+excerpt: "Five-page websites from {{price:starter}} excluding GST. Use our free running-cost calculator and quote worksheet; check scope, hosting, renewals and optional care."
 date: "2026-08-07"
-updated: "2026-10-12"
+updated: "2026-10-16"
 readTime: "6 min read"
 category: "Website Costs"
 image: "/images/blog/website-cost-mahabubnagar-hero.webp"

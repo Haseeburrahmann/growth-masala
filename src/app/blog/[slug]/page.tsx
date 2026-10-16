@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   });
 
   const faqSchema = post.meta.faqs ? buildFaqSchema(post.meta.faqs) : null;
-  const hasCostEstimator = slug === "website-design-cost-mahabubnagar";
+  const hasCostEstimator = ["website-design-cost-mahabubnagar", "5-page-website-cost-india"].includes(slug);
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
@@ -201,7 +201,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   className="h-0.75 w-0.75 rounded-full bg-slate-400"
                 />
                 <span>
-                  Prices checked{" "}
+                  Updated{" "}
                   {parsePostDate(post.meta.updated).toLocaleDateString("en-GB", {
                     month: "long",
                     year: "numeric",
@@ -220,6 +220,16 @@ export default async function BlogPostPage({ params }: PageProps) {
             length. Below `lg` the rail is not rendered at all. */}
         <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 lg:flex-row lg:items-start lg:justify-between lg:gap-16 lg:px-8">
           <article className="min-w-0 flex-1 lg:max-w-190">
+            {hasCostEstimator && (
+              <nav aria-label="Website pricing tools" className="mb-8 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+                <p className="font-heading text-lg font-semibold text-text-primary">Work out the full cost before asking for a quote</p>
+                <p className="mt-2 text-sm leading-6 text-text-secondary">Use our published packages with your own domain and hosting rates, or compare written supplier quotes side by side. No sign-up needed.</p>
+                <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-primary">
+                  <Link href="#website-cost-estimator" className="inline-flex min-h-11 items-center underline underline-offset-4">Use the free website cost calculator</Link>
+                  <a href="/downloads/website-quote-comparison.csv" download className="inline-flex min-h-11 items-center underline underline-offset-4">Download the quote comparison worksheet (CSV)</a>
+                </div>
+              </nav>
+            )}
             {post.meta.image && (
               <div className="relative h-52 overflow-hidden rounded-2xl sm:h-72 lg:h-100">
                 <Image

@@ -170,32 +170,19 @@ export default function PricingSection() {
         </AnimatedContainer>
 
         <AnimatedContainer animation="fade-in" delay={180}>
-          {/* The text is wrapped in a <span> so the two links do not become
-              flex items of their own. Without it each <Link> lays out as a
-              separate item beside the icon and the paragraph stops wrapping as
-              one block of prose. */}
           <p className="mt-5 flex items-start gap-2.5 text-[13px] leading-5 text-slate-500">
             <Info aria-hidden="true" className="mt-px h-4 w-4 shrink-0" />
-            <span>
-              Prices exclude GST. Anything else is quoted as a fixed price
-              first. The first consultation is free. Still comparing quotes? Our{" "}
-              <Link
-                href="/blog/website-design-cost-mahabubnagar"
-                className="font-medium text-primary underline underline-offset-2 hover:text-primary-dark"
-              >
-                website design cost guide for Mahabubnagar
-              </Link>{" "}
-              breaks down what each price band actually buys, alongside the
-              other{" "}
-              <Link
-                href="/blog"
-                className="font-medium text-primary underline underline-offset-2 hover:text-primary-dark"
-              >
-                price guides on our blog
-              </Link>
-              .
-            </span>
+            <span>Prices exclude GST. Domain and hosting are separate at cost. Extra work is quoted first. The first consultation is free.</span>
           </p>
+          <nav aria-label="Website pricing guides" className="mt-5 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+            <h3 className="font-heading text-lg font-semibold text-text-primary">Compare the full cost before choosing</h3>
+            <p className="mt-2 text-sm leading-6 text-text-secondary">Check what the build includes, budget for renewals and compare supplier quotations.</p>
+            <ul className="mt-3 flex flex-col gap-1 text-sm font-semibold text-primary sm:flex-row sm:flex-wrap sm:gap-x-7">
+              <li><Link href="/blog/website-design-cost-mahabubnagar#website-cost-estimator" className="inline-flex min-h-11 items-center underline underline-offset-4">Free website cost calculator</Link></li>
+              <li><Link href="/blog/5-page-website-cost-india" className="inline-flex min-h-11 items-center underline underline-offset-4">5-page website price and quote example</Link></li>
+              <li><Link href="/blog/website-design-cost-hyderabad" className="inline-flex min-h-11 items-center underline underline-offset-4">Website costs in Hyderabad</Link></li>
+            </ul>
+          </nav>
         </AnimatedContainer>
       </div>
     </section>

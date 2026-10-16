@@ -1,10 +1,10 @@
 ---
 title: "How Much Does a 5-Page Website Cost in India? (2026)"
-seoTitle: "5-Page Website Cost in India — 2026 Guide"
-excerpt: "Our five-page website costs {{price:starter}} excluding GST, with design and copywriting. Compare scope, renewals, optional care and ownership."
+seoTitle: "5-Page Website Cost India: Price & Calculator"
+excerpt: "Our 5-page website costs {{price:starter}} excluding GST. Compare inclusions and quotes, then calculate first-year and renewal costs with our free tool."
 date: "2026-08-07"
-updated: "2026-10-12"
-readTime: "4 min read"
+updated: "2026-10-16"
+readTime: "5 min read"
 category: "Website Costs"
 image: "/images/blog/website-cost-india-hero.webp"
 faqs:
@@ -73,7 +73,7 @@ Write down the support period and covered tasks, revision allowance, response ar
 
 Growth Masala's build packages are one-time payments. Domain and hosting are charged at cost with no markup. All our published prices exclude GST, so ask for the final payable amount. Ongoing care is optional and starts at {{price:care-basic}} a month. The website remains yours if you decline care, but the domain and hosting still need to be kept active.
 
-To estimate a year of running costs, add the year's domain and hosting charges, any selected months of care and any required tools. For a multi-year comparison, add the build once and each year's running costs. Keep introductory rates separate from renewals and unknown charges separate from confirmed zero costs. Our [Mahabubnagar guide includes a running-cost estimator](/blog/website-design-cost-mahabubnagar#website-cost-estimator) using the same published packages.
+To estimate a year of running costs, add the year's domain and hosting charges, any selected months of care and any required tools. For a multi-year comparison, add the build once and each year's running costs. Keep introductory rates separate from renewals and unknown charges separate from confirmed zero costs. Use the [website cost calculator on this page](#website-cost-estimator) to compare first-year and three-year costs using our published packages. Enter confirmed supplier rates; blank amounts remain unknown, not zero.
 
 ## When do you need more than Starter?
 
@@ -81,10 +81,25 @@ Our **Growth** package at {{price:growth}} adds up to ten pages plus a blog, ful
 
 Choose by the customer journey and the work your team needs to do. A larger package is useful when you need its additional scope; it is not a substitute for clear content on a smaller site.
 
+## Example: a five-page website quotation
+
+For our Starter package, the build line is {{price:starter}} before GST. The quotation still needs the following details before it becomes a usable budget:
+
+| Quote line | Starter example | Confirm before approval |
+|---|---|---|
+| Five-page build | {{price:starter}} before GST | Named pages, writing, mobile layout and WhatsApp enquiry link |
+| Domain and hosting | Charged separately at cost | Provider, first bill, renewal rate and account owner |
+| Launch support | 30 days included | Covered tasks and how to report an issue |
+| Ongoing care | Optional, from {{price:care-basic}} per month before GST | Tasks, start date and whether you want it |
+| Extra work or tools | Only when required | Separate scope, one-time fee and any recurring bill |
+| Final payable amount | Depends on approved scope and tax | Written total, payment schedule and delivery conditions |
+
+A WhatsApp enquiry link opens a conversation; it is not a booking system, chatbot or WhatsApp API integration. If you need those features, describe who receives the enquiry, what gets saved and which actions should happen automatically so they can be scoped separately.
+
 ## Get comparable website quotations
 
 [Download our website quote comparison worksheet](/downloads/website-quote-comparison.csv). Give each supplier the same page list and feature requirements, then compare content, account ownership, launch support and renewal costs alongside the build price. It is a blank comparison template, not a market-price estimate.
 
 Inspect two delivered examples on your phone before choosing. Our [portfolio](/portfolio) labels current sites and archived work. The [SQC Solar & Loans project](/blog/sqc-solar-loans-website-mahabubnagar) and [Health Factor Dental Clinic write-up](/blog/health-factor-dental-website-case-study) explain real delivered features without claiming unmeasured traffic or revenue results.
 
-We work remotely from Mahabubnagar with businesses across India. For the local service context, read our [Mahabubnagar cost guide](/blog/website-design-cost-mahabubnagar) or [Hyderabad cost guide](/blog/website-design-cost-hyderabad). To request your own quote, [send your business type, proposed pages and required features](/contact).
+We work remotely from Mahabubnagar with businesses across India. For the local service context, read our [Mahabubnagar cost guide](/blog/website-design-cost-mahabubnagar) or [Hyderabad cost guide](/blog/website-design-cost-hyderabad). Businesses in Bengaluru can review our [Bangalore website development service](/website-development-bangalore), including the Triveni school project and how remote delivery works. To request your own quote, [send your business type, proposed pages and required features](/contact).
