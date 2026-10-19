@@ -3,7 +3,7 @@ title: "Website Design Cost in Hyderabad (2026): Packages and Quote Checklist"
 seoTitle: "Website Design Cost in Hyderabad (2026)"
 excerpt: "Hyderabad website builds from {{price:starter}} excluding GST. See our packages, renewal costs, ownership checklist and remote delivery scope."
 date: "2026-08-07"
-updated: "2026-10-12"
+updated: "2026-10-19"
 readTime: "4 min read"
 category: "Website Costs"
 image: "/images/blog/website-cost-hyderabad-hero.webp"
@@ -75,6 +75,8 @@ We work remotely by phone, WhatsApp and shared previews, using the business info
 One past project is the [Kings Mobile World repair website](/case-studies#kings-mobile-world), delivered for a Hyderabad business with four branches. The case study shows our delivered version; the client's current website has changed. The [portfolio](/portfolio) distinguishes current project links from archived work.
 
 ## Compare the scope in writing
+
+For a sample quote and a brief you can send to suppliers, use our [website design quotation template and checklist](/blog/website-design-quotation-india). It separates agreed work, one-time charges and renewals so you can compare like-for-like offers.
 
 [Download our website quote comparison worksheet](/downloads/website-quote-comparison.csv). Ask each supplier to confirm the same page list, design and writing scope, renewal costs, account ownership, revisions and support. Unknown costs should remain blank until confirmed.
 
