@@ -3,7 +3,7 @@ title: "How Much Does a 5-Page Website Cost in India? (2026)"
 seoTitle: "5-Page Website Cost India: Price & Calculator"
 excerpt: "Our 5-page website costs {{price:starter}} excluding GST. Compare inclusions and quotes, then calculate first-year and renewal costs with our free tool."
 date: "2026-08-07"
-updated: "2026-10-16"
+updated: "2026-10-19"
 readTime: "5 min read"
 category: "Website Costs"
 image: "/images/blog/website-cost-india-hero.webp"
@@ -97,6 +97,8 @@ For our Starter package, the build line is {{price:starter}} before GST. The quo
 A WhatsApp enquiry link opens a conversation; it is not a booking system, chatbot or WhatsApp API integration. If you need those features, describe who receives the enquiry, what gets saved and which actions should happen automatically so they can be scoped separately.
 
 ## Get comparable website quotations
+
+Need an itemised example before contacting suppliers? Our [website design quotation guide](/blog/website-design-quotation-india) includes a sample scope, a free editable requirements brief and a comparison checklist. Use it to request the same work from each supplier.
 
 [Download our website quote comparison worksheet](/downloads/website-quote-comparison.csv). Give each supplier the same page list and feature requirements, then compare content, account ownership, launch support and renewal costs alongside the build price. It is a blank comparison template, not a market-price estimate.
 
