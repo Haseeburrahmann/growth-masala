@@ -59,6 +59,13 @@ const exploreLabels: Record<string, string> = {
   ai: "Explore AI & automation",
 };
 
+const popularLinks = [
+  { href: "/seo-services-hyderabad", label: "SEO services in Hyderabad" },
+  { href: "/ai-automation-hyderabad", label: "AI automation in Hyderabad" },
+  { href: "/ai-automation-mahabubnagar", label: "AI automation in Mahabubnagar" },
+  { href: "/blog/ai-seo-local-businesses", label: "How to show up in AI search" },
+];
+
 export default function ServicesPreview() {
   return (
     <section className="relative overflow-hidden bg-white py-20 sm:py-24">
@@ -163,6 +170,24 @@ export default function ServicesPreview() {
             );
           })}
         </div>
+
+        {/* Contextual links to the newest service pages. The footer already
+            links every location page, but Google weighs in-body links far more
+            than footer boilerplate, and these four pages (plus the AI-search
+            guide) sat in "Discovered – currently not indexed" in Oct 2026. */}
+        <AnimatedContainer delay={300}>
+          <p className="mt-10 text-center text-[15px] leading-relaxed text-text-secondary lg:mt-12">
+            Popular right now:{" "}
+            {popularLinks.map((link, i) => (
+              <span key={link.href}>
+                {i > 0 && <span aria-hidden="true"> · </span>}
+                <Link href={link.href} className="font-medium text-primary hover:underline">
+                  {link.label}
+                </Link>
+              </span>
+            ))}
+          </p>
+        </AnimatedContainer>
       </div>
     </section>
   );
