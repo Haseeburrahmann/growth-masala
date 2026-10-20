@@ -1,0 +1,24 @@
+name: IndexNow
+
+# Vercel reports each deployment back to GitHub. When a production deploy
+# succeeds, tell Bing (and other IndexNow engines) about every sitemap URL.
+on:
+  deployment_status:
+  workflow_dispatch:
+
+jobs:
+  submit:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Wait for CDN to serve the new build
+        run: sleep 60
+      - name: Submit sitemap URLs
+        run: node scripts/indexnow.mjs
